@@ -46,8 +46,7 @@ const dropdownMenuActions = [
 ];
 
 const dropdownMenuLinks = [
-    { label: "Get help", href: "https://forum.datapane.com" },
-    { label: "Documentation", href: "https://docs.datapane.com" },
+    { label: "Documentation", href: "https://ninoseki.github.io/arakawa/" },
 ];
 </script>
 
@@ -62,18 +61,6 @@ const dropdownMenuLinks = [
         <div class="mx-auto px-4" :class="p.reportWidthClass">
             <div class="flex h-16 justify-between">
                 <div class="flex">
-                    <div
-                        class="flex flex-shrink-0 items-center"
-                        v-if="showWidgets"
-                    >
-                        <a href="https://datapane.com" target="_blank">
-                            <img
-                                class="block h-8 w-auto"
-                                src="https://datapane-cdn.com/static/v1/datapane-icon-192x192.png"
-                                alt="Datapane"
-                            />
-                        </a>
-                    </div>
                     <div
                         class="hidden sm:ml-6 sm:flex sm:space-x-8"
                         v-if="!alwaysShowPagesDropdown"

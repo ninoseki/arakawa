@@ -169,7 +169,7 @@ export class DataTableBlock extends AssetBlock {
         } catch (e) {
             console.error(
                 "An error occurred while copying text to clipboard: ",
-                e
+                e,
             );
         }
         return csvText;
@@ -184,7 +184,7 @@ export class DataTableBlock extends AssetBlock {
         }
 
         const grid = document.getElementById(
-            `grid-${this.refId}`
+            `grid-${this.refId}`,
         ) as HTMLRevoGridElement;
 
         if (grid) {
@@ -204,7 +204,7 @@ export class DataTableBlock extends AssetBlock {
     private buildExtensionUrl(name: string): string {
         return new URL(
             `extensions/${name}/${this.casRef}`,
-            this.webUrl
+            this.webUrl,
         ).toString();
     }
 }

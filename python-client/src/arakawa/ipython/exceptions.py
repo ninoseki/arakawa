@@ -1,8 +1,8 @@
 from arakawa.client import display_msg
 
 
-class NotebookException(Exception):
-    """Exception raised when a Notebook to Datapane conversion fails."""
+class NotebookError(Exception):
+    """Exception raised when a Notebook to Arakawa conversion fails."""
 
     def _render_traceback_(self):
         display_msg(
@@ -12,9 +12,9 @@ class NotebookException(Exception):
         )
 
 
-class NotebookParityException(NotebookException):
+class NotebookParityError(NotebookError):
     """Exception raised when IPython output cache is not in sync with the saved notebook"""
 
 
-class BlocksNotFoundException(NotebookException):
+class BlocksNotFoundError(NotebookError):
     """Exception raised when no blocks are found during conversion"""

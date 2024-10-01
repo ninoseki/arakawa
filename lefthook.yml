@@ -1,0 +1,30 @@
+rc: ./.lefthookrc
+
+pre-commit:
+  commands:
+    uv-lock:
+      glob: "pyproject.toml"
+      run: uv lock
+    uv-sort:
+      glob: "pyproject.toml"
+      run: uv-sort
+    ruff:
+      glob: "*.py"
+      run: uv run ruff check --fix {staged_files}
+      stage_fixed: true
+    ruff-format:
+      glob: "*.py"
+      run: uv run ruff format {staged_files}
+      stage_fixed: true
+    pyupgrade:
+      glob: "*.py"
+      run: uv run pyupgrade --py39-plus {staged_files}
+      stage_fixed: true
+    prettier:
+      root: "web-components/"
+      glob: "*.{js,ts,vue}"
+      run: npx prettier --write {staged_files}
+      stage_fixed: true
+    actionlint:
+      glob: ".github/workflows/*.{yml,yaml}"
+      run: actionlint {staged_files}

@@ -1,19 +1,20 @@
 [project]
 name = "arakawa"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.9,<4.0"
 dependencies = [
   "altair~=5.4.1",
   "base64io~=1.0.3",
   "bottle~=0.13.1",
   "chardet~=5.2.0",
   "dominate~=2.9.1",
+  "faker>=30.0.0",
   "glom~=23.5.0",
   "hvplot~=0.10.0",
   "ipynbname~=2024.1.0.0",
-  "ipython~=8.27.0",
+  "ipython~=8.13",
   "loguru~=0.7.2",
   "lxml~=5.3.0",
   "micawber~=0.5.5",
@@ -22,8 +23,11 @@ dependencies = [
   "pyarrow~=17.0.0",
 ]
 
+[project.urls]
+Repository = "https://github.com/ninoseki/arakawa/"
+
 [project.optional-dependencies]
-ploting = [
+plotting = [
   "bokeh~=3.4.3",
   "folium~=0.17.0",
   "matplotlib~=3.9.2",
@@ -31,18 +35,23 @@ ploting = [
 ]
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling==1.25.0", "uv-dynamic-versioning==0.2.0"]
 build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "uv-dynamic-versioning"
 
 [tool.uv]
 dev-dependencies = [
   "pytest~=8.3.3",
   "pytest-pretty~=1.2.0",
   "pytest-randomly~=3.15.0",
-  "ruff~=0.6.6",
+  "ruff~=0.6.8",
   "vega-datasets>=0.9.0",
   "pytest-datadir>=1.5.0",
   "pytest-timeout>=2.3.1",
+  "pyupgrade>=3.17.0",
+  "uv-sort>=0.4.0",
 ]
 
 [tool.ruff.lint]
@@ -51,6 +60,7 @@ select = [
   "C",   # flake8-comprehensions
   "E",   # pycodestyle errors
   "F",   # pyflakes
+  "FA",  # flake8-future-annotations
   "I",   # isort
   "N",   # pep8-naming
   "RET", # flake8-return
@@ -59,4 +69,4 @@ select = [
   "T20", # flake8-print
   "W",   # pycodestyle warnings
 ]
-ignore = ["E501"]
+ignore = ["E501", "F811"]

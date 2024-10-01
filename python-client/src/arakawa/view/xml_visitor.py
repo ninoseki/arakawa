@@ -1,8 +1,6 @@
-# flake8: noqa:F811
-
 import dataclasses as dc
 from collections import namedtuple
-from typing import TYPE_CHECKING, Any, Protocol, Self, Type
+from typing import TYPE_CHECKING, Any, Protocol, Self
 
 from lxml import etree
 from lxml.builder import ElementMaker
@@ -76,7 +74,7 @@ class XMLBuilder(ViewVisitor):
     def visit(self, b: ContainerBlock) -> Self:
         sub_elements = self._visit_subnodes(b)
         # build the element
-        _E = getattr(E, b._tag)
+        _E = getattr(E, b._tag)  # noqa: N806
         element = _E(*sub_elements, **b._attributes)
         return self.add_element(b, element)
 
@@ -162,7 +160,7 @@ class AssetWriterP(Protocol):
     def write_file(self, x: Any, f) -> None: ...
 
 
-asset_mapping: dict[Type[AssetBlock], Type[AssetWriterP]] = {}
+asset_mapping: dict[type[AssetBlock], type[AssetWriterP]] = {}
 
 
 def get_writer(b: AssetBlock) -> AssetWriterP:

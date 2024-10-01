@@ -55,7 +55,7 @@ const getInnerText = (elem: Elem): string => {
 };
 
 const readGcsTextOrJsonFile = <T = string | object | null>(
-    url: string
+    url: string,
 ): Promise<T> => {
     /**
      * wrapper around `axios.get` to fetch data object of response only
@@ -82,7 +82,7 @@ export class Block {
         elem: Elem,
         figure: BlockFigure,
         /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-        opts?: any
+        opts?: any,
     ) {
         const { attributes } = elem;
         this.count = figure.count;
@@ -162,7 +162,7 @@ export class BigNumberBlock extends Block {
         const { attributes } = elem;
         const useSimple = !attributes.prev_value && !attributes.change;
         this.component = markRaw(
-            useSimple ? VBigNumberBlockSimple : VBigNumberBlock
+            useSimple ? VBigNumberBlockSimple : VBigNumberBlock,
         );
         this.componentProps = {
             ...this.componentProps,
@@ -173,10 +173,10 @@ export class BigNumberBlock extends Block {
             this.componentProps = {
                 ...this.componentProps,
                 isPositiveIntent: JSON.parse(
-                    attributes.is_positive_intent || "false"
+                    attributes.is_positive_intent || "false",
                 ),
                 isUpwardChange: JSON.parse(
-                    attributes.is_upward_change || "false"
+                    attributes.is_upward_change || "false",
                 ),
                 prevValue: attributes.prev_value,
                 change: attributes.change,
@@ -208,7 +208,7 @@ export class EmbedBlock extends Block {
         if (typeof this._isIFrame === "undefined") {
             const doc: Document = new DOMParser().parseFromString(
                 this.html,
-                "text/html"
+                "text/html",
             );
             const root: HTMLBodyElement | null =
                 doc.documentElement.querySelector("body");
@@ -241,7 +241,7 @@ export abstract class AssetBlock extends Block {
 
         if (!assetId) {
             throw new Error(
-                `Couldn't get block asset ID from src ${attributes.src}`
+                `Couldn't get block asset ID from src ${attributes.src}`,
             );
         }
 

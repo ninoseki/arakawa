@@ -1,5 +1,5 @@
 """
-Datapane helper functions to improve the Datapane UX in IPython notebooks
+Arakawa helper functions to improve the Arakawa UX in IPython notebooks
 """
 
 from contextlib import suppress
@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Optional
 from arakawa.client.utils import display_msg
 
 from .environment import get_environment
-from .exceptions import BlocksNotFoundException, NotebookParityException
+from .exceptions import BlocksNotFoundError, NotebookParityError
 
 if TYPE_CHECKING:
     from arakawa.blocks import BaseBlock
@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 def output_cell_to_block(
     cell: dict, ipython_output_cache: dict
 ) -> Optional["BaseBlock"]:
-    """Convert a IPython notebook output cell to a Datapane Block"""
+    """Convert a IPython notebook output cell to An Arakawa Block"""
     from arakawa.blocks import wrap_block
 
     # Get the output object from the IPython output cache
@@ -83,10 +83,10 @@ def check_notebook_cache_parity(
     return is_dirty, dirty_cells
 
 
-def cells_to_blocks(
+def cells_to_blocks(  # noqa: C901
     opt_out: bool = True, show_code: bool = False, show_markdown: bool = True
 ) -> list[BaseBlock]:
-    """Convert IPython notebook cells to a list of Datapane Blocks
+    """Convert IPython notebook cells to a list of Arakawa Blocks
 
     Recognized cell tags:
         - `dp-exclude` - Exclude this cell (when opt_out=True)
@@ -120,7 +120,7 @@ def cells_to_blocks(
 
 The following cells have not been executed and saved: {', '.join(map(str, dirty_cells))}"""
 
-        raise NotebookParityException(notebook_parity_message)
+        raise NotebookParityError(notebook_parity_message)
 
     blocks = []
 
@@ -156,7 +156,7 @@ The following cells have not been executed and saved: {', '.join(map(str, dirty_
                     )
 
     if not blocks:
-        raise BlocksNotFoundException("No blocks found.")
+        raise BlocksNotFoundError("No blocks found.")
 
     display_msg("Notebook converted to blocks.")
 

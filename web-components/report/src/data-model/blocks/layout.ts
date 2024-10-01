@@ -24,7 +24,7 @@ export abstract class ParentBlock<T extends Block = Block> extends Block {
 }
 
 export abstract class LayoutBlock<
-    T extends Block = Block
+    T extends Block = Block,
 > extends ParentBlock<T> {
     /**
      * A non-atomic block which uses children to control layout, e.g. in columns, selects, pages
@@ -59,7 +59,7 @@ export abstract class LayoutBlock<
     private swap(
         group: b.Group,
         target: string,
-        method: SwapType.INNER | SwapType.REPLACE
+        method: SwapType.INNER | SwapType.REPLACE,
     ): boolean {
         /**
          * Replace the child of the given layout block (distinguished by `target`)

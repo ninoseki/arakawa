@@ -19,7 +19,7 @@ export type EmptyObject = Record<string, never>;
 const mkBlockMap = (
     isLightProse: boolean,
     isOrg: boolean,
-    webUrl?: string
+    webUrl?: string,
 ): BlockTest[] => {
     /**
      * class_: The deserialized class that maps to a JSON `elem`
@@ -113,7 +113,7 @@ const getElementByName = (elem: b.Elem, name: string): any => {
 
 const isSingleBlockEmbed = (
     report: b.View,
-    method: "EMBED" | "VIEW"
+    method: "EMBED" | "VIEW",
 ): boolean => {
     /**
      * Returns `true` if the report consists of a single block, and is in embed (iframe) method.
@@ -153,7 +153,7 @@ export const useRootStore = defineStore("root", () => {
          * Deserialize leaf block node into relevant `Block` class
          */
         const blockTest: BlockTest | undefined = blockMap.find((b) =>
-            b.test(elem)
+            b.test(elem),
         );
 
         if (blockTest) {
@@ -170,7 +170,7 @@ export const useRootStore = defineStore("root", () => {
     };
 
     const fetchReport = async (
-        { functionId, params } = { functionId: "app.main", params: {} }
+        { functionId, params } = { functionId: "app.main", params: {} },
     ) =>
         await axios.post(
             "/app-rpc-call/",
@@ -180,7 +180,7 @@ export const useRootStore = defineStore("root", () => {
                 method: functionId,
                 params,
             },
-            { headers: { "Content-Type": "application/json" } }
+            { headers: { "Content-Type": "application/json" } },
         );
 
     const resetAppSession = async () =>
@@ -196,7 +196,7 @@ export const useRootStore = defineStore("root", () => {
         const { view_xml, assets } = parseAppData(appData);
 
         blockMap.push(
-            ...mkBlockMap(meta.isLightProse, meta.isOrg, meta.webUrl)
+            ...mkBlockMap(meta.isLightProse, meta.isOrg, meta.webUrl),
         );
 
         Object.assign(assetMap, assets);
@@ -207,7 +207,7 @@ export const useRootStore = defineStore("root", () => {
         // Can cast to `View` as we just assigned the response to `report.value`
         singleBlockEmbed.value = isSingleBlockEmbed(
             report.value as b.View,
-            meta.mode
+            meta.mode,
         );
     };
 
@@ -219,7 +219,7 @@ export const useRootStore = defineStore("root", () => {
             // Throw JSON-RPC error if available
             const { error } = appData.data;
             throw new Error(
-                error ? `${error.message} (${error.code})` : "Unknown error"
+                error ? `${error.message} (${error.code})` : "Unknown error",
             );
         }
 
@@ -256,7 +256,7 @@ export const useRootStore = defineStore("root", () => {
         target: string,
         method: SwapType,
         params: any,
-        functionId: string
+        functionId: string,
     ) => {
         /**
          * Generates new `View` fragment by hitting the app server with params and function ID,

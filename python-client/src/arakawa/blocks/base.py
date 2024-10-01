@@ -1,8 +1,10 @@
 """
-Datapane Blocks API
+Arakawa Blocks API
 
-Describes the collection of `Block` objects that can be combined together to make a `datapane.client.api.report.core.Report`.
+Describes the collection of `Block` objects that can be combined together to make a `arakawa.client.api.report.core.Report`.
 """
+
+from __future__ import annotations
 
 from abc import ABC
 from typing import TYPE_CHECKING, Any, Self, TypeVar, Union, cast
@@ -107,7 +109,7 @@ BlockOrPrimitive = Union["BaseBlock", Any]  # TODO - expand
 BlockList = list["BaseBlock"]
 
 
-def wrap_block(b: BlockOrPrimitive) -> "Block":
+def wrap_block(b: BlockOrPrimitive) -> Block:
     from .wrappers import convert_to_block
 
     # if isinstance(b, Page):

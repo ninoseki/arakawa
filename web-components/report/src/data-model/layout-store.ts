@@ -65,7 +65,7 @@ const useActions = (initialChildren: Block[]) => {
             targetChild.children.splice(
                 0,
                 targetChild.children.length,
-                ...group.children
+                ...group.children,
             );
             tabNumber.value = 0;
         });
@@ -98,7 +98,7 @@ export const useLayoutStore = (initialChildren: Block[]) =>
 
 export const useViewStore = (
     initialChildren: Block[],
-    initialLayout?: PageLayout
+    initialLayout?: PageLayout,
 ) =>
     defineStore(`view-${uuid4()}`, () => {
         const actions = useActions(initialChildren);
@@ -106,11 +106,11 @@ export const useViewStore = (
         const _layout = ref(initialLayout);
 
         const hasPages = computed(
-            () => children.length === 1 && children[0] instanceof Select
+            () => children.length === 1 && children[0] instanceof Select,
         );
 
         const layout = computed(
-            () => _layout.value || (children.length > 5 ? "side" : "top")
+            () => _layout.value || (children.length > 5 ? "side" : "top"),
         );
 
         return { ...actions, hasPages, layout };
@@ -119,7 +119,7 @@ export const useViewStore = (
 export const useControlStore = (
     initialChildren: Block[],
     target: string,
-    method: SwapType
+    method: SwapType,
 ) =>
     defineStore(`controls-${uuid4()}`, () => {
         const initialParams = mkInitialParams(initialChildren);
@@ -144,14 +144,14 @@ export const useControlStore = (
                         target,
                         method,
                         parameters,
-                        functionId
+                        functionId,
                     );
                 } finally {
                     inFlight.value = false;
                 }
             } else {
                 console.warn(
-                    "[Arakawa] Scheduled run dropped as the current run is still in progress"
+                    "[Arakawa] Scheduled run dropped as the current run is still in progress",
                 );
             }
         };

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from .base import BlockId, DataBlock
 
 NumberValue = str | int | float

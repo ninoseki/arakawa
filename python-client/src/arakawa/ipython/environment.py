@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Optional
 
 from arakawa.client import log
 
-from .exceptions import NotebookException
+from .exceptions import NotebookError
 
 if TYPE_CHECKING:
     from IPython.core.interactiveshell import InteractiveShell
@@ -46,10 +46,10 @@ def is_terminal_interactive_shell() -> bool:
 
 
 def get_ipython_user_ns() -> dict:
-    return _get_ipython().user_ns
+    return _get_ipython().user_ns  # type: ignore
 
 
-def _get_environment() -> "PythonEnvironment":
+def _get_environment() -> "PythonEnvironment":  # noqa: C901
     """Determines the current IPython environment and returns an instance of the appropriate class"""
 
     # TODO: change this to be a list, and put the logic in a `.supported()` method
@@ -154,12 +154,12 @@ class JupyterEnvironment(IPythonZMQEnvironment):
         # ipynbname plays with the session API, so see if ipykernel gave us a better option
         try:
             return super()._get_notebook_path()
-        except FileNotFoundError as e:
+        except FileNotFoundError:
             import ipynbname
 
             try:
                 return ipynbname.path()
-            except IndexError:
+            except IndexError as e:
                 raise e
 
 
@@ -211,7 +211,7 @@ class ColabEnvironment(IPythonZMQEnvironment):
         try:
             auth.authenticate_user()
         except Exception as e:
-            raise NotebookException(
+            raise NotebookError(
                 "Google Drive authentication failed. Please allow this notebook to access your Google Drive."
             ) from e
 

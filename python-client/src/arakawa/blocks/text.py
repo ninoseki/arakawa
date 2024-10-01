@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import re
 import textwrap
 from collections import deque
@@ -79,10 +81,10 @@ class Text(EmbeddedTextBlock):
             **kwargs: keyword template context arguments
 
         !!! tip
-            Either Python objects, e.g. dataframes, and plots, or Datapane blocks as context
+            Either Python objects, e.g. dataframes, and plots, or Arakawa blocks as context
 
         Returns:
-            A datapane Group object containing the list of text and embedded objects
+            An Arakawa Group object containing the list of text and embedded objects
         """
 
         splits = re.split(r"\{\{(\w*)\}\}", self.content)

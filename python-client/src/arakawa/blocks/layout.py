@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections import deque
 from functools import reduce
 from typing import TYPE_CHECKING, Self
@@ -67,7 +69,7 @@ class ContainerBlock(BaseBlock):
     def empty(cls) -> Self:
         return cls(blocks=[Empty(gen_name())])
 
-    def traverse(self, visitor: "VV") -> "VV":
+    def traverse(self, visitor: VV) -> VV:
         # perform a depth-first traversal of the contained blocks
         return reduce(
             lambda _visitor, block: block.accept(_visitor), self.blocks, visitor
@@ -76,7 +78,7 @@ class ContainerBlock(BaseBlock):
 
 class Page(ContainerBlock):
     """
-    Apps on Datapane can have multiple pages, which are presented to users as tabs at the top of your app. These can be used similarly to sheets in an Excel document.
+    Apps on Arakawa can have multiple pages, which are presented to users as tabs at the top of your app. These can be used similarly to sheets in an Excel document.
 
     To add a page, use the `dp.Page` block at the top-level of your app, and give it a title with the `title` parameter.
 
@@ -84,7 +86,7 @@ class Page(ContainerBlock):
         Pages cannot be nested, and can only exist at the root level of your `dp.App` object. If you're using pages, all other blocks must be contained inside a Page block.
 
     !!! note
-        This is included for backwards-compatability, and can be replaced by using Selects going forwards.
+        This is included for backwards-compatibility, and can be replaced by using Selects going forwards.
     """
 
     # BC-only helper - converted into a Select + Group within the post-XML processor
@@ -122,7 +124,7 @@ class Select(ContainerBlock):
     The user can choose which nested object to view dynamically using either tabs or a dropdown.
 
     !!! note
-        Select expects a list of Blocks, e.g. a Plot or Table, but also includes Select or Groups themselves, but if a Python object is passed, e.g. a Dataframe, Datapane will attempt to convert it automatically.
+        Select expects a list of Blocks, e.g. a Plot or Table, but also includes Select or Groups themselves, but if a Python object is passed, e.g. a Dataframe, Arakawa will attempt to convert it automatically.
 
     """
 
@@ -157,7 +159,7 @@ class Group(ContainerBlock):
     """
     If you pass a list of blocks (such as `Plot` and `Table`) to an app, they are -- by default -- laid out in a single column with a row per block.
 
-    If you would like to customize the rows and columns, Datapane provides a `Group` block which takes a list of blocks and a number of columns and lays them out in a grid.
+    If you would like to customize the rows and columns, Arakawa provides a `Group` block which takes a list of blocks and a number of columns and lays them out in a grid.
 
     !!! tip
         As `Group` blocks are blocks themselves, they are composable, and you can create more custom layers of nested blocks, for instance nesting 2 rows in the left column of a 2 column layout
@@ -244,7 +246,7 @@ class BlockListIterator:
         # linearise all blocks into a deque as we traverse
         self.nested = deque(_iter)
 
-    def __next__(self) -> "Block":
+    def __next__(self) -> Block:
         try:
             b: Block = self.nested.popleft()
         except IndexError as e:

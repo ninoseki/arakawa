@@ -1,8 +1,9 @@
 import abc
 import dataclasses as dc
+from collections.abc import Generator
 from contextlib import contextmanager
 from copy import copy
-from typing import TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING
 
 from multimethod import multimethod
 
@@ -19,7 +20,7 @@ if TYPE_CHECKING:
 
 
 @dc.dataclass
-class ViewVisitor(abc.ABC):
+class ViewVisitor(abc.ABC):  # noqa: B024
     @multimethod
     def visit(self: "VV", b: BaseBlock) -> "VV":
         return self

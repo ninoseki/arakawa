@@ -109,7 +109,7 @@ module.exports = {
                         },
                     }),
                 },
-                { values: { "\\d+(\\.\\d+)?": true } }
+                { values: { "\\d+(\\.\\d+)?": true } },
             );
         }),
     ],

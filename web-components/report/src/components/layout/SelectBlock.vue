@@ -16,12 +16,12 @@ const sectionType: ComputedRef<string> = computed(() => {
 
 const labels: ComputedRef<string[]> = computed(() =>
     children.value.map(
-        (child: Block, idx: number) => child.label || `Section ${idx + 1}`
-    )
+        (child: Block, idx: number) => child.label || `Section ${idx + 1}`,
+    ),
 );
 
 const tabNumbers: ComputedRef<number[]> = computed(() =>
-    labels.value.map((_, idx) => idx)
+    labels.value.map((_, idx) => idx),
 );
 
 // Used by `vue-multiselect` to overwrite the default behaviour of displaying tab number only

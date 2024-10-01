@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import datetime
 import gzip
 import io
@@ -5,6 +7,7 @@ import os
 import shutil
 import subprocess
 import time
+from collections.abc import Generator, Iterable
 from contextlib import contextmanager
 from pathlib import Path
 from tempfile import (
@@ -13,7 +16,7 @@ from tempfile import (
     _TemporaryFileWrapper,
     mkstemp,
 )
-from typing import BinaryIO, Generator, Iterable
+from typing import BinaryIO
 
 from loguru import logger as log
 
@@ -22,7 +25,7 @@ from .utils import ON_WINDOWS
 
 
 @contextmanager
-def log_command(command: str) -> Generator[None, None, None]:
+def log_command(command: str) -> Generator[None]:
     """Log an internal process"""
     log.info(f"Starting {command}")
     yield
@@ -32,7 +35,7 @@ def log_command(command: str) -> Generator[None, None, None]:
 @contextmanager
 def create_temp_file(
     suffix: str, prefix: str = "datapane-temp-", mode: str = "w+b"
-) -> Generator[_TemporaryFileWrapper, None, None]:
+) -> Generator[_TemporaryFileWrapper]:
     """Creates a NamedTemporaryFile that doesn't disappear on .close()"""
     temp_file = NamedTemporaryFile(
         suffix=suffix, prefix=prefix, mode=mode, delete=False
@@ -46,7 +49,7 @@ def create_temp_file(
 @contextmanager
 def temp_fname(
     suffix: str, prefix: str = "datapane-temp-", keep: bool = False
-) -> Generator[str, None, None]:
+) -> Generator[str]:
     """Wrapper to generate a temporary filename only that is deleted on leaving context"""
     # TODO - return Path
     (in_f, in_f_name) = mkstemp(suffix=suffix, prefix=prefix)
@@ -59,7 +62,7 @@ def temp_fname(
 
 
 @contextmanager
-def unix_compress_file(f_name: NPath, level: int = 6) -> Generator[str, None, None]:
+def unix_compress_file(f_name: NPath, level: int = 6) -> Generator[str]:
     """(UNIX only) Return path to a compressed version of the input filename"""
     subprocess.run(["gzip", "-kf", f"-{level}", f_name], check=True)
     f_name_gz = f"{f_name}.gz"
@@ -70,7 +73,7 @@ def unix_compress_file(f_name: NPath, level: int = 6) -> Generator[str, None, No
 
 
 @contextmanager
-def unix_decompress_file(f_name: NPath) -> Generator[str, None, None]:
+def unix_decompress_file(f_name: NPath) -> Generator[str]:
     """(UNIX only) Return path to a compressed version of the input filename"""
     subprocess.run(["gunzip", "-kf", f_name], check=True)
     f_name_gz = f"{f_name}.gz"
@@ -81,7 +84,7 @@ def unix_decompress_file(f_name: NPath) -> Generator[str, None, None]:
 
 
 @contextmanager
-def compress_file(f_name: NPath, level: int = 6) -> Generator[str, None, None]:
+def compress_file(f_name: NPath, level: int = 6) -> Generator[str]:
     """(X-Plat) Return path to a compressed version of the input filename"""
     f_name_gz = f"{f_name}.gz"
     with (
@@ -108,7 +111,7 @@ def inmemory_compress(content: BinaryIO) -> BinaryIO:
 
 
 @contextmanager
-def temp_workdir() -> Generator[None, None, None]:
+def temp_workdir() -> Generator[None]:
     """Set working dir to a tempdir for duration of context"""
     with TemporaryDirectory() as tmp_dir:
         curdir = os.getcwd()
@@ -122,7 +125,7 @@ def temp_workdir() -> Generator[None, None, None]:
 @contextmanager
 def pushd(
     directory: NPath, pre_create: bool = False, post_remove: bool = False
-) -> Generator[None, None, None]:
+) -> Generator[None]:
     """Switch dir and push it onto the (call-)stack"""
     directory = Path(directory)
     cwd = os.getcwd()

@@ -1,22 +1,22 @@
 """
-Conversion templates for IPython notebooks to Datapane apps.
+Conversion templates for IPython notebooks to Arakawa apps.
 
 ..note: Early stage feature - a diverse set of templates that are subject to change.
   Most implementations are currently low-level and will be replaced with higher-level abstractions over time.
 """
 
 from abc import abstractmethod
-from typing import Callable, Type
+from typing import Callable
 
 import arakawa.blocks as b
 from arakawa.client.utils import display_msg
-from arakawa.ipython.exceptions import BlocksNotFoundException
+from arakawa.ipython.exceptions import BlocksNotFoundError
 
 BlockFilterF = Callable[[b.BaseBlock], bool]
-BlockTypes = tuple[Type[b.BaseBlock], ...] | Type
+BlockTypes = tuple[type[b.BaseBlock], ...] | type
 BaseElementList = list[b.BaseBlock]
 
-_registry: dict[str, Type["IPythonTemplate"]] = {}
+_registry: dict[str, type["IPythonTemplate"]] = {}
 
 
 def partition_blocks_by_predicates(
@@ -35,7 +35,7 @@ def partition_blocks_by_predicates(
 
 
 def partition_blocks_by_types(
-    blocks: BaseElementList, partition_types: list[Type[b.BaseBlock]]
+    blocks: BaseElementList, partition_types: list[type[b.BaseBlock]]
 ) -> list[BaseElementList]:
     """Partition blocks by types"""
 
@@ -70,9 +70,9 @@ def filter_blocks_by_types(
     return filtered_blocks
 
 
-def guess_template(blocks: BaseElementList) -> Type["IPythonTemplate"]:
+def guess_template(blocks: BaseElementList) -> type["IPythonTemplate"]:
     """Guess the template to use based on the blocks provided"""
-    app_template: Type[IPythonTemplate]
+    app_template: type[IPythonTemplate]
 
     # DashboardTemplate: Contains only Plot, BigNumber, and DataTable blocks
     if all(isinstance(block, (b.Plot, b.BigNumber, b.DataTable)) for block in blocks):
@@ -132,7 +132,7 @@ class IPythonTemplate:
 
     def validate(self):
         if not self.blocks:
-            raise BlocksNotFoundException("No blocks required by template were found.")
+            raise BlocksNotFoundError("No blocks required by template were found.")
 
 
 class ReportTemplate(IPythonTemplate, template_name="report"):
@@ -177,7 +177,7 @@ class DashboardTemplate(IPythonTemplate, template_name="dashboard"):
 
 
 class AssetListTemplate(IPythonTemplate, template_name="asset_list"):
-    """Starts a new page for every supported Datapane block"""
+    """Starts a new page for every supported Arakawa block"""
 
     def transform(self) -> None:
         blocks = filter_blocks_by_predicate(
@@ -191,7 +191,7 @@ class AssetListTemplate(IPythonTemplate, template_name="asset_list"):
 
 
 class AssetCodeListTemplate(IPythonTemplate, template_name="asset_code_list"):
-    """Starts a new page for every supported Datapane block, with the code block after the asset"""
+    """Starts a new page for every supported Arakawa block, with the code block after the asset"""
 
     def transform(self) -> None:
         blocks = self.blocks

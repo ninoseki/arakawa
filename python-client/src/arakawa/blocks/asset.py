@@ -1,7 +1,9 @@
 """Asset-based blocks"""
 
+from __future__ import annotations
+
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Optional
+from typing import TYPE_CHECKING, Any
 
 import pandas as pd
 from pandas.io.formats.style import Styler
@@ -21,7 +23,7 @@ class AssetBlock(DataBlock):
     AssetBlock objects form basis of all File-related blocks (abstract class, not exported)
     """
 
-    _prev_entry: Optional["FileEntry"] = None
+    _prev_entry: FileEntry | None = None
 
     # TODO - we may need to support file here as well to handle media, etc.
     def __init__(
@@ -126,12 +128,12 @@ class Attachment(AssetBlock):
 
 class Plot(AssetBlock):
     """
-    Datapane supports all major Python visualization libraries, allowing you to add interactive plots and visualizations to your app.
+    Arakawa supports all major Python visualization libraries, allowing you to add interactive plots and visualizations to your app.
 
     The `dp.Plot` block takes a plot object from one of the supported Python visualization libraries and renders it in your app.
 
     !!! info
-        Datapane will automatically wrap your visualization or plot in a `dp.Plot` block if you pass it into your app directly.
+        Arakawa will automatically wrap your visualization or plot in a `dp.Plot` block if you pass it into your app directly.
     """
 
     _tag = "Plot"

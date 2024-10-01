@@ -1,7 +1,8 @@
 """
 # TODO - optimise import handling here
-# NOTE - flake8 disabled on this file, as is not a fan of multimethod overriding here
 """
+
+from __future__ import annotations
 
 import json
 import pickle

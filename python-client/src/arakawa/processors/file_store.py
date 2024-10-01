@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import abc
 import datetime
 import gzip
@@ -6,7 +8,7 @@ import io
 import tempfile
 from pathlib import Path
 from shutil import copyfileobj
-from typing import IO, BinaryIO, Self, Type
+from typing import IO, BinaryIO, Self
 
 import base64io
 
@@ -53,7 +55,7 @@ class FileEntry:
             "mime": self.mime,
         }
 
-    def __eq__(self, other: "FileEntry") -> bool:
+    def __eq__(self, other: FileEntry) -> bool:
         if self.hash:
             return self.hash == other.hash
         raise NotImplementedError()
@@ -163,7 +165,7 @@ class GzipTmpFileEntry(FileEntry):
 class FileStore:
     # TODO - make this a CAS (index by object hash itself?)
     # NOTE - currently we pass dir_path via the FileStore, could move into the file themselves?
-    def __init__(self, fw_klass: Type[FileEntry], assets_dir: Path | None = None):
+    def __init__(self, fw_klass: type[FileEntry], assets_dir: Path | None = None):
         super().__init__()
         self.fw_klass = fw_klass
         self.files: list[FileEntry] = []

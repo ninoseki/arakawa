@@ -25,15 +25,15 @@ const { singleBlockEmbed } = storeToRefs(rootStore);
 const { children, tabNumber, hasPages } = storeToRefs(p.report.store);
 
 const pages: ComputedRef<Block[]> = computed(() =>
-    hasPages.value ? children.value[0].children : []
+    hasPages.value ? children.value[0].children : [],
 );
 
 const pageLabels: ComputedRef<string[]> = computed(() =>
-    pages.value.map((pa: Block, i: number) => pa.label || `Page ${i + 1}`)
+    pages.value.map((pa: Block, i: number) => pa.label || `Page ${i + 1}`),
 );
 
 const currentPage: ComputedRef<Block[]> = computed(() =>
-    hasPages.value ? [pages.value[tabNumber.value]] : children.value
+    hasPages.value ? [pages.value[tabNumber.value]] : children.value,
 );
 
 const handlePageChange = (newPageNumber: number) =>

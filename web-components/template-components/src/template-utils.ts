@@ -9,7 +9,7 @@ export const onLoad = (f: EventListenerOrEventListenerObject) =>
 export const toggleVisibility = (
     elementSelector: string,
     toggleVisibilitySelectors: string[],
-    options: VisibilityOptions = {}
+    options: VisibilityOptions = {},
 ) =>
     /**
      * Toggle visibility of element with callback
@@ -38,7 +38,7 @@ export const toggleVisibility = (
                 elementToToggle.classList.toggle("ar-invisible");
                 if (options.callback) {
                     options.callback(
-                        !elementToToggle.classList.contains("ar-invisible")
+                        !elementToToggle.classList.contains("ar-invisible"),
                     );
                 }
             });
@@ -46,7 +46,7 @@ export const toggleVisibility = (
     });
 
 export const serializeSlotJson = <T = Record<any, any>>(
-    slot: HTMLSlotElement
+    slot: HTMLSlotElement,
 ): T => {
     /**
      * Fetch and serialize JSON script inside web component slot. Used for passing
@@ -56,7 +56,7 @@ export const serializeSlotJson = <T = Record<any, any>>(
         const slotContent = slot.assignedNodes()[0] as Element;
         return JSON.parse(
             slotContent.querySelector("script[type='application/json']")
-                .textContent
+                .textContent,
         );
     } catch (e) {
         throw new Error(`Couldn't serialize slot content: ${e}`);

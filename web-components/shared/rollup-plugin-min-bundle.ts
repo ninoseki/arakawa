@@ -20,4 +20,4 @@ export default ({ entryFileName, emittedFileName }: Options) =>
                 source: (await minify(code)).code,
             });
         },
-    } as OutputPlugin);
+    }) as OutputPlugin;

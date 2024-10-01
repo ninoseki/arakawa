@@ -9,9 +9,14 @@
         "sourceMap": true,
         "resolveJsonModule": true,
         "esModuleInterop": true,
-        "lib": ["esnext", "dom"],
+        "lib": [
+            "esnext",
+            "dom"
+        ],
         "skipLibCheck": true,
-        "types": ["vite/client"]
+        "types": [
+            "vite/client"
+        ]
     },
     "include": [
         "*.ts",
@@ -21,7 +26,12 @@
         "report/**/*.vue",
         "base/**/*.ts",
         "base/**/*.d.ts",
-        "base/**/*.vue"
+        "base/**/*.vue",
+        "base/vite.config.mts"
     ],
-    "references": [{ "path": "./tsconfig.node.json" }]
+    "references": [
+        {
+            "path": "./tsconfig.node.json"
+        }
+    ]
 }

@@ -1,7 +1,9 @@
 {
-    "name": "datapane-next",
-    "private": true,
+    "name": "arakawa",
     "version": "0.0.0",
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "build:base": "NODE_ENV=production vite build --config base/vite.config.ts",
         "build:report": "NODE_ENV=production vite build --config report/vite.config.ts",
@@ -9,11 +11,9 @@
         "dev:template-components": "NODE_ENV=development vite build --watch --mode development --config template-components/vite.config.ts",
         "build": "npm run build:base && npm run build:report && npm run build:template-components",
         "dev:report": "NODE_ENV=development vite build --mode development --config base/vite.config.ts && NODE_ENV=development vite build --watch --mode development --config report/vite.config.ts",
-        "test:public": "cypress run --spec \"cypress/e2e/public/*\"",
-        "test:org": "cypress run --spec \"cypress/e2e/org/*\"",
-        "test:open": "cypress open --browser electron",
         "test:unit": "vitest --config ./report/vite.config.ts",
-        "type-check": "vue-tsc --noEmit -p tsconfig.json --composite false"
+        "type-check": "vue-tsc --noEmit -p tsconfig.json --composite false",
+        "prepack": "npm run build"
     },
     "dependencies": {
         "@bokeh/bokehjs": "^3.5.2",
@@ -89,14 +89,13 @@
         "autoprefixer": "^10.4.20",
         "babel-loader": "^9.2.1",
         "core-js": "^3.38.1",
-        "cypress": "^13.14.2",
-        "cypress-file-upload": "^5.0.8",
         "esbuild": "^0.24.0",
         "eslint": "^9.11.0",
         "http-server": "^14.1.1",
         "jsdom": "^25.0.0",
-        "msw": "^2.4.9",
+        "msw": "^1.1.0",
         "postcss": "^8.4.47",
+        "prettier": "^3.3.3",
         "rollup-plugin-copy": "^3.5.0",
         "rollup-plugin-esbuild": "^6.1.1",
         "tailwindcss": "^3.4.12",

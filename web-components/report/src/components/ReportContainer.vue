@@ -34,7 +34,7 @@ const setApp = async () => {
                 isOrg: p.isOrg,
                 webUrl: p.webUrl,
             },
-            p.appData
+            p.appData,
         );
     } catch (e) {
         error.value = parseError(e);

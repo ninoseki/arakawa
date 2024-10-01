@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import dataclasses as dc
 import importlib.resources as ir
 import json
@@ -72,7 +74,7 @@ def conv_attrib(v: Any) -> str | None:
         return None
     if isinstance(v, str):
         return v
-    if isinstance(v, Number) and type(v) != bool:
+    if isinstance(v, Number) and not isinstance(v, bool):
         if math.isinf(v) and v > 0:
             return "INF"
         if math.isinf(v) and v < 0:

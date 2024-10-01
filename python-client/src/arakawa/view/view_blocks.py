@@ -1,5 +1,8 @@
+from __future__ import annotations
+
+from collections.abc import Mapping
 from copy import copy
-from typing import TYPE_CHECKING, Mapping, Optional, Self, Union
+from typing import TYPE_CHECKING, Self, Union
 
 from lxml import etree
 from lxml.etree import _Element as ElementT
@@ -107,7 +110,7 @@ BlocksT = Union[
 ]
 
 
-class App(Blocks):
+class Report(Blocks):
     """
     App documents collate plots, text, tables, and files into an interactive document that
     can be analysed and shared by users in their browser
@@ -128,7 +131,7 @@ class App(Blocks):
         path: str,
         open: bool = False,
         name: str | None = None,
-        formatting: Optional["Formatting"] = None,
+        formatting: Formatting | None = None,
         cdn_base: str | None = None,
     ) -> None:
         from ..processors import save_report
@@ -145,7 +148,7 @@ class App(Blocks):
     def stringify(
         self,
         name: str | None = None,
-        formatting: Optional["Formatting"] = None,
+        formatting: Formatting | None = None,
         cdn_base: str | None = None,
         template_name: str = "template.html",
     ) -> str:
@@ -157,7 +160,3 @@ class App(Blocks):
             formatting=formatting,
             cdn_base=cdn_base,
         )
-
-
-class Report(App):
-    pass

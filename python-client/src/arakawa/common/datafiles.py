@@ -1,8 +1,10 @@
 """Dataset Format handling"""
 
+from __future__ import annotations
+
 import abc
 import enum
-from typing import IO, Type, Union
+from typing import IO, Union
 
 import pandas as pd
 import pyarrow as pa
@@ -15,7 +17,7 @@ from .dp_types import ARROW_EXT, ARROW_MIMETYPE, MIME
 from .utils import guess_encoding
 
 
-def write_table(table: pa.Table, sink: Union[str, IO[bytes]]):
+def write_table(table: pa.Table, sink: str | IO[bytes]):
     """Write an arrow table to a file"""
     writer = RecordBatchFileWriter(sink, table.schema)
     writer.write(table)
@@ -42,7 +44,7 @@ class DFFormatter(abc.ABC):
         pass
 
 
-DFFormatterCls = Type[DFFormatter]
+DFFormatterCls = type[DFFormatter]
 
 
 class ArrowFormat(DFFormatter):

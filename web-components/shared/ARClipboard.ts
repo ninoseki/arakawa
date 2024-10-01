@@ -27,7 +27,7 @@ export class ARClipboard {
             },
         });
         this.clip.on("error", () =>
-            console.error("An error occurred while copying to clipboard")
+            console.error("An error occurred while copying to clipboard"),
         );
         this.clip.on("success", ARClipboard.onSuccess);
     }
@@ -42,7 +42,7 @@ export class ARClipboard {
             notificationEl.classList.toggle("ar-invisible");
             setTimeout(
                 () => notificationEl.classList.toggle("ar-invisible"),
-                2000
+                2000,
             );
         }
     };

@@ -111,7 +111,7 @@ const createHeader = (h: any, column: Col) => {
         h("i", {
             class: `fa fa-${iconName} pr-2 text-${colorName}-400`,
         }),
-        h("div", {}, column.name)
+        h("div", {}, column.name),
     );
 };
 
@@ -204,7 +204,7 @@ const runQuery = () => {
         const rowTypes: string[] = firstNRows.map(guessValueType);
 
         const isAllTypesEqual = rowTypes.every(
-            (rowType) => rowType === rowTypes[0]
+            (rowType) => rowType === rowTypes[0],
         );
 
         if (isAllTypesEqual && rowTypes[0] !== "string") {

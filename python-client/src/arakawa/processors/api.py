@@ -1,8 +1,10 @@
 """
-Datapane Processors
+Arakawa Processors
 
 API for processing Views, e.g. rendering it locally and publishing to a remote server
 """
+
+from __future__ import annotations
 
 import os
 from pathlib import Path

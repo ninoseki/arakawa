@@ -1,16 +1,9 @@
-import enum
-import os
 import string
 import sys
 from typing import Any
 
 from loguru._logger import Core as _Core
 from loguru._logger import Logger as _Logger
-
-##############
-# Client constants
-TEST_ENV = bool(os.environ.get("DP_TEST_ENV", ""))
-IN_PYTEST = "pytest" in sys.modules  # and TEST_ENV
 
 
 def get_logger():
@@ -38,19 +31,6 @@ _have_setup_logging: bool = False
 def enable_logging():
     """Enable logging for debug purposes"""
     global _have_setup_logging
-
-    # don't configure global logging config when running as a library
-    if get_ar_mode() == ARMode.LIBRARY:
-        log.warning("Configuring datapane logging in library mode")
-        # return None
-
-    # TODO - only allow setting once?
-    if _have_setup_logging:
-        log.warning(
-            f"Reconfiguring datapane logger when running as {get_ar_mode().name}"
-        )
-        # raise AssertionError("Attempting to reconfigure datapane logger")
-        return
 
     log.remove(0)
     log.add(sys.stderr, level="DEBUG")
@@ -130,26 +110,3 @@ def display_msg(text: str, **params: str):
         display(Markdown(msg))
     else:
         pass
-
-
-############################################################
-class ARMode(enum.Enum):
-    """AR can operate in multiple modes as specified by this Enum"""
-
-    SCRIPT = enum.auto()  # run from the cmd-line
-    LIBRARY = enum.auto()  # imported into a process
-    FRAMEWORK = enum.auto()  # running dp-runner
-
-
-# default in Library mode
-__ar_mode: ARMode = ARMode.LIBRARY
-
-
-def get_ar_mode() -> ARMode:
-    global __ar_mode
-    return __ar_mode
-
-
-def set_ar_mode(ar_mode: ARMode) -> None:
-    global __ar_mode
-    __ar_mode = ar_mode
