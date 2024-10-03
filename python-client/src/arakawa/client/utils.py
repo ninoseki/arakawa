@@ -109,4 +109,4 @@ def display_msg(text: str, **params: str):
 
         display(Markdown(msg))
     else:
-        pass
+        print(msg)  # noqa: T201

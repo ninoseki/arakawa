@@ -210,7 +210,7 @@ class ExportBaseHTMLOnly(BaseExportHTML):
     """Export the base view used to render an App, containing no ViewXML nor Assets"""
 
     # TODO (JB) - Create base HTML-only template
-    template_name = "local_template.html"
+    template_name = "local_template.html.j2"
 
     def __init__(
         self,
@@ -243,7 +243,7 @@ class ExportHTMLInlineAssets(BaseExportHTML):
     - Assets - embedded as b64 data-uris
     """
 
-    template_name = "local_template.html"
+    template_name = "local_template.html.j2"
 
     def __init__(
         self,
@@ -284,7 +284,7 @@ class ExportHTMLFileAssets(BaseExportHTML):
     - Assets - referenced as remote resources
     """
 
-    template_name = "local_template.html"
+    template_name = "local_template.html.j2"
 
     def __init__(
         self,
@@ -318,7 +318,7 @@ class ExportHTMLStringInlineAssets(BaseExportHTML):
     - Assets - embedded as b64 data-uris
     """
 
-    template_name = "ipython_template.html"
+    template_name = "ipython_template.html.j2"
 
     def __init__(
         self,

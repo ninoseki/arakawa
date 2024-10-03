@@ -89,10 +89,10 @@ def cells_to_blocks(  # noqa: C901
     """Convert IPython notebook cells to a list of Arakawa Blocks
 
     Recognized cell tags:
-        - `dp-exclude` - Exclude this cell (when opt_out=True)
-        - `dp-include` - Include this cell (when opt_out=False)
-        - `dp-show-code` - Show the input code for this cell
-        - `dp-show-markdown` - Show the markdown for this cell
+        - `ar-exclude` - Exclude this cell (when opt_out=True)
+        - `ar-include` - Include this cell (when opt_out=False)
+        - `ar-show-code` - Show the input code for this cell
+        - `ar-show-markdown` - Show the markdown for this cell
 
     ..note:: IPython output caching must be enabled for this function to work. It is enabled by default.
     """
