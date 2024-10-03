@@ -17,12 +17,11 @@ from micawber import ProviderException, bootstrap_basic, bootstrap_noembed, cach
 
 from arakawa.exceptions import ARError
 
-from .dp_types import HTML, SSDict
+from .ar_types import HTML, SSDict
 
 local_view_resources = ir.files("arakawa.resources.view_resources")
 rng_validator = etree.RelaxNG(file=str(local_view_resources / "full_schema.rng"))
 
-dp_namespace: str = "https://datapane.com/schemas/report/1/"
 ViewXML = str
 
 
@@ -109,9 +108,9 @@ def get_embed_url(url: str, width: int = 960, height: int = 540) -> Embedded:
     try:
         r = providers.request(url, maxwidth=width, maxheight=height)
     except ProviderException:
-        # add noembed to the list and try again
+        # add NoEmbed to the list and try again
         try:
-            log.debug("Initialising NoEmbed OEmbed provider")
+            log.debug("Initializing NoEmbed OEmbed provider")
             bootstrap_noembed(registry=providers)
             r = providers.request(url, maxwidth=width, maxheight=height)
         except ProviderException as e:

@@ -20,7 +20,7 @@ from typing import BinaryIO
 
 from loguru import logger as log
 
-from .dp_types import NPath
+from .ar_types import NPath
 from .utils import ON_WINDOWS
 
 
@@ -34,7 +34,7 @@ def log_command(command: str) -> Generator[None]:
 
 @contextmanager
 def create_temp_file(
-    suffix: str, prefix: str = "datapane-temp-", mode: str = "w+b"
+    suffix: str, prefix: str = "arakawa-temp-", mode: str = "w+b"
 ) -> Generator[_TemporaryFileWrapper]:
     """Creates a NamedTemporaryFile that doesn't disappear on .close()"""
     temp_file = NamedTemporaryFile(
@@ -48,7 +48,7 @@ def create_temp_file(
 
 @contextmanager
 def temp_fname(
-    suffix: str, prefix: str = "datapane-temp-", keep: bool = False
+    suffix: str, prefix: str = "arakawa-temp-", keep: bool = False
 ) -> Generator[str]:
     """Wrapper to generate a temporary filename only that is deleted on leaving context"""
     # TODO - return Path

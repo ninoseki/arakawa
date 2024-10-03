@@ -11,7 +11,7 @@ import chardet
 from chardet.universaldetector import UniversalDetector
 from loguru import logger as log
 
-from .dp_types import MIME
+from .ar_types import MIME
 
 ################################################################################
 # CONSTANTS

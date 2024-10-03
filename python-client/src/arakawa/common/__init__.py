@@ -1,7 +1,6 @@
 # Copyright 2020 StackHut Limited (trading as Datapane)
 # SPDX-License-Identifier: Apache-2.0
-from .datafiles import ArrowFormat  # noqa: F401
-from .dp_types import (  # noqa: F401
+from .ar_types import (  # noqa: F401
     ARROW_EXT,
     ARROW_MIMETYPE,
     HTML,
@@ -24,6 +23,7 @@ from .dp_types import (  # noqa: F401
     SSDict,
     StrEnum,
 )
+from .datafiles import ArrowFormat  # noqa: F401
 from .ops_utils import pushd, timestamp  # noqa: F401
 from .utils import dict_drop_empty, guess_type, utf_read_text  # noqa: F401
 from .viewxml_utils import ViewXML, load_doc, validate_view_doc  # noqa: F401

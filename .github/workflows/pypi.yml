@@ -1,0 +1,27 @@
+name: Publish PyPI package
+
+on:
+  release:
+    types: ["created"]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+          cache: "pip"
+      - run: pip install -r requirements.txt
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/uv
+          key: uv-3.11-${{ hashFiles('uv.lock') }}
+      - run: uv sync --frozen --all-extras
+      - run: uv run pyproject-build
+      - name: publish
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        run: uv run twine upload dist/*

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import importlib.resources as ir
 import json
-import os
 from abc import ABC
 from copy import copy
 from itertools import count
@@ -165,13 +164,9 @@ class BaseExportHTML(BaseProcessor, ABC):
         cls.template = template_env.get_template(cls.template_name)
 
     def get_cdn(self) -> str:
-        from arakawa import __is_dev_build__, __version__
+        from arakawa import __version__
 
-        if cdn_base := os.getenv("DATAPANE_CDN_BASE"):
-            return cdn_base
-        if __is_dev_build__:
-            return "https://datapane-cdn.com/dev"
-        return f"https://datapane-cdn.com/v{__version__}"
+        return f"https://cdn.jsdelivr.net/npm/arakawa@{__version__}/dist"
 
     def _write_html_template(
         self,

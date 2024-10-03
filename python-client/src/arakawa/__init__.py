@@ -1,18 +1,8 @@
 # Copyright 2020 StackHut Limited (trading as Datapane)
 # SPDX-License-Identifier: Apache-2.0
-try:
-    from . import _version
-except ImportError:
-    # NOTE - could use subprocess to get from git?
-    __rev__ = "local"
-    __is_dev_build__ = True
-else:
-    __rev__ = _version.__rev__
-    __is_dev_build__ = getattr(_version, "__is_dev_build__", False)
-    del _version
+import importlib.metadata
 
-__version__ = "0.17.0"
-
+__version__ = importlib.metadata.version(__name__)
 
 # Public API re-exports
 from .blocks import (  # noqa: F401

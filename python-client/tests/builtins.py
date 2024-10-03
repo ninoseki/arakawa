@@ -1,4 +1,3 @@
-import importlib.resources as ir
 from typing import Any
 
 import numpy as np
@@ -61,7 +60,7 @@ def demo() -> Blocks:
 
     def _gen_folium():
         return folium.Map(
-            location=[45.372, -121.6972], zoom_start=12, tiles="Stamen Terrain"
+            location=[45.372, -121.6972], zoom_start=12, tiles="OpenStreetMap"
         )
 
     df1 = gen_table_df(10)
@@ -88,8 +87,8 @@ def demo() -> Blocks:
     vega_bar = _vega_bar()
 
     basics = """
-This page describes Datapane, an API for creating data-driven reports from Python.
-Datapane reports are comprised of blocks, which can be collected together and laid-out to form multiple-pages reports.
+This page describes Arakawa, an API for creating data-driven reports from Python.
+Arakawa reports are comprised of blocks, which can be collected together and laid-out to form multiple-pages reports.
 Some of the basic blocks include tables and plots.
 
 ## Tables
@@ -97,7 +96,7 @@ Some of the basic blocks include tables and plots.
 The Table block displays a tabular set of data, and takes either a dataframe or a pandas Styler "styled" object,
 
 ```python
-dp.Table(df, caption="A Table")
+ar.Table(df, caption="A Table")
 ```
 
 {{table}}
@@ -110,14 +109,14 @@ The DataTable block also takes a dataframe and allows the user to search and fil
 The Plot block supports Altair, Bokeh, Plotly, Matplotlib, and Folium plots,
 
 ```python
-dp.Plot(altair_plot, caption="A Plot")
+ar.Plot(altair_plot, caption="A Plot")
 ```
 
 {{plot}}
 
 ## Other Blocks
 
-Datapane has many other block types, including formulas, files, embeds, images, and big numbers - see the Blocks page for more info.
+Arakawa has many other block types, including formulas, files, embeds, images, and big numbers - see the Blocks page for more info.
 
 Additionally layout blocks provide the ability nest blocks to create groups of columns and user selections - see the Layout page for more info.
 
@@ -125,9 +124,7 @@ Additionally layout blocks provide the ability nest blocks to create groups of c
 
 
     """
-    logo = ir.files("arakawa.resources") / "datapane-icon-192x192.png"
     other = b.Group(
-        b.Media(file=str(logo)),
         b.BigNumber(
             heading="Datapane Blocks", value=11, prev_value=6, is_upward_change=True
         ),
@@ -148,9 +145,9 @@ See https://docs.datapane.com/reports/layout-and-customization for more info.
 Group blocks allow you to take a list of blocks, and lay-them out over a number of `rows` and `columns`, allowing you to create 2-column layouts, grids, and more,
 
 ```python
-dp.Group(plot1, plot2, columns=2)
-cells = [dp.Text(f"### Cell {x}") for x in range(6)]
-dp.Group(*cells, columns=0)  # 0 implies auto
+ar.Group(plot1, plot2, columns=2)
+cells = [ar.Text(f"### Cell {x}") for x in range(6)]
+ar.Group(*cells, columns=0)  # 0 implies auto
 ```
 
 {{group1}}
@@ -162,8 +159,8 @@ dp.Group(*cells, columns=0)  # 0 implies auto
 Select blocks allow you to collect a list of blocks, e.g. plots, and allow the user to select between them, either via tabs or a dropdown list.
 
 ```python
-dp.Select(plot1, plot2, type=dp.SelectType.TABS)
-dp.Select(plot1, plot2, type=dp.SelectType.DROPDOWN)
+ar.Select(plot1, plot2, type=ar.SelectType.TABS)
+ar.Select(plot1, plot2, type=ar.SelectType.DROPDOWN)
 ```
 
 {{select1}}
@@ -174,8 +171,8 @@ dp.Select(plot1, plot2, type=dp.SelectType.DROPDOWN)
 Both Group and Select blocks can be nested within one another, in any order to create, for instance dropdowns with 2 columns inside, as below
 
 ```python
-group1 = dp.Group(plot1, plot2, columns=2)
-dp.Select(group1, df)
+group1 = ar.Group(plot1, plot2, columns=2)
+ar.Select(group1, df)
 ```
 
 {{nested}}
@@ -192,16 +189,16 @@ dp.Select(group1, df)
     )
 
     adv_blocks = r"""
-A list and demonstration of all the blocks supported by Datapane - see https://docs.datapane.com/reports/blocks for more info.
+A list and demonstration of all the blocks supported by Arakawa - see https://docs.datapane.com/reports/blocks for more info.
 
 ## Plot Blocks
 
 ```python
-dp.Group(dp.Plot(altair_plot, caption="Altair Plot"),
-         dp.Plot(bokeh_plot, caption="Bokeh Plot"),
-         dp.Plot(matplotlib_plot, caption="Matplotlib Plot"),
-         dp.Plot(plotly_plot, caption="Plotly Plot"),
-         dp.Plot(folium_plot, caption="Folium Plot"),
+dp.Group(ar.Plot(altair_plot, caption="Altair Plot"),
+         ar.Plot(bokeh_plot, caption="Bokeh Plot"),
+         ar.Plot(matplotlib_plot, caption="Matplotlib Plot"),
+         ar.Plot(plotly_plot, caption="Plotly Plot"),
+         ar.Plot(folium_plot, caption="Folium Plot"),
          columns=2)
 ```
 
@@ -210,9 +207,9 @@ dp.Group(dp.Plot(altair_plot, caption="Altair Plot"),
 ## Table Blocks
 
 ```python
-dp.Table(df, caption="Basic Table")
-dp.Table(styled_df, caption="Styled Table")
-dp.DataTable(df, caption="Interactive DataTable")
+ar.Table(df, caption="Basic Table")
+ar.Table(styled_df, caption="Styled Table")
+ar.DataTable(df, caption="Interactive DataTable")
 ```
 
 {{tables}}
@@ -220,11 +217,11 @@ dp.DataTable(df, caption="Interactive DataTable")
 ## Text Blocks
 
 ```python
-dp.Text("Hello, __world__!")
-dp.Code("print('Hello, world!')")
-dp.Formula(r"\frac{1}{\sqrt{x^2 + 1}}")
-dp.HTML("<h1>Hello World</h1>")
-dp.BigNumber(heading="Datapane Blocks", value=11, prev_value=6, is_upward_change=True)
+ar.Text("Hello, __world__!")
+ar.Code("print('Hello, world!')")
+ar.Formula(r"\frac{1}{\sqrt{x^2 + 1}}")
+ar.HTML("<h1>Hello World</h1>")
+ar.BigNumber(heading="Datapane Blocks", value=11, prev_value=6, is_upward_change=True)
 ```
 
 {{text}}
@@ -234,8 +231,8 @@ dp.BigNumber(heading="Datapane Blocks", value=11, prev_value=6, is_upward_change
 You can embed any URLs that spport the OEmbed protocol, including YouTube and Twitter.
 
 ```python
-dp.Embed("https://www.youtube.com/watch?v=JDe14ulcfLA")
-dp.Embed("https://twitter.com/datapaneapp/status/1300831345413890050")
+ar.Embed("https://www.youtube.com/watch?v=JDe14ulcfLA")
+ar.Embed("https://twitter.com/datapaneapp/status/1300831345413890050")
 ```
 
 {{embed}}
@@ -245,8 +242,8 @@ dp.Embed("https://twitter.com/datapaneapp/status/1300831345413890050")
 Files and Python objects can be added to An Arakawa report, and be viewed (depending on browser support) and downloaded.
 
 ```python
-dp.Media(file="./logo.png")
-dp.Attachment(data=[1,2,3])
+ar.Media(file="./logo.png")
+ar.Attachment(data=[1,2,3])
 ```
 
 {{media}}
@@ -288,7 +285,6 @@ dp.Attachment(data=[1,2,3])
         columns=2,
     )
     media = b.Group(
-        b.Media(file=str(logo), name="logo_img"),
         b.Attachment(data=[1, 2, 3]),
         columns=2,
     )

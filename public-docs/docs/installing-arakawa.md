@@ -2,7 +2,7 @@
 description: Installing and setting up the Arakawa library and API on your device
 ---
 
-Datapane's Python library and CLI can be installed using either `pip` or `conda` on macOS, Windows, or Linux. Datapane supports Python **3.9 - 3.12**.
+Arakawa's Python library and CLI can be installed using either `pip` or `conda` on macOS, Windows, or Linux. Arakawa supports Python **3.9 - 3.12**.
 
 !!! info
 
@@ -41,7 +41,7 @@ If you use `conda`, you can install it with:
     ```
 
 !!! warning
-Conda sometimes installs an older version of Datapane. If you receive errors, please check the version and try running `conda update --all` or try in a new conda environment (`conda create -n ENV` and `conda activate ENV`)
+Conda sometimes installs an older version of Arakawa. If you receive errors, please check the version and try running `conda update --all` or try in a new conda environment (`conda create -n ENV` and `conda activate ENV`)
 
 ## Upgrading
 

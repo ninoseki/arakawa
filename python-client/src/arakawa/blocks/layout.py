@@ -5,7 +5,7 @@ from functools import reduce
 from typing import TYPE_CHECKING, Self
 
 from arakawa.client import log
-from arakawa.common.dp_types import StrEnum
+from arakawa.common.ar_types import StrEnum
 from arakawa.exceptions import ARError
 
 from .base import BaseBlock, BlockId, BlockList, BlockOrPrimitive, wrap_block

@@ -7,7 +7,7 @@ from pathlib import Path
 
 from dominate.dom_tag import dom_tag
 
-from arakawa.common.dp_types import NPath
+from arakawa.common.ar_types import NPath
 from arakawa.common.utils import utf_read_text
 from arakawa.common.viewxml_utils import get_embed_url
 from arakawa.exceptions import ARError

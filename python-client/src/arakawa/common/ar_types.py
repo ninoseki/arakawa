@@ -1,8 +1,9 @@
+from collections.abc import Mapping
 from datetime import timedelta
 from enum import Enum
 from os import PathLike
 from pathlib import Path
-from typing import Any, Mapping, NewType, Union
+from typing import Any, NewType, Union
 
 # Typedefs
 # A JSON-serialisable config object

@@ -10,9 +10,6 @@ dependencies = [
   "bottle~=0.13.1",
   "chardet~=5.2.0",
   "dominate~=2.9.1",
-  "faker>=30.0.0",
-  "glom~=23.5.0",
-  "hvplot~=0.10.0",
   "ipynbname~=2024.1.0.0",
   "ipython~=8.13",
   "loguru~=0.7.2",
@@ -28,7 +25,7 @@ Repository = "https://github.com/ninoseki/arakawa/"
 
 [project.optional-dependencies]
 plotting = [
-  "bokeh~=3.4.3",
+  "bokeh>=3.4.0,<3.5.0",
   "folium~=0.17.0",
   "matplotlib~=3.9.2",
   "plotly~=5.24.1",
@@ -47,11 +44,13 @@ dev-dependencies = [
   "pytest-pretty~=1.2.0",
   "pytest-randomly~=3.15.0",
   "ruff~=0.6.8",
-  "vega-datasets>=0.9.0",
-  "pytest-datadir>=1.5.0",
-  "pytest-timeout>=2.3.1",
-  "pyupgrade>=3.17.0",
-  "uv-sort>=0.4.0",
+  "vega-datasets~=0.9.0",
+  "pytest-datadir~=1.5.0",
+  "pytest-timeout~=2.3.1",
+  "pyupgrade~=3.17.0",
+  "uv-sort~=0.4.0",
+  "build~=1.2.2",
+  "twine~=5.1.1",
 ]
 
 [tool.ruff.lint]

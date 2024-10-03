@@ -12,8 +12,8 @@ from loguru import logger as log
 from pandas.errors import ParserError
 from pyarrow import RecordBatchFileWriter
 
+from .ar_types import ARROW_EXT, ARROW_MIMETYPE, MIME
 from .df_processor import obj_to_str, process_df, str_to_arrow_str
-from .dp_types import ARROW_EXT, ARROW_MIMETYPE, MIME
 from .utils import guess_encoding
 
 

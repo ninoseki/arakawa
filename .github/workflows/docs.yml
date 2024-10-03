@@ -1,0 +1,25 @@
+name: Publish docs
+
+on:
+  release:
+    types: ["created"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./public-docs
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+          cache: pip
+      - run: pip install -r requirements.txt
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/uv
+          key: uv-3.11-${{ hashFiles('uv.lock') }}
+      - run: uv sync --frozen --all-extras
+      - run: uv run mkdocs gh-deploy

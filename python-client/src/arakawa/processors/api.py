@@ -10,7 +10,7 @@ import os
 from pathlib import Path
 from shutil import rmtree
 
-from arakawa.common.dp_types import NPath
+from arakawa.common.ar_types import NPath
 from arakawa.exceptions import ARError
 from arakawa.view import Blocks, BlocksT
 

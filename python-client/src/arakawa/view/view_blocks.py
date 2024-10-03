@@ -20,7 +20,7 @@ class Blocks(ContainerBlock):
 
     # This is essentially an easy-to-use wrapper around a list of blocks
     # that is composable.
-    # TODO - move to datapane.blocks ?
+    # TODO - move to arakawa.blocks ?
 
     _tag = "Blocks"
 
