@@ -23,7 +23,7 @@ def add_code(
     Attach code fragment to an existing plot/figure/dataframe for use within a report
 
     Args:
-        block: The existing object to add code to - can be either an existing dp Block or an Python object
+        block: The existing object to add code to - can be either an existing ar Block or an Python object
         code: The code fragment to add
         language: The language of the code fragment (optional)
 
@@ -56,7 +56,7 @@ def build_md_view(
         An Arakawa App object for saving or uploading
 
     ..tip:: Either text or file is required as input
-    ..tip:: Context, via args/kwargs can be plain Python objects, e.g. dataframes, and plots, or Arakawa blocks, e.g. dp.Plot, etc.
+    ..tip:: Context, via args/kwargs can be plain Python objects, e.g. dataframes, and plots, or Arakawa blocks, e.g. ar.Plot, etc.
 
     """
     try:

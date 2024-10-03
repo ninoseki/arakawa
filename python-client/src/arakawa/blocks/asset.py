@@ -50,7 +50,7 @@ class Media(AssetBlock):
     """
     The Media block allows you to include images, GIFs, video and audio in your apps. If the file is in a supported format, it will be displayed inline in your app.
 
-    To include an image, you can use `dp.Media` and pass the path.
+    To include an image, you can use `ar.Media` and pass the path.
 
     !!! note
         Supported video, audio and image formats depend on the browser used to view the report. MP3, MP4, and all common image formats are generally supported by modern browsers
@@ -78,12 +78,12 @@ class Media(AssetBlock):
 
 class Attachment(AssetBlock):
     """
-    If you want to include static files like PDFs or Excel docs in your app, use the `dp.Attachment` block.
+    If you want to include static files like PDFs or Excel docs in your app, use the `ar.Attachment` block.
 
     You can also pass in a Python object directly. Once you upload the app, your users will be able to explore and download these attachments.
 
     !!! tip
-        To attach streamable / viewable video, audio or images, use the `dp.Media` block instead
+        To attach streamable / viewable video, audio or images, use the `ar.Media` block instead
     """
 
     _tag = "Attachment"
@@ -130,10 +130,10 @@ class Plot(AssetBlock):
     """
     Arakawa supports all major Python visualization libraries, allowing you to add interactive plots and visualizations to your app.
 
-    The `dp.Plot` block takes a plot object from one of the supported Python visualization libraries and renders it in your app.
+    The `ar.Plot` block takes a plot object from one of the supported Python visualization libraries and renders it in your app.
 
     !!! info
-        Arakawa will automatically wrap your visualization or plot in a `dp.Plot` block if you pass it into your app directly.
+        Arakawa will automatically wrap your visualization or plot in a `ar.Plot` block if you pass it into your app directly.
     """
 
     _tag = "Plot"

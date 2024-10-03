@@ -34,7 +34,7 @@ class Text(EmbeddedTextBlock):
     You can add short or long-form Markdown content to your app with the `Text` block.
 
     !!! info
-        Markdown is a lightweight markup language that allows you to include formatted text in your app, and can be accessed through `dp.Text`, or by passing in a string directly.&#x20;
+        Markdown is a lightweight markup language that allows you to include formatted text in your app, and can be accessed through `ar.Text`, or by passing in a string directly.&#x20;
 
         Check [here](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) for more information on how to format your text with markdown.
     """
@@ -56,7 +56,7 @@ class Text(EmbeddedTextBlock):
             label: A label used when displaying the block (optional)
 
         !!! note
-            File encodings are auto-detected, if this fails please read the file manually with an explicit encoding and use the text parameter on dp.Attachment
+            File encodings are auto-detected, if this fails please read the file manually with an explicit encoding and use the text parameter on ar.Attachment
         """
         if text:
             text = textwrap.dedent(text).strip()

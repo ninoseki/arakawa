@@ -18,12 +18,12 @@ from .base import DataBlock
 @multimethod
 def convert_to_block(x: object) -> DataBlock:
     raise ARError(
-        f"{type(x)} not supported directly, please pass into in the appropriate dp object (including dp.Attachment if want to upload as a pickle)"
+        f"{type(x)} not supported directly, please pass into in the appropriate ar object (including ar.Attachment if want to upload as a pickle)"
     )
 
 
 # NOTE - this is currently disabled to avoid confusing users when they
-# try to embed any Python object, instead they must use dp.Attachment
+# try to embed any Python object, instead they must use ar.Attachment
 # @multimethod
 # def convert_to_block(x: Any) -> DataBlock:
 #     return b.Attachment(x)

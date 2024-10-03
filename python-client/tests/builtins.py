@@ -194,7 +194,7 @@ A list and demonstration of all the blocks supported by Arakawa - see https://do
 ## Plot Blocks
 
 ```python
-dp.Group(ar.Plot(altair_plot, caption="Altair Plot"),
+ar.Group(ar.Plot(altair_plot, caption="Altair Plot"),
          ar.Plot(bokeh_plot, caption="Bokeh Plot"),
          ar.Plot(matplotlib_plot, caption="Matplotlib Plot"),
          ar.Plot(plotly_plot, caption="Plotly Plot"),

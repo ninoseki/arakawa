@@ -10,10 +10,9 @@ from pathlib import Path
 from typing import Any, BinaryIO, cast
 from uuid import uuid4
 
-from jinja2 import Environment, FileSystemLoader, Template, pass_context
+from bottle import SimpleTemplate
 from jinja2.utils import htmlsafe_json_dumps
 from lxml import etree
-from markupsafe import Markup
 
 from arakawa import blocks as b
 from arakawa.client.utils import display_msg, log, open_in_browser
@@ -24,16 +23,6 @@ from arakawa.view import PreProcess, XMLBuilder
 
 from .file_store import FileEntry
 from .types import BaseProcessor, Formatting
-
-
-@pass_context
-def include_raw(ctx, name) -> Markup:
-    """Normal jinja2 {% include %} doesn't escape {{...}} which appear in React's source code"""
-    env = ctx.environment
-    # Escape </script> to prevent 3rd party JS terminating the local app bundle.
-    # Note there's an extra "\" because it needs to be escaped at both the python and JS level
-    src = env.loader.get_source(env, name)[0].replace("</script>", r"<\\/script>")
-    return Markup(src)
 
 
 class PreProcessView(BaseProcessor):
@@ -152,16 +141,16 @@ class BaseExportHTML(BaseProcessor, ABC):
     # Type is `ir.abc.Traversable` which extends `Path`,
     # but the former isn't compatible with `shutil`
     template_dir: Path = cast(Path, ir.files("arakawa.resources.html_templates"))
-    template: Template
+    template: SimpleTemplate
+
     template_name: str
 
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
 
-        template_loader = FileSystemLoader(cls.template_dir)
-        template_env = Environment(loader=template_loader)
-        template_env.globals["include_raw"] = include_raw
-        cls.template = template_env.get_template(cls.template_name)
+        cls.template = SimpleTemplate(
+            name=cls.template_name, lookup=[str(cls.template_dir)]
+        )
 
     def get_cdn(self) -> str:
         from arakawa import __version__
@@ -210,7 +199,7 @@ class ExportBaseHTMLOnly(BaseExportHTML):
     """Export the base view used to render an App, containing no ViewXML nor Assets"""
 
     # TODO (JB) - Create base HTML-only template
-    template_name = "local_template.html.j2"
+    template_name = "local_template.html"
 
     def __init__(
         self,
@@ -243,7 +232,7 @@ class ExportHTMLInlineAssets(BaseExportHTML):
     - Assets - embedded as b64 data-uris
     """
 
-    template_name = "local_template.html.j2"
+    template_name = "local_template.html"
 
     def __init__(
         self,
@@ -284,7 +273,7 @@ class ExportHTMLFileAssets(BaseExportHTML):
     - Assets - referenced as remote resources
     """
 
-    template_name = "local_template.html.j2"
+    template_name = "local_template.html"
 
     def __init__(
         self,
@@ -318,7 +307,7 @@ class ExportHTMLStringInlineAssets(BaseExportHTML):
     - Assets - embedded as b64 data-uris
     """
 
-    template_name = "ipython_template.html.j2"
+    template_name = "ipython_template.html"
 
     def __init__(
         self,

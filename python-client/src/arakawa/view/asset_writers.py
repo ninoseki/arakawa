@@ -91,7 +91,7 @@ class HTMLTableWriter:
         n_cells = df.shape[0] * df.shape[1]
         if n_cells > 500:
             log.warning(
-                "Table is over recommended size, consider using dp.DataTable instead or aggregating the df first"
+                "Table is over recommended size, consider using ar.DataTable instead or aggregating the df first"
             )
 
 

@@ -80,10 +80,10 @@ class Page(ContainerBlock):
     """
     Apps on Arakawa can have multiple pages, which are presented to users as tabs at the top of your app. These can be used similarly to sheets in an Excel document.
 
-    To add a page, use the `dp.Page` block at the top-level of your app, and give it a title with the `title` parameter.
+    To add a page, use the `ar.Page` block at the top-level of your app, and give it a title with the `title` parameter.
 
     !!! info
-        Pages cannot be nested, and can only exist at the root level of your `dp.App` object. If you're using pages, all other blocks must be contained inside a Page block.
+        Pages cannot be nested, and can only exist at the root level of your `ar.App` object. If you're using pages, all other blocks must be contained inside a Page block.
 
     !!! note
         This is included for backwards-compatibility, and can be replaced by using Selects going forwards.
@@ -107,7 +107,7 @@ class Page(ContainerBlock):
             name: A unique id for the Page to aid querying (optional)
 
         !!! tip
-            Page can be passed using either arg parameters or the `blocks` kwarg, e.g. `dp.Page(group, select)` or `dp.Group(blocks=[group, select])`
+            Page can be passed using either arg parameters or the `blocks` kwarg, e.g. `ar.Page(group, select)` or `ar.Group(blocks=[group, select])`
         """
         self.title = title
         super().__init__(*arg_blocks, blocks=blocks, label=title, name=name)
@@ -148,7 +148,7 @@ class Select(ContainerBlock):
             label: A label used when displaying the block (optional)
 
         !!! tip
-            Select can be passed using either arg parameters or the `blocks` kwarg, e.g. `dp.Select(table, plot, type=dp.SelectType.TABS)` or `dp.Select(blocks=[table, plot])`
+            Select can be passed using either arg parameters or the `blocks` kwarg, e.g. `ar.Select(table, plot, type=ar.SelectType.TABS)` or `ar.Select(blocks=[table, plot])`
         """
         super().__init__(*arg_blocks, blocks=blocks, name=name, label=label, type=type)
         if len(self.blocks) < 2:
@@ -188,7 +188,7 @@ class Group(ContainerBlock):
             columns: Display the contained blocks, e.g. Plots, using _n_ columns (default = 1), setting to 0 auto-wraps the columns
 
         !!! note
-            Group can be passed using either arg parameters or the `blocks` kwarg, e.g. `dp.Group(plot, table, columns=2)` or `dp.Group(blocks=[plot, table], columns=2)`.
+            Group can be passed using either arg parameters or the `blocks` kwarg, e.g. `ar.Group(plot, table, columns=2)` or `ar.Group(blocks=[plot, table], columns=2)`.
         """
 
         if widths is not None and len(widths) != columns:
