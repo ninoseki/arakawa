@@ -8,8 +8,6 @@ import { createPinia } from "pinia";
 import "../base/src/styles/base.scss";
 import "./src/styles/report.scss";
 import "highlight.js/styles/stackoverflow-light.css";
-import "codemirror/lib/codemirror.css";
-import "codemirror/theme/eclipse.css";
 
 // Async load `tailwind.css` so that it can be split into own file by rollup
 import("./tailwind");

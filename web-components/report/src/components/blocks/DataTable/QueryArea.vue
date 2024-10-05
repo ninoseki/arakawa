@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import ArButton from "../../../shared/ARButton.vue";
-import "codemirror/mode/sql/sql.js";
-import "codemirror/addon/display/autorefresh.js";
-import CodeMirror from "codemirror";
+import { basicSetup } from "codemirror";
+import { EditorView } from "@codemirror/view";
+import { Extension } from "@codemirror/state";
+import { sql } from "@codemirror/lang-sql";
 
 const p = defineProps<{
   initialQuery: string;
@@ -17,21 +18,37 @@ const CM_OPTIONS = {
   autoRefresh: true,
 };
 
+function editorFromTextArea(
+  textarea: HTMLTextAreaElement,
+  extensions?: Extension,
+) {
+  let view = new EditorView({ doc: textarea.value, extensions });
+  textarea.parentNode!.insertBefore(view.dom, textarea);
+  textarea.style.display = "none";
+  if (textarea.form)
+    textarea.form.addEventListener("submit", () => {
+      textarea.value = view.state.doc.toString();
+    });
+  return view;
+}
+
 const emit = defineEmits(["query-change", "run-query", "clear-query"]);
 const cmEl = ref<HTMLTextAreaElement>();
-const cmInstance = ref<any>();
+const cmInstance = ref<EditorView>();
 
 const emitQueryChange = (query: string) => void emit("query-change", query);
 
 onMounted(() => {
   if (cmEl.value) {
     // Set up codemirror instance on mount
-    cmInstance.value = CodeMirror.fromTextArea(cmEl.value, CM_OPTIONS);
-    cmInstance.value.on("change", (doc: any) => {
-      // Keep CM editor in sync with DataTable query ref
-      emitQueryChange(doc.getValue());
-    });
-    emitQueryChange(cmInstance.value.getValue());
+    cmInstance.value = editorFromTextArea(cmEl.value, [
+      basicSetup,
+      sql(),
+      EditorView.updateListener.of((v) => {
+        emitQueryChange(v.state.doc.toString());
+      }),
+    ]);
+    emitQueryChange(cmInstance.value.state.doc.toString());
   } else {
     console.error("Couldn't find codemirror textarea element");
   }
@@ -39,9 +56,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="h-48 flex flex-col justify-start border-b border-gray-200">
-    <div class="flex flex-col flex-fixed h-full query-container">
-      <textarea ref="cmEl" :value="p.initialQuery" />
+  <div class="flex flex-col justify-start border-b border-gray-200">
+    <div class="flex flex-col flex-fixed h-full">
+      <textarea ref="cmEl" :value="p.initialQuery"></textarea>
       <div class="flex justify-start flex-fixed my-2 px-2">
         <ar-button
           @click="emit('run-query')"
