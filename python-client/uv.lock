@@ -33,16 +33,16 @@ wheels = [
 
 [[package]]
 name = "arakawa"
-version = "0.0.0.post4.dev0+66d8a2d"
+version = "0.0.0.post7.dev0+a08aef0"
 source = { editable = "." }
 dependencies = [
     { name = "altair" },
     { name = "base64io" },
-    { name = "bottle" },
     { name = "chardet" },
     { name = "dominate" },
     { name = "ipynbname" },
     { name = "ipython" },
+    { name = "jinja2" },
     { name = "loguru" },
     { name = "lxml" },
     { name = "micawber" },
@@ -79,12 +79,12 @@ requires-dist = [
     { name = "altair", specifier = "~=5.4.1" },
     { name = "base64io", specifier = "~=1.0.3" },
     { name = "bokeh", marker = "extra == 'plotting'", specifier = ">=3.4.0,<3.5.0" },
-    { name = "bottle", specifier = "~=0.13.1" },
     { name = "chardet", specifier = "~=5.2.0" },
     { name = "dominate", specifier = "~=2.9.1" },
     { name = "folium", marker = "extra == 'plotting'", specifier = "~=0.17.0" },
     { name = "ipynbname", specifier = "~=2024.1.0.0" },
     { name = "ipython", specifier = "~=8.13" },
+    { name = "jinja2", specifier = "~=3.0" },
     { name = "loguru", specifier = "~=0.7.2" },
     { name = "lxml", specifier = "~=5.3.0" },
     { name = "matplotlib", marker = "extra == 'plotting'", specifier = "~=3.9.2" },
@@ -167,15 +167,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/c1/a8/4f750e1febe3b8d448794a7b85cd0efd2eb649eb915c990bcdd3650a5f3b/bokeh-3.4.3.tar.gz", hash = "sha256:b7c22fb0f7004b04f12e1b7b26ee0269a26737a08ded848fb58f6a34ec1eb155", size = 6410715 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/65/5d/e96520996607c9b894a4716ddedc447a68351b0a8729f26ac012c8e7041b/bokeh-3.4.3-py3-none-any.whl", hash = "sha256:c6f33817f866fc67fbeb5df79cd13a8bb592c05c591f3fd7f4f22b824f7afa01", size = 7017720 },
-]
-
-[[package]]
-name = "bottle"
-version = "0.13.1"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/87/7e/eae463f832f64b3a1cb640384d155079e7dd2905116ab925e9bb04f66e75/bottle-0.13.1.tar.gz", hash = "sha256:a48852dc7a051353d3e4de3dd5590cd25de370bcfd94a72237561e314ceb0c88", size = 836422 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/9d/72/e22b8be6b4fe129f48b1381f262d8cb8a3c0bc18fda3e735f16417bad4b4/bottle-0.13.1-py2.py3-none-any.whl", hash = "sha256:d5e068ad0b4ed3422231ad59bd9ea646a141f57a9c90587212d63477ec04fe96", size = 103790 },
 ]
 
 [[package]]

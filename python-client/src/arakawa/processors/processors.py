@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any, BinaryIO, cast
 from uuid import uuid4
 
-from bottle import SimpleTemplate
+from jinja2 import Environment, FileSystemLoader, Template
 from jinja2.utils import htmlsafe_json_dumps
 from lxml import etree
 
@@ -141,21 +141,22 @@ class BaseExportHTML(BaseProcessor, ABC):
     # Type is `ir.abc.Traversable` which extends `Path`,
     # but the former isn't compatible with `shutil`
     template_dir: Path = cast(Path, ir.files("arakawa.resources.html_templates"))
-    template: SimpleTemplate
+    template: Template
 
     template_name: str
 
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
 
-        cls.template = SimpleTemplate(
-            name=cls.template_name, lookup=[str(cls.template_dir)]
-        )
+        template_loader = FileSystemLoader(cls.template_dir)
+        template_env = Environment(loader=template_loader)
+        cls.template = template_env.get_template(cls.template_name)
 
     def get_cdn(self) -> str:
         from arakawa import __version__
 
-        return f"https://cdn.jsdelivr.net/npm/arakawa@{__version__}/dist"
+        version = __version__.removeprefix("v")
+        return f"https://cdn.jsdelivr.net/npm/arakawa@{version}/dist"
 
     def _write_html_template(
         self,
@@ -199,7 +200,7 @@ class ExportBaseHTMLOnly(BaseExportHTML):
     """Export the base view used to render an App, containing no ViewXML nor Assets"""
 
     # TODO (JB) - Create base HTML-only template
-    template_name = "local_template.html"
+    template_name = "local_template.html.j2"
 
     def __init__(
         self,
@@ -232,7 +233,7 @@ class ExportHTMLInlineAssets(BaseExportHTML):
     - Assets - embedded as b64 data-uris
     """
 
-    template_name = "local_template.html"
+    template_name = "local_template.html.j2"
 
     def __init__(
         self,
@@ -273,7 +274,7 @@ class ExportHTMLFileAssets(BaseExportHTML):
     - Assets - referenced as remote resources
     """
 
-    template_name = "local_template.html"
+    template_name = "local_template.html.j2"
 
     def __init__(
         self,
@@ -307,7 +308,7 @@ class ExportHTMLStringInlineAssets(BaseExportHTML):
     - Assets - embedded as b64 data-uris
     """
 
-    template_name = "ipython_template.html"
+    template_name = "ipython_template.html.j2"
 
     def __init__(
         self,

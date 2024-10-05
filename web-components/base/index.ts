@@ -7,8 +7,6 @@ import { ARClipboard } from "../shared/ARClipboard";
 import "whatwg-fetch";
 import "./src/polyfills";
 
-import "htmx.org/dist/htmx";
-
 // Window objects
 window.errorHandler = window.errorHandler || {};
 

@@ -28,3 +28,7 @@ pre-commit:
     actionlint:
       glob: ".github/workflows/*.{yml,yaml}"
       run: actionlint {staged_files}
+    nbclear:
+      root: "public-docs/"
+      glob: "*.ipynb"
+      run: uv run jupyter nbconvert --ClearOutputPreprocessor.enabled=True --ClearMetadataPreprocessor.enabled=True --ClearMetadataPreprocessor.preserve_cell_metadata_mask tags --inplace "${f##*/}" {staged_files}

@@ -10,7 +10,7 @@
         "url": "https://github.com/ninoseki/arakawa/issues"
     },
     "homepage": "https://github.com/ninoseki/arakawa",
-    "version": "0.0.1",
+    "version": "0.0.0",
     "files": [
         "dist"
     ],
@@ -48,7 +48,6 @@
         "file-saver": "^2.0.5",
         "he": "^1.2.0",
         "highlight.js": "^11.10.0",
-        "htmx.org": "^1.9.12",
         "iframe-resizer": "4.3.11",
         "jquery": "^3.7.1",
         "katex": "^0.16.11",

@@ -7,6 +7,9 @@ on:
 jobs:
   publish-npm-package:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./web-components
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node.js
@@ -23,6 +26,9 @@ jobs:
   publish-pypi-package:
     needs: [publish-npm-package]
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./python-client
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -54,11 +60,12 @@ jobs:
           python-version: 3.11
           cache: pip
       - run: pip install -r requirements.txt
-      # NOTE: don't cache uv because it has self-reference dependency (python-client)
-      - run: uv sync
-      - name: Set AR_VERSION for using proper CDN assets
-        run: |
-          AR_VERSION=${{ github.event.release.tag_name }}
-          echo "AR_VERSION=${AR_VERSION#v}" >> $GITHUB_ENV
-      - run: ./nbbuild.sh
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/uv
+          key: uv-3.11-${{ hashFiles('uv.lock') }}
+      - run: uv sync --frozen --all-extras
+      - name: Reinstall from ../python-client
+        run: uv sync --reinstall-package arakawa
+      - run: AR_VERSION=${{ github.event.release.tag_name }} ./nbbuild.sh
       - run: uv run mkdocs gh-deploy
