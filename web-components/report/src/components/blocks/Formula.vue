@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import katex from "katex";
+
 const p = defineProps<{ content: string }>();
 
 const renderFormula = (node: any) => {

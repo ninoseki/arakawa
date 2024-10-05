@@ -1,5 +1,5 @@
-import { defineAsyncComponent, defineCustomElement } from "vue";
 import { toggleVisibility, onLoad } from "./src/template-utils";
+import { defineAsyncComponent, defineCustomElement } from "vue";
 
 const Modal = defineAsyncComponent(() => import("./src/Modal.ce.vue"));
 const SearchQuery = defineAsyncComponent(

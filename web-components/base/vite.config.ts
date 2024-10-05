@@ -1,7 +1,7 @@
-import { defineConfig } from "vite";
 import vueESM from "../shared/rollup-plugin-vue-esm";
 import path from "path";
 import tailwindcss from "tailwindcss";
+import { defineConfig } from "vite";
 
 module.exports = defineConfig(() => ({
   css: {

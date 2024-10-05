@@ -1,6 +1,6 @@
 import Plotapi from "../../components/blocks/Plotapi.vue";
-import { makeTemplate } from "../utils";
 import iframeContent from "../assets/plotapi.html?raw";
+import { makeTemplate } from "../utils";
 
 export default {
   title: "Plotapi",

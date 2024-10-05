@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { defineAsyncComponent, ref } from "vue";
 import {
   BlockFigureProps,
   DatasetResponse,
   ExportType,
 } from "../../../data-model/blocks";
 import { useRootStore } from "../../../data-model/root-store";
-import { storeToRefs } from "pinia";
 import BlockWrapper from "../../layout/BlockWrapper.vue";
+import { storeToRefs } from "pinia";
+import { defineAsyncComponent, ref } from "vue";
+
 const DataTableBlock = defineAsyncComponent(() => import("./DataTable.vue"));
 
 const p = defineProps<{

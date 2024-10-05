@@ -1,4 +1,5 @@
-import { markRaw } from "vue";
+import VDataTableBlock from "../../components/blocks/DataTable/DataTable.connector.vue";
+import env from "../../environment";
 import {
   AssetBlock,
   BlockFigure,
@@ -6,11 +7,10 @@ import {
   Elem,
   ExportType,
 } from "../blocks/index";
-import VDataTableBlock from "../../components/blocks/DataTable/DataTable.connector.vue";
 import axios, { AxiosResponse } from "axios";
 import download from "downloadjs";
 import urljoin from "url-join";
-import env from "../../environment";
+import { markRaw } from "vue";
 
 const addQueryParam = (url: string, qp: { k: string; v: string }): string => {
   /**

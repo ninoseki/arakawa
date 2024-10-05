@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, defineAsyncComponent } from "vue";
 import { BlockFigureProps } from "../../data-model/blocks";
-import BlockWrapper from "../layout/BlockWrapper.vue";
 import { useRootStore } from "../../data-model/root-store";
+import BlockWrapper from "../layout/BlockWrapper.vue";
 import { storeToRefs } from "pinia";
+import { ref, defineAsyncComponent } from "vue";
+
 const VegaBlock = defineAsyncComponent(() => import("./Vega.vue"));
 
 const rootStore = useRootStore();

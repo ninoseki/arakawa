@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import ReportComponent from "./ReportComponent.vue";
-import LoadingSpinner from "./LoadingSpinner.vue";
-import ErrorCallout from "./ErrorCallout.vue";
-import { AppData, AppMetaData, ReportProps } from "../data-model/types";
-import { computed, onMounted, ref } from "vue";
-import { useRootStore } from "../data-model/root-store";
-import { storeToRefs } from "pinia";
 import { isView } from "../data-model/blocks";
-import sanitizeHtml from "sanitize-html";
-import { setTheme } from "../theme";
+import { useRootStore } from "../data-model/root-store";
+import { AppData, AppMetaData, ReportProps } from "../data-model/types";
 import { parseError } from "../shared/shared";
+import { setTheme } from "../theme";
+import ErrorCallout from "./ErrorCallout.vue";
+import LoadingSpinner from "./LoadingSpinner.vue";
+import ReportComponent from "./ReportComponent.vue";
+import { storeToRefs } from "pinia";
+import sanitizeHtml from "sanitize-html";
+import { computed, onMounted, ref } from "vue";
 
 const p = defineProps<{
   isOrg: ReportProps["isOrg"];

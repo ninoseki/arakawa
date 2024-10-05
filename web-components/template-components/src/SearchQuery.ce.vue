@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import { serializeSlotJson } from "./template-utils";
+import { ref } from "vue";
 
 type Choices = { value: string; text: string }[];
 

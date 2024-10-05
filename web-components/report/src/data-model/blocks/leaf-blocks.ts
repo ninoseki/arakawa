@@ -1,24 +1,24 @@
-import VTextBlock from "../../components/blocks/Text.vue";
-import VHTMLBlock from "../../components/blocks/HTML.vue";
-import VFileBlock from "../../components/blocks/File.vue";
-import VEmbedBlock from "../../components/blocks/Embed.vue";
-import VFoliumBlock from "../../components/blocks/Folium.connector.vue";
-import VPlotapiBlock from "../../components/blocks/Plotapi.connector.vue";
-import VFormulaBlock from "../../components/blocks/Formula.connector.vue";
-import VCodeBlock from "../../components/blocks/Code.connector.vue";
-import VBokehBlock from "../../components/blocks/Bokeh.connector.vue";
-import VVegaBlock from "../../components/blocks/Vega.connector.vue";
-import VPlotlyBlock from "../../components/blocks/Plotly.connector.vue";
-import VTableBlock from "../../components/blocks/Table.connector.vue";
-import VSVGBlock from "../../components/blocks/SVG.connector.vue";
-import VMediaBlock from "../../components/blocks/Media.vue";
 import VBigNumberBlock from "../../components/blocks/BigNumber.vue";
 import VBigNumberBlockSimple from "../../components/blocks/BigNumberSimple.vue";
-import { markRaw } from "vue";
+import VBokehBlock from "../../components/blocks/Bokeh.connector.vue";
+import VCodeBlock from "../../components/blocks/Code.connector.vue";
+import VEmbedBlock from "../../components/blocks/Embed.vue";
+import VFileBlock from "../../components/blocks/File.vue";
+import VFoliumBlock from "../../components/blocks/Folium.connector.vue";
+import VFormulaBlock from "../../components/blocks/Formula.connector.vue";
+import VHTMLBlock from "../../components/blocks/HTML.vue";
+import VMediaBlock from "../../components/blocks/Media.vue";
+import VPlotapiBlock from "../../components/blocks/Plotapi.connector.vue";
+import VPlotlyBlock from "../../components/blocks/Plotly.connector.vue";
+import VSVGBlock from "../../components/blocks/SVG.connector.vue";
+import VTableBlock from "../../components/blocks/Table.connector.vue";
+import VTextBlock from "../../components/blocks/Text.vue";
+import VVegaBlock from "../../components/blocks/Vega.connector.vue";
+import { useRootStore } from "../root-store";
 import axios from "axios";
 import { saveAs } from "file-saver";
 import { v4 as uuid4 } from "uuid";
-import { useRootStore } from "../root-store";
+import { markRaw } from "vue";
 
 // Represents a serialized JSON element prior to becoming a Page/Group/Select/Block
 export type Elem = {

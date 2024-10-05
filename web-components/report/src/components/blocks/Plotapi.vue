@@ -1,9 +1,9 @@
 <script setup lang="ts">
 /* eslint-disable no-useless-escape */
-import { computed, ComputedRef, onMounted } from "vue";
+import iframeResize from "iframe-resizer/js/iframeResizer";
 import contentWindowJs from "iframe-resizer/js/iframeResizer.contentWindow.js?raw";
 import { v4 as uuid4 } from "uuid";
-import iframeResize from "iframe-resizer/js/iframeResizer";
+import { computed, ComputedRef, onMounted } from "vue";
 
 const p = defineProps<{ iframeContent: string; singleBlockEmbed?: boolean }>();
 const iframeId = `iframe_${uuid4()}`;

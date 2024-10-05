@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import ArButton from "../../shared/ARButton.vue";
 import { BlockFigureProps } from "../../data-model/blocks";
+import ArButton from "../../shared/ARButton.vue";
 import BlockWrapper from "../layout/BlockWrapper.vue";
 
 const p = defineProps<{

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ARClipboard } from "../../../../../shared/ARClipboard";
-import { Section } from "../../../shared/shared";
 import { ExportType } from "../../../data-model/blocks";
-import DataTag from "./DataTag.vue";
-import ArDropdown from "../../../shared/ARDropdown.vue";
 import ArButton from "../../../shared/ARButton.vue";
+import ArDropdown from "../../../shared/ARDropdown.vue";
+import { Section } from "../../../shared/shared";
+import DataTag from "./DataTag.vue";
 
 const p = defineProps<{
   previewMode: boolean;

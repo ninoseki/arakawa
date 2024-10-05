@@ -1,4 +1,3 @@
-import { defineStore } from "pinia";
 import {
   Block,
   Group,
@@ -6,10 +5,11 @@ import {
   PageLayout,
   Select,
 } from "./blocks/index";
-import { v4 as uuid4 } from "uuid";
-import { computed, reactive, ref } from "vue";
 import { useRootStore } from "./root-store";
 import { SwapType } from "./types";
+import { defineStore } from "pinia";
+import { v4 as uuid4 } from "uuid";
+import { computed, reactive, ref } from "vue";
 
 const cleanParam = (v: string) => {
   if ((typeof v === "string" || Array.isArray(v)) && !v.length) {

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
 import { useRootStore } from "../../data-model/root-store";
-import { computed, ComputedRef } from "vue";
 import { VAlign } from "../../data-model/types";
+import { storeToRefs } from "pinia";
+import { computed, ComputedRef } from "vue";
 
 const p = defineProps<{
   columns: number;

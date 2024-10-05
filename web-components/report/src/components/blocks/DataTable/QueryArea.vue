@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
 import ArButton from "../../../shared/ARButton.vue";
-import { basicSetup } from "codemirror";
-import { EditorView } from "@codemirror/view";
-import { Extension } from "@codemirror/state";
 import { sql } from "@codemirror/lang-sql";
+import { Extension } from "@codemirror/state";
+import { EditorView } from "@codemirror/view";
+import { basicSetup } from "codemirror";
+import { onMounted, ref } from "vue";
 
 const p = defineProps<{
   initialQuery: string;

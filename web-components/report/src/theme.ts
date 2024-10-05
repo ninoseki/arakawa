@@ -2,7 +2,6 @@
  * Sets remaining CSS theme vars based on existing vars set by Tailwind config,
  * and the light prose setting
  */
-
 import chroma from "chroma-js";
 
 const getCssVar = (name: string): string => {

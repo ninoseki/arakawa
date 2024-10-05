@@ -1,16 +1,16 @@
-import { Block, BlockFigure, Elem } from "./leaf-blocks";
-import { markRaw } from "vue";
-import VRangeField from "../../components/controls/RangeField.vue";
-import VTextBox from "../../components/controls/TextBox.vue";
-import VNumberBox from "../../components/controls/NumberBox.vue";
-import VTagsField from "../../components/controls/TagsField.vue";
-import VSwitchField from "../../components/controls/SwitchField.vue";
-import VMultiChoiceField from "../../components/controls/MultiChoiceField.vue";
-import VFileField from "../../components/controls/FileField.vue";
 import VDateTimeField from "../../components/controls/DateTimeField.vue";
+import VFileField from "../../components/controls/FileField.vue";
+import VMultiChoiceField from "../../components/controls/MultiChoiceField.vue";
+import VNumberBox from "../../components/controls/NumberBox.vue";
+import VRangeField from "../../components/controls/RangeField.vue";
 import VSelectField from "../../components/controls/SelectField.vue";
-import moment from "moment";
+import VSwitchField from "../../components/controls/SwitchField.vue";
+import VTagsField from "../../components/controls/TagsField.vue";
+import VTextBox from "../../components/controls/TextBox.vue";
+import { Block, BlockFigure, Elem } from "./leaf-blocks";
 import he from "he";
+import moment from "moment";
+import { markRaw } from "vue";
 
 const parseJsonProp = (json: string): Record<string, unknown> | string[] =>
   /**

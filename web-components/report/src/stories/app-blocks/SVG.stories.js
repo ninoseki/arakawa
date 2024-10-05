@@ -1,6 +1,6 @@
 import SVG from "../../components/blocks/SVG.vue";
-import { makeTemplate } from "../utils";
 import svgData from "../assets/svg.b64?raw";
+import { makeTemplate } from "../utils";
 
 export default {
   title: "SVG",

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from "vue";
-import { TriggerType } from "../../data-model/types";
 import { ControlsField } from "../../data-model/blocks";
-import LoadingSpinner from "../LoadingSpinner.vue";
+import { TriggerType } from "../../data-model/types";
 import ErrorCallout from "../ErrorCallout.vue";
+import LoadingSpinner from "../LoadingSpinner.vue";
 import { getNode } from "@formkit/core";
 import { v4 as uuid4 } from "uuid";
+import { onMounted, onUnmounted, ref } from "vue";
 
 const p = defineProps<{
   onChange: (v: { name: string; value: any }) => void;

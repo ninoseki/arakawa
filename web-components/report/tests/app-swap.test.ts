@@ -1,13 +1,13 @@
 /**
  * Tests app swap operations (replace, inner, append, prepend)
  */
-import { it, expect, describe, beforeEach } from "vitest";
-import { createApp } from "vue";
-import { createPinia } from "pinia";
 import Report from "../src/components/ReportContainer.vue";
 import { useRootStore } from "../src/data-model/root-store";
-import replaceJson from "./fixtures/test-app.json?raw";
 import { SwapType } from "../src/data-model/types";
+import replaceJson from "./fixtures/test-app.json?raw";
+import { createPinia } from "pinia";
+import { it, expect, describe, beforeEach } from "vitest";
+import { createApp } from "vue";
 
 const META = {
   isLightProse: false,

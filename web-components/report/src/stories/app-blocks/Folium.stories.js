@@ -1,6 +1,6 @@
 import Folium from "../../components/blocks/Folium.vue";
-import { makeTemplate } from "../utils";
 import iframeContent from "../assets/folium.html?raw";
+import { makeTemplate } from "../utils";
 
 export default {
   title: "Folium",

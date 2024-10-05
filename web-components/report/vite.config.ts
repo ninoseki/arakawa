@@ -1,9 +1,9 @@
-import { defineConfig, LibraryFormats } from "vite";
 import vueESM from "../shared/rollup-plugin-vue-esm";
-import path from "path";
-import tailwindcss from "tailwindcss";
 import vue from "@vitejs/plugin-vue";
+import path from "path";
 import copy from "rollup-plugin-copy";
+import tailwindcss from "tailwindcss";
+import { defineConfig, LibraryFormats } from "vite";
 
 module.exports = defineConfig(({ mode }) => ({
   test: {

@@ -1,7 +1,7 @@
-import { afterAll, afterEach, beforeAll } from "vitest";
-import { setupServer } from "msw/node";
-import { rest } from "msw";
 import fragmentJson from "./fixtures/fragment.json?raw";
+import { rest } from "msw";
+import { setupServer } from "msw/node";
+import { afterAll, afterEach, beforeAll } from "vitest";
 
 const DISPATCH_FRAGMENT = JSON.parse(fragmentJson);
 

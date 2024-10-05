@@ -1,6 +1,6 @@
 import Table from "../../components/blocks/Table.ce.vue";
-import { defineCustomElement } from "vue";
 import tableHtml from "../assets/table.html?raw";
+import { defineCustomElement } from "vue";
 
 const TableCE = defineCustomElement(Table);
 customElements.define("x-table-block", TableCE);

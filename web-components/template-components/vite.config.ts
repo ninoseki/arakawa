@@ -1,6 +1,6 @@
-import { defineConfig, LibraryFormats } from "vite";
-import path from "path";
 import vue from "@vitejs/plugin-vue";
+import path from "path";
+import { defineConfig, LibraryFormats } from "vite";
 
 module.exports = defineConfig(({ mode }) => ({
   plugins: [

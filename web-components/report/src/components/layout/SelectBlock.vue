@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, ComputedRef } from "vue";
 import { Block } from "../../data-model/blocks";
+import { storeToRefs } from "pinia";
+import { computed, ComputedRef } from "vue";
 import MultiSelect from "vue-multiselect";
 import "vue-multiselect/dist/vue-multiselect.esm.css";
-import { storeToRefs } from "pinia";
 
 const p = defineProps<{ type?: string; store: any }>();
 

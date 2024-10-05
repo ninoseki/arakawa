@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import Folium from "./Folium.vue";
 import { BlockFigureProps } from "../../data-model/blocks";
 import BlockWrapper from "../layout/BlockWrapper.vue";
+import Folium from "./Folium.vue";
+import { ref } from "vue";
 
 const p = defineProps<{
   fetchAssetData: any;

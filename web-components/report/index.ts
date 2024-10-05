@@ -1,13 +1,13 @@
-import { createApp, defineCustomElement } from "vue";
-import { plugin as formkitPlugin, defaultConfig } from "@formkit/vue";
-import { formkitConfig } from "./src/components/controls/formkit";
+import "../base/src/styles/base.scss";
 import Report from "./src/components/ReportContainer.vue";
 import TableBlock from "./src/components/blocks/Table.ce.vue";
+import { formkitConfig } from "./src/components/controls/formkit";
+import "./src/styles/report.scss";
+import { plugin as formkitPlugin, defaultConfig } from "@formkit/vue";
+import "highlight.js/styles/stackoverflow-light.css";
 import iframeResize from "iframe-resizer/js/iframeResizer";
 import { createPinia } from "pinia";
-import "../base/src/styles/base.scss";
-import "./src/styles/report.scss";
-import "highlight.js/styles/stackoverflow-light.css";
+import { createApp, defineCustomElement } from "vue";
 
 // Async load `tailwind.css` so that it can be split into own file by rollup
 import("./tailwind");

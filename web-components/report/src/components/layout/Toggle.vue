@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import { storeToRefs } from "pinia";
+import { ref } from "vue";
 
 const p = defineProps<{ label?: string; store: any }>();
 

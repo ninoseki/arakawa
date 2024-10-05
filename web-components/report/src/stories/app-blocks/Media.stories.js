@@ -1,6 +1,6 @@
 import Media from "../../components/blocks/Media.vue";
-import { makeTemplate } from "../utils";
 import dpLogo from "../assets/dplogo.b64?raw";
+import { makeTemplate } from "../utils";
 
 export default {
   title: "Media",

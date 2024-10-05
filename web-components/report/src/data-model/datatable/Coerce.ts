@@ -1,5 +1,5 @@
-import * as R from "ramda";
 import { DataType } from "apache-arrow";
+import * as R from "ramda";
 
 /*
 This class handled converting some of the more complex Arrow types into something we

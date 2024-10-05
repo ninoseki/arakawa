@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import Plotapi from "./Plotapi.vue";
-import BlockWrapper from "../layout/BlockWrapper.vue";
 import { BlockFigureProps } from "../../data-model/blocks";
 import { useRootStore } from "../../data-model/root-store";
+import BlockWrapper from "../layout/BlockWrapper.vue";
+import Plotapi from "./Plotapi.vue";
 import { storeToRefs } from "pinia";
+import { ref } from "vue";
 
 const p = defineProps<{
   fetchAssetData: any;

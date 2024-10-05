@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import CodeBlock from "./Code.vue";
-import BlockWrapper from "../layout/BlockWrapper.vue";
 import { BlockFigureProps } from "../../data-model/blocks";
+import BlockWrapper from "../layout/BlockWrapper.vue";
+import CodeBlock from "./Code.vue";
+
 const p = defineProps<{
   code: string;
   language: string;

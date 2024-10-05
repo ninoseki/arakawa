@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import SvgBlock from "./SVG.vue";
-import BlockWrapper from "../layout/BlockWrapper.vue";
 import { BlockFigureProps } from "../../data-model/blocks";
+import BlockWrapper from "../layout/BlockWrapper.vue";
+import SvgBlock from "./SVG.vue";
+import { ref } from "vue";
 
 const p = defineProps<{
   fetchAssetData: any;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import BlockWrapper from "../layout/BlockWrapper.vue";
 import { BlockFigureProps } from "../../data-model/blocks";
+import BlockWrapper from "../layout/BlockWrapper.vue";
 
 const p = defineProps<{
   src: string;

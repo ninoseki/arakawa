@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { onUnmounted, onMounted, ref } from "vue";
-import vegaEmbed, { Result } from "vega-embed";
 import { v4 as uuid4 } from "uuid";
+import vegaEmbed, { Result } from "vega-embed";
+import { onUnmounted, onMounted, ref } from "vue";
 
 const p = defineProps<{
   plotJson: any;

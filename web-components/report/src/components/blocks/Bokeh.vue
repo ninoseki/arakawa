@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { onUnmounted, onMounted } from "vue";
-import { v4 as uuid4 } from "uuid";
 import * as Bokeh from "@bokeh/bokehjs";
+import { v4 as uuid4 } from "uuid";
+import { onUnmounted, onMounted } from "vue";
 
 const docIds: any[] = [];
 const divId = uuid4();

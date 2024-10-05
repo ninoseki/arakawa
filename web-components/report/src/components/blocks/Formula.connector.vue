@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from "vue";
-import BlockWrapper from "../layout/BlockWrapper.vue";
 import { BlockFigureProps } from "../../data-model/blocks";
+import BlockWrapper from "../layout/BlockWrapper.vue";
+import { defineAsyncComponent } from "vue";
+
 const Formula = defineAsyncComponent(() => import("./Formula.vue"));
 const p = defineProps<{
   content: string;
