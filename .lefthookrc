@@ -1,5 +1,0 @@
-#!/bin/bash
-
-if [ -f ./python-client/.venv/bin/activate ]; then
-  . ./python-client/.venv/bin/activate
-fi

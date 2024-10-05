@@ -1,5 +1,3 @@
-rc: ./.lefthookrc
-
 pre-commit:
   commands:
     uv-lock:
