@@ -3,20 +3,25 @@ rc: ./.lefthookrc
 pre-commit:
   commands:
     uv-lock:
+      root: "python-client/"
       glob: "pyproject.toml"
       run: uv lock
     uv-sort:
+      root: "python-client/"
       glob: "pyproject.toml"
-      run: uv-sort
+      run: uv run uv-sort
     ruff:
+      root: "python-client/"
       glob: "*.py"
       run: uv run ruff check --fix {staged_files}
       stage_fixed: true
     ruff-format:
+      root: "python-client/"
       glob: "*.py"
       run: uv run ruff format {staged_files}
       stage_fixed: true
     pyupgrade:
+      root: "python-client/"
       glob: "*.py"
       run: uv run pyupgrade --py39-plus {staged_files}
       stage_fixed: true

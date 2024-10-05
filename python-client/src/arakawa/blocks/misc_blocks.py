@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+from typing import Union
+
 from .base import BlockId, DataBlock
 
-NumberValue = str | int | float
+NumberValue = Union[str, int, float]
 
 
 class BigNumber(DataBlock):
