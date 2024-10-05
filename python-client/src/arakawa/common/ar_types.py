@@ -17,7 +17,7 @@ JList = list[JSON]  # type: ignore
 MIME = NewType("MIME", str)
 URL = NewType("URL", str)
 HTML = NewType("HTML", str)
-NPath = Path | PathLike | str
+NPath = Union[Path, PathLike, str]
 Hash = NewType("Hash", str)
 EnumType = int  # alias for enum values
 
