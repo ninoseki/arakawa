@@ -1,10 +1,11 @@
 import dataclasses as dc
 from collections import namedtuple
-from typing import TYPE_CHECKING, Any, Protocol, Self
+from typing import TYPE_CHECKING, Any, Protocol
 
 from lxml import etree
 from lxml.builder import ElementMaker
 from multimethod import DispatchError, multimethod
+from typing_extensions import Self
 
 from arakawa.blocks import BaseBlock
 from arakawa.blocks.asset import AssetBlock

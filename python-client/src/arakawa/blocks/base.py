@@ -7,9 +7,10 @@ Describes the collection of `Block` objects that can be combined together to mak
 from __future__ import annotations
 
 from abc import ABC
-from typing import TYPE_CHECKING, Any, Self, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 
 from lxml.builder import ElementMaker
+from typing_extensions import Self
 
 from arakawa.client import log
 from arakawa.common.viewxml_utils import is_valid_id, mk_attribs

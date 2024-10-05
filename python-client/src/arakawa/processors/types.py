@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import dataclasses as dc
-import typing as t
 from enum import Enum
 from pathlib import Path
+from typing import Generic, TypeVar
 
 from arakawa.common import ViewXML
 from arakawa.view import Blocks
@@ -15,22 +15,22 @@ from .file_store import DummyFileEntry, FileEntry, FileStore
 class ViewState:
     # maybe a FileHandler interface??
     blocks: Blocks
-    file_entry_klass: dc.InitVar[t.Type[FileEntry]]
+    file_entry_klass: dc.InitVar[type[FileEntry]]
     store: FileStore = dc.field(init=False)
     view_xml: ViewXML = ""
     entries: dict[str, str] = dc.field(default_factory=dict)
-    dir_path: dc.InitVar[t.Optional[Path]] = None
+    dir_path: dc.InitVar[Path | None] = None
 
     def __post_init__(self, file_entry_klass, dir_path):
         # TODO - should we use a lambda for file_entry_klass with dir_path captured?
         self.store = FileStore(fw_klass=file_entry_klass, assets_dir=dir_path)
 
 
-P_IN = t.TypeVar("P_IN")
-P_OUT = t.TypeVar("P_OUT")
+P_IN = TypeVar("P_IN")
+P_OUT = TypeVar("P_OUT")
 
 
-class BaseProcessor(t.Generic[P_IN, P_OUT]):
+class BaseProcessor(Generic[P_IN, P_OUT]):
     """Processor class that handles pipeline operations"""
 
     s: ViewState
@@ -40,7 +40,7 @@ class BaseProcessor(t.Generic[P_IN, P_OUT]):
 
 
 # TODO - type this properly
-class Pipeline(t.Generic[P_IN]):
+class Pipeline(Generic[P_IN]):
     """
     A simple, programmable, eagerly-evaluated, pipeline specialised on ViewAST transformations
     similar to f :: State s => s ViewState x -> s ViewState y
@@ -112,7 +112,7 @@ class Formatting:
 
     bg_color: str = "#FFF"
     accent_color: str = "#4E46E5"
-    font: t.Union[FontChoice, str] = FontChoice.DEFAULT
+    font: FontChoice | str = FontChoice.DEFAULT
     text_alignment: TextAlignment = TextAlignment.LEFT
     width: Width = Width.MEDIUM
     light_prose: bool = False

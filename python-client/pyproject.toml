@@ -18,6 +18,7 @@ dependencies = [
   "multimethod~=1.12",
   "pandas~=2.2.3",
   "pyarrow~=17.0.0",
+  "typing-extensions>=4.12.2",
 ]
 
 [project.urls]

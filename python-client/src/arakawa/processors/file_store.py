@@ -8,9 +8,10 @@ import io
 import tempfile
 from pathlib import Path
 from shutil import copyfileobj
-from typing import IO, BinaryIO, Self
+from typing import IO, BinaryIO
 
 import base64io
+from typing_extensions import Self
 
 from arakawa.common import guess_type
 
