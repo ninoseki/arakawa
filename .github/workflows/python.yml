@@ -1,0 +1,36 @@
+name: Python CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/python.yml"
+      - "python-client/**"
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/python.yml"
+      - "python-client/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.9, "3.10", 3.11, 3.12]
+    defaults:
+      run:
+        working-directory: ./python-client
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: pip install -r requirements.txt
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/uv
+          key: uv-${{ matrix.python-version }}-${{ hashFiles('uv.lock') }}
+      - run: uv sync --frozen --all-extras
+      - run: uv run pytest

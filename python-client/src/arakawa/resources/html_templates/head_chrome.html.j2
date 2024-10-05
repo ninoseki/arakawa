@@ -1,0 +1,17 @@
+<meta charset="UTF-8" />
+
+<link href="https://fonts.googleapis.com/css?family=Inter:400,500,600,700|Inconsolata|Karla|Rubik&display=swap"
+  rel="stylesheet" />
+<link rel="stylesheet" href="{{ cdn_base }}/report/index.css" />
+<link rel="stylesheet" href="{{ cdn_base }}/report/tailwind.css" />
+<script>
+  window.arLocal = true;
+  /* construct the view */
+  const htmlHeader = `<style type="text/css">{{ css_header }}</style>`;
+  window.reportProps = { htmlHeader, isLightProse: {{ is_light_prose }}, mode: "VIEW", reportWidthClass: "{{ report_width_class }}" };
+  window.reportProps["appData"] = { data: { result: {{ app_data }} }};
+</script>
+<script type="module">
+  import { mountReport } from "{{ cdn_base }}/report/index.es.js";
+  mountReport(window.reportProps);
+</script>

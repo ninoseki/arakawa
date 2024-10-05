@@ -1,0 +1,13 @@
+<style>
+  #ar-{{ report_id }} {
+    width: 1px;
+    min-width: 100%;
+  }
+</style>
+<iframe id="ar-{{ report_id }}" srcdoc="{%filter e %}{% include 'ipython_base.html.j2' %}{% endfilter %}"
+  style="border: none">
+</iframe>
+<script type="module">
+  import { iframeResize } from "{{ cdn_base }}/report/index.es.js";
+  iframeResize({ log: true, checkOrigin: false }, "#ar-{{ report_id }}");
+</script>

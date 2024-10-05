@@ -1,0 +1,71 @@
+name: Publish packages & docs
+
+on:
+  release:
+    types: ["created"]
+
+jobs:
+  publish-npm-package:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./web-components
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm install
+      - run: npm run build
+      - run: npm version --no-git-tag-version ${{ github.event.release.tag_name }}
+      - uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+  publish-pypi-package:
+    needs: [publish-npm-package]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./python-client
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+          cache: "pip"
+      - run: pip install -r requirements.txt
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/uv
+          key: uv-3.11-${{ hashFiles('uv.lock') }}
+      - run: uv sync --frozen --all-extras
+      - run: uv run pyproject-build
+      - name: publish
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        run: uv run twine upload dist/*
+  publish-docs:
+    needs: [publish-npm-package, publish-pypi-package]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./public-docs
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+          cache: pip
+      - run: pip install -r requirements.txt
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/uv
+          key: uv-3.11-${{ hashFiles('uv.lock') }}
+      - run: uv sync --frozen --all-extras
+      - name: Reinstall from ../python-client
+        run: uv sync --reinstall-package arakawa
+      - run: AR_VERSION=${{ github.event.release.tag_name }} ./nbbuild.sh
+      - run: uv run mkdocs gh-deploy

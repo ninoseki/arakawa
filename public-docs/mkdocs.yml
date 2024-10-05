@@ -1,0 +1,127 @@
+site_name: Arakawa
+repo_name: ninoseki/arakawa
+repo_url: https://github.com/ninoseki/arakawa/
+edit_uri: "edit/master/docs/docs/"
+
+nav:
+  - Introduction: index.md
+  - Installing Arakawa: installing-arakawa.md
+  - Quickstart: quickstart.ipynb
+  - Blocks and Views:
+      - Overview: "blocks/overview.ipynb"
+      - Display Blocks: "blocks/display-blocks.ipynb"
+      - Layout Blocks: "blocks/layout-blocks.ipynb"
+  - Sharing Reports:
+      - Overview: "reports/overview.ipynb"
+      - Styling: "reports/styling.ipynb"
+  - Resources:
+      - Jupyter Integration: "reports/jupyter-integration.ipynb"
+  - API Reference:
+      - Display Blocks:
+          - Plots: "reference/display-blocks/plots.ipynb"
+          - Tables & Data: "reference/display-blocks/data.ipynb"
+          - Text & HTML: "reference/display-blocks/text.ipynb"
+          - Media & Embeds: "reference/display-blocks/embeds.ipynb"
+      - Layout Blocks:
+          - Groups: "reference/layout-blocks/group.ipynb"
+          - Selects: "reference/layout-blocks/select.ipynb"
+          - Pages: "reference/layout-blocks/page.ipynb"
+          - Toggle: "reference/layout-blocks/toggle.ipynb"
+      - Reports: "reference/reports.md"
+
+  # - Release Notes: releasenotes.md
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - toc.follow
+    - navigation.indexes
+    - content.tabs.link
+    #- toc.integrate
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Inter
+    code: IBM Plex Mono
+
+extra_css:
+  - static/extra.css
+
+plugins:
+  - mknotebooks:
+      enable_default_jupyter_cell_styling: false
+      tag_remove_configs:
+        remove_cell_tags:
+          - remove_cell
+        remove_all_outputs_tags:
+          - remove_all_output
+        remove_single_output_tags:
+          - remove_single_output
+        remove_input_tags:
+          - remove_input
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            show_signature: false
+            show_root_heading: true
+            show_source: false
+            show_root_full_path: false
+            show_root_members_full_path: false
+            show_bases: false
+            merge_init_into_class: yes
+            heading_level: 2
+            docstring_style: google
+            show_if_no_docstring: true
+  - search:
+      lang: en
+  - redirects:
+      redirect_maps:
+        # "tutorials/index.md": "index.ipynb"
+        # "tutorials/basics/create-a-report.md": "features/reports.md"
+        # "tutorials/datapane-cloud/upload-a-report-to-datapane-cloud.md": "deployment/sharing_report.md"
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+      baselevel: 1 # default
+  - meta
+  - admonition
+  - abbr
+  - def_list
+  - footnotes
+  - attr_list
+  - md_in_html
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ninoseki/arakawa/

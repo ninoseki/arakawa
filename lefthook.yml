@@ -1,0 +1,37 @@
+pre-commit:
+  commands:
+    uv-lock:
+      root: "python-client/"
+      glob: "pyproject.toml"
+      run: uv lock
+    uv-sort:
+      root: "python-client/"
+      glob: "pyproject.toml"
+      run: uv run uv-sort
+    ruff:
+      root: "python-client/"
+      glob: "*.py"
+      run: uv run ruff check --fix {staged_files}
+      stage_fixed: true
+    ruff-format:
+      root: "python-client/"
+      glob: "*.py"
+      run: uv run ruff format {staged_files}
+      stage_fixed: true
+    pyupgrade:
+      root: "python-client/"
+      glob: "*.py"
+      run: uv run pyupgrade --py39-plus {staged_files}
+      stage_fixed: true
+    prettier:
+      root: "web-components/"
+      glob: "*.{js,ts,vue}"
+      run: npx prettier --write {staged_files}
+      stage_fixed: true
+    actionlint:
+      glob: ".github/workflows/*.{yml,yaml}"
+      run: actionlint {staged_files}
+    nbclear:
+      root: "public-docs/"
+      glob: "*.ipynb"
+      run: uv run jupyter nbconvert --ClearOutputPreprocessor.enabled=True --ClearMetadataPreprocessor.enabled=True --ClearMetadataPreprocessor.preserve_cell_metadata_mask tags --inplace "${f##*/}" {staged_files}
