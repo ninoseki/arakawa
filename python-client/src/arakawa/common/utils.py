@@ -41,8 +41,8 @@ def guess_type(filename: Path) -> MIME:
     ext = "".join(filename.suffixes)
     if ext in double_ext_map:
         return double_ext_map[ext]
-    mtype: str
     mtype, _ = mimetypes.guess_type(str(filename))
+    assert mtype
     return MIME(mtype or "application/octet-stream")
 
 
@@ -54,7 +54,7 @@ def guess_encoding(fn: str) -> str:
             if detector.done:
                 break
         detector.close()
-    return detector.result["encoding"]
+    return detector.result["encoding"]  # type: ignore
 
 
 def utf_read_text(file: Path) -> str:
@@ -63,7 +63,7 @@ def utf_read_text(file: Path) -> str:
     """
     if ON_WINDOWS:
         f_bytes = file.read_bytes()
-        f_enc: str = chardet.detect(f_bytes)["encoding"]
+        f_enc: str = chardet.detect(f_bytes)["encoding"]  # type: ignore
         # NOTE - can just special case utf-8 files here?
         def_enc = locale.getpreferredencoding()
         log.debug(f"Default encoding is {def_enc}, file encoded as {f_enc}")

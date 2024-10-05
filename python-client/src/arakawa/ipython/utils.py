@@ -2,8 +2,10 @@
 Arakawa helper functions to improve the Arakawa UX in IPython notebooks
 """
 
+from __future__ import annotations
+
 from contextlib import suppress
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 from arakawa.client.utils import display_msg
 
@@ -14,9 +16,7 @@ if TYPE_CHECKING:
     from arakawa.blocks import BaseBlock
 
 
-def output_cell_to_block(
-    cell: dict, ipython_output_cache: dict
-) -> Optional["BaseBlock"]:
+def output_cell_to_block(cell: dict, ipython_output_cache: dict) -> BaseBlock | None:
     """Convert a IPython notebook output cell to An Arakawa Block"""
     from arakawa.blocks import wrap_block
 

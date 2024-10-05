@@ -153,10 +153,9 @@ class BaseExportHTML(BaseProcessor, ABC):
         cls.template = template_env.get_template(cls.template_name)
 
     def get_cdn(self) -> str:
-        from arakawa import __version__
+        from arakawa import settings
 
-        version = __version__.removeprefix("v")
-        return f"https://cdn.jsdelivr.net/npm/arakawa@{version}/dist"
+        return settings.AR_CDN_BASE
 
     def _write_html_template(
         self,

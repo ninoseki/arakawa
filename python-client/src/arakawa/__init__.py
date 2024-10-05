@@ -1,9 +1,8 @@
 # Copyright 2020 StackHut Limited (trading as Datapane)
 # SPDX-License-Identifier: Apache-2.0
 import importlib.metadata
-import os
 
-__version__ = os.environ.get("AR_VERSION", importlib.metadata.version(__name__))
+__version__ = importlib.metadata.version(__name__)
 
 # Public API re-exports
 from .blocks import (  # noqa: F401

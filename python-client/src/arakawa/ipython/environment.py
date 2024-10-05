@@ -1,10 +1,12 @@
+from __future__ import annotations
+
 import io
 import json
 import os
 import sys
 from functools import cached_property
 from pathlib import Path
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 from arakawa.client import log
 
@@ -17,7 +19,7 @@ if TYPE_CHECKING:
 _env = None
 
 
-def get_environment() -> "PythonEnvironment":
+def get_environment() -> PythonEnvironment:
     """Returns the current IPython environment"""
     global _env
     if _env is None:
@@ -26,7 +28,7 @@ def get_environment() -> "PythonEnvironment":
     return _env
 
 
-def _get_ipython() -> Optional["InteractiveShell"]:
+def _get_ipython() -> InteractiveShell | None:
     try:
         return get_ipython()  # type: ignore
     except NameError:
@@ -49,7 +51,7 @@ def get_ipython_user_ns() -> dict:
     return _get_ipython().user_ns  # type: ignore
 
 
-def _get_environment() -> "PythonEnvironment":  # noqa: C901
+def _get_environment() -> PythonEnvironment:  # noqa: C901
     """Determines the current IPython environment and returns an instance of the appropriate class"""
 
     # TODO: change this to be a list, and put the logic in a `.supported()` method
