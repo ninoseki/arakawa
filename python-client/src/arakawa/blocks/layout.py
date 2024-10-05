@@ -2,7 +2,9 @@ from __future__ import annotations
 
 from collections import deque
 from functools import reduce
-from typing import TYPE_CHECKING, Self
+from typing import TYPE_CHECKING
+
+from typing_extensions import Self
 
 from arakawa.client import log
 from arakawa.common.ar_types import StrEnum
