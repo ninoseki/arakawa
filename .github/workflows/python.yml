@@ -7,7 +7,7 @@ on:
       - ".github/workflows/python.yml"
       - "python-client/**"
   pull_request:
-    branches: [master]
+    branches: [main]
     paths:
       - ".github/workflows/python.yml"
       - "python-client/**"
