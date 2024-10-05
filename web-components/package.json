@@ -21,7 +21,7 @@
         "build": "npm run build:base && npm run build:report && npm run build:template-components",
         "dev:report": "NODE_ENV=development vite build --mode development --config base/vite.config.ts && NODE_ENV=development vite build --watch --mode development --config report/vite.config.ts",
         "dev:template-components": "NODE_ENV=development vite build --watch --mode development --config template-components/vite.config.ts",
-        "format": "prettier --write report/ base/",
+        "format": "prettier --write report/ base/ template-components/",
         "prepack": "npm run build",
         "test:unit": "vitest --config ./report/vite.config.ts",
         "type-check": "vue-tsc --noEmit -p tsconfig.json --composite false"
