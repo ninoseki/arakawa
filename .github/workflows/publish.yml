@@ -23,6 +23,7 @@ jobs:
       - run: npm version --no-git-tag-version ${{ github.event.release.tag_name }}
       - uses: JS-DevTools/npm-publish@v3
         with:
+          package: ./web-components
           token: ${{ secrets.NPM_TOKEN }}
   publish-pypi-package:
     needs: [publish-npm-package]
