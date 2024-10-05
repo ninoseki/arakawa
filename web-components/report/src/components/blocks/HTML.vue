@@ -9,20 +9,20 @@ import { v4 as uuid4 } from "uuid";
 import { BlockFigureProps } from "../../data-model/blocks";
 
 const p = defineProps<{
-    html: string;
-    sandbox?: string;
-    figure: BlockFigureProps;
-    singleBlockEmbed?: boolean;
+  html: string;
+  sandbox?: string;
+  figure: BlockFigureProps;
+  singleBlockEmbed?: boolean;
 }>();
 
 const iframeId = `iframe_${uuid4()}`;
 
 const iframeDoc: ComputedRef<string> = computed(() => {
-    /**
-     * Inject some base CSS into the iframe, alongside the JS needed to
-     * make the iframe resizer work
-     */
-    return `
+  /**
+   * Inject some base CSS into the iframe, alongside the JS needed to
+   * make the iframe resizer work
+   */
+  return `
         <!DOCTYPE html>
         <html>
         <body>
@@ -35,18 +35,18 @@ const iframeDoc: ComputedRef<string> = computed(() => {
 });
 
 onMounted(() => {
-    iframeResize({ checkOrigin: false, warningTimeout: 10000 }, `#${iframeId}`);
+  iframeResize({ checkOrigin: false, warningTimeout: 10000 }, `#${iframeId}`);
 });
 </script>
 
 <template>
-    <block-wrapper :figure="p.figure" :single-block-embed="singleBlockEmbed">
-        <iframe
-            :srcdoc="iframeDoc"
-            :sandbox="p.sandbox || ''"
-            :id="iframeId"
-            width="100%"
-            data-cy="block-user-iframe"
-        ></iframe>
-    </block-wrapper>
+  <block-wrapper :figure="p.figure" :single-block-embed="singleBlockEmbed">
+    <iframe
+      :srcdoc="iframeDoc"
+      :sandbox="p.sandbox || ''"
+      :id="iframeId"
+      width="100%"
+      data-cy="block-user-iframe"
+    ></iframe>
+  </block-wrapper>
 </template>

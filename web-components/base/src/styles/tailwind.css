@@ -5,106 +5,106 @@
 /* Add custom overrides below */
 
 h1 {
-    @apply text-2xl;
+  @apply text-2xl;
 }
 h2 {
-    @apply text-xl;
+  @apply text-xl;
 }
 h3 {
-    @apply text-lg;
+  @apply text-lg;
 }
 
 /* Shorthand classes */
 
 .ar-callout {
-    @apply p-2 bg-gray-50;
+  @apply p-2 bg-gray-50;
 }
 
 .ar-link {
-    @apply text-indigo-600 font-semibold hover:text-indigo-700 hover:underline cursor-pointer;
+  @apply text-indigo-600 font-semibold hover:text-indigo-700 hover:underline cursor-pointer;
 }
 
 .ar-btn {
-    @apply ease-in-out font-medium duration-150 border focus:outline-none transition text-sm py-2 px-4 rounded-md inline-flex items-center;
+  @apply ease-in-out font-medium duration-150 border focus:outline-none transition text-sm py-2 px-4 rounded-md inline-flex items-center;
 }
 
 .ar-btn-lg {
-    @apply py-3 px-6 text-base font-medium;
+  @apply py-3 px-6 text-base font-medium;
 }
 
 .ar-btn-primary {
-    @apply bg-indigo-600 focus:border-indigo-700 text-white active:bg-indigo-700 hover:bg-indigo-500 focus:ring ring-opacity-50 ring-indigo-700 border-transparent;
+  @apply bg-indigo-600 focus:border-indigo-700 text-white active:bg-indigo-700 hover:bg-indigo-500 focus:ring ring-opacity-50 ring-indigo-700 border-transparent;
 }
 
 .ar-btn-green {
-    @apply bg-green-600 focus:border-green-600 text-white active:bg-green-700 hover:bg-green-700 focus:ring ring-opacity-50 ring-indigo-700 border-transparent;
+  @apply bg-green-600 focus:border-green-600 text-white active:bg-green-700 hover:bg-green-700 focus:ring ring-opacity-50 ring-indigo-700 border-transparent;
 }
 
 .ar-btn-blue {
-    @apply bg-blue-600 focus:border-blue-700 text-white active:bg-blue-700 hover:bg-blue-700 focus:ring ring-opacity-50 ring-blue-700 border-transparent;
+  @apply bg-blue-600 focus:border-blue-700 text-white active:bg-blue-700 hover:bg-blue-700 focus:ring ring-opacity-50 ring-blue-700 border-transparent;
 }
 
 .ar-btn-danger {
-    @apply focus:ring ring-opacity-50 ring-red-700 hover:bg-red-500 bg-red-600 border-transparent focus:outline-none focus:border-red-700 text-white;
+  @apply focus:ring ring-opacity-50 ring-red-700 hover:bg-red-500 bg-red-600 border-transparent focus:outline-none focus:border-red-700 text-white;
 }
 
 .ar-btn-danger-outline {
-    @apply border-gray-300 text-red-700 bg-white hover:text-red-500 focus:outline-none focus:ring ring-opacity-50 ring-blue-700 focus:border-blue-300 active:text-red-800 active:bg-gray-50 active:text-red-800;
+  @apply border-gray-300 text-red-700 bg-white hover:text-red-500 focus:outline-none focus:ring ring-opacity-50 ring-blue-700 focus:border-blue-300 active:text-red-800 active:bg-gray-50 active:text-red-800;
 }
 
 .ar-btn-info {
-    @apply border-gray-300 text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:ring ring-opacity-50 ring-blue-700 focus:border-blue-300 active:text-gray-800 active:bg-gray-50;
+  @apply border-gray-300 text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:ring ring-opacity-50 ring-blue-700 focus:border-blue-300 active:text-gray-800 active:bg-gray-50;
 }
 
 .ar-btn-dark {
-    @apply border-transparent text-white bg-gray-700 hover:bg-gray-600 hover:text-gray-200 focus:outline-none focus:ring ring-opacity-50 ring-gray-700 focus:border-gray-800;
+  @apply border-transparent text-white bg-gray-700 hover:bg-gray-600 hover:text-gray-200 focus:outline-none focus:ring ring-opacity-50 ring-gray-700 focus:border-gray-800;
 }
 
 .ar-btn-dark-outline {
-    @apply border-transparent text-gray-300 hover:text-white hover:bg-gray-700 focus:text-white focus:bg-gray-700;
+  @apply border-transparent text-gray-300 hover:text-white hover:bg-gray-700 focus:text-white focus:bg-gray-700;
 }
 
 .ar-btn-sm {
-    @apply inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2;
+  @apply inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2;
 }
 
 .ar-btn-github {
-    background-color: #eee;
-    background-image: -webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #fcfcfc),
-        to(#eee)
-    );
-    background-image: linear-gradient(to bottom, #fcfcfc 0, #eee 100%);
-    background-repeat: no-repeat;
-    border: 1px solid #d5d5d5;
-    color: #333;
-    @apply py-1;
+  background-color: #eee;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0, #fcfcfc),
+    to(#eee)
+  );
+  background-image: linear-gradient(to bottom, #fcfcfc 0, #eee 100%);
+  background-repeat: no-repeat;
+  border: 1px solid #d5d5d5;
+  color: #333;
+  @apply py-1;
 }
 
 .ar-btn-github:focus,
 .ar-btn-github:hover {
-    text-decoration: none;
-    background-color: #ddd;
-    background-image: -webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #eee),
-        to(#ddd)
-    );
-    background-image: linear-gradient(to bottom, #eee 0, #ddd 100%);
-    border-color: #ccc;
+  text-decoration: none;
+  background-color: #ddd;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0, #eee),
+    to(#ddd)
+  );
+  background-image: linear-gradient(to bottom, #eee 0, #ddd 100%);
+  border-color: #ccc;
 }
 
 .ar-btn-secondary-gray {
-    @apply text-gray-700 bg-gray-100 hover:bg-gray-200 focus:ring-gray-500;
+  @apply text-gray-700 bg-gray-100 hover:bg-gray-200 focus:ring-gray-500;
 }
 
 .ar-btn-secondary-danger {
-    @apply text-red-700 bg-red-100 hover:bg-red-200 focus:ring-red-500;
+  @apply text-red-700 bg-red-100 hover:bg-red-200 focus:ring-red-500;
 }
 
 /* body {

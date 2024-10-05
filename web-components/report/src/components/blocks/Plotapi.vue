@@ -10,23 +10,23 @@ const iframeId = `iframe_${uuid4()}`;
 
 // Unescape script tags when embedding
 const iframeDoc: ComputedRef<string> = computed(() => {
-    return p.iframeContent.replace(
-        "<body>",
-        `<body><script>${contentWindowJs}<\/script>`,
-    );
+  return p.iframeContent.replace(
+    "<body>",
+    `<body><script>${contentWindowJs}<\/script>`,
+  );
 });
 
 onMounted(() => {
-    iframeResize({ checkOrigin: false, warningTimeout: 10000 }, `#${iframeId}`);
+  iframeResize({ checkOrigin: false, warningTimeout: 10000 }, `#${iframeId}`);
 });
 </script>
 
 <template>
-    <iframe
-        :id="iframeId"
-        :style="{ border: 'none !important' }"
-        :class="['w-full', { 'h-iframe': singleBlockEmbed }]"
-        :srcdoc="iframeDoc"
-        sandbox="allow-scripts"
-    />
+  <iframe
+    :id="iframeId"
+    :style="{ border: 'none !important' }"
+    :class="['w-full', { 'h-iframe': singleBlockEmbed }]"
+    :srcdoc="iframeDoc"
+    sandbox="allow-scripts"
+  />
 </template>

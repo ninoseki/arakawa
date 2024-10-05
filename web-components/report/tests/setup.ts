@@ -10,9 +10,9 @@ const DISPATCH_FRAGMENT = JSON.parse(fragmentJson);
  */
 
 export const restHandlers = [
-    rest.post("/app-rpc-call", (req: any, res: any, ctx: any) => {
-        return res(ctx.status(200), ctx.json(DISPATCH_FRAGMENT));
-    }),
+  rest.post("/app-rpc-call", (req: any, res: any, ctx: any) => {
+    return res(ctx.status(200), ctx.json(DISPATCH_FRAGMENT));
+  }),
 ];
 
 const server = setupServer(...restHandlers);

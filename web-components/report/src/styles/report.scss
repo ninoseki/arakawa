@@ -1,61 +1,61 @@
 @import "vue-multiselect/dist/vue-multiselect.css";
 
 .h-iframe {
-    /*
+  /*
      * 100vh : iframe height
      * 2.5rem : footer height
      */
-    height: calc(100vh - 2.5rem) !important;
+  height: calc(100vh - 2.5rem) !important;
 }
 
 .prose {
-    max-width: 100% !important;
+  max-width: 100% !important;
 }
 
 :root {
-    --fk-max-width-input: none !important;
-    --fk-bg-input: white !important;
+  --fk-max-width-input: none !important;
+  --fk-bg-input: white !important;
 }
 
 /* vue-multiselect overrides */
 
 .multiselect__tag,
 .multiselect__option--highlight {
-    background: var(--ar-accent-color) !important;
+  background: var(--ar-accent-color) !important;
 }
 
 .multiselect__tag-icon:after,
 .multiselect__option--highlight {
-    color: var(--ar-accent-text) !important;
+  color: var(--ar-accent-text) !important;
 }
 
 .multiselect__input[type="text"]:focus {
-    border: 1px solid black !important;
-    box-shadow: none !important;
+  border: 1px solid black !important;
+  box-shadow: none !important;
 }
 
 .multiselect__tags {
-    @apply shadow-sm border-gray-300 rounded-md;
+  @apply shadow-sm border-gray-300 rounded-md;
 }
 
 .multiselect__tag {
-    margin-top: 1px;
+  margin-top: 1px;
 }
 
 input[name="parameter_files"]::file-selector-button {
-    background: var(--ar-accent-color) !important;
-    color: var(--ar-accent-text) !important;
-    @apply rounded-md;
+  background: var(--ar-accent-color) !important;
+  color: var(--ar-accent-text) !important;
+  @apply rounded-md;
 }
 
 /* DataTable */
 
 revo-grid {
-    background-color: white;
+  background-color: white;
 }
 
 /* Formkit */
 
 .formkit-form {
-    width: 100% !important;
+  width: 100% !important;
 }

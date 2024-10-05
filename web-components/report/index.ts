@@ -17,25 +17,25 @@ import("./tailwind");
 customElements.define("x-table-block", defineCustomElement(TableBlock));
 
 const parseElementProps = (elId: string): any => {
-    const propsEl = document.getElementById(elId);
-    if (!propsEl || !propsEl.textContent) {
-        throw new Error("Couldn't find props JSON element");
-    }
-    return JSON.parse(propsEl.textContent);
+  const propsEl = document.getElementById(elId);
+  if (!propsEl || !propsEl.textContent) {
+    throw new Error("Couldn't find props JSON element");
+  }
+  return JSON.parse(propsEl.textContent);
 };
 
 const mountReport = (props: any) => {
-    const app = createApp(Report, props);
-    const pinia = createPinia();
-    app.use(pinia);
-    app.use(formkitPlugin, defaultConfig(formkitConfig));
-    app.mount("#report");
-    return app;
+  const app = createApp(Report, props);
+  const pinia = createPinia();
+  app.use(pinia);
+  app.use(formkitPlugin, defaultConfig(formkitConfig));
+  app.mount("#report");
+  return app;
 };
 
 export {
-    mountReport,
-    parseElementProps,
-    // Export iframeResize for use in ipython embedding
-    iframeResize,
+  mountReport,
+  parseElementProps,
+  // Export iframeResize for use in ipython embedding
+  iframeResize,
 };
