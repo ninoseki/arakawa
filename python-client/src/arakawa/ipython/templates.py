@@ -5,18 +5,20 @@ Conversion templates for IPython notebooks to Arakawa apps.
   Most implementations are currently low-level and will be replaced with higher-level abstractions over time.
 """
 
+from __future__ import annotations
+
 from abc import abstractmethod
-from typing import Callable
+from typing import Callable, Union
 
 import arakawa.blocks as b
 from arakawa.client.utils import display_msg
 from arakawa.ipython.exceptions import BlocksNotFoundError
 
 BlockFilterF = Callable[[b.BaseBlock], bool]
-BlockTypes = tuple[type[b.BaseBlock], ...] | type
+BlockTypes = Union[tuple[type[b.BaseBlock], ...], type]
 BaseElementList = list[b.BaseBlock]
 
-_registry: dict[str, type["IPythonTemplate"]] = {}
+_registry: dict[str, type[IPythonTemplate]] = {}
 
 
 def partition_blocks_by_predicates(
@@ -70,7 +72,7 @@ def filter_blocks_by_types(
     return filtered_blocks
 
 
-def guess_template(blocks: BaseElementList) -> type["IPythonTemplate"]:
+def guess_template(blocks: BaseElementList) -> type[IPythonTemplate]:
     """Guess the template to use based on the blocks provided"""
     app_template: type[IPythonTemplate]
 

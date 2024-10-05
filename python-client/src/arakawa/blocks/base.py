@@ -106,8 +106,8 @@ class DataBlock(BaseBlock):
     """
 
 
-BlockOrPrimitive = Union["BaseBlock", Any]  # TODO - expand
-BlockList = list["BaseBlock"]
+BlockOrPrimitive = Union[BaseBlock, Any]  # TODO - expand
+BlockList = list[BaseBlock]
 
 
 def wrap_block(b: BlockOrPrimitive) -> Block:

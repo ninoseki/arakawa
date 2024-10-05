@@ -1,14 +1,13 @@
 """
 # TODO - optimise import handling here
 """
-
-from __future__ import annotations
+# ruff: noqa: FA100
 
 import json
 import pickle
 from contextlib import suppress
 from io import TextIOWrapper
-from typing import Any
+from typing import Any, Union
 
 import pandas as pd
 from altair.utils import SchemaBase
@@ -72,7 +71,7 @@ class DataTableWriter:
 
 class HTMLTableWriter:
     @multimethod
-    def get_meta(self, x: pd.DataFrame | Styler) -> AssetMeta:
+    def get_meta(self, x: Union[pd.DataFrame, Styler]) -> AssetMeta:
         return AssetMeta(mime="application/vnd.arakawa.table+html", ext=".tbl.html")
 
     @multimethod
@@ -121,11 +120,11 @@ class PlotWriter:
     if opt.HAVE_BOKEH:
 
         @multimethod
-        def get_meta(self, x: opt.BFigure | opt.BLayout) -> AssetMeta:
+        def get_meta(self, x: Union[opt.BFigure, opt.BLayout]) -> AssetMeta:
             return AssetMeta(mime="application/vnd.bokeh.show+json", ext=".bokeh.json")
 
         @multimethod
-        def write_file(self, x: opt.BFigure | opt.BLayout, f):
+        def write_file(self, x: Union[opt.BFigure, opt.BLayout], f):
             from bokeh.embed import json_item
 
             json.dump(json_item(x), DPTextIOWrapper(f))
@@ -143,7 +142,7 @@ class PlotWriter:
     if opt.HAVE_MATPLOTLIB:
 
         @multimethod
-        def get_meta(self, x: opt.Axes | opt.Figure | opt.ndarray) -> AssetMeta:
+        def get_meta(self, x: Union[opt.Axes, opt.Figure, opt.ndarray]) -> AssetMeta:
             return AssetMeta(mime="image/svg+xml", ext=".svg")
 
         @multimethod
