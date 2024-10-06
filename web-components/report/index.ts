@@ -4,6 +4,7 @@ import TableBlock from "./src/components/blocks/Table.ce.vue";
 import { formkitConfig } from "./src/components/controls/formkit";
 import "./src/styles/report.scss";
 import { plugin as formkitPlugin, defaultConfig } from "@formkit/vue";
+import "@fortawesome/fontawesome-free/css/all.css";
 import "highlight.js/styles/stackoverflow-light.css";
 import iframeResize from "iframe-resizer/js/iframeResizer";
 import { createPinia } from "pinia";
