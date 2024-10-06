@@ -39,6 +39,9 @@ build-backend = "hatchling.build"
 [tool.hatch.version]
 source = "uv-dynamic-versioning"
 
+[tool.hatch.build.targets.sdist]
+exclude = ["images/", ".vscode/", "tests/"]
+
 [tool.uv]
 dev-dependencies = [
   "pytest~=8.3.3",
