@@ -12,7 +12,7 @@ def parser():
     return HTMLParser()
 
 
-def test_demo(parser: HTMLParser):
+def test_stringify(parser: HTMLParser):
     report = ar.Report(demo())
     html = report.stringify()
     assert parser.feed(html) is None
