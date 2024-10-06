@@ -33,7 +33,7 @@ wheels = [
 
 [[package]]
 name = "arakawa"
-version = "0.0.0.post14.dev0+130f87a"
+version = "0.0.1a0.post7.dev0+e442341"
 source = { editable = "." }
 dependencies = [
     { name = "altair" },
@@ -63,6 +63,7 @@ plotting = [
 [package.dev-dependencies]
 dev = [
     { name = "build" },
+    { name = "glom" },
     { name = "pytest" },
     { name = "pytest-datadir" },
     { name = "pytest-pretty" },
@@ -100,6 +101,7 @@ requires-dist = [
 [package.metadata.requires-dev]
 dev = [
     { name = "build", specifier = "~=1.2.2" },
+    { name = "glom", specifier = ">=23.5.0" },
     { name = "pytest", specifier = "~=8.3.3" },
     { name = "pytest-datadir", specifier = "~=1.5.0" },
     { name = "pytest-pretty", specifier = "~=1.2.0" },
@@ -169,6 +171,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/c1/a8/4f750e1febe3b8d448794a7b85cd0efd2eb649eb915c990bcdd3650a5f3b/bokeh-3.4.3.tar.gz", hash = "sha256:b7c22fb0f7004b04f12e1b7b26ee0269a26737a08ded848fb58f6a34ec1eb155", size = 6410715 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/65/5d/e96520996607c9b894a4716ddedc447a68351b0a8729f26ac012c8e7041b/bokeh-3.4.3-py3-none-any.whl", hash = "sha256:c6f33817f866fc67fbeb5df79cd13a8bb592c05c591f3fd7f4f22b824f7afa01", size = 7017720 },
+]
+
+[[package]]
+name = "boltons"
+version = "24.0.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/7a/fb/214de4d813f566849956915ff07ee60f2b86424f294525e60e01c460d4d2/boltons-24.0.0.tar.gz", hash = "sha256:7153feccaea1ff2e1472f68d4b57fadb796a2ee49d29f638f1c9cd8fb5ebd916", size = 239550 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/46/35/e50d4a115f93e2a3fbf52438435bb2efcf14c11d4fcd6bdcd77a6fc399c9/boltons-24.0.0-py3-none-any.whl", hash = "sha256:9618695a6ec4f50412e7072e5d78910a00b4111d0b9b549e4a3d60bc321e7807", size = 191661 },
 ]
 
 [[package]]
@@ -570,6 +581,18 @@ wheels = [
 ]
 
 [[package]]
+name = "face"
+version = "20.1.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "boltons" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ae/ab/2b18c4815f3db1e04bce325271fefda55d0893738ea84e3a655218944b03/face-20.1.1.tar.gz", hash = "sha256:7d59ca5ba341316e58cf72c6aff85cca2541cf5056c4af45cb63af9a814bed3e", size = 46077 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/96/09/fce1c8a9b4e921351a7d7fc2a4dda013a336c984db7a4f4f1da833c5c42e/face-20.1.1-py3-none-any.whl", hash = "sha256:ca3a1d8b8b6aa8e61d62a300e9ee24e09c062aceda549e9a640128e4fa0f4559", size = 51091 },
+]
+
+[[package]]
 name = "folium"
 version = "0.17.0"
 source = { registry = "https://pypi.org/simple" }
@@ -630,6 +653,20 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/40/ea/61664ee6a587fe59dd67224d3939a3e253e012bbf19b905b934a8c306cf9/fonttools-4.54.1-cp39-cp39-win32.whl", hash = "sha256:e96bc94c8cda58f577277d4a71f51c8e2129b8b36fd05adece6320dd3d57de8a", size = 2167431 },
     { url = "https://files.pythonhosted.org/packages/3c/87/566f79796150029bfce1c93c10adb1c46017fac2caac3996a0a6f73c96e1/fonttools-4.54.1-cp39-cp39-win_amd64.whl", hash = "sha256:e8a4b261c1ef91e7188a30571be6ad98d1c6d9fa2427244c545e2fa0a2494dd7", size = 2211153 },
     { url = "https://files.pythonhosted.org/packages/57/5e/de2e6e51cb6894f2f2bc2641f6c845561361b622e96df3cca04df77222c9/fonttools-4.54.1-py3-none-any.whl", hash = "sha256:37cddd62d83dc4f72f7c3f3c2bcf2697e89a30efb152079896544a93907733bd", size = 1096920 },
+]
+
+[[package]]
+name = "glom"
+version = "23.5.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "attrs" },
+    { name = "boltons" },
+    { name = "face" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ab/f8/9caa4312149741e7870cdce88c7d6388b0b0d076e4107303ed1417877abf/glom-23.5.0.tar.gz", hash = "sha256:06af5e3486aacc59382ba34e53ebeabd7a9345d78f7dbcbee26f03baa4b83bac", size = 196743 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/46/23/9ee0ae745acb65d655bb11240722f98495dcecf543e9ff3b1d21cccea252/glom-23.5.0-py3-none-any.whl", hash = "sha256:fe4e9be4dc93c11a99f8277042e4bee95419c02cda4b969f504508b0a1aa6a66", size = 102741 },
 ]
 
 [[package]]
