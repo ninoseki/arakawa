@@ -70,4 +70,4 @@ jobs:
       - name: Reinstall from ../python-client
         run: uv sync --reinstall-package arakawa
       - run: AR_VERSION=${{ github.event.release.tag_name }} ./nbbuild.sh
-      - run: uv run mkdocs gh-deploy
+      - run: uv run mkdocs gh-deploy --force
