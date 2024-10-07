@@ -4,12 +4,8 @@ Arakawa built-in helper functions to make creating your reports a bit simpler an
 
 from __future__ import annotations
 
-import random
 from pathlib import Path
 from typing import cast
-
-import altair as alt
-import pandas as pd
 
 from . import Blocks
 from . import blocks as b
@@ -70,21 +66,3 @@ def build_md_view(
 
     group = b_text.format(*args, **kwargs)
     return Blocks(group)
-
-
-def gen_df(dim: int = 4) -> pd.DataFrame:
-    """Return a test simple df"""
-    axis = list(range(0, dim))
-    data = {"x": axis, "y": axis}
-    return pd.DataFrame.from_dict(data)
-
-
-def gen_table_df(rows: int = 4, alphabet: str = "ABCDEF") -> pd.DataFrame:
-    """Return a test complex df for adding to a DataTable"""
-    data = [{x: random.randint(0, 1000) for x in alphabet} for _ in range(0, rows)]
-    return pd.DataFrame.from_records(data)
-
-
-def gen_plot() -> alt.Chart:
-    """Generate a sample Altair plot"""
-    return alt.Chart(gen_df()).mark_line().encode(x="x", y="y")

@@ -3,7 +3,8 @@
 from glom import glom
 
 import arakawa as ar
-from tests.builtins import add_code, build_md_view, demo, gen_df
+from arakawa.builtins import add_code, build_md_view
+from tests.builtins import demo, gen_df
 
 from .test_views import assert_view, element_to_str, md_block
 
