@@ -4,7 +4,6 @@ import io
 import json
 import os
 import sys
-from functools import cached_property
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -243,13 +242,10 @@ class CodespacesJupyterLabEnvironment(JupyterLabEnvironment):
 
 class PapermillEnvironment(IPythonZMQEnvironment):
     name = "Papermill Environment"
+    support_rich_display = False
 
     def _get_notebook_path(self) -> Path:
         user_ns = get_ipython_user_ns()
         if path := user_ns.get("PAPERMILL_OUTPUT_PATH", None):
             return Path(path)
         return super()._get_notebook_path()
-
-    @cached_property
-    def support_rich_display(self) -> bool:  # type: ignore[override]
-        return get_ipython_user_ns().get("DP_SERVER_RUNNER", False)
