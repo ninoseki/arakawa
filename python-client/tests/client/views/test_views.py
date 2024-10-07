@@ -14,12 +14,12 @@ from lxml.etree import DocumentInvalid
 
 import arakawa as ar
 from arakawa.blocks import BaseBlock
-from arakawa.builtins import gen_df, gen_plot
 from arakawa.common.viewxml_utils import load_doc, validate_view_doc
 from arakawa.exceptions import ARError
 from arakawa.processors import ConvertXML, Pipeline, PreProcessView, ViewState
 from arakawa.processors.file_store import B64FileEntry
 from arakawa.processors.types import mk_null_pipe
+from tests.builtins import gen_df, gen_plot
 
 # Helpers
 md_block_id = ar.Text(

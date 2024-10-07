@@ -52,7 +52,7 @@ const open = ref<boolean>(openInitial);
         <div class="mt-3 sm:mt-0 sm:text-left">
           <div class="flex items-center">
             <h3 class="text-lg leading-6 font-medium text-gray-900 pb-1">
-              <slot name="title" />
+              <slot name="title"></slot>
             </h3>
           </div>
         </div>
@@ -69,7 +69,7 @@ const open = ref<boolean>(openInitial);
             <button
               @click="open = false"
               type="button"
-              class="ar-btn dp-btn-info mr-3"
+              class="ar-btn ar-btn-info mr-3"
             >
               Close
             </button>
