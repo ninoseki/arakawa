@@ -22,6 +22,7 @@
         "dev:report": "NODE_ENV=development vite build --mode development --config base/vite.config.ts && NODE_ENV=development vite build --watch --mode development --config report/vite.config.ts",
         "dev:template-components": "NODE_ENV=development vite build --watch --mode development --config template-components/vite.config.ts",
         "format": "prettier --write report/ base/ template-components/",
+        "lint": "eslint . --fix",
         "prepack": "npm run build",
         "test:unit": "vitest --config ./report/vite.config.ts",
         "type-check": "vue-tsc --noEmit -p tsconfig.json --composite false"
@@ -76,13 +77,12 @@
         "xml-js": "^1.6.11"
     },
     "devDependencies": {
-        "@babel/core": "^7.25.7",
+        "@eslint/js": "^9.12.0",
         "@mdx-js/react": "^3.0.1",
         "@rollup/plugin-replace": "^6.0.1",
         "@tailwindcss/aspect-ratio": "^0.4.2",
         "@tailwindcss/forms": "^0.5.9",
         "@tailwindcss/typography": "^0.5.15",
-        "@trivago/prettier-plugin-sort-imports": "^4.3.0",
         "@types/chroma-js": "^2.4.4",
         "@types/debounce": "^1.2.4",
         "@types/downloadjs": "^1.4.6",
@@ -95,14 +95,15 @@
         "@types/ramda": "^0.30.2",
         "@types/sanitize-html": "^2.13.0",
         "@types/uuid": "^10.0.0",
-        "@typescript-eslint/eslint-plugin": "^8.8.0",
-        "@typescript-eslint/parser": "^8.8.0",
         "@vitejs/plugin-vue": "^5.1.4",
+        "@vitest/eslint-plugin": "^1.1.7",
+        "@vue/eslint-config-prettier": "^10.0.0",
+        "@vue/eslint-config-typescript": "^14.0.1",
         "autoprefixer": "^10.4.20",
-        "babel-loader": "^9.2.1",
         "core-js": "^3.38.1",
         "esbuild": "^0.24.0",
         "eslint": "^9.12.0",
+        "eslint-plugin-simple-import-sort": "^12.1.1",
         "http-server": "^14.1.1",
         "jsdom": "^25.0.1",
         "msw": "^1.3.4",
@@ -115,7 +116,6 @@
         "typescript": "^5.6.2",
         "vite": "^5.4.8",
         "vitest": "^2.1.2",
-        "vue-loader": "^17.4.2",
         "vue-tsc": "^2.1.6"
     }
 }
