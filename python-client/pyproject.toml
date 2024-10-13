@@ -61,6 +61,7 @@ dev-dependencies = [
 
 [tool.ruff.lint]
 select = [
+  "ARG", # flake8-unused-arguments
   "B",   # flake8-bugbear
   "C",   # flake8-comprehensions
   "E",   # pycodestyle errors
@@ -68,10 +69,11 @@ select = [
   "FA",  # flake8-future-annotations
   "I",   # isort
   "N",   # pep8-naming
+  "PT",  # flake8-pytest-style
   "RET", # flake8-return
   "RUF", # Ruff-specific rules
   "SIM", # flake8-simplify
   "T20", # flake8-print
   "W",   # pycodestyle warnings
 ]
-ignore = ["E501", "F811"]
+ignore = ["E501", "F811", "PT012"]

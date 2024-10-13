@@ -1,4 +1,3 @@
-import unittest
 from datetime import timedelta
 
 import numpy as np
@@ -89,7 +88,7 @@ def test_to_df_timedelta():
 
 def test_to_df_2_dim_numpy_array():
     out_df = to_df(np.array([[2, 3], [4, 5]]))
-    unittest.TestCase().assertListEqual(out_df.columns.tolist(), [0, 1])
+    assert out_df.columns.tolist() == [0, 1]
     assert out_df.shape == (2, 2)
 
 
@@ -112,6 +111,4 @@ def test_to_df_structured_array():
             dtype=[("name", "U10"), ("age", "i4"), ("weight", "f4")],
         )
     )
-    unittest.TestCase().assertListEqual(
-        out_df.columns.tolist(), ["name", "age", "weight"]
-    )
+    assert out_df.columns.tolist() == ["name", "age", "weight"]

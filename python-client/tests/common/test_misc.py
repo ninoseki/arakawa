@@ -4,7 +4,7 @@ from arakawa.common.utils import should_compress_mime_type_for_upload
 
 
 @pytest.mark.parametrize(
-    "mime_type, value",
+    ("mime_type", "value"),
     [
         # Some common types:
         # - Should compress:
