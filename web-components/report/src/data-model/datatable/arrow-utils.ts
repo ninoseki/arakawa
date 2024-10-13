@@ -1,11 +1,11 @@
-import { DatasetResponse } from "../blocks";
-import { Coerce } from "./Coerce";
-import { DataType, Precision, Type, tableFromIPC } from "apache-arrow";
+import { DatasetResponse } from '../blocks'
+import { Coerce } from './Coerce'
+import { DataType, Precision, Type, tableFromIPC } from 'apache-arrow'
 
 export type FormattedNsSchemaField = {
-  name: string;
-  type: string;
-};
+  name: string
+  type: string
+}
 
 const dataTypeToString = (typ: any): string => {
   // As for the most part we don't actually use the type
@@ -14,86 +14,86 @@ const dataTypeToString = (typ: any): string => {
   // (the type guards also have an issue with ts >= 3.4)
   switch (typ.typeId) {
     case Type.Null: {
-      return "null";
+      return 'null'
     }
     case Type.Int: {
-      return "integer";
+      return 'integer'
     }
     case Type.Float: {
       if (typ.precision === Precision.DOUBLE) {
-        return "double";
+        return 'double'
       }
-      return "float";
+      return 'float'
     }
     case Type.Binary:
     case Type.FixedSizeBinary: {
-      return "binary";
+      return 'binary'
     }
     case Type.Utf8: {
-      return "string";
+      return 'string'
     }
     case Type.Bool: {
-      return "boolean";
+      return 'boolean'
     }
     case Type.Decimal: {
-      return "decimal";
+      return 'decimal'
     }
     case Type.Date: {
-      return "date";
+      return 'date'
     }
     case Type.Time: {
-      return "time";
+      return 'time'
     }
     case Type.Timestamp: {
-      return "timestamp";
+      return 'timestamp'
     }
     case Type.Interval: {
-      return "interval";
+      return 'interval'
     }
     case Type.List:
     case Type.FixedSizeList: {
-      const subtype = dataTypeToString(typ.children[0].type);
-      return `[${subtype}]`;
+      const subtype = dataTypeToString(typ.children[0].type)
+      return `[${subtype}]`
     }
     case Type.Struct: {
-      return "struct";
+      return 'struct'
     }
     case Type.Union: {
       return typ.children
         .map((i: any) => dataTypeToString(i.type))
-        .filter((i: any) => i !== "null")
-        .join(" or ");
+        .filter((i: any) => i !== 'null')
+        .join(' or ')
     }
     case Type.Map: {
-      return "map";
+      return 'map'
     }
     case Type.Dictionary: {
       if (DataType.isUtf8(typ.valueType)) {
-        return "category";
+        return 'category'
       } else {
-        return dataTypeToString(typ.valueType);
+        return dataTypeToString(typ.valueType)
       }
     }
     default: {
-      return typ.toString();
+      return typ.toString()
     }
   }
-};
+}
 
 const extractArrowSchema = (sch: any): FormattedNsSchemaField[] => {
   return sch.fields.map((fld: any) => ({
     name: fld.name,
     type: dataTypeToString(fld.type),
-  }));
-};
+  }))
+}
 
 export const apiResponseToArrow = (r: any): DatasetResponse => {
-  const d: any[] = [];
-  const table: any = tableFromIPC(r);
-  const coerce = new Coerce(table.schema.fields);
+  const d: any[] = []
+  const table: any = tableFromIPC(r)
+  const coerce = new Coerce(table.schema.fields)
 
   for (const row of table) {
-    d.push(coerce.coerceRow(row));
+    d.push(coerce.coerceRow(row))
   }
 
   return {
@@ -103,5 +103,5 @@ export const apiResponseToArrow = (r: any): DatasetResponse => {
     containsBigInt: table.schema.fields.some(
       (f: any) => f.type.bitWidth && f.type.bitWidth >= 64,
     ),
-  };
-};
+  }
+}

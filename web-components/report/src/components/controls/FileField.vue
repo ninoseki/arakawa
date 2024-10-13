@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { CloudArrowUpIcon } from "@heroicons/vue/24/outline";
-import { computed, ComputedRef, ref } from "vue";
+import { CloudArrowUpIcon } from '@heroicons/vue/24/outline'
+import { computed, ComputedRef, ref } from 'vue'
 
-const emit = defineEmits(["change"]);
+const emit = defineEmits(['change'])
 
 const p = defineProps<{
-  name: string;
-  label?: string;
-  required?: boolean;
-}>();
+  name: string
+  label?: string
+  required?: boolean
+}>()
 
 const validation: ComputedRef = computed(() =>
-  p.required ? [["+required"]] : [],
-);
+  p.required ? [['+required']] : [],
+)
 
-const hasFile = ref(false);
+const hasFile = ref(false)
 
 const file2b64 = (file: File): Promise<string | null> =>
   /**
@@ -22,39 +22,39 @@ const file2b64 = (file: File): Promise<string | null> =>
    * can be stored as a JSON parameter
    */
   new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
     reader.onload = () => {
-      if (typeof reader.result !== "string") {
-        throw new Error(`File type not string (${reader.result})`);
+      if (typeof reader.result !== 'string') {
+        throw new Error(`File type not string (${reader.result})`)
       }
-      const [, b64String] = reader.result.split("base64,");
-      resolve(b64String);
-    };
-    reader.onerror = (error) => reject(error);
-  });
+      const [, b64String] = reader.result.split('base64,')
+      resolve(b64String)
+    }
+    reader.onerror = error => reject(error)
+  })
 
 const setupListeners = (node: any) => {
   /**
    * Emit parameter change when file input changes
    */
-  node.on("input", async () => {
+  node.on('input', async () => {
     if (node._value.length) {
-      emit("change", {
+      emit('change', {
         name: p.name,
         value: await file2b64(node._value[0].file),
-      });
+      })
 
-      hasFile.value = true;
+      hasFile.value = true
     } else {
-      emit("change", { name: p.name, value: undefined });
+      emit('change', { name: p.name, value: undefined })
 
-      hasFile.value = false;
+      hasFile.value = false
     }
-  });
-};
+  })
+}
 
-const id = `file_${p.name}`;
+const id = `file_${p.name}`
 </script>
 
 <template>

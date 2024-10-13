@@ -1,5 +1,5 @@
-import { DataType } from "apache-arrow";
-import * as R from "ramda";
+import { DataType } from 'apache-arrow'
+import * as R from 'ramda'
 
 /*
 This class handled converting some of the more complex Arrow types into something we
@@ -19,44 +19,44 @@ will match it's own field and process it, and drop through to the next composed 
 the modified row along to it, until it ends up at the Pick function that returns the (now) modified object.
 */
 export class Coerce {
-  private fieldNames: string[] = [];
-  public coerceRow = (row: any) => R.pick(this.fieldNames, row);
+  private fieldNames: string[] = []
+  public coerceRow = (row: any) => R.pick(this.fieldNames, row)
 
   public constructor(schemaFields: any[]) {
     for (const field of schemaFields) {
       if (DataType.isTimestamp(field)) {
-        this.composeTimestampField(field);
+        this.composeTimestampField(field)
       } else if (DataType.isInt(field)) {
-        this.composeIntField(field);
+        this.composeIntField(field)
       } else if (DataType.isFloat(field)) {
-        this.composeFloatField(field);
+        this.composeFloatField(field)
       }
 
-      this.fieldNames.push(field.name);
+      this.fieldNames.push(field.name)
     }
   }
 
   private composeIntField(field: any) {
     if (field.type.bitWidth >= 64) {
-      this.coerceRow = R.compose((row) => row, this.coerceRow);
+      this.coerceRow = R.compose(row => row, this.coerceRow)
     }
   }
 
   private composeFloatField(field: any) {
     this.coerceRow = R.compose((row: any) => {
-      const val = row[field.name];
+      const val = row[field.name]
       if (val) {
-        row[field.name] = parseFloat(val);
+        row[field.name] = parseFloat(val)
       }
-      return row;
-    }, this.coerceRow);
+      return row
+    }, this.coerceRow)
   }
 
   private composeTimestampField(field: any) {
     if (
       // only handle UTC or local timetamps
       field.type.timezone === null ||
-      field.type.timezone === "UTC"
+      field.type.timezone === 'UTC'
     ) {
       // It seems that our version of the arrow library
       // coerceRows all timestamp to millisecond resolution with
@@ -68,12 +68,12 @@ export class Coerce {
       // against 'TimeUnit', we can simply always pass the value to
       // 'new Date()'...
       this.coerceRow = R.compose((row: any) => {
-        const val = row[field.name];
+        const val = row[field.name]
         if (val) {
-          row[field.name] = new Date(val).toISOString();
+          row[field.name] = new Date(val).toISOString()
         }
-        return row;
-      }, this.coerceRow);
+        return row
+      }, this.coerceRow)
     }
   }
 }

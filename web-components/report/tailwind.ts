@@ -1,3 +1,3 @@
-import "../base/src/styles/tailwind.css";
+import '../base/src/styles/tailwind.css'
 
-export {};
+export {}

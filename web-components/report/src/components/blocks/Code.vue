@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import { ARClipboard } from "../../../../shared/ARClipboard";
-import hljsVuePlugin from "@highlightjs/vue-plugin";
-import "highlight.js/lib/common";
-import { onUnmounted, onMounted, ref, computed } from "vue";
+import { ARClipboard } from '../../../../shared/ARClipboard'
+import hljsVuePlugin from '@highlightjs/vue-plugin'
+import 'highlight.js/lib/common'
+import { onUnmounted, onMounted, ref, computed } from 'vue'
 
-const highlightjs = hljsVuePlugin.component;
+const highlightjs = hljsVuePlugin.component
 
-const p = defineProps<{ language: string; code: string }>();
+const p = defineProps<{ language: string; code: string }>()
 
-const clip = ref<ARClipboard>();
-const copyBtn = ref<HTMLButtonElement | null>(null);
-const code = computed(() => p.code.trim());
+const clip = ref<ARClipboard>()
+const copyBtn = ref<HTMLButtonElement | null>(null)
+const code = computed(() => p.code.trim())
 
 onMounted(() => {
   if (copyBtn.value) {
     clip.value = new ARClipboard(copyBtn.value, {
       text: code.value,
-    });
+    })
   }
-});
+})
 
 onUnmounted(() => {
-  clip.value?.destroy();
-});
+  clip.value?.destroy()
+})
 </script>
 
 <template>

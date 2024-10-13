@@ -2,17 +2,17 @@
 /**
  * Centres block and adds caption below if necessary
  */
-import { BlockFigureProps } from "../../data-model/blocks";
-import { toRefs } from "vue";
+import { BlockFigureProps } from '../../data-model/blocks'
+import { toRefs } from 'vue'
 
 const p = defineProps<{
-  figure: BlockFigureProps;
-  singleBlockEmbed?: boolean;
-  showOverflow?: boolean;
-}>();
+  figure: BlockFigureProps
+  singleBlockEmbed?: boolean
+  showOverflow?: boolean
+}>()
 
-const { caption, count, captionType } = toRefs(p.figure);
-const singleBlockEmbed = false;
+const { caption, count, captionType } = toRefs(p.figure)
+const singleBlockEmbed = false
 </script>
 
 <template>

@@ -1,23 +1,23 @@
 <script setup lang="ts">
 const p = defineProps<{
-  html: string;
-  singleBlockEmbed?: boolean;
-  class: string;
-}>();
+  html: string
+  singleBlockEmbed?: boolean
+  class: string
+}>()
 
-const { arLocal } = window;
+const { arLocal } = window
 
 const tableRef = (node: any): void => {
   /**
    * Remove legacy "border" attribute set by pandas
    */
   if (node !== null) {
-    const tbl: HTMLTableElement | null = node.querySelector(".dataframe");
+    const tbl: HTMLTableElement | null = node.querySelector('.dataframe')
     if (tbl) {
-      tbl.removeAttribute("border");
+      tbl.removeAttribute('border')
     }
   }
-};
+}
 </script>
 
 <template>

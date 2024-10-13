@@ -1,66 +1,66 @@
 <script setup lang="ts">
-import { v4 as uuid4 } from "uuid";
-import vegaEmbed, { Result } from "vega-embed";
-import { onUnmounted, onMounted, ref } from "vue";
+import { v4 as uuid4 } from 'uuid'
+import vegaEmbed, { Result } from 'vega-embed'
+import { onUnmounted, onMounted, ref } from 'vue'
 
 const p = defineProps<{
-  plotJson: any;
-  responsive: boolean;
-  singleBlockEmbed?: boolean;
-}>();
-const divId = `vega_${uuid4()}`;
+  plotJson: any
+  responsive: boolean
+  singleBlockEmbed?: boolean
+}>()
+const divId = `vega_${uuid4()}`
 
 // Vega view object to be stored for cleanup on unmount
-const vegaView = ref<Result | undefined>();
+const vegaView = ref<Result | undefined>()
 
 const makeResponsive = (json: any) => {
   /**
    * make the plot respond to the dimensions of its container
    * if the responsive property is set
    */
-  json.width = "container";
+  json.width = 'container'
   if (p.singleBlockEmbed) {
-    json.height = "container";
+    json.height = 'container'
   }
-};
+}
 
 const adjustHeightFromBindings = () => {
   /**
    * Prevent the vega-bindings element from being cut off in single block embed mode
    */
-  const plotEl: HTMLElement | null = document.getElementById(divId);
+  const plotEl: HTMLElement | null = document.getElementById(divId)
   const bindingEl: HTMLElement | null =
-    plotEl && plotEl.querySelector<HTMLElement>(".vega-bindings");
-  const canvasEl: HTMLElement | null = plotEl && plotEl.querySelector("canvas");
+    plotEl && plotEl.querySelector<HTMLElement>('.vega-bindings')
+  const canvasEl: HTMLElement | null = plotEl && plotEl.querySelector('canvas')
   if (canvasEl && bindingEl) {
     canvasEl.style.height = `${
       canvasEl.offsetHeight - bindingEl.offsetHeight
-    }px`;
+    }px`
   }
-};
+}
 
 const addPlotToDom = async () => {
   /**
    * mount a Vega plot to the block element
    */
   try {
-    p.responsive && makeResponsive(p.plotJson);
+    p.responsive && makeResponsive(p.plotJson)
     const view = await vegaEmbed(`#${divId}`, p.plotJson, {
-      mode: "vega-lite",
+      mode: 'vega-lite',
       actions: false, // disable the altair action menu
-    });
-    vegaView.value = view;
-    p.singleBlockEmbed && adjustHeightFromBindings();
+    })
+    vegaView.value = view
+    p.singleBlockEmbed && adjustHeightFromBindings()
   } catch (e) {
-    console.error("An error occurred while rendering an Altair chart: ", e);
+    console.error('An error occurred while rendering an Altair chart: ', e)
   }
-};
+}
 
 onMounted(() => {
-  addPlotToDom();
-});
+  addPlotToDom()
+})
 
-onUnmounted(() => void vegaView.value?.finalize());
+onUnmounted(() => void vegaView.value?.finalize())
 </script>
 
 <template>

@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import { BlockFigureProps } from "../../data-model/blocks";
-import { useRootStore } from "../../data-model/root-store";
-import BlockWrapper from "../layout/BlockWrapper.vue";
-import { storeToRefs } from "pinia";
-import { ref, defineAsyncComponent } from "vue";
+import { BlockFigureProps } from '../../data-model/blocks'
+import { useRootStore } from '../../data-model/root-store'
+import BlockWrapper from '../layout/BlockWrapper.vue'
+import { storeToRefs } from 'pinia'
+import { ref, defineAsyncComponent } from 'vue'
 
-const VegaBlock = defineAsyncComponent(() => import("./Vega.vue"));
+const VegaBlock = defineAsyncComponent(() => import('./Vega.vue'))
 
-const rootStore = useRootStore();
-const { singleBlockEmbed } = storeToRefs(rootStore);
+const rootStore = useRootStore()
+const { singleBlockEmbed } = storeToRefs(rootStore)
 
 const p = defineProps<{
-  fetchAssetData: any;
-  responsive: boolean;
-  figure: BlockFigureProps;
-  singleBlockEmbed?: boolean;
-}>();
-const plotJson = ref<any>(null);
+  fetchAssetData: any
+  responsive: boolean
+  figure: BlockFigureProps
+  singleBlockEmbed?: boolean
+}>()
+const plotJson = ref<any>(null)
 
-(async () => {
-  plotJson.value = await p.fetchAssetData();
-})();
+;(async () => {
+  plotJson.value = await p.fetchAssetData()
+})()
 </script>
 
 <template>

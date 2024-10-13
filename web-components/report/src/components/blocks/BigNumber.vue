@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { BlockFigureProps } from "../../data-model/blocks";
-import BlockWrapper from "../layout/BlockWrapper.vue";
-import BigNumberArrow from "./BigNumberArrow.vue";
+import { BlockFigureProps } from '../../data-model/blocks'
+import BlockWrapper from '../layout/BlockWrapper.vue'
+import BigNumberArrow from './BigNumberArrow.vue'
 
 const p = defineProps<{
-  heading: string;
-  value: string;
-  isPositiveIntent: boolean;
-  isUpwardChange: boolean;
-  figure: BlockFigureProps;
-  singleBlockEmbed?: boolean;
-  prevValue?: string;
-  change?: string;
-}>();
+  heading: string
+  value: string
+  isPositiveIntent: boolean
+  isUpwardChange: boolean
+  figure: BlockFigureProps
+  singleBlockEmbed?: boolean
+  prevValue?: string
+  change?: string
+}>()
 </script>
 
 <template>

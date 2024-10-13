@@ -1,37 +1,37 @@
 <script setup lang="ts">
-import { serializeSlotJson } from "./template-utils";
-import { ref } from "vue";
+import { serializeSlotJson } from './template-utils'
+import { ref } from 'vue'
 
-type Choices = { value: string; text: string }[];
+type Choices = { value: string; text: string }[]
 
 const p = defineProps<{
-  searchPlaceholder: string;
-}>();
+  searchPlaceholder: string
+}>()
 
 const loadChoicesJson = (node: any) => {
-  choices.value = serializeSlotJson<Choices>(node);
-};
+  choices.value = serializeSlotJson<Choices>(node)
+}
 
 const getUrlParams = (name: string): string[] => {
-  const params = [];
+  const params = []
   for (const [k, v] of new URLSearchParams(location.search)) {
-    name === k && params.push(v ? decodeURIComponent(v) : "");
+    name === k && params.push(v ? decodeURIComponent(v) : '')
   }
-  return params;
-};
+  return params
+}
 
 const getUrlParam = (name: string): string => {
-  const params = getUrlParams(name);
-  return params.length > 0 ? params[0] : "";
-};
+  const params = getUrlParams(name)
+  return params.length > 0 ? params[0] : ''
+}
 
-const ownedByMe = ref<boolean>(getUrlParam("owned_by_me") === "on");
-const project = ref<string>(getUrlParam("project"));
-const name = ref<string>(getUrlParam("name"));
-const showFilter = ref<boolean>(!!project.value || ownedByMe.value || false);
-const choices = ref<Choices>();
+const ownedByMe = ref<boolean>(getUrlParam('owned_by_me') === 'on')
+const project = ref<string>(getUrlParam('project'))
+const name = ref<string>(getUrlParam('name'))
+const showFilter = ref<boolean>(!!project.value || ownedByMe.value || false)
+const choices = ref<Choices>()
 
-const toggleFilter = () => (showFilter.value = !showFilter.value);
+const toggleFilter = () => (showFilter.value = !showFilter.value)
 </script>
 
 <template>

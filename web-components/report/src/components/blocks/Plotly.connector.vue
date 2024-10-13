@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { BlockFigureProps } from "../../data-model/blocks";
-import BlockWrapper from "../layout/BlockWrapper.vue";
-import { ref, defineAsyncComponent } from "vue";
+import { BlockFigureProps } from '../../data-model/blocks'
+import BlockWrapper from '../layout/BlockWrapper.vue'
+import { ref, defineAsyncComponent } from 'vue'
 
-const PlotlyBlock = defineAsyncComponent(() => import("./Plotly.vue"));
+const PlotlyBlock = defineAsyncComponent(() => import('./Plotly.vue'))
 
 const p = defineProps<{
-  fetchAssetData: any;
-  responsive: boolean;
-  figure: BlockFigureProps;
-  singleBlockEmbed?: boolean;
-}>();
+  fetchAssetData: any
+  responsive: boolean
+  figure: BlockFigureProps
+  singleBlockEmbed?: boolean
+}>()
 
-const plotJson = ref<any>(null);
+const plotJson = ref<any>(null)
 
-(async () => {
-  plotJson.value = await p.fetchAssetData();
-})();
+;(async () => {
+  plotJson.value = await p.fetchAssetData()
+})()
 </script>
 
 <template>

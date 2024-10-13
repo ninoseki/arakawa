@@ -110,7 +110,7 @@ select {
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
   text-indent: 1px !important;
-  text-overflow: "" !important;
+  text-overflow: '' !important;
 }
 
 .h-extension-public {
@@ -136,7 +136,7 @@ select {
     @apply block text-sm font-medium text-gray-700 mb-2;
   }
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     @apply focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded;
   }
 

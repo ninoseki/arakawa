@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { BlockFigureProps } from "../../data-model/blocks";
-import BlockWrapper from "../layout/BlockWrapper.vue";
-import CodeBlock from "./Code.vue";
+import { BlockFigureProps } from '../../data-model/blocks'
+import BlockWrapper from '../layout/BlockWrapper.vue'
+import CodeBlock from './Code.vue'
 
 const p = defineProps<{
-  code: string;
-  language: string;
-  figure: BlockFigureProps;
-  singleBlockEmbed?: boolean;
-}>();
-const childProps = { code: p.code, language: p.language };
+  code: string
+  language: string
+  figure: BlockFigureProps
+  singleBlockEmbed?: boolean
+}>()
+const childProps = { code: p.code, language: p.language }
 </script>
 
 <template>

@@ -1,45 +1,45 @@
 <script setup lang="ts">
-import { Block, View } from "../data-model/blocks";
-import { useRootStore } from "../data-model/root-store";
-import { ReportProps } from "../data-model/types";
-import NavBar from "./layout/NavBar.vue";
-import { storeToRefs } from "pinia";
-import { computed, ComputedRef } from "vue";
+import { Block, View } from '../data-model/blocks'
+import { useRootStore } from '../data-model/root-store'
+import { ReportProps } from '../data-model/types'
+import NavBar from './layout/NavBar.vue'
+import { storeToRefs } from 'pinia'
+import { computed, ComputedRef } from 'vue'
 
 // Vue can't use a ts interface as props
 // see https://github.com/vuejs/core/issues/4294
 const p = defineProps<{
-  isOrg: ReportProps["isOrg"];
-  reportWidthClass: ReportProps["reportWidthClass"];
-  mode: ReportProps["mode"];
-  htmlHeader?: ReportProps["htmlHeader"];
-  resetApp: () => void;
-  report: View;
-}>();
+  isOrg: ReportProps['isOrg']
+  reportWidthClass: ReportProps['reportWidthClass']
+  mode: ReportProps['mode']
+  htmlHeader?: ReportProps['htmlHeader']
+  resetApp: () => void
+  report: View
+}>()
 
-const rootStore = useRootStore();
-const { singleBlockEmbed } = storeToRefs(rootStore);
+const rootStore = useRootStore()
+const { singleBlockEmbed } = storeToRefs(rootStore)
 
 /* Set up deserialised report object */
 
-const { children, tabNumber, hasPages } = storeToRefs(p.report.store);
+const { children, tabNumber, hasPages } = storeToRefs(p.report.store)
 
 const pages: ComputedRef<Block[]> = computed(() =>
   hasPages.value ? children.value[0].children : [],
-);
+)
 
 const pageLabels: ComputedRef<string[]> = computed(() =>
   pages.value.map((pa: Block, i: number) => pa.label || `Page ${i + 1}`),
-);
+)
 
 const currentPage: ComputedRef<Block[]> = computed(() =>
   hasPages.value ? [pages.value[tabNumber.value]] : children.value,
-);
+)
 
 const handlePageChange = (newPageNumber: number) =>
-  p.report!.store.setTab(newPageNumber);
+  p.report!.store.setTab(newPageNumber)
 
-const { isIPythonEmbed } = window;
+const { isIPythonEmbed } = window
 </script>
 
 <template>

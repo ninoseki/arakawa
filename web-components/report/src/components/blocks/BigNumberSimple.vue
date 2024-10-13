@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { BlockFigureProps } from "../../data-model/blocks";
-import BlockWrapper from "../layout/BlockWrapper.vue";
+import { BlockFigureProps } from '../../data-model/blocks'
+import BlockWrapper from '../layout/BlockWrapper.vue'
 
 const p = defineProps<{
-  heading: string;
-  value: string;
-  figure: BlockFigureProps;
-}>();
+  heading: string
+  value: string
+  figure: BlockFigureProps
+}>()
 </script>
 
 <template>

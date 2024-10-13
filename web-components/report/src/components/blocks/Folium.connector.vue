@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { BlockFigureProps } from "../../data-model/blocks";
-import BlockWrapper from "../layout/BlockWrapper.vue";
-import Folium from "./Folium.vue";
-import { ref } from "vue";
+import { BlockFigureProps } from '../../data-model/blocks'
+import BlockWrapper from '../layout/BlockWrapper.vue'
+import Folium from './Folium.vue'
+import { ref } from 'vue'
 
 const p = defineProps<{
-  fetchAssetData: any;
-  figure: BlockFigureProps;
-  singleBlockEmbed?: boolean;
-}>();
-const iframeContent = ref<string | null>(null);
+  fetchAssetData: any
+  figure: BlockFigureProps
+  singleBlockEmbed?: boolean
+}>()
+const iframeContent = ref<string | null>(null)
 
-(async () => {
-  iframeContent.value = await p.fetchAssetData();
-})();
+;(async () => {
+  iframeContent.value = await p.fetchAssetData()
+})()
 </script>
 
 <template>

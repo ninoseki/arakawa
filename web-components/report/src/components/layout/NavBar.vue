@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { ReportProps } from "../../data-model/types";
-import { ChevronDownIcon } from "@heroicons/vue/20/solid";
-import { AdjustmentsHorizontalIcon } from "@heroicons/vue/24/outline";
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { ReportProps } from '../../data-model/types'
+import { ChevronDownIcon } from '@heroicons/vue/20/solid'
+import { AdjustmentsHorizontalIcon } from '@heroicons/vue/24/outline'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 const p = defineProps<{
-  labels: string[];
-  pageNumber: number;
-  reportWidthClass: ReportProps["reportWidthClass"];
-  resetApp: () => void;
-}>();
-const emit = defineEmits(["page-change"]);
+  labels: string[]
+  pageNumber: number
+  reportWidthClass: ReportProps['reportWidthClass']
+  resetApp: () => void
+}>()
+const emit = defineEmits(['page-change'])
 
-const showDropdown = ref(false);
-const showPagesDropdown = ref(false);
-const dropdownBtnEl = ref<HTMLElement>();
+const showDropdown = ref(false)
+const showPagesDropdown = ref(false)
+const dropdownBtnEl = ref<HTMLElement>()
 
 const hideDropdownOnClickAway = (e: MouseEvent) => {
   if (
@@ -22,25 +22,25 @@ const hideDropdownOnClickAway = (e: MouseEvent) => {
     dropdownBtnEl.value &&
     !dropdownBtnEl.value.contains(e.target)
   ) {
-    showDropdown.value = false;
+    showDropdown.value = false
   }
-};
+}
 
 onMounted(() => {
-  document.addEventListener("click", hideDropdownOnClickAway);
-});
+  document.addEventListener('click', hideDropdownOnClickAway)
+})
 
 onUnmounted(() => {
-  document.removeEventListener("click", hideDropdownOnClickAway);
-});
+  document.removeEventListener('click', hideDropdownOnClickAway)
+})
 
-const showWidgets = !window.arLocal;
+const showWidgets = !window.arLocal
 
-const alwaysShowPagesDropdown = computed(() => p.labels.length > 6);
+const alwaysShowPagesDropdown = computed(() => p.labels.length > 6)
 
 const dropdownMenuLinks = [
-  { label: "Documentation", href: "https://ninoseki.github.io/arakawa/" },
-];
+  { label: 'Documentation', href: 'https://ninoseki.github.io/arakawa/' },
+]
 </script>
 
 <template>

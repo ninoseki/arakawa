@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { Section } from "./shared";
-import { ref } from "vue";
+import { Section } from './shared'
+import { ref } from 'vue'
 
 const p = defineProps<{
-  name: string;
-  sections: Section[];
-  orientation?: "left" | "right";
-}>();
+  name: string
+  sections: Section[]
+  orientation?: 'left' | 'right'
+}>()
 
-const open = ref(false);
+const open = ref(false)
 
-const toggleOpen = () => void (open.value = !open.value);
-const closeWithDelay = () => void setTimeout(() => (open.value = false), 200);
+const toggleOpen = () => void (open.value = !open.value)
+const closeWithDelay = () => void setTimeout(() => (open.value = false), 200)
 </script>
 
 <template>

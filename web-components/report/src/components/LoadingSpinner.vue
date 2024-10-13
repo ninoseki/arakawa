@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const p = defineProps<{ large?: boolean }>();
+const p = defineProps<{ large?: boolean }>()
 </script>
 
 <template>

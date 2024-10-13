@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { BlockFigureProps } from "../../data-model/blocks";
-import BlockWrapper from "../layout/BlockWrapper.vue";
-import { ref, defineAsyncComponent } from "vue";
+import { BlockFigureProps } from '../../data-model/blocks'
+import BlockWrapper from '../layout/BlockWrapper.vue'
+import { ref, defineAsyncComponent } from 'vue'
 
-const BokehBlock = defineAsyncComponent(() => import("./Bokeh.vue"));
+const BokehBlock = defineAsyncComponent(() => import('./Bokeh.vue'))
 
 const p = defineProps<{
-  fetchAssetData: any;
-  responsive: boolean;
-  figure: BlockFigureProps;
-  singleBlockEmbed?: boolean;
-}>();
-const plotJson = ref<any>(null);
+  fetchAssetData: any
+  responsive: boolean
+  figure: BlockFigureProps
+  singleBlockEmbed?: boolean
+}>()
+const plotJson = ref<any>(null)
 
-(async () => {
-  plotJson.value = await p.fetchAssetData();
-})();
+;(async () => {
+  plotJson.value = await p.fetchAssetData()
+})()
 </script>
 
 <template>

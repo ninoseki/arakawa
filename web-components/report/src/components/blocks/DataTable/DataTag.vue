@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { formatNumber } from "./shared";
+import { formatNumber } from './shared'
 
 const p = defineProps<{
-  value: string | number;
-  unit: string;
-  icon?: string;
-}>();
+  value: string | number
+  unit: string
+  icon?: string
+}>()
 </script>
 
 <template>
@@ -17,7 +17,7 @@ const p = defineProps<{
     </div>
     <div>
       <span>{{ formatNumber(+p.value) }}</span>
-      <span className="hidden lg:inline">{{ " " }}{{ p.unit }}</span>
+      <span className="hidden lg:inline">{{ ' ' }}{{ p.unit }}</span>
     </div>
   </div>
 </template>

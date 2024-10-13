@@ -1,41 +1,41 @@
 <script setup lang="ts">
-import { useRootStore } from "../../data-model/root-store";
-import { VAlign } from "../../data-model/types";
-import { storeToRefs } from "pinia";
-import { computed, ComputedRef } from "vue";
+import { useRootStore } from '../../data-model/root-store'
+import { VAlign } from '../../data-model/types'
+import { storeToRefs } from 'pinia'
+import { computed, ComputedRef } from 'vue'
 
 const p = defineProps<{
-  columns: number;
-  widths?: number[];
-  store: any;
-  valign?: VAlign;
-}>();
+  columns: number
+  widths?: number[]
+  store: any
+  valign?: VAlign
+}>()
 
-const rootStore = useRootStore();
-const { singleBlockEmbed } = storeToRefs(rootStore);
-const { children } = storeToRefs(p.store);
+const rootStore = useRootStore()
+const { singleBlockEmbed } = storeToRefs(rootStore)
+const { children } = storeToRefs(p.store)
 
 const alignItems: ComputedRef<string> = computed(() => {
   switch (p.valign) {
     default:
     case VAlign.TOP:
-      return "start";
+      return 'start'
     case VAlign.CENTER:
-      return "center";
+      return 'center'
     case VAlign.BOTTOM:
-      return "end";
+      return 'end'
   }
-});
+})
 
 const gridTemplateColumns: ComputedRef<string | undefined> = computed(() => {
   if (p.columns === 0) {
-    return;
+    return
   }
 
   return p.widths
-    ? p.widths.map((w) => `${w}fr`).join(" ")
-    : `repeat(${p.columns}, minmax(0, 1fr))`;
-});
+    ? p.widths.map(w => `${w}fr`).join(' ')
+    : `repeat(${p.columns}, minmax(0, 1fr))`
+})
 </script>
 
 <template>
