@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { BlockFigureProps } from '../../data-model/blocks'
-import BlockWrapper from '../layout/BlockWrapper.vue'
 import hljs from 'highlight.js'
 import { Marked } from 'marked'
 import { markedHighlight } from 'marked-highlight'
 import { computed } from 'vue'
+
+import { BlockFigureProps } from '../../data-model/blocks'
+import BlockWrapper from '../layout/BlockWrapper.vue'
 
 const marked = new Marked(
   markedHighlight({

@@ -1,6 +1,7 @@
+import { DataType, Precision, tableFromIPC, Type } from 'apache-arrow'
+
 import { DatasetResponse } from '../blocks'
 import { Coerce } from './Coerce'
-import { DataType, Precision, Type, tableFromIPC } from 'apache-arrow'
 
 export type FormattedNsSchemaField = {
   name: string

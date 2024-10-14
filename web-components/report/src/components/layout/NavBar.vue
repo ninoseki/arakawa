@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ReportProps } from '../../data-model/types'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import { AdjustmentsHorizontalIcon } from '@heroicons/vue/24/outline'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
+
+import { ReportProps } from '../../data-model/types'
 
 const p = defineProps<{
   labels: string[]

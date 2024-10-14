@@ -1,14 +1,16 @@
 import '../base/src/styles/base.scss'
-import Report from './src/components/ReportContainer.vue'
-import TableBlock from './src/components/blocks/Table.ce.vue'
-import { formkitConfig } from './src/components/controls/formkit'
 import './src/styles/report.scss'
-import { plugin as formkitPlugin, defaultConfig } from '@formkit/vue'
 import '@fortawesome/fontawesome-free/css/all.css'
 import 'highlight.js/styles/stackoverflow-light.css'
+
+import { defaultConfig, plugin as formkitPlugin } from '@formkit/vue'
 import iframeResize from 'iframe-resizer/js/iframeResizer'
 import { createPinia } from 'pinia'
 import { createApp, defineCustomElement } from 'vue'
+
+import TableBlock from './src/components/blocks/Table.ce.vue'
+import { formkitConfig } from './src/components/controls/formkit'
+import Report from './src/components/ReportContainer.vue'
 
 // Async load `tailwind.css` so that it can be split into own file by rollup
 import('./tailwind')
@@ -33,8 +35,8 @@ const mountReport = (props: any) => {
 }
 
 export {
-  mountReport,
-  parseElementProps,
   // Export iframeResize for use in ipython embedding
   iframeResize,
+  mountReport,
+  parseElementProps,
 }

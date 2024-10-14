@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Section } from './shared'
 import { ref } from 'vue'
+
+import { Section } from './shared'
 
 const p = defineProps<{
   name: string

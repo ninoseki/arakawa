@@ -1,7 +1,8 @@
-import fragmentJson from './fixtures/fragment.json?raw'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import { afterAll, afterEach, beforeAll } from 'vitest'
+
+import fragmentJson from './fixtures/fragment.json?raw'
 
 const DISPATCH_FRAGMENT = JSON.parse(fragmentJson)
 

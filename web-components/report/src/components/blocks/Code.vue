@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { ARClipboard } from '../../../../shared/ARClipboard'
-import hljsVuePlugin from '@highlightjs/vue-plugin'
 import 'highlight.js/lib/common'
-import { onUnmounted, onMounted, ref, computed } from 'vue'
+
+import hljsVuePlugin from '@highlightjs/vue-plugin'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
+
+import { ARClipboard } from '../../../../shared/ARClipboard'
 
 const highlightjs = hljsVuePlugin.component
 

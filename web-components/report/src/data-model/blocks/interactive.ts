@@ -1,3 +1,7 @@
+import he from 'he'
+import moment from 'moment'
+import { markRaw } from 'vue'
+
 import VDateTimeField from '../../components/controls/DateTimeField.vue'
 import VFileField from '../../components/controls/FileField.vue'
 import VMultiChoiceField from '../../components/controls/MultiChoiceField.vue'
@@ -8,9 +12,6 @@ import VSwitchField from '../../components/controls/SwitchField.vue'
 import VTagsField from '../../components/controls/TagsField.vue'
 import VTextBox from '../../components/controls/TextBox.vue'
 import { Block, BlockFigure, Elem } from './leaf-blocks'
-import he from 'he'
-import moment from 'moment'
-import { markRaw } from 'vue'
 
 const parseJsonProp = (json: string): Record<string, unknown> | string[] =>
   /**

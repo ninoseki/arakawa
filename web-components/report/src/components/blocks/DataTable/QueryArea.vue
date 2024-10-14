@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import ArButton from '../../../shared/ARButton.vue'
 import { sql } from '@codemirror/lang-sql'
 import { Extension } from '@codemirror/state'
 import { EditorView } from '@codemirror/view'
 import { basicSetup } from 'codemirror'
 import { onMounted, ref } from 'vue'
+
+import ArButton from '../../../shared/ARButton.vue'
 
 const p = defineProps<{
   initialQuery: string
@@ -22,7 +23,7 @@ function editorFromTextArea(
   textarea: HTMLTextAreaElement,
   extensions?: Extension,
 ) {
-  let view = new EditorView({ doc: textarea.value, extensions })
+  const view = new EditorView({ doc: textarea.value, extensions })
   textarea.parentNode!.insertBefore(view.dom, textarea)
   textarea.style.display = 'none'
   if (textarea.form)

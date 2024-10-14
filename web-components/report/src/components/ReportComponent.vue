@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+import { computed, ComputedRef } from 'vue'
+
 import { Block, View } from '../data-model/blocks'
 import { useRootStore } from '../data-model/root-store'
 import { ReportProps } from '../data-model/types'
 import NavBar from './layout/NavBar.vue'
-import { storeToRefs } from 'pinia'
-import { computed, ComputedRef } from 'vue'
 
 // Vue can't use a ts interface as props
 // see https://github.com/vuejs/core/issues/4294

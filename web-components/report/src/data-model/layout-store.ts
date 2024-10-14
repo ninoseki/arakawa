@@ -1,9 +1,10 @@
-import { Block, Group, isLayoutBlock, PageLayout, Select } from './blocks/index'
-import { useRootStore } from './root-store'
-import { SwapType } from './types'
 import { defineStore } from 'pinia'
 import { v4 as uuid4 } from 'uuid'
 import { computed, reactive, ref } from 'vue'
+
+import { Block, Group, isLayoutBlock, PageLayout, Select } from './blocks/index'
+import { useRootStore } from './root-store'
+import { SwapType } from './types'
 
 const cleanParam = (v: string) => {
   if ((typeof v === 'string' || Array.isArray(v)) && !v.length) {

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-/* eslint-disable no-useless-escape */
-import { BlockFigureProps } from '../../data-model/blocks'
-import userIframeCss from '../../styles/user-iframe.css?inline'
-import BlockWrapper from '../layout/BlockWrapper.vue'
 import iframeResize from 'iframe-resizer/js/iframeResizer'
 import contentWindowJs from 'iframe-resizer/js/iframeResizer.contentWindow.js?raw'
 import { v4 as uuid4 } from 'uuid'
 import { computed, ComputedRef, onMounted } from 'vue'
+
+import { BlockFigureProps } from '../../data-model/blocks'
+import userIframeCss from '../../styles/user-iframe.css?inline'
+import BlockWrapper from '../layout/BlockWrapper.vue'
 
 const p = defineProps<{
   html: string

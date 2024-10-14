@@ -4,13 +4,14 @@
  * Also possible to pass the individual store properties from the data model class via `Compute.componentProps`,
  * but this would remove re-rendering on `store.children` change.
  */
+import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
+
 import { BlockFigureProps } from '../../data-model/blocks'
 import { TriggerType } from '../../data-model/types'
 import { parseError } from '../../shared/shared'
 import BlockWrapper from '../layout/BlockWrapper.vue'
 import ComputeBlock from './Compute.vue'
-import { storeToRefs } from 'pinia'
-import { ref } from 'vue'
 
 const p = defineProps<{
   store: any

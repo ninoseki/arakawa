@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
 import Plotly from 'plotly.js-dist-min'
 import { v4 as uuid4 } from 'uuid'
+import { onMounted } from 'vue'
 
 const p = defineProps<{
   plotJson: any

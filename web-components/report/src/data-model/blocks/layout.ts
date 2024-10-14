@@ -1,3 +1,5 @@
+import { markRaw } from 'vue'
+
 import VCompute from '../../components/controls/Compute.connector.vue'
 import VGroup from '../../components/layout/Group.vue'
 import VSelect from '../../components/layout/SelectBlock.vue'
@@ -8,7 +10,6 @@ import { SwapType } from '../types'
 import * as b from './index'
 import { ControlsField } from './interactive'
 import { Block, BlockFigure } from './leaf-blocks'
-import { markRaw } from 'vue'
 
 export abstract class ParentBlock<T extends Block = Block> extends Block {
   /**

@@ -1,3 +1,8 @@
+import axios, { AxiosResponse } from 'axios'
+import download from 'downloadjs'
+import urljoin from 'url-join'
+import { markRaw } from 'vue'
+
 import VDataTableBlock from '../../components/blocks/DataTable/DataTable.connector.vue'
 import env from '../../environment'
 import {
@@ -7,10 +12,6 @@ import {
   Elem,
   ExportType,
 } from '../blocks/index'
-import axios, { AxiosResponse } from 'axios'
-import download from 'downloadjs'
-import urljoin from 'url-join'
-import { markRaw } from 'vue'
 
 const addQueryParam = (url: string, qp: { k: string; v: string }): string => {
   /**
@@ -28,7 +29,7 @@ const filenameFromResponse = (response: Response): string => {
    * Creates a filename from file response header
    */
   const FALLBACK_NAME = 'ar-export.csv'
-  // eslint-disable-next-line
+
   const FILENAME_ATTR = 'filename="'
   const contentDisposition = response.headers.get('Content-Disposition')
 
@@ -37,7 +38,7 @@ const filenameFromResponse = (response: Response): string => {
   }
 
   // We use string split to extract the filename from header as FF doesn't support positive lookahead regexp
-  // eslint-disable-next-line
+
   return contentDisposition.split(FILENAME_ATTR)[1].split('"')[0]
 }
 

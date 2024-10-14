@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+import sanitizeHtml from 'sanitize-html'
+import { computed, onMounted, ref } from 'vue'
+
 import { isView } from '../data-model/blocks'
 import { useRootStore } from '../data-model/root-store'
 import { AppData, AppMetaData, ReportProps } from '../data-model/types'
@@ -7,9 +11,6 @@ import { setTheme } from '../theme'
 import ErrorCallout from './ErrorCallout.vue'
 import LoadingSpinner from './LoadingSpinner.vue'
 import ReportComponent from './ReportComponent.vue'
-import { storeToRefs } from 'pinia'
-import sanitizeHtml from 'sanitize-html'
-import { computed, onMounted, ref } from 'vue'
 
 const p = defineProps<{
   isOrg: ReportProps['isOrg']

@@ -54,14 +54,15 @@ const DISTINCT_CATEGORIES_LIMIT = 8 // TODO - what is the real categories limit?
 </script>
 
 <script setup lang="ts">
-import { computed, ref, ComputedRef } from 'vue'
-import { formatNumber } from './shared'
-import { ExportType } from '../../../data-model/blocks'
-import TableHeader from './Header.vue'
-import ArButton from '../../../shared/ARButton.vue'
-import QueryArea from './QueryArea.vue'
-import alasql from 'alasql'
 import VGrid from '@revolist/vue3-datagrid'
+import alasql from 'alasql'
+import { computed, ComputedRef, ref } from 'vue'
+
+import { ExportType } from '../../../data-model/blocks'
+import ArButton from '../../../shared/ARButton.vue'
+import TableHeader from './Header.vue'
+import QueryArea from './QueryArea.vue'
+import { formatNumber } from './shared'
 
 const p = defineProps<{
   singleBlockEmbed?: boolean

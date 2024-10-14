@@ -1,3 +1,8 @@
+import axios from 'axios'
+import { saveAs } from 'file-saver'
+import { v4 as uuid4 } from 'uuid'
+import { markRaw } from 'vue'
+
 import VBigNumberBlock from '../../components/blocks/BigNumber.vue'
 import VBigNumberBlockSimple from '../../components/blocks/BigNumberSimple.vue'
 import VBokehBlock from '../../components/blocks/Bokeh.connector.vue'
@@ -15,10 +20,6 @@ import VTableBlock from '../../components/blocks/Table.connector.vue'
 import VTextBlock from '../../components/blocks/Text.vue'
 import VVegaBlock from '../../components/blocks/Vega.connector.vue'
 import { useRootStore } from '../root-store'
-import axios from 'axios'
-import { saveAs } from 'file-saver'
-import { v4 as uuid4 } from 'uuid'
-import { markRaw } from 'vue'
 
 // Represents a serialized JSON element prior to becoming a Page/Group/Select/Block
 export type Elem = {

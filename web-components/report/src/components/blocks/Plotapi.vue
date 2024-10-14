@@ -1,5 +1,4 @@
 <script setup lang="ts">
-/* eslint-disable no-useless-escape */
 import iframeResize from 'iframe-resizer/js/iframeResizer'
 import contentWindowJs from 'iframe-resizer/js/iframeResizer.contentWindow.js?raw'
 import { v4 as uuid4 } from 'uuid'

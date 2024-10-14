@@ -1,6 +1,7 @@
-import MultiSelectBase from './MultiSelectBase.vue'
 import { generateClasses } from '@formkit/themes'
 import { createInput } from '@formkit/vue'
+
+import MultiSelectBase from './MultiSelectBase.vue'
 
 // Create some re-useable definitions because
 // many input types are identical in how

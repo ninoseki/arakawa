@@ -2,8 +2,9 @@
 /**
  * Centres block and adds caption below if necessary
  */
-import { BlockFigureProps } from '../../data-model/blocks'
 import { toRefs } from 'vue'
+
+import { BlockFigureProps } from '../../data-model/blocks'
 
 const p = defineProps<{
   figure: BlockFigureProps
