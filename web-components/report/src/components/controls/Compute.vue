@@ -1,72 +1,73 @@
 <script setup lang="ts">
-import { ControlsField } from "../../data-model/blocks";
-import { TriggerType } from "../../data-model/types";
-import ErrorCallout from "../ErrorCallout.vue";
-import LoadingSpinner from "../LoadingSpinner.vue";
-import { getNode } from "@formkit/core";
-import { v4 as uuid4 } from "uuid";
-import { onMounted, onUnmounted, ref } from "vue";
+import { getNode } from '@formkit/core'
+import { v4 as uuid4 } from 'uuid'
+import { onMounted, onUnmounted, ref } from 'vue'
+
+import { ControlsField } from '../../data-model/blocks'
+import { TriggerType } from '../../data-model/types'
+import ErrorCallout from '../ErrorCallout.vue'
+import LoadingSpinner from '../LoadingSpinner.vue'
 
 const p = defineProps<{
-  onChange: (v: { name: string; value: any }) => void;
-  update: () => void;
-  children: ControlsField[];
-  prompt: string;
-  label: string;
-  functionId: string;
-  trigger: TriggerType;
-  loading: boolean;
-  timer?: number;
-  subtitle?: string;
-  error?: string;
-  immediate?: boolean;
-}>();
+  onChange: (v: { name: string; value: any }) => void
+  update: () => void
+  children: ControlsField[]
+  prompt: string
+  label: string
+  functionId: string
+  trigger: TriggerType
+  loading: boolean
+  timer?: number
+  subtitle?: string
+  error?: string
+  immediate?: boolean
+}>()
 
 // Disable function runs for local reports
-const functionRunDisabled = window.arLocal;
+const functionRunDisabled = window.arLocal
 
-const scheduleInterval = ref<ReturnType<typeof setInterval> | null>(null);
-const formId = uuid4();
+const scheduleInterval = ref<ReturnType<typeof setInterval> | null>(null)
+const formId = uuid4()
 
 // Don't show the block if it has no children and isn't triggered on submit
-const isVisible = p.trigger === TriggerType.SUBMIT || p.children.length;
+const isVisible = p.trigger === TriggerType.SUBMIT || p.children.length
 
 const updateIfValid = () => {
-  const node = getNode(formId);
+  const node = getNode(formId)
   if (node?.context?.state.valid || !isVisible) {
-    p.update();
+    p.update()
   }
-};
+}
 
 const setAutomaticFunctionUpdates = () => {
   /**
    * Set schedule and on-mount updates
    */
   if (functionRunDisabled) {
-    return;
+    return
   }
 
   if (p.trigger === TriggerType.SCHEDULE && p.timer) {
-    scheduleInterval.value = setInterval(updateIfValid, p.timer * 1000);
+    scheduleInterval.value = setInterval(updateIfValid, p.timer * 1000)
   } else if (p.trigger === TriggerType.MOUNT) {
-    p.update();
+    p.update()
   }
 
   // Run schedule if `immediate=True`
   if (p.trigger === TriggerType.SCHEDULE && p.immediate) {
-    p.update();
+    p.update()
   }
-};
+}
 
 onMounted(() => {
-  setAutomaticFunctionUpdates();
-});
+  setAutomaticFunctionUpdates()
+})
 
 onUnmounted(() => {
   if (scheduleInterval.value) {
-    clearInterval(scheduleInterval.value);
+    clearInterval(scheduleInterval.value)
   }
-});
+})
 </script>
 
 <template>

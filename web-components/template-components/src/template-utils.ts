@@ -1,10 +1,10 @@
 type VisibilityOptions = {
-  initialOpen?: boolean;
-  callback?: (isVisible: boolean) => void;
-};
+  initialOpen?: boolean
+  callback?: (isVisible: boolean) => void
+}
 
 export const onLoad = (f: EventListenerOrEventListenerObject) =>
-  window.addEventListener("DOMContentLoaded", f);
+  window.addEventListener('DOMContentLoaded', f)
 
 export const toggleVisibility = (
   elementSelector: string,
@@ -17,33 +17,33 @@ export const toggleVisibility = (
    * toggleVisibilitySelectors: A list of element selectors that toggle the visibility of the element when clicked
    */
   onLoad(() => {
-    const elementToToggle = document.querySelector(elementSelector);
+    const elementToToggle = document.querySelector(elementSelector)
 
     if (!elementToToggle) {
-      throw new Error(`Can't find element to toggle: ${elementSelector}`);
+      throw new Error(`Can't find element to toggle: ${elementSelector}`)
     }
 
     if (options.initialOpen) {
-      elementToToggle.classList.remove("ar-invisible");
+      elementToToggle.classList.remove('ar-invisible')
     }
 
     for (const selector of toggleVisibilitySelectors) {
-      const clickToggleElement = document.querySelector(selector);
+      const clickToggleElement = document.querySelector(selector)
 
       if (!clickToggleElement) {
-        throw new Error(`Can't find clickable element: ${selector}`);
+        throw new Error(`Can't find clickable element: ${selector}`)
       }
 
-      clickToggleElement.addEventListener("click", () => {
-        elementToToggle.classList.toggle("ar-invisible");
+      clickToggleElement.addEventListener('click', () => {
+        elementToToggle.classList.toggle('ar-invisible')
         if (options.callback) {
-          options.callback(!elementToToggle.classList.contains("ar-invisible"));
+          options.callback(!elementToToggle.classList.contains('ar-invisible'))
         }
-      });
+      })
     }
-  });
+  })
 
-export const serializeSlotJson = <T = Record<any, any>>(
+export const serializeSlotJson = <T = Record<string, unknown>>(
   slot: HTMLSlotElement,
 ): T => {
   /**
@@ -51,11 +51,12 @@ export const serializeSlotJson = <T = Record<any, any>>(
    * JSON data into web components while keeping the scope of the JSON object within the web component
    */
   try {
-    const slotContent = slot.assignedNodes()[0] as Element;
+    const slotContent = slot.assignedNodes()[0] as Element
     return JSON.parse(
-      slotContent.querySelector("script[type='application/json']").textContent,
-    );
+      slotContent.querySelector("script[type='application/json']")
+        ?.textContent || '',
+    )
   } catch (e) {
-    throw new Error(`Couldn't serialize slot content: ${e}`);
+    throw new Error(`Couldn't serialize slot content: ${e}`)
   }
-};
+}

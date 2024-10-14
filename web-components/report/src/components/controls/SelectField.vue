@@ -1,17 +1,17 @@
 <script setup lang="ts">
-const emit = defineEmits(["change"]);
+const emit = defineEmits(['change'])
 
 const p = defineProps<{
-  name: string;
-  options: string[];
-  initial?: string;
-  label?: string;
-  required?: boolean;
-}>();
+  name: string
+  options: string[]
+  initial?: string
+  label?: string
+  required?: boolean
+}>()
 
 const onChange = (value: string) => {
-  emit("change", { name: p.name, value });
-};
+  emit('change', { name: p.name, value })
+}
 </script>
 
 <template>

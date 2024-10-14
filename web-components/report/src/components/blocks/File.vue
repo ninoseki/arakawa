@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { BlockFigureProps } from "../../data-model/blocks";
-import ArButton from "../../shared/ARButton.vue";
-import BlockWrapper from "../layout/BlockWrapper.vue";
+import { BlockFigureProps } from '../../data-model/blocks'
+import ArButton from '../../shared/ARButton.vue'
+import BlockWrapper from '../layout/BlockWrapper.vue'
 
 const p = defineProps<{
-  downloadFile: () => Promise<void>;
-  filename: string;
-  figure: BlockFigureProps;
-  singleBlockEmbed?: boolean;
-}>();
+  downloadFile: () => Promise<void>
+  filename: string
+  figure: BlockFigureProps
+  singleBlockEmbed?: boolean
+}>()
 </script>
 
 <template>

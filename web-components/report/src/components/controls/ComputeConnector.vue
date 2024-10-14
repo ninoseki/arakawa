@@ -4,46 +4,47 @@
  * Also possible to pass the individual store properties from the data model class via `Compute.componentProps`,
  * but this would remove re-rendering on `store.children` change.
  */
-import { BlockFigureProps } from "../../data-model/blocks";
-import { TriggerType } from "../../data-model/types";
-import { parseError } from "../../shared/shared";
-import BlockWrapper from "../layout/BlockWrapper.vue";
-import ComputeBlock from "./Compute.vue";
-import { storeToRefs } from "pinia";
-import { ref } from "vue";
+import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
+
+import { BlockFigureProps } from '../../data-model/blocks'
+import { TriggerType } from '../../data-model/types'
+import { parseError } from '../../shared/shared'
+import BlockWrapper from '../layout/BlockWrapper.vue'
+import ComputeBlock from './Compute.vue'
 
 const p = defineProps<{
-  store: any;
-  prompt: string;
-  label: string;
-  functionId: string;
-  trigger: TriggerType;
-  figure: BlockFigureProps;
-  timer?: number;
-  subtitle?: string;
-  immediate?: boolean;
-}>();
+  store: any
+  prompt: string
+  label: string
+  functionId: string
+  trigger: TriggerType
+  figure: BlockFigureProps
+  timer?: number
+  subtitle?: string
+  immediate?: boolean
+}>()
 
-const { children } = storeToRefs(p.store);
-const error = ref<string | undefined>();
-const loading = ref<boolean>(false);
+const { children } = storeToRefs(p.store)
+const error = ref<string | undefined>()
+const loading = ref<boolean>(false)
 
 const onChange = (v: any) => {
-  p.store.setField(v.name, v.value);
-};
+  p.store.setField(v.name, v.value)
+}
 
 const update = async () => {
   try {
-    error.value = undefined;
-    loading.value = true;
-    await p.store.update(p.functionId);
+    error.value = undefined
+    loading.value = true
+    await p.store.update(p.functionId)
   } catch (e) {
-    error.value = parseError(e);
-    console.error(e);
+    error.value = parseError(e)
+    console.error(e)
   } finally {
-    loading.value = false;
+    loading.value = false
   }
-};
+}
 </script>
 
 <template>

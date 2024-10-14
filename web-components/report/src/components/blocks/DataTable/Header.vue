@@ -1,72 +1,72 @@
 <script setup lang="ts">
-import { ARClipboard } from "../../../../../shared/ARClipboard";
-import { ExportType } from "../../../data-model/blocks";
-import ArButton from "../../../shared/ARButton.vue";
-import ArDropdown from "../../../shared/ARDropdown.vue";
-import { Section } from "../../../shared/shared";
-import DataTag from "./DataTag.vue";
+import { ARClipboard } from '../../../../../shared/ARClipboard'
+import { ExportType } from '../../../data-model/blocks'
+import ArButton from '../../../shared/ARButton.vue'
+import ArDropdown from '../../../shared/ARDropdown.vue'
+import { Section } from '../../../shared/shared'
+import DataTag from './DataTag.vue'
 
 const p = defineProps<{
-  previewMode: boolean;
-  queryOpen: boolean;
-  rows: number;
-  columns: number;
-  cells: number;
-  getCsvText: () => Promise<string>;
-  downloadLocal: (type: ExportType) => Promise<void>;
-  downloadRemote: (type: ExportType) => Promise<void>;
-}>();
+  previewMode: boolean
+  queryOpen: boolean
+  rows: number
+  columns: number
+  cells: number
+  getCsvText: () => Promise<string>
+  downloadLocal: (type: ExportType) => Promise<void>
+  downloadRemote: (type: ExportType) => Promise<void>
+}>()
 
-const emit = defineEmits(["toggle-query-open"]);
+const emit = defineEmits(['toggle-query-open'])
 
 const withErrHandling = function (f: (...args: any) => any): any {
   return function (this: any, ...args: any[]) {
     return f.apply(this, args).catch((e: any) => {
-      console.error(e);
-    });
-  };
-};
+      console.error(e)
+    })
+  }
+}
 
 const localActionSections: Section[] = [
   {
-    title: "Current State",
+    title: 'Current State',
     options: [
       {
-        name: "Copy CSV to clipboard",
+        name: 'Copy CSV to clipboard',
         onClick: async () => ARClipboard.copyOnce(await p.getCsvText()),
-        id: "copy-clipboard",
+        id: 'copy-clipboard',
       },
       {
-        name: "Download CSV",
+        name: 'Download CSV',
         onClick: withErrHandling(p.downloadLocal),
-        id: "download-csv",
+        id: 'download-csv',
       },
     ],
   },
-];
+]
 
 const remoteActionSections: Section[] = [
   {
-    title: "Original Data",
+    title: 'Original Data',
     options: [
       {
-        name: "Download CSV",
-        onClick: withErrHandling(() => p.downloadRemote("CSV")),
-        id: "download-original-csv",
+        name: 'Download CSV',
+        onClick: withErrHandling(() => p.downloadRemote('CSV')),
+        id: 'download-original-csv',
       },
       {
-        name: "Download Excel",
-        onClick: withErrHandling(() => p.downloadRemote("EXCEL")),
-        id: "download-original-excel",
+        name: 'Download Excel',
+        onClick: withErrHandling(() => p.downloadRemote('EXCEL')),
+        id: 'download-original-excel',
       },
     ],
   },
-];
+]
 
 const actionSections: Section[] = [
   ...localActionSections,
   ...(window.arLocal ? [] : remoteActionSections),
-];
+]
 </script>
 
 <template>

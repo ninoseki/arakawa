@@ -1,4 +1,4 @@
-@import "vue-multiselect/dist/vue-multiselect.css";
+@import 'vue-multiselect/dist/vue-multiselect.css';
 
 .h-iframe {
   /*
@@ -29,7 +29,7 @@
   color: var(--ar-accent-text) !important;
 }
 
-.multiselect__input[type="text"]:focus {
+.multiselect__input[type='text']:focus {
   border: 1px solid black !important;
   box-shadow: none !important;
 }
@@ -42,7 +42,7 @@
   margin-top: 1px;
 }
 
-input[name="parameter_files"]::file-selector-button {
+input[name='parameter_files']::file-selector-button {
   background: var(--ar-accent-color) !important;
   color: var(--ar-accent-text) !important;
   @apply rounded-md;

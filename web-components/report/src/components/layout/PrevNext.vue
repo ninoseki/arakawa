@@ -1,29 +1,33 @@
 <script setup lang="ts">
-const p = defineProps<{ pageNumber: number; numPages: number }>();
-const emit = defineEmits(["page-change"]);
+const p = defineProps<{ pageNumber: number; numPages: number }>()
+const emit = defineEmits(['page-change'])
 
 const scrollToTop = () => {
-  document.body.scrollTop = document.documentElement.scrollTop = 0;
-  const baseEl = document.getElementById("base-content");
+  document.body.scrollTop = document.documentElement.scrollTop = 0
+  const baseEl = document.getElementById('base-content')
   if (baseEl) {
     // Org embeds scroll on `#base-content` rather than body
     // TODO - Make Org embeds scroll on body (same as public embeds)
-    baseEl.scrollTop = 0;
+    baseEl.scrollTop = 0
   }
-};
+}
 
 const onPageChange = (pageNumber: number) => {
-  emit("page-change", pageNumber);
-  scrollToTop();
-};
+  emit('page-change', pageNumber)
+  scrollToTop()
+}
 
 const nextPage = () => {
-  p.pageNumber !== p.numPages - 1 && onPageChange(p.pageNumber + 1);
-};
+  if (p.pageNumber !== p.numPages - 1) {
+    onPageChange(p.pageNumber + 1)
+  }
+}
 
 const prevPage = () => {
-  p.pageNumber !== 0 && onPageChange(p.pageNumber - 1);
-};
+  if (p.pageNumber !== 0) {
+    onPageChange(p.pageNumber - 1)
+  }
+}
 </script>
 
 <template>

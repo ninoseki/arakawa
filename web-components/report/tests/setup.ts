@@ -1,25 +1,26 @@
-import fragmentJson from "./fixtures/fragment.json?raw";
-import { rest } from "msw";
-import { setupServer } from "msw/node";
-import { afterAll, afterEach, beforeAll } from "vitest";
+import { rest } from 'msw'
+import { setupServer } from 'msw/node'
+import { afterAll, afterEach, beforeAll } from 'vitest'
 
-const DISPATCH_FRAGMENT = JSON.parse(fragmentJson);
+import fragmentJson from './fixtures/fragment.json?raw'
+
+const DISPATCH_FRAGMENT = JSON.parse(fragmentJson)
 
 /*
  * Set up mock server for dispatch endpoint
  */
 
 export const restHandlers = [
-  rest.post("/app-rpc-call", (req: any, res: any, ctx: any) => {
-    return res(ctx.status(200), ctx.json(DISPATCH_FRAGMENT));
+  rest.post('/app-rpc-call', (req: any, res: any, ctx: any) => {
+    return res(ctx.status(200), ctx.json(DISPATCH_FRAGMENT))
   }),
-];
+]
 
-const server = setupServer(...restHandlers);
+const server = setupServer(...restHandlers)
 
-beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 
-afterAll(() => server.close());
+afterAll(() => server.close())
 
 // Reset handlers after each test (important for test isolation)
-afterEach(() => server.resetHandlers());
+afterEach(() => server.resetHandlers())

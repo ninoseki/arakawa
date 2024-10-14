@@ -1,27 +1,28 @@
 <script setup lang="ts">
-import { BlockFigureProps } from "../../data-model/blocks";
-import BlockWrapper from "../layout/BlockWrapper.vue";
-import hljs from "highlight.js";
-import { Marked } from "marked";
-import { markedHighlight } from "marked-highlight";
-import { computed } from "vue";
+import hljs from 'highlight.js'
+import { Marked } from 'marked'
+import { markedHighlight } from 'marked-highlight'
+import { computed } from 'vue'
+
+import { BlockFigureProps } from '../../data-model/blocks'
+import BlockWrapper from '../layout/BlockWrapper.vue'
 
 const marked = new Marked(
   markedHighlight({
-    highlight(code, lang, _) {
-      const language = hljs.getLanguage(lang) ? lang : "plaintext";
-      return hljs.highlight(code, { language }).value;
+    highlight(code, lang) {
+      const language = hljs.getLanguage(lang) ? lang : 'plaintext'
+      return hljs.highlight(code, { language }).value
     },
   }),
-);
+)
 
 const p = defineProps<{
-  content: string;
-  isLightProse: boolean;
-  figure: BlockFigureProps;
-  singleBlockEmbed?: boolean;
-}>();
-const md = computed(() => marked.parse(p.content));
+  content: string
+  isLightProse: boolean
+  figure: BlockFigureProps
+  singleBlockEmbed?: boolean
+}>()
+const md = computed(() => marked.parse(p.content))
 </script>
 
 <template>

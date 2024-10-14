@@ -1,35 +1,37 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-import Plotly from "plotly.js-dist-min";
-import { v4 as uuid4 } from "uuid";
+import Plotly from 'plotly.js-dist-min'
+import { v4 as uuid4 } from 'uuid'
+import { onMounted } from 'vue'
 
 const p = defineProps<{
-  plotJson: any;
-  responsive: boolean;
-  singleBlockEmbed?: boolean;
-}>();
-const divId = `plotly_${uuid4()}`;
+  plotJson: any
+  responsive: boolean
+  singleBlockEmbed?: boolean
+}>()
+const divId = `plotly_${uuid4()}`
 
 const makeResponsive = (json: any) => {
   /**
    * make the plot respond to the dimensions of its container
    * if the responsive property is set
    */
-  const { layout } = json;
+  const { layout } = json
   if (layout) {
-    delete layout.autosize;
-    delete layout.width;
+    delete layout.autosize
+    delete layout.width
     if (p.singleBlockEmbed) {
-      delete layout.height;
+      delete layout.height
     }
   }
-};
+}
 
 const addPlotToDom = async () => {
   /**
    * mount a Plotly plot to the block element
    */
-  p.responsive && makeResponsive(p.plotJson);
+  if (p.responsive) {
+    makeResponsive(p.plotJson)
+  }
   Plotly.newPlot(divId, {
     data: p.plotJson.data,
     layout: {
@@ -39,25 +41,25 @@ const addPlotToDom = async () => {
     },
     config: PLOTLY_CONFIG,
     frames: p.plotJson.frames || undefined,
-  });
-};
+  })
+}
 
 onMounted(() => {
-  addPlotToDom();
-});
+  addPlotToDom()
+})
 </script>
 
 <script lang="ts">
 const PLOTLY_CONFIG: any = {
   displaylogo: false,
   responsive: true,
-};
+}
 
 const PLOTLY_LAYOUT_DEFAULTS = {
   modebar: {
-    orientation: "v",
+    orientation: 'v',
   },
-};
+}
 </script>
 
 <template>

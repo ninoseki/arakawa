@@ -1,9 +1,9 @@
 <script setup lang="ts">
 const p = defineProps<{
-  src: string;
-  responsive: boolean;
-  singleBlockEmbed?: boolean;
-}>();
+  src: string
+  responsive: boolean
+  singleBlockEmbed?: boolean
+}>()
 </script>
 
 <template>

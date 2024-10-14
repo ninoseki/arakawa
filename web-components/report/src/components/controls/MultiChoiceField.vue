@@ -1,39 +1,39 @@
 <script setup lang="ts">
-import { computed, ComputedRef, ref } from "vue";
+import { computed, ComputedRef, ref } from 'vue'
 
-const emit = defineEmits(["change"]);
+const emit = defineEmits(['change'])
 
 const p = defineProps<{
-  initial: string[];
-  options: string[];
-  label?: string;
-  required?: boolean;
-  name: string;
-}>();
+  initial: string[]
+  options: string[]
+  label?: string
+  required?: boolean
+  name: string
+}>()
 
-const el = ref<any>();
+const el = ref<any>()
 
 const validation: ComputedRef = computed(() =>
-  p.required ? [["+required"]] : [],
-);
+  p.required ? [['+required']] : [],
+)
 
 const multiSelectProps = {
   closeOnSelect: false,
   clearOnSelect: false,
   preserveSearch: true,
-  placeholder: "",
+  placeholder: '',
   preselectFirst: false,
   searchable: false,
-};
+}
 
 const setListeners = (node: any) => {
   /**
    * Overwrite tags with updated value and send to parent `Compute` component
    */
-  node.on("newTag", ({ payload }: { payload: string[] }) => {
-    emit("change", { name: p.name, value: payload });
-  });
-};
+  node.on('newTag', ({ payload }: { payload: string[] }) => {
+    emit('change', { name: p.name, value: payload })
+  })
+}
 </script>
 
 <template>

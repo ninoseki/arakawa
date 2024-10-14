@@ -1,21 +1,21 @@
 <script setup lang="ts">
-/* eslint-disable no-useless-escape */
-import { BlockFigureProps } from "../../data-model/blocks";
-import userIframeCss from "../../styles/user-iframe.css?inline";
-import BlockWrapper from "../layout/BlockWrapper.vue";
-import iframeResize from "iframe-resizer/js/iframeResizer";
-import contentWindowJs from "iframe-resizer/js/iframeResizer.contentWindow.js?raw";
-import { v4 as uuid4 } from "uuid";
-import { computed, ComputedRef, onMounted } from "vue";
+import iframeResize from 'iframe-resizer/js/iframeResizer'
+import contentWindowJs from 'iframe-resizer/js/iframeResizer.contentWindow.js?raw'
+import { v4 as uuid4 } from 'uuid'
+import { computed, ComputedRef, onMounted } from 'vue'
+
+import { BlockFigureProps } from '../../data-model/blocks'
+import userIframeCss from '../../styles/user-iframe.css?inline'
+import BlockWrapper from '../layout/BlockWrapper.vue'
 
 const p = defineProps<{
-  html: string;
-  sandbox?: string;
-  figure: BlockFigureProps;
-  singleBlockEmbed?: boolean;
-}>();
+  html: string
+  sandbox?: string
+  figure: BlockFigureProps
+  singleBlockEmbed?: boolean
+}>()
 
-const iframeId = `iframe_${uuid4()}`;
+const iframeId = `iframe_${uuid4()}`
 
 const iframeDoc: ComputedRef<string> = computed(() => {
   /**
@@ -31,12 +31,12 @@ const iframeDoc: ComputedRef<string> = computed(() => {
             <div class="doc-root">${p.html}</div>
         </body>
         </html>
-    `;
-});
+    `
+})
 
 onMounted(() => {
-  iframeResize({ checkOrigin: false, warningTimeout: 10000 }, `#${iframeId}`);
-});
+  iframeResize({ checkOrigin: false, warningTimeout: 10000 }, `#${iframeId}`)
+})
 </script>
 
 <template>

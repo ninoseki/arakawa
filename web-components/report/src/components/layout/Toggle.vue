@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
-import { ref } from "vue";
+import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
 
-const p = defineProps<{ label?: string; store: any }>();
+const p = defineProps<{ label?: string; store: any }>()
 
-const isOpen = ref(false);
+const isOpen = ref(false)
 
-const { children } = storeToRefs(p.store);
+const { children } = storeToRefs(p.store)
 </script>
 
 <template>
@@ -16,7 +16,7 @@ const { children } = storeToRefs(p.store);
       @click="isOpen = !isOpen"
     >
       <div class="flex-1">
-        {{ p.label || "Toggle Section" }}
+        {{ p.label || 'Toggle Section' }}
       </div>
       <div class="flex-initial ml-auto">
         <i

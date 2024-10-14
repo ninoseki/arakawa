@@ -1,112 +1,113 @@
 /**
  * Tests app swap operations (replace, inner, append, prepend)
  */
-import Report from "../src/components/ReportContainer.vue";
-import { useRootStore } from "../src/data-model/root-store";
-import { SwapType } from "../src/data-model/types";
-import replaceJson from "./fixtures/test-app.json?raw";
-import { createPinia } from "pinia";
-import { it, expect, describe, beforeEach } from "vitest";
-import { createApp } from "vue";
+import { createPinia } from 'pinia'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { createApp } from 'vue'
+
+import Report from '../src/components/ReportContainer.vue'
+import { useRootStore } from '../src/data-model/root-store'
+import { SwapType } from '../src/data-model/types'
+import replaceJson from './fixtures/test-app.json?raw'
 
 const META = {
   isLightProse: false,
-  mode: "VIEW" as "VIEW" | "EMBED",
+  mode: 'VIEW' as 'VIEW' | 'EMBED',
   isOrg: false,
-};
+}
 
 /*
  * Set up report app and pinia store. Note app is never mounted
  */
 
-const app = createApp(Report, {});
-const pinia = createPinia();
-app.use(pinia);
+const app = createApp(Report, {})
+const pinia = createPinia()
+app.use(pinia)
 
-const rootStore = useRootStore();
-const appData = JSON.parse(replaceJson);
+const rootStore = useRootStore()
+const appData = JSON.parse(replaceJson)
 
 beforeEach(async () => {
-  await rootStore.setReport(META, appData);
-});
+  await rootStore.setReport(META, appData)
+})
 
 /*
  * Tests
  */
 
-describe("App patch tests", () => {
-  it("Performs a replace swap", async () => {
-    const { report } = rootStore;
+describe('App patch tests', () => {
+  it('Performs a replace swap', async () => {
+    const { report } = rootStore
 
     await rootStore.update(
-      "to-replace",
+      'to-replace',
       SwapType.REPLACE,
-      { msg: "foo" },
-      "app.not_used",
-    );
+      { msg: 'foo' },
+      'app.not_used',
+    )
 
     // Replaced block should be a `Group` with ID inherited from target
-    expect(report).toHaveProperty("children[1].name", "Group");
-    expect(report).toHaveProperty("children[1].id", "to-replace");
+    expect(report).toHaveProperty('children[1].name', 'Group')
+    expect(report).toHaveProperty('children[1].id', 'to-replace')
 
     // New `Group` block should have a child with ID "replaced", i.e. the fragment response `View` content
-    expect(report).toHaveProperty("children[1].children[0].id", "replaced");
-  });
+    expect(report).toHaveProperty('children[1].children[0].id', 'replaced')
+  })
 
-  it("Performs an inner swap", async () => {
-    const { report } = rootStore;
+  it('Performs an inner swap', async () => {
+    const { report } = rootStore
 
     await rootStore.update(
-      "group",
+      'group',
       SwapType.INNER,
-      { msg: "foo" },
-      "app.not_used",
-    );
+      { msg: 'foo' },
+      'app.not_used',
+    )
 
     // Initial target block should still exist
-    expect(report).toHaveProperty("children[2].id", "group");
+    expect(report).toHaveProperty('children[2].id', 'group')
 
     // Existing `Group` block should have a child with ID "replaced", i.e. the fragment response `View` content
-    expect(report).toHaveProperty("children[2].children[0].id", "replaced");
-  });
+    expect(report).toHaveProperty('children[2].children[0].id', 'replaced')
+  })
 
-  it("Performs an append swap", async () => {
-    const { report } = rootStore;
+  it('Performs an append swap', async () => {
+    const { report } = rootStore
 
     await rootStore.update(
-      "group",
+      'group',
       SwapType.APPEND,
-      { msg: "foo" },
-      "app.not_used",
-    );
+      { msg: 'foo' },
+      'app.not_used',
+    )
 
     // Initial target block should still exist
-    expect(report).toHaveProperty("children[2].id", "group");
+    expect(report).toHaveProperty('children[2].id', 'group')
 
     // Original `Group` child should still exist
-    expect(report).toHaveProperty("children[2].children[0].id", "inner-text");
+    expect(report).toHaveProperty('children[2].children[0].id', 'inner-text')
 
     // New `Group` block should have a new child with ID "replaced", i.e. the fragment response `View` content
-    expect(report).toHaveProperty("children[2].children[1].id", "replaced");
-  });
+    expect(report).toHaveProperty('children[2].children[1].id', 'replaced')
+  })
 
-  it("Performs a prepend swap", async () => {
-    const { report } = rootStore;
+  it('Performs a prepend swap', async () => {
+    const { report } = rootStore
 
     await rootStore.update(
-      "group",
+      'group',
       SwapType.PREPEND,
-      { msg: "foo" },
-      "app.not_used",
-    );
+      { msg: 'foo' },
+      'app.not_used',
+    )
 
     // Initial target block should still exist
-    expect(report).toHaveProperty("children[2].id", "group");
+    expect(report).toHaveProperty('children[2].id', 'group')
 
     // Original `Group` child should still exist
-    expect(report).toHaveProperty("children[2].children[1].id", "inner-text");
+    expect(report).toHaveProperty('children[2].children[1].id', 'inner-text')
 
     // New `Group` block should have a new child with ID "replaced", i.e. the fragment response `View` content
-    expect(report).toHaveProperty("children[2].children[0].id", "replaced");
-  });
-});
+    expect(report).toHaveProperty('children[2].children[0].id', 'replaced')
+  })
+})

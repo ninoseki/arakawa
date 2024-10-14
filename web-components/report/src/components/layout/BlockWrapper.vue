@@ -2,17 +2,17 @@
 /**
  * Centres block and adds caption below if necessary
  */
-import { BlockFigureProps } from "../../data-model/blocks";
-import { toRefs } from "vue";
+import { toRefs } from 'vue'
+
+import { BlockFigureProps } from '../../data-model/blocks'
 
 const p = defineProps<{
-  figure: BlockFigureProps;
-  singleBlockEmbed?: boolean;
-  showOverflow?: boolean;
-}>();
+  figure: BlockFigureProps
+  singleBlockEmbed?: { type: boolean; default: false }
+  showOverflow?: boolean
+}>()
 
-const { caption, count, captionType } = toRefs(p.figure);
-const singleBlockEmbed = false;
+const { caption, count, captionType } = toRefs(p.figure)
 </script>
 
 <template>
@@ -25,7 +25,7 @@ const singleBlockEmbed = false;
       { 'overflow-visible': p.showOverflow },
     ]"
   >
-    <slot />
+    <slot></slot>
     <div v-if="caption" class="text-sm text-ar-light-gray italic text-justify">
       <b>{{ captionType }} {{ count }}</b>
       {{ caption }}

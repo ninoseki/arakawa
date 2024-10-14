@@ -1,42 +1,36 @@
 <script setup lang="ts">
-import ArButton from "../../../shared/ARButton.vue";
-import { sql } from "@codemirror/lang-sql";
-import { Extension } from "@codemirror/state";
-import { EditorView } from "@codemirror/view";
-import { basicSetup } from "codemirror";
-import { onMounted, ref } from "vue";
+import { sql } from '@codemirror/lang-sql'
+import { Extension } from '@codemirror/state'
+import { EditorView } from '@codemirror/view'
+import { basicSetup } from 'codemirror'
+import { onMounted, ref } from 'vue'
+
+import ArButton from '../../../shared/ARButton.vue'
 
 const p = defineProps<{
-  initialQuery: string;
-  errors?: string;
-}>();
-
-const CM_OPTIONS = {
-  theme: "eclipse",
-  mode: "sql",
-  lineNumbers: false,
-  autoRefresh: true,
-};
+  initialQuery: string
+  errors?: string
+}>()
 
 function editorFromTextArea(
   textarea: HTMLTextAreaElement,
   extensions?: Extension,
 ) {
-  let view = new EditorView({ doc: textarea.value, extensions });
-  textarea.parentNode!.insertBefore(view.dom, textarea);
-  textarea.style.display = "none";
+  const view = new EditorView({ doc: textarea.value, extensions })
+  textarea.parentNode!.insertBefore(view.dom, textarea)
+  textarea.style.display = 'none'
   if (textarea.form)
-    textarea.form.addEventListener("submit", () => {
-      textarea.value = view.state.doc.toString();
-    });
-  return view;
+    textarea.form.addEventListener('submit', () => {
+      textarea.value = view.state.doc.toString()
+    })
+  return view
 }
 
-const emit = defineEmits(["query-change", "run-query", "clear-query"]);
-const cmEl = ref<HTMLTextAreaElement>();
-const cmInstance = ref<EditorView>();
+const emit = defineEmits(['query-change', 'run-query', 'clear-query'])
+const cmEl = ref<HTMLTextAreaElement>()
+const cmInstance = ref<EditorView>()
 
-const emitQueryChange = (query: string) => void emit("query-change", query);
+const emitQueryChange = (query: string) => void emit('query-change', query)
 
 onMounted(() => {
   if (cmEl.value) {
@@ -44,15 +38,15 @@ onMounted(() => {
     cmInstance.value = editorFromTextArea(cmEl.value, [
       basicSetup,
       sql(),
-      EditorView.updateListener.of((v) => {
-        emitQueryChange(v.state.doc.toString());
+      EditorView.updateListener.of(v => {
+        emitQueryChange(v.state.doc.toString())
       }),
-    ]);
-    emitQueryChange(cmInstance.value.state.doc.toString());
+    ])
+    emitQueryChange(cmInstance.value.state.doc.toString())
   } else {
-    console.error("Couldn't find codemirror textarea element");
+    console.error("Couldn't find codemirror textarea element")
   }
-});
+})
 </script>
 
 <template>

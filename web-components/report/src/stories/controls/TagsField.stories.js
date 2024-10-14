@@ -1,14 +1,14 @@
-import TagsField from "../../components/controls/TagsField.vue";
-import { makeTemplate } from "../utils";
+import TagsField from '../../components/controls/TagsField.vue'
+import { makeTemplate } from '../utils'
 
 export default {
-  title: "Controls/TagsField",
+  title: 'Controls/TagsField',
   component: TagsField,
-};
+}
 
-export const Primary = makeTemplate(TagsField);
+export const Primary = makeTemplate(TagsField)
 
 Primary.args = {
-  name: "Tags field",
-  initial: ["foo", "bar"],
-};
+  name: 'Tags field',
+  initial: ['foo', 'bar'],
+}

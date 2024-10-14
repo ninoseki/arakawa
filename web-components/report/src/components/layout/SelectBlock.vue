@@ -1,36 +1,38 @@
 <script setup lang="ts">
-import { Block } from "../../data-model/blocks";
-import { storeToRefs } from "pinia";
-import { computed, ComputedRef } from "vue";
-import MultiSelect from "vue-multiselect";
-import "vue-multiselect/dist/vue-multiselect.esm.css";
+import 'vue-multiselect/dist/vue-multiselect.esm.css'
 
-const p = defineProps<{ type?: string; store: any }>();
+import { storeToRefs } from 'pinia'
+import { computed, ComputedRef } from 'vue'
+import MultiSelect from 'vue-multiselect'
 
-const { children, tabNumber } = storeToRefs(p.store);
+import { Block } from '../../data-model/blocks'
+
+const p = defineProps<{ type?: string; store: any }>()
+
+const { children, tabNumber } = storeToRefs(p.store)
 
 const sectionType: ComputedRef<string> = computed(() => {
-  if (p.type) return p.type;
-  return children.value.length < 5 ? "tabs" : "dropdown";
-});
+  if (p.type) return p.type
+  return children.value.length < 5 ? 'tabs' : 'dropdown'
+})
 
 const labels: ComputedRef<string[]> = computed(() =>
   children.value.map(
     (child: Block, idx: number) => child.label || `Section ${idx + 1}`,
   ),
-);
+)
 
 const tabNumbers: ComputedRef<number[]> = computed(() =>
   labels.value.map((_, idx) => idx),
-);
+)
 
 // Used by `vue-multiselect` to overwrite the default behaviour of displaying tab number only
-const multiSelectCustomLabel = (tabNumber: number) => labels.value[tabNumber];
+const multiSelectCustomLabel = (tabNumber: number) => labels.value[tabNumber]
 // Used by `vue-multiselect` to set tab number on change
-const setTabNumber = (val: number) => p.store.setTab(val);
+const setTabNumber = (val: number) => p.store.setTab(val)
 
 const setTabNumberFromEvent = (ev: Event) =>
-  void setTabNumber(+(ev.target as HTMLSelectElement).value);
+  void setTabNumber(+(ev.target as HTMLSelectElement).value)
 </script>
 
 <template>

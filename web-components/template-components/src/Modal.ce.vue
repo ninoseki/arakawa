@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue'
 
-const openInitial = new URLSearchParams(document.location.search).has("invite");
-const open = ref<boolean>(openInitial);
+const openInitial = new URLSearchParams(document.location.search).has('invite')
+const open = ref<boolean>(openInitial)
 </script>
 
 <template>

@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import katex from "katex";
+import katex from 'katex'
 
-const p = defineProps<{ content: string }>();
+const p = defineProps<{ content: string }>()
 
 const renderFormula = (node: any) => {
   try {
-    katex.render(p.content, node);
+    katex.render(p.content, node)
   } catch (e) {
-    console.error(`Error rendering formula: ${e}`);
+    console.error(`Error rendering formula: ${e}`)
   }
-};
+}
 
 const formulaRef = (node: any) => {
   if (node) {
-    renderFormula(node);
+    renderFormula(node)
   }
-};
+}
 </script>
 
 <template>

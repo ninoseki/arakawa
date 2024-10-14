@@ -1,17 +1,17 @@
-import RangeField from "../../components/controls/RangeField.vue";
-import { makeTemplate } from "../utils";
+import RangeField from '../../components/controls/RangeField.vue'
+import { makeTemplate } from '../utils'
 
 export default {
-  title: "Controls/RangeField",
+  title: 'Controls/RangeField',
   component: RangeField,
-};
+}
 
-export const Primary = makeTemplate(RangeField);
+export const Primary = makeTemplate(RangeField)
 
 Primary.args = {
-  name: "Range field",
+  name: 'Range field',
   min: 0,
   max: 10,
   step: 1,
   initial: 3,
-};
+}
