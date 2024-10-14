@@ -12,13 +12,6 @@ const p = defineProps<{
   errors?: string
 }>()
 
-const CM_OPTIONS = {
-  theme: 'eclipse',
-  mode: 'sql',
-  lineNumbers: false,
-  autoRefresh: true,
-}
-
 function editorFromTextArea(
   textarea: HTMLTextAreaElement,
   extensions?: Extension,

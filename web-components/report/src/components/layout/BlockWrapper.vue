@@ -8,12 +8,11 @@ import { BlockFigureProps } from '../../data-model/blocks'
 
 const p = defineProps<{
   figure: BlockFigureProps
-  singleBlockEmbed?: boolean
+  singleBlockEmbed?: { type: boolean; default: false }
   showOverflow?: boolean
 }>()
 
 const { caption, count, captionType } = toRefs(p.figure)
-const singleBlockEmbed = false
 </script>
 
 <template>
@@ -26,7 +25,7 @@ const singleBlockEmbed = false
       { 'overflow-visible': p.showOverflow },
     ]"
   >
-    <slot />
+    <slot></slot>
     <div v-if="caption" class="text-sm text-ar-light-gray italic text-justify">
       <b>{{ captionType }} {{ count }}</b>
       {{ caption }}

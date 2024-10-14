@@ -9,7 +9,7 @@ import BlockWrapper from '../layout/BlockWrapper.vue'
 const VegaBlock = defineAsyncComponent(() => import('./Vega.vue'))
 
 const rootStore = useRootStore()
-const { singleBlockEmbed } = storeToRefs(rootStore)
+const { singleBlockEmbed: storedSingleBlockEmbed } = storeToRefs(rootStore)
 
 const p = defineProps<{
   fetchAssetData: any
@@ -25,7 +25,10 @@ const plotJson = ref<any>(null)
 </script>
 
 <template>
-  <block-wrapper :figure="p.figure" :single-block-embed="singleBlockEmbed">
+  <block-wrapper
+    :figure="p.figure"
+    :single-block-embed="singleBlockEmbed || storedSingleBlockEmbed"
+  >
     <vega-block
       v-if="plotJson"
       :plot-json="plotJson"

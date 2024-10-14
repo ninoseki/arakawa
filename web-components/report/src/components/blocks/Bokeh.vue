@@ -43,9 +43,10 @@ const addPlotToDom = async () => {
    * mount a Bokeh plot to the block element
    */
   try {
-    p.responsive
-    // TODO: makeResponsive does not work with Bokeh v3+.
-    // p.responsive && makeResponsive(p.plotJson);
+    if (p.responsive) {
+      // TODO: makeResponsive does not work with Bokeh v3+.
+      // makeResponsive(p.plotJson)
+    }
     const plotViews = await Bokeh.embed.embed_item(p.plotJson as any, divId)
     // Generate uuids for Bokeh Documents so they can be referenced on dismount
     plotViews.roots.forEach((pv: any) => {

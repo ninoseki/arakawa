@@ -18,11 +18,15 @@ const onPageChange = (pageNumber: number) => {
 }
 
 const nextPage = () => {
-  p.pageNumber !== p.numPages - 1 && onPageChange(p.pageNumber + 1)
+  if (p.pageNumber !== p.numPages - 1) {
+    onPageChange(p.pageNumber + 1)
+  }
 }
 
 const prevPage = () => {
-  p.pageNumber !== 0 && onPageChange(p.pageNumber - 1)
+  if (p.pageNumber !== 0) {
+    onPageChange(p.pageNumber - 1)
+  }
 }
 </script>
 

@@ -9,7 +9,7 @@ import BlockWrapper from '../layout/BlockWrapper.vue'
 
 const marked = new Marked(
   markedHighlight({
-    highlight(code, lang, _) {
+    highlight(code, lang) {
       const language = hljs.getLanguage(lang) ? lang : 'plaintext'
       return hljs.highlight(code, { language }).value
     },

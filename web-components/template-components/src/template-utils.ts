@@ -43,7 +43,7 @@ export const toggleVisibility = (
     }
   })
 
-export const serializeSlotJson = <T = Record<any, any>>(
+export const serializeSlotJson = <T = Record<string, unknown>>(
   slot: HTMLSlotElement,
 ): T => {
   /**
@@ -53,7 +53,8 @@ export const serializeSlotJson = <T = Record<any, any>>(
   try {
     const slotContent = slot.assignedNodes()[0] as Element
     return JSON.parse(
-      slotContent.querySelector("script[type='application/json']").textContent,
+      slotContent.querySelector("script[type='application/json']")
+        ?.textContent || '',
     )
   } catch (e) {
     throw new Error(`Couldn't serialize slot content: ${e}`)

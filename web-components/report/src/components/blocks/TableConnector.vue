@@ -7,7 +7,7 @@ import BlockWrapper from '../layout/BlockWrapper.vue'
 const p = defineProps<{
   fetchAssetData: any
   figure: BlockFigureProps
-  singleBlockEmbed?: boolean
+  singleBlockEmbed?: { type: boolean; default: false }
 }>()
 const html = ref<string | null>(null)
 

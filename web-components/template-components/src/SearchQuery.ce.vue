@@ -14,9 +14,11 @@ const loadChoicesJson = (node: any) => {
 }
 
 const getUrlParams = (name: string): string[] => {
-  const params = []
+  const params: string[] = []
   for (const [k, v] of new URLSearchParams(location.search)) {
-    name === k && params.push(v ? decodeURIComponent(v) : '')
+    if (name === k) {
+      params.push(v ? decodeURIComponent(v) : '')
+    }
   }
   return params
 }

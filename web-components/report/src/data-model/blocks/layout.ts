@@ -1,6 +1,6 @@
 import { markRaw } from 'vue'
 
-import VCompute from '../../components/controls/Compute.connector.vue'
+import VCompute from '../../components/controls/ComputeConnector.vue'
 import VGroup from '../../components/layout/Group.vue'
 import VSelect from '../../components/layout/SelectBlock.vue'
 import VToggle from '../../components/layout/Toggle.vue'

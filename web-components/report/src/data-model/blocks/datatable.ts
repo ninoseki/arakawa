@@ -3,7 +3,7 @@ import download from 'downloadjs'
 import urljoin from 'url-join'
 import { markRaw } from 'vue'
 
-import VDataTableBlock from '../../components/blocks/DataTable/DataTable.connector.vue'
+import VDataTableBlock from '../../components/blocks/DataTable/DataTableConnector.vue'
 import env from '../../environment'
 import {
   AssetBlock,

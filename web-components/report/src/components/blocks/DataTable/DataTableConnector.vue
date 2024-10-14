@@ -25,7 +25,7 @@ const p = defineProps<{
 }>()
 
 const rootStore = useRootStore()
-const { singleBlockEmbed } = storeToRefs(rootStore)
+const { singleBlockEmbed: storedSingleBlockEmbed } = storeToRefs(rootStore)
 const previewMode = ref(p.deferLoad)
 const dsData = ref([])
 const dsSchema = ref({})
@@ -60,7 +60,10 @@ const handleLoadFull = async () => {
 </script>
 
 <template>
-  <block-wrapper :figure="p.figure" :single-block-embed="singleBlockEmbed">
+  <block-wrapper
+    :figure="p.figure"
+    :single-block-embed="singleBlockEmbed || storedSingleBlockEmbed"
+  >
     <data-table-block
       :singleBlockEmbed="!!singleBlockEmbed"
       :data="dsData"

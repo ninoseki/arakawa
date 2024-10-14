@@ -1,5 +1,3 @@
-import { AxiosError } from 'axios'
-
 export type Option = {
   name: string
   id: string

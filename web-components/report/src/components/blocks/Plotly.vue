@@ -29,7 +29,9 @@ const addPlotToDom = async () => {
   /**
    * mount a Plotly plot to the block element
    */
-  p.responsive && makeResponsive(p.plotJson)
+  if (p.responsive) {
+    makeResponsive(p.plotJson)
+  }
   Plotly.newPlot(divId, {
     data: p.plotJson.data,
     layout: {

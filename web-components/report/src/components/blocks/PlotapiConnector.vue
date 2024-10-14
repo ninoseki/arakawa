@@ -13,7 +13,7 @@ const p = defineProps<{
   singleBlockEmbed?: boolean
 }>()
 const rootStore = useRootStore()
-const { singleBlockEmbed } = storeToRefs(rootStore)
+const { singleBlockEmbed: storedSingleBlockEmbed } = storeToRefs(rootStore)
 const iframeContent = ref<string | null>(null)
 
 ;(async () => {
@@ -22,7 +22,10 @@ const iframeContent = ref<string | null>(null)
 </script>
 
 <template>
-  <block-wrapper :figure="p.figure" :single-block-embed="singleBlockEmbed">
+  <block-wrapper
+    :figure="p.figure"
+    :single-block-embed="singleBlockEmbed || storedSingleBlockEmbed"
+  >
     <plotapi
       v-if="iframeContent"
       :iframe-content="iframeContent"

@@ -44,7 +44,9 @@ const addPlotToDom = async () => {
    * mount a Vega plot to the block element
    */
   try {
-    p.responsive && makeResponsive(p.plotJson)
+    if (p.responsive) {
+      makeResponsive(p.plotJson)
+    }
     const view = await vegaEmbed(`#${divId}`, p.plotJson, {
       mode: 'vega-lite',
       actions: false, // disable the altair action menu
