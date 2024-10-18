@@ -178,4 +178,16 @@ def get_writer(b: AssetBlock) -> AssetWriterP:
                 a.Attachment: aw.AttachmentWriter,
             }
         )
-    return asset_mapping[type(b)]()
+
+    mapped = asset_mapping.get(type(b))
+
+    # if there is no corresponding mapping found, try to use a parent class (to allow inheritance)
+    if not mapped:
+        parent = type(b).__base__
+        if parent:
+            mapped = asset_mapping.get(parent)
+
+    if mapped:
+        return mapped()
+
+    raise KeyError(f"No writer found for {type(b).__name__}")
