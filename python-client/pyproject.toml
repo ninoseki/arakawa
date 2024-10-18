@@ -5,21 +5,21 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.9,<4.0"
 dependencies = [
-  "altair~=5.4.1",
-  "base64io~=1.0.3",
-  "chardet~=5.2.0",
-  "dominate~=2.9.1",
-  "ipynbname~=2024.1.0.0",
+  "altair~=5.4",
+  "base64io~=1.0",
+  "chardet~=5.2",
+  "dominate~=2.9",
+  "ipynbname~=2024.1",
   "ipython~=8.13",
   "jinja2~=3.0",
-  "loguru~=0.7.2",
-  "lxml~=5.3.0",
-  "micawber~=0.5.5",
-  "multimethod~=1.12",
-  "pandas~=2.2.3",
-  "pyarrow~=17.0.0",
-  "semver>=3.0.2",
-  "typing-extensions>=4.12.2",
+  "loguru~=0.7",
+  "lxml~=5.3",
+  "micawber~=0.5",
+  "multimethod~=1.10",
+  "pandas~=2.2",
+  "pyarrow~=17.0",
+  "semver>=3.0",
+  "typing-extensions>=4.12",
 ]
 
 [project.urls]
@@ -28,9 +28,9 @@ Repository = "https://github.com/ninoseki/arakawa/"
 [project.optional-dependencies]
 plotting = [
   "bokeh>=3.4.0,<3.5.0",
-  "folium~=0.17.0",
-  "matplotlib~=3.9.2",
-  "plotly~=5.24.1",
+  "folium~=0.17",
+  "matplotlib~=3.9",
+  "plotly~=5.24",
 ]
 
 [build-system]

@@ -3,7 +3,8 @@ requires-python = ">=3.9, <4.0"
 resolution-markers = [
     "python_full_version < '3.11'",
     "python_full_version == '3.11.*'",
-    "python_full_version >= '3.12'",
+    "python_full_version == '3.12.*'",
+    "python_full_version >= '3.13'",
 ]
 
 [[package]]
@@ -33,7 +34,7 @@ wheels = [
 
 [[package]]
 name = "arakawa"
-version = "0.0.1a0.post11.dev0+dd536bd"
+version = "0.0.1a2.post11.dev0+3bc1dea"
 source = { editable = "." }
 dependencies = [
     { name = "altair" },
@@ -79,25 +80,25 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "altair", specifier = "~=5.4.1" },
-    { name = "base64io", specifier = "~=1.0.3" },
+    { name = "altair", specifier = "~=5.4" },
+    { name = "base64io", specifier = "~=1.0" },
     { name = "bokeh", marker = "extra == 'plotting'", specifier = ">=3.4.0,<3.5.0" },
-    { name = "chardet", specifier = "~=5.2.0" },
-    { name = "dominate", specifier = "~=2.9.1" },
-    { name = "folium", marker = "extra == 'plotting'", specifier = "~=0.17.0" },
-    { name = "ipynbname", specifier = "~=2024.1.0.0" },
+    { name = "chardet", specifier = "~=5.2" },
+    { name = "dominate", specifier = "~=2.9" },
+    { name = "folium", marker = "extra == 'plotting'", specifier = "~=0.17" },
+    { name = "ipynbname", specifier = "~=2024.1" },
     { name = "ipython", specifier = "~=8.13" },
     { name = "jinja2", specifier = "~=3.0" },
-    { name = "loguru", specifier = "~=0.7.2" },
-    { name = "lxml", specifier = "~=5.3.0" },
-    { name = "matplotlib", marker = "extra == 'plotting'", specifier = "~=3.9.2" },
-    { name = "micawber", specifier = "~=0.5.5" },
-    { name = "multimethod", specifier = "~=1.12" },
-    { name = "pandas", specifier = "~=2.2.3" },
-    { name = "plotly", marker = "extra == 'plotting'", specifier = "~=5.24.1" },
-    { name = "pyarrow", specifier = "~=17.0.0" },
-    { name = "semver", specifier = ">=3.0.2" },
-    { name = "typing-extensions", specifier = ">=4.12.2" },
+    { name = "loguru", specifier = "~=0.7" },
+    { name = "lxml", specifier = "~=5.3" },
+    { name = "matplotlib", marker = "extra == 'plotting'", specifier = "~=3.9" },
+    { name = "micawber", specifier = "~=0.5" },
+    { name = "multimethod", specifier = "~=1.10" },
+    { name = "pandas", specifier = "~=2.2" },
+    { name = "plotly", marker = "extra == 'plotting'", specifier = "~=5.24" },
+    { name = "pyarrow", specifier = "~=17.0" },
+    { name = "semver", specifier = ">=3.0" },
+    { name = "typing-extensions", specifier = ">=4.12" },
 ]
 
 [package.metadata.requires-dev]
@@ -1291,11 +1292,11 @@ wheels = [
 
 [[package]]
 name = "multimethod"
-version = "1.12"
+version = "1.10"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/ed/f3/930a6dc1d35b2ab65faffa2a75bbcc67f12d8227857188273783df4e5134/multimethod-1.12.tar.gz", hash = "sha256:8db8ef2a8d2a247e3570cc23317680892fdf903d84c8c1053667c8e8f7671a67", size = 17423 }
+sdist = { url = "https://files.pythonhosted.org/packages/8b/a7/a157f196c989bc2d2d51e127870b0e99d8679d78b470eee46cb5d8026487/multimethod-1.10.tar.gz", hash = "sha256:daa45af3fe257f73abb69673fd54ddeaf31df0eb7363ad6e1251b7c9b192d8c5", size = 12092 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/af/98/cff14d53a2f2f67d7fe8a4e235a383ee71aba6a1da12aeea24b325d0c72a/multimethod-1.12-py3-none-any.whl", hash = "sha256:fd0c473c43558908d97cc06e4d68e8f69202f167db46f7b4e4058893e7dbdf60", size = 10646 },
+    { url = "https://files.pythonhosted.org/packages/7f/bd/750245e47e7f307d9f94d4fa84727f4ed9956005dfa671d58be1d531a0f6/multimethod-1.10-py3-none-any.whl", hash = "sha256:afd84da9c3d0445c84f827e4d63ad42d17c6d29b122427c6dee9032ac2d2a0d4", size = 9940 },
 ]
 
 [[package]]
