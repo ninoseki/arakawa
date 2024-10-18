@@ -17,12 +17,13 @@ const makeResponsive = (json: any) => {
    * make the plot respond to the dimensions of its container
    * if the responsive property is set
    */
-  const plotJson = json.doc.roots.references.find((r: any) => r.type === 'Plot')
-  if (plotJson) {
-    plotJson.attributes.sizing_mode = p.singleBlockEmbed
+  // NOTE: I'm not sure this is the best way...
+  const roots: any[] = json.doc.roots
+  roots.forEach(r => {
+    r.attributes.sizing_mode = p.singleBlockEmbed
       ? 'stretch_both'
       : 'stretch_width'
-  }
+  })
 }
 
 const cleanupDoc = (doc: any, docTimestamp: string) => {
@@ -45,7 +46,7 @@ const addPlotToDom = async () => {
   try {
     if (p.responsive) {
       // TODO: makeResponsive does not work with Bokeh v3+.
-      // makeResponsive(p.plotJson)
+      makeResponsive(p.plotJson)
     }
     const plotViews = await Bokeh.embed.embed_item(p.plotJson as any, divId)
     // Generate uuids for Bokeh Documents so they can be referenced on dismount
