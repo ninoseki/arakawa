@@ -52,7 +52,9 @@ const addPlotToDom = async () => {
       actions: false, // disable the altair action menu
     })
     vegaView.value = view
-    p.singleBlockEmbed && adjustHeightFromBindings()
+    if (p.singleBlockEmbed) {
+      adjustHeightFromBindings()
+    }
   } catch (e) {
     console.error('An error occurred while rendering an Altair chart: ', e)
   }

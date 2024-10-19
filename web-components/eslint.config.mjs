@@ -1,12 +1,14 @@
+// @ts-check
 import pluginVitest from '@vitest/eslint-plugin'
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 import vueTsEslintConfig from '@vue/eslint-config-typescript'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import pluginVue from 'eslint-plugin-vue'
+import tseslint from 'typescript-eslint'
 
 const mode = process.env.NODE_ENV === 'production' ? 'error' : 'warn'
 
-export default [
+export default tseslint.config(
   {
     name: 'app/files-to-lint',
     files: ['**/*.{ts,mts,tsx,vue}'],
@@ -21,6 +23,7 @@ export default [
     ...pluginVitest.configs.recommended,
     files: ['src/**/__tests__/*'],
   },
+  // @ts-expect-error this plugin is not typed
   skipFormatting,
   {
     plugins: {
@@ -59,4 +62,4 @@ export default [
       ],
     },
   },
-]
+)
