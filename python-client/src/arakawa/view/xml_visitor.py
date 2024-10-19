@@ -71,16 +71,16 @@ class XMLBuilder(ViewVisitor):
         self.elements = cur_elements
         return res
 
-    @multimethod
-    def visit(self, b: ContainerBlock) -> Self:
+    @visit.register  # type: ignore
+    def _(self, b: ContainerBlock) -> Self:
         sub_elements = self._visit_subnodes(b)
         # build the element
         _E = getattr(E, b._tag)  # noqa: N806
         element = _E(*sub_elements, **b._attributes)
         return self.add_element(b, element)
 
-    @multimethod
-    def visit(self, b: Blocks) -> Self:
+    @visit.register  # type: ignore
+    def _(self, b: Blocks) -> Self:
         sub_elements = self._visit_subnodes(b)
 
         # Blocks are converted to Group internally
@@ -89,14 +89,14 @@ class XMLBuilder(ViewVisitor):
         element = E.Group(*sub_elements, columns="1", valign="top")
         return self.add_element(b, element)
 
-    @multimethod
-    def visit(self, b: EmbeddedTextBlock) -> Self:
+    @visit.register  # type: ignore
+    def _(self, b: EmbeddedTextBlock) -> Self:
         # NOTE - do we use etree.CDATA wrapper?
         _E = getattr(E, b._tag)  # noqa: N806
         return self.add_element(b, _E(etree.CDATA(b.content), **b._attributes))
 
-    @multimethod
-    def visit(self, b: AssetBlock):
+    @visit.register  # type: ignore
+    def _(self, b: AssetBlock):
         """Main XMl creation method - visitor method"""
         fe = self._add_asset_to_store(b)
 
@@ -161,33 +161,21 @@ class AssetWriterP(Protocol):
     def write_file(self, x: Any, f) -> None: ...
 
 
-asset_mapping: dict[type[AssetBlock], type[AssetWriterP]] = {}
-
-
 def get_writer(b: AssetBlock) -> AssetWriterP:
     import arakawa.blocks.asset as a
 
     from . import asset_writers as aw
 
-    if not asset_mapping:
-        asset_mapping.update(
-            {
-                a.Plot: aw.PlotWriter,
-                a.Table: aw.HTMLTableWriter,
-                a.DataTable: aw.DataTableWriter,
-                a.Attachment: aw.AttachmentWriter,
-            }
-        )
+    if isinstance(b, a.Plot):
+        return aw.PlotWriter()
 
-    mapped = asset_mapping.get(type(b))
+    if isinstance(b, a.Table):
+        return aw.HTMLTableWriter()
 
-    # if there is no corresponding mapping found, try to use a parent class (to allow inheritance)
-    if not mapped:
-        parent = type(b).__base__
-        if parent:
-            mapped = asset_mapping.get(parent)
+    if isinstance(b, a.Attachment):
+        return aw.AttachmentWriter()
 
-    if mapped:
-        return mapped()
+    if isinstance(b, a.DataTable):
+        return aw.DataTableWriter()
 
     raise KeyError(f"No writer found for {type(b).__name__}")

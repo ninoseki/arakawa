@@ -114,10 +114,8 @@ BlocksT = Union[
 class Report(Blocks):
     """
     App documents collate plots, text, tables, and files into an interactive document that
-    can be analysed and shared by users in their browser
+    can be analyzed and shared by users in their browser
     """
-
-    # Backwards compatible interfaces/wrappers
 
     def __init__(
         self,
@@ -151,7 +149,6 @@ class Report(Blocks):
         name: str | None = None,
         formatting: Formatting | None = None,
         cdn_base: str | None = None,
-        template_name: str = "template.html",
     ) -> str:
         from ..processors import stringify_report
 

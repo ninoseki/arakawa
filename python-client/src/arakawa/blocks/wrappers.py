@@ -29,51 +29,51 @@ def convert_to_block(x: object) -> DataBlock:
 #     return b.Attachment(x)
 
 
-@multimethod
-def convert_to_block(x: str) -> DataBlock:
+@convert_to_block.register  # type: ignore
+def _(x: str) -> DataBlock:
     return b.Text(x)
 
 
-@multimethod
-def convert_to_block(x: Path) -> DataBlock:
+@convert_to_block.register  # type: ignore
+def _(x: Path) -> DataBlock:
     return b.Attachment(file=x)
 
 
-@multimethod
-def convert_to_block(x: pd.DataFrame) -> DataBlock:
+@convert_to_block.register  # type: ignore
+def _(x: pd.DataFrame) -> DataBlock:
     n_cells = x.shape[0] * x.shape[1]
     return b.Table(x) if n_cells <= 250 else b.DataTable(x)
 
 
 # Plots
-@multimethod
-def convert_to_block(x: SchemaBase) -> DataBlock:
+@convert_to_block.register  # type: ignore
+def _(x: SchemaBase) -> DataBlock:
     return b.Plot(x)
 
 
 if opt.HAVE_BOKEH:
 
-    @multimethod
-    def convert_to_block(x: Union[opt.BFigure, opt.BLayout]) -> DataBlock:
+    @convert_to_block.register  # type: ignore
+    def _(x: Union[opt.BFigure, opt.BLayout]) -> DataBlock:
         return b.Plot(x)
 
 
 if opt.HAVE_PLOTLY:
 
-    @multimethod
-    def convert_to_block(x: opt.PFigure) -> DataBlock:
+    @convert_to_block.register  # type: ignore
+    def _(x: opt.PFigure) -> DataBlock:
         return b.Plot(x)
 
 
 if opt.HAVE_FOLIUM:
 
-    @multimethod
-    def convert_to_block(x: opt.Map) -> DataBlock:
+    @convert_to_block.register  # type: ignore
+    def _(x: opt.Map) -> DataBlock:
         return b.Plot(x)
 
 
 if opt.HAVE_MATPLOTLIB:
 
-    @multimethod
-    def convert_to_block(x: Union[opt.Figure, opt.Axes, opt.ndarray]) -> DataBlock:
+    @convert_to_block.register  # type: ignore
+    def _(x: Union[opt.Figure, opt.Axes, opt.ndarray]) -> DataBlock:
         return b.Plot(x)

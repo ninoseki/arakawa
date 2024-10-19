@@ -37,31 +37,28 @@ class DPTextIOWrapper(TextIOWrapper):
 
 
 class AttachmentWriter:
-    # pickle
     @multimethod
-    def get_meta(self, x: Any) -> AssetMeta:
+    def get_meta(self, _: Any) -> AssetMeta:
         return AssetMeta(ext=".pkl", mime="application/vnd.pickle+binary")
 
-    @multimethod
-    def get_meta(self, x: str) -> AssetMeta:
+    @get_meta.register  # type: ignore
+    def _(self, _: str) -> AssetMeta:
         return AssetMeta(ext=".json", mime="application/json")
 
     @multimethod
     def write_file(self, x: Any, f) -> None:
         pickle.dump(x, f)
 
-    @multimethod
-    def write_file(self, x: str, f) -> None:
+    @write_file.register  # type: ignore
+    def _(self, x: str, f) -> None:
         out: str = json.dumps(json.loads(x))
         f.write(out.encode())
 
 
 class DataTableWriter:
-    @multimethod
-    def get_meta(self, x: pd.DataFrame) -> AssetMeta:
+    def get_meta(self, _: pd.DataFrame) -> AssetMeta:
         return AssetMeta(mime=ArrowFormat.content_type, ext=ArrowFormat.ext)
 
-    @multimethod
     def write_file(self, x: pd.DataFrame, f) -> None:
         if x.size == 0:
             raise ARError("Empty DataFrame provided")
@@ -70,8 +67,7 @@ class DataTableWriter:
 
 
 class HTMLTableWriter:
-    @multimethod
-    def get_meta(self, x: Union[pd.DataFrame, Styler]) -> AssetMeta:
+    def get_meta(self, _: Union[pd.DataFrame, Styler]) -> AssetMeta:
         return AssetMeta(mime="application/vnd.arakawa.table+html", ext=".tbl.html")
 
     @multimethod
@@ -80,8 +76,8 @@ class HTMLTableWriter:
         out = x.to_html().encode()
         f.write(out)
 
-    @multimethod
-    def write_file(self, x: Styler, f) -> None:
+    @write_file.register  # type: ignore
+    def _(self, x: Styler, f) -> None:
         self._check(x.data)
         out = x.to_html().encode()
         f.write(out)
@@ -99,7 +95,7 @@ class PlotWriter:
 
     # Altair (always installed)
     @multimethod
-    def get_meta(self, x: SchemaBase) -> AssetMeta:
+    def get_meta(self, _: SchemaBase) -> AssetMeta:
         return AssetMeta(mime="application/vnd.vegalite.v5+json", ext=".vl.json")
 
     @multimethod
@@ -108,52 +104,52 @@ class PlotWriter:
 
     if opt.HAVE_FOLIUM:
 
-        @multimethod
-        def get_meta(self, x: opt.Map) -> AssetMeta:
+        @get_meta.register  # type: ignore
+        def _(self, _: opt.Map) -> AssetMeta:
             return AssetMeta(mime="application/vnd.folium+html", ext=".fl.html")
 
-        @multimethod
-        def write_file(self, x: opt.Map, f) -> None:
+        @write_file.register  # type: ignore
+        def _(self, x: opt.Map, f) -> None:
             html: str = x.get_root().render()
             f.write(html.encode())
 
     if opt.HAVE_BOKEH:
 
-        @multimethod
-        def get_meta(self, x: Union[opt.BFigure, opt.BLayout]) -> AssetMeta:
+        @get_meta.register  # type: ignore
+        def _(self, _: Union[opt.BFigure, opt.BLayout]) -> AssetMeta:
             return AssetMeta(mime="application/vnd.bokeh.show+json", ext=".bokeh.json")
 
-        @multimethod
-        def write_file(self, x: Union[opt.BFigure, opt.BLayout], f):
+        @write_file.register  # type: ignore
+        def _(self, x: Union[opt.BFigure, opt.BLayout], f):
             from bokeh.embed import json_item
 
             json.dump(json_item(x), DPTextIOWrapper(f))
 
     if opt.HAVE_PLOTLY:
 
-        @multimethod
-        def get_meta(self, x: opt.PFigure) -> AssetMeta:
+        @get_meta.register  # type: ignore
+        def _(self, _: opt.PFigure) -> AssetMeta:
             return AssetMeta(mime="application/vnd.plotly.v1+json", ext=".pl.json")
 
-        @multimethod
-        def write_file(self, x: opt.PFigure, f):
+        @write_file.register  # type: ignore
+        def _(self, x: opt.PFigure, f):
             json.dump(x.to_json(), DPTextIOWrapper(f))
 
     if opt.HAVE_MATPLOTLIB:
 
-        @multimethod
-        def get_meta(self, x: Union[opt.Axes, opt.Figure, opt.ndarray]) -> AssetMeta:
+        @get_meta.register  # type: ignore
+        def _(self, _: Union[opt.Axes, opt.Figure, opt.ndarray]) -> AssetMeta:
             return AssetMeta(mime="image/svg+xml", ext=".svg")
 
-        @multimethod
-        def write_file(self, x: opt.Figure, f) -> None:
+        @write_file.register  # type: ignore
+        def _(self, x: opt.Figure, f) -> None:
             x.savefig(DPTextIOWrapper(f), format="svg", bbox_inches="tight")
 
-        @multimethod
-        def write_file(self, x: opt.Axes, f) -> None:
+        @write_file.register  # type: ignore
+        def _(self, x: opt.Axes, f) -> None:
             self.write_file(x.get_figure(), f)
 
-        @multimethod
-        def write_file(self, x: opt.ndarray, f) -> None:
+        @write_file.register  # type: ignore
+        def _(self, x: opt.ndarray, f) -> None:
             fig = x.flatten()[0].get_figure()
             self.write_file(fig, f)
