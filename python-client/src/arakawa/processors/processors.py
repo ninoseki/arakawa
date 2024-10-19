@@ -287,7 +287,7 @@ class ExportHTMLFileAssets(BaseExportHTML):
         self.formatting = formatting
         self.cdn_base = cdn_base
 
-    def __call__(self, dest: NPath | None = None) -> Path:
+    def __call__(self, _: NPath | None = None) -> Path:
         html, _ = self._write_html_template(
             name=self.name,
             formatting=self.formatting,

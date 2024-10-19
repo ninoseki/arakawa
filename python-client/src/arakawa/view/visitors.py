@@ -21,8 +21,7 @@ if TYPE_CHECKING:
 
 @dc.dataclass
 class ViewVisitor(abc.ABC):  # noqa: B024
-    @multimethod
-    def visit(self: "VV", b: BaseBlock) -> "VV":
+    def visit(self: "VV", _: BaseBlock) -> "VV":
         return self
 
 
@@ -36,8 +35,8 @@ class PrettyPrinter(ViewVisitor):
     def visit(self, b: BaseBlock):
         pass
 
-    @multimethod
-    def visit(self, b: ContainerBlock):
+    @visit.register  # type: ignore
+    def _(self, b: ContainerBlock):
         self.indent += 2
         _ = b.traverse(self)
         self.indent -= 2
@@ -69,16 +68,16 @@ class PreProcess(ViewVisitor):
         self.merge_text()
         self.current_state.append(copy(b))
 
-    @multimethod
-    def visit(self, b: bk.Text):
+    @visit.register  # type: ignore
+    def _(self, b: bk.Text):
         if b.name is None:
             self.current_text.append(b)
         else:
             self.merge_text()
             self.current_state.append(copy(b))
 
-    @multimethod
-    def visit(self, b: ContainerBlock):
+    @visit.register  # type: ignore
+    def _(self, b: ContainerBlock):
         self.merge_text()
 
         if len(b.blocks) < b.report_minimum_blocks:

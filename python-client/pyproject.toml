@@ -76,4 +76,4 @@ select = [
   "T20", # flake8-print
   "W",   # pycodestyle warnings
 ]
-ignore = ["E501", "F811", "PT012"]
+ignore = ["E501", "PT012"]
