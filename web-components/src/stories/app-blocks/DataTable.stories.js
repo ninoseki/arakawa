@@ -1,4 +1,5 @@
-import DataTable from '../../components/blocks/DataTable/DataTable.vue'
+import DataTable from '@/components/blocks/DataTable/DataTable.vue'
+
 import { makeTemplate } from '../utils'
 
 export default {

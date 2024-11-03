@@ -1,4 +1,5 @@
-import SVG from '../../components/blocks/SVG.vue'
+import SVG from '@/components/blocks/SVG.vue'
+
 import svgData from '../assets/svg.b64?raw'
 import { makeTemplate } from '../utils'
 

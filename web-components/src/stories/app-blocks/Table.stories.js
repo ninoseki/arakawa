@@ -1,6 +1,7 @@
 import { defineCustomElement } from 'vue'
 
-import Table from '../../components/blocks/Table.ce.vue'
+import Table from '@/components/blocks/Table.ce.vue'
+
 import tableHtml from '../assets/table.html?raw'
 
 const TableCE = defineCustomElement(Table)

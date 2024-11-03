@@ -1,4 +1,5 @@
-import RangeField from '../../components/controls/RangeField.vue'
+import RangeField from '@/components/controls/RangeField.vue'
+
 import { makeTemplate } from '../utils'
 
 export default {

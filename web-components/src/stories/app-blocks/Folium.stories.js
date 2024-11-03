@@ -1,4 +1,5 @@
-import Folium from '../../components/blocks/Folium.vue'
+import Folium from '@/components/blocks/Folium.vue'
+
 import iframeContent from '../assets/folium.html?raw'
 import { makeTemplate } from '../utils'
 

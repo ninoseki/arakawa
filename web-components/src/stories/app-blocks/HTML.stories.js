@@ -1,4 +1,5 @@
-import HTML from '../../components/blocks/HTML.vue'
+import HTML from '@/components/blocks/HTML.vue'
+
 import { makeTemplate } from '../utils'
 
 export default {

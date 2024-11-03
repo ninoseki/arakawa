@@ -1,4 +1,5 @@
-import TagsField from '../../components/controls/TagsField.vue'
+import TagsField from '@/components/controls/TagsField.vue'
+
 import { makeTemplate } from '../utils'
 
 export default {

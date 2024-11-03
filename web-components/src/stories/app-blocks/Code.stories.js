@@ -1,4 +1,5 @@
-import Code from '../../components/blocks/Code.vue'
+import Code from '@/components/blocks/Code.vue'
+
 import { makeTemplate } from '../utils'
 
 export default {

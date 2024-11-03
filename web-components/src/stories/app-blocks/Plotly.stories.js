@@ -1,4 +1,5 @@
-import Plotly from '../../components/blocks/Plotly.vue'
+import Plotly from '@/components/blocks/Plotly.vue'
+
 import { makeTemplate } from '../utils'
 
 export default {

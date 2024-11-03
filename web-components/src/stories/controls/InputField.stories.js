@@ -1,4 +1,5 @@
-import TextBox from '../../components/controls/TextBox.vue'
+import TextBox from '@/components/controls/TextBox.vue'
+
 import { makeTemplate } from '../utils'
 
 export default {

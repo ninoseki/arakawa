@@ -1,4 +1,5 @@
-import Formula from '../../components/blocks/Formula.vue'
+import Formula from '@/components/blocks/Formula.vue'
+
 import { makeTemplate } from '../utils'
 
 export default {
