@@ -37,7 +37,7 @@ def create_temp_file(
     suffix: str, prefix: str = "arakawa-temp-", mode: str = "w+b"
 ) -> Generator[_TemporaryFileWrapper]:
     """Creates a NamedTemporaryFile that doesn't disappear on .close()"""
-    temp_file = NamedTemporaryFile(
+    temp_file = NamedTemporaryFile(  # noqa: SIM115
         suffix=suffix, prefix=prefix, mode=mode, delete=False
     )
     try:

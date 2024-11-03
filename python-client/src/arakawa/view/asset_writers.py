@@ -78,7 +78,7 @@ class HTMLTableWriter:
 
     @write_file.register  # type: ignore
     def _(self, x: Styler, f) -> None:
-        self._check(x.data)
+        self._check(x.data)  # type: ignore
         out = x.to_html().encode()
         f.write(out)
 
