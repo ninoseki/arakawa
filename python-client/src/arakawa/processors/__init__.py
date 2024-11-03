@@ -1,5 +1,4 @@
 from .api import (  # noqa: F401
-    build_report,
     save_report,
     stringify_report,
 )

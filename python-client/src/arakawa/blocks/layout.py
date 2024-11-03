@@ -6,9 +6,9 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import Self
 
-from arakawa.client import log
 from arakawa.common.ar_types import StrEnum
 from arakawa.exceptions import ARError
+from arakawa.utils import log
 
 from .base import BaseBlock, BlockId, BlockList, BlockOrPrimitive, wrap_block
 from .empty import Empty, gen_name

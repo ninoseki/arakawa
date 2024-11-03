@@ -10,8 +10,8 @@ from multimethod import multimethod
 from arakawa import blocks as bk
 from arakawa.blocks import BaseBlock
 from arakawa.blocks.layout import ContainerBlock
-from arakawa.client import log
 from arakawa.exceptions import ARError
+from arakawa.utils import log
 
 from .view_blocks import Blocks
 

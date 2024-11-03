@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import dataclasses as dc
+import dataclasses
 from enum import Enum
 from pathlib import Path
 from typing import Generic, TypeVar
@@ -11,15 +11,15 @@ from arakawa.view import Blocks
 from .file_store import DummyFileEntry, FileEntry, FileStore
 
 
-@dc.dataclass
+@dataclasses.dataclass
 class ViewState:
     # maybe a FileHandler interface??
     blocks: Blocks
-    file_entry_klass: dc.InitVar[type[FileEntry]]
-    store: FileStore = dc.field(init=False)
+    file_entry_klass: dataclasses.InitVar[type[FileEntry]]
+    store: FileStore = dataclasses.field(init=False)
     view_xml: ViewXML = ""
-    entries: dict[str, str] = dc.field(default_factory=dict)
-    dir_path: dc.InitVar[Path | None] = None
+    entries: dict[str, str] = dataclasses.field(default_factory=dict)
+    dir_path: dataclasses.InitVar[Path | None] = None
 
     def __post_init__(self, file_entry_klass, dir_path):
         # TODO - should we use a lambda for file_entry_klass with dir_path captured?
@@ -42,7 +42,7 @@ class BaseProcessor(Generic[P_IN, P_OUT]):
 # TODO - type this properly
 class Pipeline(Generic[P_IN]):
     """
-    A simple, programmable, eagerly-evaluated, pipeline specialised on ViewAST transformations
+    A simple, programmable, eagerly-evaluated, pipeline specialized on ViewAST transformations
     similar to f :: State s => s ViewState x -> s ViewState y
     """
 
@@ -106,7 +106,7 @@ class FontChoice(Enum):
 #     SIDE = "side"
 
 
-@dc.dataclass
+@dataclasses.dataclass
 class Formatting:
     """Configure styling and formatting"""
 

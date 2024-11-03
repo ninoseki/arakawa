@@ -4,24 +4,23 @@ import importlib.resources as ir
 import json
 from abc import ABC
 from copy import copy
-from itertools import count
 from os import path as osp
 from pathlib import Path
-from typing import Any, BinaryIO, cast
+from typing import Any, cast
 from uuid import uuid4
 
 from jinja2 import Environment, FileSystemLoader, Template
 from jinja2.utils import htmlsafe_json_dumps
 from lxml import etree
+from lxml.etree import _ElementTree, _XSLTResultTree
 
 from arakawa import blocks as b
-from arakawa.client.utils import display_msg, log, open_in_browser
 from arakawa.common import HTML, NPath, timestamp, validate_view_doc
 from arakawa.common.viewxml_utils import ElementT, local_view_resources
 from arakawa.exceptions import InvalidReportError
+from arakawa.utils import display_msg, log, open_in_browser
 from arakawa.view import PreProcess, XMLBuilder
 
-from .file_store import FileEntry
 from .types import BaseProcessor, Formatting
 
 
@@ -68,7 +67,9 @@ class PreProcessView(BaseProcessor):
 class ConvertXML(BaseProcessor):
     """Convert the View AST into an XML fragment"""
 
-    local_post_xslt = etree.parse(str(local_view_resources / "local_post_process.xslt"))
+    local_post_xslt: _ElementTree = etree.parse(  # type: ignore
+        str(local_view_resources / "local_post_process.xslt")
+    )
     local_post_transform = etree.XSLT(local_post_xslt)
 
     def __init__(self, *, pretty_print: bool = False, fragment: bool = False) -> None:
@@ -81,13 +82,13 @@ class ConvertXML(BaseProcessor):
         transformed_doc = self.post_transforms(initial_doc)
 
         # convert to string
-        view_xml_str: str = etree.tounicode(
-            transformed_doc, pretty_print=self.pretty_print
+        view_xml_str: str = etree.tostring(
+            transformed_doc, pretty_print=self.pretty_print, encoding="unicode"
         )
         # s1 = dc.replace(s, view_xml=view_xml_str)
         self.s.view_xml = view_xml_str
 
-        log.debug(etree.tounicode(transformed_doc, pretty_print=True))
+        log.debug(etree.tostring(transformed_doc, pretty_print=True))
 
         # return the doc for further processing (xml str stored in state)
         return transformed_doc
@@ -98,39 +99,16 @@ class ConvertXML(BaseProcessor):
         self.s.blocks.accept(builder_state)
         return builder_state.get_root(self.fragment)
 
-    def post_transforms(self, view_doc: ElementT) -> ElementT:
+    def post_transforms(self, view_doc: ElementT) -> _XSLTResultTree:
         # TODO - post-xml transformations, essentially xslt / lxml-based DOM operations
         # post_process via xslt
-        processed_view_doc: ElementT = self.local_post_transform(view_doc)
+        processed_view_doc = self.local_post_transform(view_doc)
 
         # TODO - custom lxml-based transforms go here...
 
         # validate post all transformations
         validate_view_doc(xml_doc=processed_view_doc)
         return processed_view_doc
-
-
-class PreUploadProcessor(BaseProcessor):
-    def __call__(self, doc: ElementT) -> tuple[str, list[BinaryIO]]:
-        """
-        pre-upload pass of the XML doc so can be uploaded to DPCloud
-        modifies the document based on the FileStore
-        """
-
-        # NOTE - this currently relies on all assets existing linearly in document order
-        # in the asset store - if we move to a cas we will need to update the algorithm here
-        # replace ref -> attachment in view
-        # all blocks with a ref
-        refs: list[ElementT] = doc.xpath("/View//*[@src][starts-with(@src, 'ref://')]")
-        for idx, ref, f_entry in zip(count(0), refs, self.s.store.files):
-            ref: ElementT
-            f_entry: FileEntry
-            _hash: str = ref.get("src").split("://")[1]
-            ref.set("src", f"attachment://{idx}")
-            assert _hash == f_entry.hash  # sanity check
-
-        self.s.view_xml = etree.tounicode(doc)
-        return (self.s.view_xml, self.s.store.file_list)
 
 
 ###############################################################################
@@ -193,36 +171,6 @@ class BaseExportHTML(BaseProcessor, ABC):
         )
 
         return html, report_id
-
-
-class ExportBaseHTMLOnly(BaseExportHTML):
-    """Export the base view used to render an App, containing no ViewXML nor Assets"""
-
-    # TODO (JB) - Create base HTML-only template
-    template_name = "local_template.html.j2"
-
-    def __init__(
-        self,
-        debug: bool,
-        formatting: Formatting | None = None,
-    ):
-        self.debug = debug
-        self.formatting = formatting
-
-    def generate_chrome(self) -> HTML:
-        # TODO - this is a bit hacky
-        self.s = None
-        html, _ = self._write_html_template(
-            "app",
-            formatting=self.formatting,
-        )
-        return HTML(html)
-
-    def get_cdn(self) -> str:
-        return "/web-static" if self.debug else super().get_cdn()
-
-    def __call__(self, _: Any) -> None:
-        return None
 
 
 class ExportHTMLInlineAssets(BaseExportHTML):

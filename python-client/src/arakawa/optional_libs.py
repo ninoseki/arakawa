@@ -7,7 +7,7 @@ from __future__ import annotations
 from packaging import version as v
 from packaging.specifiers import SpecifierSet
 
-from arakawa.client import log
+from arakawa.utils import log
 
 # NOTE - need to update this and keep in sync with JS
 BOKEH_V_SPECIFIER = SpecifierSet(">=3.4.0,<3.5.0")

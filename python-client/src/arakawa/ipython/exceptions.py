@@ -1,4 +1,4 @@
-from arakawa.client import display_msg
+from arakawa.utils import display_msg
 
 
 class NotebookError(Exception):

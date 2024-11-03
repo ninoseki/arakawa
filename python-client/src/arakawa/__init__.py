@@ -27,17 +27,16 @@ from .blocks import (  # noqa: F401
     VAlign,
     wrap_block,
 )
-from .client import enable_logging, print_debug_info  # noqa: F401
 from .exceptions import ARError  # noqa: F401
 from .processors import (  # noqa: F401
     FontChoice,
     Formatting,
     TextAlignment,
     Width,
-    build_report,
     save_report,
     stringify_report,
 )
+from .utils import enable_logging, print_debug_info  # noqa: F401
 from .view import Blocks, Report, View  # noqa: F401
 
 from . import builtins  # noqa: F401 # isort: skip

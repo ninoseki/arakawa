@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from arakawa.client import log
+from arakawa.utils import log
 
 from .exceptions import NotebookError
 

@@ -15,9 +15,9 @@ from multimethod import multimethod
 from pandas.io.formats.style import Styler
 
 from arakawa import optional_libs as opt
-from arakawa.client import log
 from arakawa.common import ArrowFormat
 from arakawa.exceptions import ARError
+from arakawa.utils import log
 
 from .xml_visitor import AssetMeta
 

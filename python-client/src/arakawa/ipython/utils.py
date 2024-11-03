@@ -7,7 +7,7 @@ from __future__ import annotations
 from contextlib import suppress
 from typing import TYPE_CHECKING
 
-from arakawa.client.utils import display_msg
+from arakawa.utils import display_msg
 
 from .environment import get_environment
 from .exceptions import BlocksNotFoundError, NotebookParityError

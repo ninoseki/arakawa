@@ -11,8 +11,8 @@ from abc import abstractmethod
 from typing import Callable, Union
 
 import arakawa.blocks as b
-from arakawa.client.utils import display_msg
 from arakawa.ipython.exceptions import BlocksNotFoundError
+from arakawa.utils import display_msg
 
 BlockFilterF = Callable[[b.BaseBlock], bool]
 BlockTypes = Union[tuple[type[b.BaseBlock], ...], type]
