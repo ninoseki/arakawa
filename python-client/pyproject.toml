@@ -22,6 +22,14 @@ dependencies = [
   "typing-extensions>=4.12",
 ]
 
+[project.optional-dependencies]
+plotting = [
+  "bokeh>=3.4.0,<3.5.0",
+  "folium~=0.17",
+  "matplotlib~=3.9",
+  "plotly~=5.24",
+]
+
 [project.urls]
 Repository = "https://github.com/ninoseki/arakawa/"
 
@@ -50,13 +58,6 @@ dev = [
   "glom>=23.5.0",
   "pytest-github-actions-annotate-failures>=0.2.0",
 ]
-plotting = [
-  "bokeh>=3.4.0,<3.5.0",
-  "folium~=0.17",
-  "matplotlib~=3.9",
-  "plotly~=5.24",
-]
-
 
 [tool.ruff.lint]
 select = [
