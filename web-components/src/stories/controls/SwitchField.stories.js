@@ -1,4 +1,5 @@
-import SwitchField from '../../components/controls/SwitchField.vue'
+import SwitchField from '@/components/controls/SwitchField.vue'
+
 import { makeTemplate } from '../utils'
 
 export default {

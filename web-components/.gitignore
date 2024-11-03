@@ -35,3 +35,7 @@ cypress.env.json
 .idea
 .vscode/*
 *.swp
+
+# storybook
+storybook-static
+*storybook.log

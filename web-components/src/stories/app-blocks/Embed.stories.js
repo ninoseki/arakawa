@@ -1,4 +1,5 @@
-import Embed from '../../components/blocks/Embed.vue'
+import Embed from '@/components/blocks/Embed.vue'
+
 import { makeTemplate } from '../utils'
 
 export default {

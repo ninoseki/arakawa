@@ -1,4 +1,5 @@
-import MultiChoiceField from '../../components/controls/MultiChoiceField.vue'
+import MultiChoiceField from '@/components/controls/MultiChoiceField.vue'
+
 import { makeTemplate } from '../utils'
 
 export default {

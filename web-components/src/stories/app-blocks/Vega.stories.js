@@ -1,4 +1,5 @@
-import Vega from '../../components/blocks/Vega.vue'
+import Vega from '@/components/blocks/Vega.vue'
+
 import { makeTemplate } from '../utils'
 
 export default {

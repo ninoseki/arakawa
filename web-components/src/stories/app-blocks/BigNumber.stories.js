@@ -1,4 +1,5 @@
-import BigNumber from '../../components/blocks/BigNumber.vue'
+import BigNumber from '@/components/blocks/BigNumber.vue'
+
 import { makeTemplate } from '../utils'
 
 export default {

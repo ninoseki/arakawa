@@ -1,4 +1,5 @@
-import FileField from '../../components/controls/FileField.vue'
+import FileField from '@/components/controls/FileField.vue'
+
 import { makeTemplate } from '../utils'
 
 export default {

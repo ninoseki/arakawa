@@ -1,4 +1,5 @@
-import Text from '../../components/blocks/Text.vue'
+import Text from '@/components/blocks/Text.vue'
+
 import { makeTemplate } from '../utils'
 
 export default {

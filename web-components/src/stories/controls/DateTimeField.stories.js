@@ -1,4 +1,5 @@
-import DateTimeField from '../../components/controls/DateTimeField.vue'
+import DateTimeField from '@/components/controls/DateTimeField.vue'
+
 import { makeTemplate } from '../utils'
 
 export default {

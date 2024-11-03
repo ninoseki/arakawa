@@ -1,4 +1,5 @@
-import Compute from '../../components/controls/Compute.vue'
+import Compute from '@/components/controls/Compute.vue'
+
 import * as b from '../../data-model/blocks/index'
 import { makeTemplate } from '../utils'
 

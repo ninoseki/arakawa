@@ -1,4 +1,5 @@
-import SelectField from '../../components/controls/SelectField.vue'
+import SelectField from '@/components/controls/SelectField.vue'
+
 import { makeTemplate } from '../utils'
 
 export default {

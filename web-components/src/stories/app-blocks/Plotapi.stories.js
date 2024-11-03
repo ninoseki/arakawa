@@ -1,4 +1,5 @@
-import Plotapi from '../../components/blocks/Plotapi.vue'
+import Plotapi from '@/components/blocks/Plotapi.vue'
+
 import iframeContent from '../assets/plotapi.html?raw'
 import { makeTemplate } from '../utils'
 
