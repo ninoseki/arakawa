@@ -44,6 +44,7 @@ def validate_view_doc(
 ) -> bool:
     """Validate the model against the schema, throws an etree.DocumentInvalid if not"""
     assert xml_str or (xml_doc is not None)
+
     if xml_str:
         xml_doc = etree.fromstring(xml_str)
 
@@ -52,9 +53,7 @@ def validate_view_doc(
         return True
     except DocumentInvalid:
         if not quiet:
-            xml_str = (
-                xml_str if xml_str else etree.tounicode(xml_doc, pretty_print=True)
-            )
+            xml_str = xml_str if xml_str else etree.tostring(xml_doc, pretty_print=True)
             log.error(
                 f"Error validating report document:\n\n{xml_str}\n{rng_validator.error_log}\n"
             )

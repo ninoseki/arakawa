@@ -1,7 +1,7 @@
 """
 Arakawa Blocks API
 
-Describes the collection of `Block` objects that can be combined together to make a `arakawa.client.api.report.core.Report`.
+Describes the collection of `Block` objects that can be combined together to make a `arakawa.utils.api.report.core.Report`.
 """
 
 from __future__ import annotations
@@ -12,9 +12,9 @@ from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from lxml.builder import ElementMaker
 from typing_extensions import Self
 
-from arakawa.client import log
 from arakawa.common.viewxml_utils import is_valid_id, mk_attribs
 from arakawa.exceptions import ARError
+from arakawa.utils import log
 
 if TYPE_CHECKING:
     from arakawa.blocks import Block

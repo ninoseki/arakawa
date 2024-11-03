@@ -76,7 +76,7 @@ class Blocks(ContainerBlock):
 
     def get_dom_str(self) -> str:
         dom = self.get_dom()
-        return etree.tounicode(dom, pretty_print=True)
+        return etree.tostring(dom, pretty_print=True).decode()
 
     def pprint(self) -> None:
         from .visitors import PrettyPrinter

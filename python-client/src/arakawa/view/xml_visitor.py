@@ -1,4 +1,4 @@
-import dataclasses as dc
+import dataclasses
 from collections import namedtuple
 from typing import TYPE_CHECKING, Any, Protocol
 
@@ -11,9 +11,9 @@ from arakawa.blocks import BaseBlock
 from arakawa.blocks.asset import AssetBlock
 from arakawa.blocks.layout import ContainerBlock
 from arakawa.blocks.text import EmbeddedTextBlock
-from arakawa.client import log
 from arakawa.common.viewxml_utils import ElementT, mk_attribs
 from arakawa.exceptions import ARError
+from arakawa.utils import log
 from arakawa.view.view_blocks import Blocks
 from arakawa.view.visitors import ViewVisitor
 
@@ -23,13 +23,13 @@ if TYPE_CHECKING:
 E = ElementMaker()  # XML Tag Factory
 
 
-@dc.dataclass
+@dataclasses.dataclass
 class XMLBuilder(ViewVisitor):
     """Convert the Blocks into an XML document"""
 
     store: "FileStore"
     # element: t.Optional[etree.Element] = None  # Empty Group Element?
-    elements: list[ElementT] = dc.field(default_factory=list)
+    elements: list[ElementT] = dataclasses.field(default_factory=list)
 
     def get_root(self, fragment: bool = False) -> ElementT:
         """Return the top-level ViewXML"""
@@ -41,7 +41,7 @@ class XMLBuilder(ViewVisitor):
         assert not self.elements
 
         # create top-level structure
-        return E.View(
+        return E.View(  # type: ignore
             # E.Internal(),
             *_top_group.getchildren(),
             **mk_attribs(version="1", fragment=fragment),
@@ -113,6 +113,7 @@ class XMLBuilder(ViewVisitor):
 
         if b.caption:
             e.set("caption", b.caption)
+
         return self.add_element(b, e)
 
     def _add_asset_to_store(self, b: AssetBlock) -> "FileEntry":
@@ -170,12 +171,12 @@ def get_writer(b: AssetBlock) -> AssetWriterP:
         return aw.PlotWriter()
 
     if isinstance(b, a.Table):
-        return aw.HTMLTableWriter()
+        return aw.HTMLTableWriter()  # type: ignore
 
     if isinstance(b, a.Attachment):
         return aw.AttachmentWriter()
 
     if isinstance(b, a.DataTable):
-        return aw.DataTableWriter()
+        return aw.DataTableWriter()  # type: ignore
 
     raise KeyError(f"No writer found for {type(b).__name__}")

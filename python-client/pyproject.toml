@@ -57,6 +57,7 @@ dev = [
   "twine~=5.1.1",
   "glom>=23.5.0",
   "pytest-github-actions-annotate-failures>=0.2.0",
+  "types-lxml>=2024.9.16",
 ]
 
 [tool.ruff.lint]
