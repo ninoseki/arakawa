@@ -131,11 +131,11 @@ class GzipTmpFileEntry(FileEntry):
         if dir_path:
             # create as a permanent file within the given dir
             self.has_output_dir = True
-            self.wrapped = tempfile.NamedTemporaryFile(
+            self.wrapped = tempfile.NamedTemporaryFile(  # noqa: SIM115
                 "w+b", suffix=ext, prefix="ar-", dir=dir_path, delete=False
             )
         else:
-            self.wrapped = tempfile.NamedTemporaryFile("w+b", suffix=ext, prefix="ar-")
+            self.wrapped = tempfile.NamedTemporaryFile("w+b", suffix=ext, prefix="ar-")  # noqa: SIM115
 
         self.file = gzip.GzipFile(fileobj=self.wrapped, mode="w+b", mtime=GZIP_MTIME)
 
