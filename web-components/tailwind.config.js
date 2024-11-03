@@ -1,12 +1,12 @@
 /* eslint-disable */
 
-const config = require("./base.tailwind.config");
+const defaultTheme = require('tailwindcss/defaultTheme')
+const config = require('./base.tailwind.config')
+const { colors: fontFamily } = defaultTheme
 
 config.content = [
-  // Report renderer
-  "./report/src/**/*.{vue,js,ts}",
-  // Web components
-  "./template-components/src/**/*.{vue,js,ts}",
-];
+  './src/**/*.{vue,js,ts}',
+  '../python-client/src/arakawa/resources/html_templates/*.html.j2',
+]
 
-module.exports = config;
+module.exports = config
