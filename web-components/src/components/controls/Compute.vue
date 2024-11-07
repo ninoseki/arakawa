@@ -72,13 +72,12 @@ onUnmounted(() => {
 
 <template>
   <div class="w-full" v-if="isVisible">
-    <div class="border shadow-sm bg-gray-50 rounded-md w-full max-w-3xl">
+    <div class="border shadow-sm bg-gray-50 rounded-md w-full">
       <form-kit
         type="form"
-        :actions="false"
+        action="/foo"
         :id="formId"
         #default="{ state: { valid } }"
-        @submit="update"
       >
         <div class="px-4 py-5 sm:p-6">
           <div class="mb-6">
@@ -115,7 +114,7 @@ onUnmounted(() => {
               <div class="pl-1">Running function...</div>
             </template>
             <template v-else-if="functionRunDisabled">
-              <i class="fa fa-info-circle" />
+              <i class="fa fa-info-circle"></i>
               <div class="pl-1">
                 Function running is disabled for static reports
               </div>

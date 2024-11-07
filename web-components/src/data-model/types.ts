@@ -27,7 +27,7 @@ export type AppDataResult = {
 
 export type AppData = {
   data: {
-    result?: AppDataResult
+    result: AppDataResult
     error?: { message: string; code: number }
   }
 }

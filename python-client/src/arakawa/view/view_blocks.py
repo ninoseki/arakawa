@@ -85,14 +85,13 @@ class Blocks(ContainerBlock):
 
     @classmethod
     def wrap_blocks(cls, x: Self | list[BlockOrPrimitive] | BlockOrPrimitive) -> Self:
-        blocks: Self
         if isinstance(x, Blocks):
-            blocks = copy(x)
-        elif isinstance(x, list):
-            blocks = cls(*x)
-        else:
-            blocks = cls(x)
-        return blocks
+            return copy(x)  # type: ignore
+
+        if isinstance(x, list):
+            return cls(*x)
+
+        return cls(x)
 
     @property
     def has_compute(self):

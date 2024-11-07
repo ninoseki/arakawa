@@ -97,11 +97,13 @@ class PreProcess(ViewVisitor):
         # log.debug("Merging text nodes")
         if self.current_text:
             t1: bk.Text  # noqa: F842
+
             if self.in_collapsible_group:
                 new_text = "\n\n".join(t1.content for t1 in self.current_text)
                 self.current_state.append(bk.Text(new_text))
             else:
                 self.current_state.extend(copy(t1) for t1 in self.current_text)
+
             self.current_text = []
 
     @property

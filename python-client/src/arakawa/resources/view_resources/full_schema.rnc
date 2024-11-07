@@ -50,13 +50,12 @@ block_label_or_name = block_name?, block_label?
 #  block_label_or_name, Block+
 #}
 
-Block = LayoutBlock | DataBlock | Empty
+Block = LayoutBlock | DataBlock | Compute | ControlBlock | Empty
 
 # Used to describe a Placeholder element we can patch - like empty div in HTML
 Empty = element Empty {
   block_name
 }
-
 
 ################################################################################
 # NOTE - we could add Grid, Columns, etc. here
@@ -85,6 +84,29 @@ Toggle = element Toggle {
   block_label_or_name,
   Block
 }
+
+################################################################################
+
+Compute = element Compute {
+  block_label_or_name,
+
+  # optional attributes
+  attribute action { minLength = "1" }?,
+
+  Block*
+}
+
+################################################################################
+# Controls
+TextBox = element TextBox {
+  block_name_or_label,
+
+  # optional attributes
+  attribute initial { xsd:string }?,
+  attribute required{ xsd:boolean }?
+}
+
+ControlBlock = TextBox
 
 ################################################################################
 DataBlock = EmbeddedTextBlock | AssetBlock | BigNumber

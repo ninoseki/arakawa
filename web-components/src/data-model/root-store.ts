@@ -1,5 +1,3 @@
-import axios, { AxiosError } from 'axios'
-import axiosRetry from 'axios-retry'
 import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
 import convert from 'xml-js'
@@ -7,18 +5,7 @@ import convert from 'xml-js'
 import * as b from './blocks'
 import { isParentElem } from './blocks'
 import * as maps from './test-maps'
-import {
-  type AppData,
-  type AppDataResult,
-  type AppMetaData,
-  SwapType,
-} from './types'
-
-axiosRetry(axios, {
-  retries: 3,
-  retryCondition: (e: AxiosError) => e.response?.status === 502,
-  retryDelay: () => 1000,
-})
+import type { AppData, AppMetaData } from './types'
 
 export type EmptyObject = Record<string, never>
 
@@ -171,37 +158,19 @@ export const useRootStore = defineStore('root', () => {
     }
   }
 
-  const fetchReport = async (
-    { functionId, params } = { functionId: 'app.main', params: {} },
-  ) =>
-    await axios.post(
-      '/app-rpc-call/',
-      {
-        jsonrpc: '2.0',
-        id: 2,
-        method: functionId,
-        params,
-      },
-      { headers: { 'Content-Type': 'application/json' } },
-    )
-
-  const resetAppSession = async () => void (await axios.post('/control/reset/'))
-
-  const setReport = async (meta: AppMetaData, localAppData?: AppData) => {
+  const setReport = async (meta: AppMetaData, localAppData: AppData) => {
     /**
      * Set report object either from given app data or
      * by fetching from the app server
      */
-    const appData = localAppData ?? (await fetchReport())
-
-    const { view_xml, assets } = parseAppData(appData)
+    const { view_xml: viewXml, assets } = localAppData.data.result!
 
     blockMap.push(...mkBlockMap(meta.isLightProse, meta.isOrg, meta.webUrl))
 
     Object.assign(assetMap, assets)
 
-    // Using `reactive` / Object.assign on `report` only preserved JSON-serialisable properties (i.e. no methods)
-    report.value = xmlToView(view_xml)
+    // Using `reactive` / Object.assign on `report` only preserved JSON-serializable properties (i.e. no methods)
+    report.value = xmlToView(viewXml)
 
     // Can cast to `View` as we just assigned the response to `report.value`
     singleBlockEmbed.value = isSingleBlockEmbed(
@@ -210,32 +179,20 @@ export const useRootStore = defineStore('root', () => {
     )
   }
 
-  const parseAppData = (appData: AppData): AppDataResult => {
-    /**
-     * Return XML and assets from `appData`
-     */
-    if (!appData.data.result) {
-      // Throw JSON-RPC error if available
-      const { error } = appData.data
-      throw new Error(
-        error ? `${error.message} (${error.code})` : 'Unknown error',
-      )
-    }
-
-    return appData.data.result
-  }
-
   const deserialize = (elem: b.Elem, isFragment = false): b.Block => {
     if (!elem.attributes) {
       elem.attributes = {}
     }
 
+    console.log(b.isComputeElem(elem))
+
     if (b.isComputeElem(elem)) {
       // Skip inner `Controls` block.
       // Can assert not-null as layout block JSON always contains `elements`
       const controlBlock = elem.elements![0]
-      elem.elements = controlBlock.elements
-      elem.attributes.subtitle = controlBlock.attributes?.label
+      console.log(JSON.stringify(controlBlock))
+      // elem.elements = controlBlock.elements
+      // elem.attributes.subtitle = controlBlock.attributes?.label
     } else if (b.isViewElem(elem) && isFragment) {
       elem.name = 'Group'
       elem.attributes.columns = '1'
@@ -248,48 +205,9 @@ export const useRootStore = defineStore('root', () => {
         : []
     }
 
+    console.log(deserializeBlock(elem))
+
     return deserializeBlock(elem)
-  }
-
-  const update = async (
-    target: string,
-    method: SwapType,
-    params: any,
-    functionId: string,
-  ) => {
-    /**
-     * Generates new `View` fragment by hitting the app server with params and function ID,
-     * and updates the app at the given `target`
-     */
-    if (!(report.value instanceof b.View)) {
-      throw new Error('App not yet initialized')
-    }
-
-    const r = await fetchReport({ functionId, params })
-
-    const { view_xml, assets } = parseAppData(r)
-
-    // Update asset store
-    Object.assign(assetMap, assets)
-
-    const group: b.Group = xmlToFragment(view_xml)
-
-    const stack: b.LayoutBlock[] = [report.value]
-    let didUpdate = false
-
-    while (stack.length && !didUpdate) {
-      // We can assert `LayoutBlock` (not `undefined`) as the stack is only popped while non-empty
-      const block = stack.pop() as b.LayoutBlock
-
-      // If the target block is in `block.children` then update the `children` accordingly and return `true`
-      didUpdate = block.update(target, group, method)
-
-      stack.push(...block.children.filter(b.isLayoutBlock))
-    }
-
-    if (!didUpdate) {
-      throw new Error(`Target block with ID '${target}' not found`)
-    }
   }
 
   const xmlToJson = (xml: string): any => {
@@ -308,14 +226,6 @@ export const useRootStore = defineStore('root', () => {
     return deserialize(root) as b.View
   }
 
-  const xmlToFragment = (xml: string): b.Group => {
-    /**
-     * Convert an XML string document to a deserialized `Group` of `Block` objects
-     */
-    const root = xmlToJson(xml)
-    return deserialize(root, true) as b.Group
-  }
-
   function updateFigureCount(captionType: b.CaptionType): number {
     return ++counts[captionType]
   }
@@ -323,10 +233,8 @@ export const useRootStore = defineStore('root', () => {
   return {
     report,
     counts,
-    update,
     assetMap,
     singleBlockEmbed,
     setReport,
-    resetAppSession,
   }
 })

@@ -6,8 +6,17 @@ from .base import (  # noqa: F401
     DataBlock,
     wrap_block,
 )
+from .controls import TextBox  # noqa: F401
 from .empty import Empty  # noqa: F401
-from .layout import Group, Page, Select, SelectType, Toggle, VAlign  # noqa: F401
+from .layout import (  # noqa: F401
+    Compute,
+    Group,
+    Page,
+    Select,
+    SelectType,
+    Toggle,
+    VAlign,
+)
 from .misc_blocks import BigNumber  # noqa: F401
 from .text import HTML, Code, Embed, Formula, Text  # noqa: F401
 

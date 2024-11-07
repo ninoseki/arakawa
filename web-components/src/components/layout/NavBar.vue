@@ -9,7 +9,6 @@ const p = defineProps<{
   labels: string[]
   pageNumber: number
   reportWidthClass: ReportProps['reportWidthClass']
-  resetApp: () => void
 }>()
 const emit = defineEmits(['page-change'])
 

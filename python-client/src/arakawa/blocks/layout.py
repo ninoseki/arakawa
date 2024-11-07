@@ -241,11 +241,24 @@ class Toggle(ContainerBlock):
             self.blocks = [Group(blocks=self.blocks)]
 
 
+class Compute(ContainerBlock):
+    _tag = "Compute"
+
+    def __init__(
+        self,
+        *arg_blocks: BlockOrPrimitive,
+        blocks: list[BlockOrPrimitive] | None = None,
+        name: BlockId | None = None,
+        label: str | None = None,
+    ):
+        super().__init__(*arg_blocks, blocks=blocks, name=name, label=label)
+
+
 class BlockListIterator:
     """Wrapper around default list iterator that supports depth-first traversal of blocks"""
 
     def __init__(self, _iter):
-        # linearise all blocks into a deque as we traverse
+        # linearize all blocks into a deque as we traverse
         self.nested = deque(_iter)
 
     def __next__(self) -> Block:

@@ -53,11 +53,15 @@ def assert_view(
     state = _view_to_xml_and_files(view)
     view_xml = state.view_xml
     attachments = state.store.file_list
+
     if expected_attachments:
         assert len(attachments) == expected_attachments
+
     if expected_num_blocks:
         assert num_blocks(view_xml) == expected_num_blocks
+
     assert validate_view_doc(xml_str=view_xml)
+
     return (view_xml, attachments)
 
 

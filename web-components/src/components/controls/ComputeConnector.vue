@@ -23,10 +23,16 @@ const p = defineProps<{
   figure: BlockFigureProps
   timer?: number
   subtitle?: string
+  action?: string
   immediate?: boolean
 }>()
 
 const { children } = storeToRefs(p.store)
+
+console.log('this is the connector!')
+console.log(p)
+console.log(children)
+
 const error = ref<string | undefined>()
 const loading = ref<boolean>(false)
 
