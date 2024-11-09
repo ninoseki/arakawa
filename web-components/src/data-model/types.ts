@@ -46,12 +46,6 @@ export enum SwapType {
   PREPEND = 'prepend',
 }
 
-export enum TriggerType {
-  SUBMIT = 'submit',
-  SCHEDULE = 'schedule',
-  MOUNT = 'mount',
-}
-
 export enum VAlign {
   TOP = 'top',
   CENTER = 'center',

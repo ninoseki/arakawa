@@ -151,30 +151,20 @@ export class ComputeBlock extends ParentBlock<ControlsField> {
 
   public constructor(elem: any, figure: BlockFigure) {
     super(elem, figure)
-    const {
-      target,
-      swap,
-      submit_label,
-      label,
-      subtitle,
-      function_id,
-      trigger,
-      timer,
-      immediate,
-    } = elem.attributes
+    const { swap, prompt, label, subtitle, target, action, method } =
+      elem.attributes
 
     this.store = useControlStore(this.children, target, swap)()
+    console.log(this.store)
 
     this.componentProps = {
       ...this.componentProps,
-      prompt: submit_label || 'Submit',
-      functionId: function_id,
+      prompt: prompt || 'Submit',
       store: this.store,
-      timer: +timer,
-      immediate: immediate ? JSON.parse(immediate) : undefined,
       label,
       subtitle,
-      trigger,
+      action,
+      method,
     }
   }
 }

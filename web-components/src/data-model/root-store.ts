@@ -184,13 +184,11 @@ export const useRootStore = defineStore('root', () => {
       elem.attributes = {}
     }
 
-    console.log(b.isComputeElem(elem))
-
     if (b.isComputeElem(elem)) {
+      console.log(elem)
       // Skip inner `Controls` block.
       // Can assert not-null as layout block JSON always contains `elements`
-      const controlBlock = elem.elements![0]
-      console.log(JSON.stringify(controlBlock))
+      // const controlBlock = elem.elements![0]
       // elem.elements = controlBlock.elements
       // elem.attributes.subtitle = controlBlock.attributes?.label
     } else if (b.isViewElem(elem) && isFragment) {
@@ -204,8 +202,6 @@ export const useRootStore = defineStore('root', () => {
         ? elem.elements.map(e => deserialize(e))
         : []
     }
-
-    console.log(deserializeBlock(elem))
 
     return deserializeBlock(elem)
   }

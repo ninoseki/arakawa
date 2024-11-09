@@ -1,6 +1,6 @@
 import Compute from '@/components/controls/Compute.vue'
 
-import * as b from '../../data-model/blocks/index'
+import * as b from '../../data-model/blocks'
 import { makeTemplate } from '../utils'
 
 export default {

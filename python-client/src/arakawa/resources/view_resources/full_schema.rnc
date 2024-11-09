@@ -74,7 +74,7 @@ Group = element Group {
   [ a:defaultValue = "1" ]
   attribute columns { xsd:nonNegativeInteger },
   # widths is a json list of ints
-  attribute widths { xsd:string { minLength = "2" pattern = """\[\d+(,\s*\d+)*\]""" } }?,
+  attribute widths { xsd:string { minLength = "2" pattern = "\[\d+(,\s*\d+)*\]" } }?,
   attribute valign { string "top" | string "center" | string "bottom" },
 
   Block*
@@ -90,23 +90,111 @@ Toggle = element Toggle {
 Compute = element Compute {
   block_label_or_name,
 
+  attribute method { xsd:string },
   # optional attributes
-  attribute action { minLength = "1" }?,
+  attribute action { xsd:string }?,
+  attribute subtitle { xsd:string { minLength = "1" maxLength = "255" } }?,
+  attribute prompt { xsd:string { minLength = "1" maxLength = "127" } }?,
 
   Block*
 }
 
 ################################################################################
 # Controls
+DateTime = element DateTime {
+  block_label_or_name,
+
+  # optional attributes
+  attribute initial { xsd:string }?,
+  attribute required { xsd:boolean }?
+}
+
+Date = element Date {
+  block_label_or_name,
+
+  # optional attributes
+  attribute initial { xsd:string }?,
+  attribute required { xsd:boolean }?
+}
+
+Time = element Time {
+  block_label_or_name,
+
+  # optional attributes
+  attribute initial { xsd:string }?,
+  attribute required { xsd:boolean }?
+}
+
+File = element File {
+  block_label_or_name,
+
+  # optional attributes
+  attribute required { xsd:boolean }?
+}
+
+MultiChoice = element MultiChoice {
+  block_label_or_name,
+
+  attribute initial { list { xsd:string } },
+  attribute options { list { xsd:string } },
+
+  # optional attributes
+  attribute required { xsd:boolean }?
+}
+
+NumberBox = element NumberBox {
+  block_label_or_name,
+
+  # optional attributes
+  attribute initial { xsd:decimal }?,
+  attribute required { xsd:boolean }?
+}
+
+Range = element Range {
+  block_label_or_name,
+
+  attribute min { xsd:decimal },
+  attribute max { xsd:decimal },
+  attribute step { xsd:decimal },
+  # optional attributes
+  attribute initial { xsd:decimal }?,
+  attribute required { xsd:boolean }?
+}
+
+Choice = element Choice {
+  block_label_or_name,
+
+  attribute options { list { xsd:string } },
+  # optional attributes
+  attribute initial { xsd:string }?,
+  attribute required { xsd:boolean }?
+}
+
+Switch = element Switch {
+  block_label_or_name,
+
+  attribute initial { xsd:boolean },
+  # optional attributes
+  attribute required{ xsd:boolean }?
+}
+
+Tags = element Tags {
+  block_label_or_name,
+
+  attribute initial { list { xsd:string } },
+  # optional attributes
+  attribute required{ xsd:boolean }?
+}
+
 TextBox = element TextBox {
-  block_name_or_label,
+  block_label_or_name,
 
   # optional attributes
   attribute initial { xsd:string }?,
   attribute required{ xsd:boolean }?
 }
 
-ControlBlock = TextBox
+ControlBlock = DateTime | Date | Time | File | MultiChoice | NumberBox | Range | Choice | Switch | Tags | TextBox
 
 ################################################################################
 DataBlock = EmbeddedTextBlock | AssetBlock | BigNumber

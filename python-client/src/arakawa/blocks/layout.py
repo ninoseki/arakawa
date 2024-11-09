@@ -250,8 +250,21 @@ class Compute(ContainerBlock):
         blocks: list[BlockOrPrimitive] | None = None,
         name: BlockId | None = None,
         label: str | None = None,
+        prompt: str | None = None,
+        subtitle: str | None = None,
+        action: str | None = "",
+        method: str = "GET",
     ):
-        super().__init__(*arg_blocks, blocks=blocks, name=name, label=label)
+        super().__init__(
+            *arg_blocks,
+            action=action or "",
+            method=method,
+            blocks=blocks,
+            name=name,
+            label=label,
+            prompt=prompt,
+            subtitle=subtitle,
+        )
 
 
 class BlockListIterator:

@@ -4,7 +4,8 @@
     "env.d.ts",
     "src/**/*",
     "src/**/*.vue",
-    "rollup-plugin-vue-esm.ts"
+    "rollup-plugin-vue-esm.ts",
+    ".storybook/*.ts"
   ],
   "exclude": [
     "src/**/__tests__/*"

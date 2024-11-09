@@ -9,7 +9,6 @@ import { ref } from 'vue'
 
 import type { BlockFigureProps } from '@/data-model/blocks'
 
-import { TriggerType } from '../../data-model/types'
 import { parseError } from '../../shared/shared'
 import BlockWrapper from '../layout/BlockWrapper.vue'
 import ComputeBlock from './Compute.vue'
@@ -18,23 +17,15 @@ const p = defineProps<{
   store: any
   prompt: string
   label: string
-  functionId: string
-  trigger: TriggerType
   figure: BlockFigureProps
-  timer?: number
   subtitle?: string
   action?: string
-  immediate?: boolean
+  method: string
 }>()
 
 const { children } = storeToRefs(p.store)
 
-console.log('this is the connector!')
-console.log(p)
-console.log(children)
-
 const error = ref<string | undefined>()
-const loading = ref<boolean>(false)
 
 const onChange = (v: any) => {
   p.store.setField(v.name, v.value)
@@ -43,13 +34,8 @@ const onChange = (v: any) => {
 const update = async () => {
   try {
     error.value = undefined
-    loading.value = true
-    await p.store.update(p.functionId)
   } catch (e) {
     error.value = parseError(e)
-    console.error(e)
-  } finally {
-    loading.value = false
   }
 }
 </script>
@@ -60,15 +46,12 @@ const update = async () => {
       :on-change="onChange"
       :update="update"
       :children="children"
-      :function-id="p.functionId"
       :subtitle="p.subtitle"
       :label="p.label"
-      :trigger="p.trigger"
-      :timer="p.timer"
       :prompt="p.prompt"
-      :immediate="p.immediate"
+      :action="p.action"
+      :method="p.action"
       :error="error"
-      :loading="loading"
     />
   </block-wrapper>
 </template>
