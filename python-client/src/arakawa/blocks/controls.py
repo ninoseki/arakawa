@@ -23,9 +23,9 @@ class BaseDateTimeBlock(ControlBlock):
     ):
         """
         Args:
-            name (BlockId): Name.
-            label (str | None, optional): Label. Defaults to None.
-            initial (str | None, optional): Initial value. Defaults to None.
+            name (BlockId): A name.
+            label (str | None, optional): A label. Defaults to None.
+            initial (str | None, optional): An initial value. Defaults to None.
             required (bool | None, optional): Whether it's required or not. Defaults to None.
         """
         super().__init__(
@@ -75,8 +75,8 @@ class FileField(ControlBlock):
     ):
         """
         Args:
-            name (BlockId): name.
-            label (str | None, optional): Label. Defaults to None.
+            name (BlockId): A name.
+            label (str | None, optional): A label. Defaults to None.
             required (bool | None, optional): Whether it's required or not. Defaults to None.
         """
         super().__init__(
@@ -103,10 +103,10 @@ class MultiChoiceField(ControlBlock):
     ):
         """
         Args:
-            name (BlockId): Name.
-            initial (list[str]): Initial value.
+            name (BlockId): A name.
+            initial (list[str]): An initial value.
             options (list[str]): Options.
-            label (str | None, optional): Label. Defaults to None.
+            label (str | None, optional): A label. Defaults to None.
             required (bool | None, optional): Whether it's required or not. Defaults to None.
         """
         super().__init__(
@@ -134,9 +134,9 @@ class NumberBox(ControlBlock):
     ):
         """
         Args:
-            name (BlockId): Name.
-            label (str | None, optional): Label . Defaults to None.
-            initial (int | float | None, optional): Initial value. Defaults to None.
+            name (BlockId): A name.
+            label (str | None, optional): A label . Defaults to None.
+            initial (int | float | None, optional): An initial value. Defaults to None.
             required (bool | None, optional): Whether it's required or not. Defaults to None.
         """
         super().__init__(
@@ -167,11 +167,11 @@ class RangeField(ControlBlock):
         """
         Args:
             name (BlockId): Name.
-            min_ (int | float): Min value.
-            max_ (int | float): Max value.
-            step (int | float): Step value.
-            label (str | None, optional): Label. Defaults to None.
-            initial (int | float | None, optional): Initial value. Defaults to None.
+            min_ (int | float): A min value.
+            max_ (int | float): A max value.
+            step (int | float): A step value.
+            label (str | None, optional): A label. Defaults to None.
+            initial (int | float | None, optional): An initial value. Defaults to None.
             required (bool | None, optional): Whether it's required or not. Defaults to None.
         """
         initial = initial or min_
@@ -203,10 +203,10 @@ class ChoiceField(ControlBlock):
     ):
         """
         Args:
-            name (BlockId): Name.
+            name (BlockId): A name.
             options (list[str]): Options.
-            label (str | None, optional): Label. Defaults to None.
-            initial (str | None, optional): Initial value. Defaults to None.
+            label (str | None, optional): A label. Defaults to None.
+            initial (str | None, optional): An initial value. Defaults to None.
             required (bool | None, optional): Whether it's required or not. Defaults to None.
         """
         super().__init__(
@@ -233,9 +233,9 @@ class SwitchField(ControlBlock):
     ):
         """
         Args:
-            name (BlockId): Name.
-            label (str | None, optional): Label. Defaults to None.
-            initial (bool | None, optional): Initial value. Defaults to None.
+            name (BlockId): A name.
+            label (str | None, optional): A label. Defaults to None.
+            initial (bool | None, optional): An initial value. Defaults to None.
         """
         super().__init__(
             name=name,
@@ -260,9 +260,9 @@ class TagsField(ControlBlock):
     ):
         """
         Args:
-            name (BlockId): Name
-            label (str | None, optional): Label. Defaults to None.
-            initial (list[str]): Initial value.
+            name (BlockId): A name.
+            label (str | None, optional): A label. Defaults to None.
+            initial (list[str]): An initial value.
             required (bool | None, optional): Whether it's required or not. Defaults to None.
         """
         super().__init__(
@@ -289,9 +289,9 @@ class TextBox(ControlBlock):
     ):
         """
         Args:
-            name (BlockId): Name.
-            label (str | None, optional): Label.. Defaults to None.
-            initial (str | None, optional): Initial value. Defaults to None.
+            name (BlockId): A name.
+            label (str | None, optional): A label.. Defaults to None.
+            initial (str | None, optional): An initial value. Defaults to None.
             required (bool | None, optional): Whether it's required or not. Defaults to None.
         """
         super().__init__(

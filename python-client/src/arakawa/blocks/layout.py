@@ -259,16 +259,16 @@ class Compute(ContainerBlock):
         action: str | None = "",
         method: str = "GET",
     ):
-        """_summary_
-
+        """
         Args:
-            blocks (list[BlockOrPrimitive] | None, optional): _description_. Defaults to None.
-            name (BlockId | None, optional): _description_. Defaults to None.
-            label (str | None, optional): _description_. Defaults to None.
-            prompt (str | None, optional): _description_. Defaults to None.
-            subtitle (str | None, optional): _description_. Defaults to None.
-            action (str | None, optional): _description_. Defaults to "".
-            method (str, optional): _description_. Defaults to "GET".
+            *arg_blocks: Compute to add to report.
+            blocks (list[BlockOrPrimitive] | None, optional): Blocks to compose a form. Defaults to None.
+            name (BlockId | None, optional): A name. Defaults to None.
+            label (str | None, optional): A label. Defaults to None.
+            prompt (str | None, optional): A prompt. Defaults to None.
+            subtitle (str | None, optional): A subtitle. Defaults to None.
+            action (str | None, optional): The form action. Defaults to "".
+            method (str, optional): The form method. Defaults to "GET".
         """
         super().__init__(
             *arg_blocks,
