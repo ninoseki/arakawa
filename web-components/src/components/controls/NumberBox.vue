@@ -1,16 +1,12 @@
 <script setup lang="ts">
 import { computed, type ComputedRef } from 'vue'
 
-const emit = defineEmits(['change'])
-
 const p = defineProps<{
   name: string
   label?: string
   initial?: number
   required?: boolean
 }>()
-
-const onChange = (value: number) => void emit('change', { name: p.name, value })
 
 const validation: ComputedRef = computed(() =>
   p.required ? [['+required']] : [],
@@ -26,7 +22,6 @@ const validation: ComputedRef = computed(() =>
     :validation="validation"
     step="any"
     validation-visibility="live"
-    @input="onChange"
     outer-class="flex-1"
     data-cy="number-field"
   />

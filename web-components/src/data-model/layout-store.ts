@@ -3,23 +3,6 @@ import { v4 as uuid4 } from 'uuid'
 import { computed, reactive, ref } from 'vue'
 
 import { Block, Group, isLayoutBlock, type PageLayout, Select } from './blocks'
-import { useRootStore } from './root-store'
-import { SwapType } from './types'
-
-const cleanParam = (v: string) => {
-  if ((typeof v === 'string' || Array.isArray(v)) && !v.length) {
-    return undefined
-  }
-  return v
-}
-
-const mkInitialParams = (initialChildren: Block[]): any => {
-  const params: any = {}
-  for (const c of initialChildren) {
-    params[c.componentProps.name] = cleanParam(c.componentProps.initial)
-  }
-  return params
-}
 
 const useActions = (initialChildren: Block[]) => {
   const children = reactive(initialChildren)
@@ -109,42 +92,4 @@ export const useViewStore = (
     )
 
     return { ...actions, hasPages, layout }
-  })
-
-export const useControlStore = (
-  initialChildren: Block[],
-  target: string,
-  method: SwapType,
-) =>
-  defineStore(`controls-${uuid4()}`, () => {
-    const initialParams = mkInitialParams(initialChildren)
-    const children = reactive(initialChildren)
-    const parameters = reactive(initialParams)
-    const rootStore = useRootStore()
-    const inFlight = ref(false)
-
-    const setField = (k: string, v: any) => {
-      parameters[k] = cleanParam(v)
-    }
-
-    const update = async (functionId: string) => {
-      /**
-       * Call the root-store update method with current parameter and function,
-       * locking subsequent requests from the same function block until the request is done.
-       */
-      if (!inFlight.value) {
-        inFlight.value = true
-        try {
-          await rootStore.update(target, method, parameters, functionId)
-        } finally {
-          inFlight.value = false
-        }
-      } else {
-        console.warn(
-          '[Arakawa] Scheduled run dropped as the current run is still in progress',
-        )
-      }
-    }
-
-    return { children, setField, update }
   })

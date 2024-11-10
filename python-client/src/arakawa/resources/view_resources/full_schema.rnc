@@ -90,7 +90,7 @@ Toggle = element Toggle {
 Compute = element Compute {
   block_label_or_name,
 
-  attribute method { xsd:string },
+  attribute method { string "POST" | string "GET" },
   # optional attributes
   attribute action { xsd:string }?,
   attribute subtitle { xsd:string { minLength = "1" maxLength = "255" } }?,
@@ -135,8 +135,8 @@ File = element File {
 MultiChoice = element MultiChoice {
   block_label_or_name,
 
-  attribute initial { list { xsd:string } },
-  attribute options { list { xsd:string } },
+  attribute initial { list { xsd:string+ } },
+  attribute options { list { xsd:string+ } },
 
   # optional attributes
   attribute required { xsd:boolean }?
@@ -164,7 +164,7 @@ Range = element Range {
 Choice = element Choice {
   block_label_or_name,
 
-  attribute options { list { xsd:string } },
+  attribute options { list { xsd:string+ } },
   # optional attributes
   attribute initial { xsd:string }?,
   attribute required { xsd:boolean }?
@@ -173,15 +173,13 @@ Choice = element Choice {
 Switch = element Switch {
   block_label_or_name,
 
-  attribute initial { xsd:boolean },
-  # optional attributes
-  attribute required{ xsd:boolean }?
+  attribute initial { xsd:boolean }?
 }
 
 Tags = element Tags {
   block_label_or_name,
 
-  attribute initial { list { xsd:string } },
+  attribute initial { list { xsd:string+ } },
   # optional attributes
   attribute required{ xsd:boolean }?
 }

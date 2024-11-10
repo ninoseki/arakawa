@@ -242,6 +242,10 @@ class Toggle(ContainerBlock):
 
 
 class Compute(ContainerBlock):
+    """
+    Compute acts as a container that holds a list of ControlBlock objects to compose an HTML form.
+    """
+
     _tag = "Compute"
 
     def __init__(
@@ -255,6 +259,17 @@ class Compute(ContainerBlock):
         action: str | None = "",
         method: str = "GET",
     ):
+        """_summary_
+
+        Args:
+            blocks (list[BlockOrPrimitive] | None, optional): _description_. Defaults to None.
+            name (BlockId | None, optional): _description_. Defaults to None.
+            label (str | None, optional): _description_. Defaults to None.
+            prompt (str | None, optional): _description_. Defaults to None.
+            subtitle (str | None, optional): _description_. Defaults to None.
+            action (str | None, optional): _description_. Defaults to "".
+            method (str, optional): _description_. Defaults to "GET".
+        """
         super().__init__(
             *arg_blocks,
             action=action or "",
@@ -268,7 +283,9 @@ class Compute(ContainerBlock):
 
 
 class BlockListIterator:
-    """Wrapper around default list iterator that supports depth-first traversal of blocks"""
+    """
+    Wrapper around default list iterator that supports depth-first traversal of blocks.
+    """
 
     def __init__(self, _iter):
         # linearize all blocks into a deque as we traverse

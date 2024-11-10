@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, ref } from 'vue'
-
-const emit = defineEmits(['change'])
+import { computed, type ComputedRef } from 'vue'
 
 const p = defineProps<{
   initial: string[]
@@ -10,8 +8,6 @@ const p = defineProps<{
   name: string
 }>()
 
-const el = ref<any>()
-
 const validation: ComputedRef = computed(() =>
   p.required ? [['+required']] : [],
 )
@@ -19,15 +15,6 @@ const validation: ComputedRef = computed(() =>
 const multiSelectProps = {
   taggable: true,
   placeholder: 'Search or add a tag',
-}
-
-const setListeners = (node: any) => {
-  /**
-   * Overwrite tags with updated value and send to parent `Compute` component
-   */
-  node.on('newTag', ({ payload }: { payload: string[] }) => {
-    emit('change', { name: p.name, value: payload })
-  })
 }
 </script>
 
@@ -42,8 +29,6 @@ const setListeners = (node: any) => {
       validation-visibility="live"
       :tags="p.initial"
       :options="p.initial"
-      ref="el"
-      @node="setListeners"
     />
   </div>
 </template>

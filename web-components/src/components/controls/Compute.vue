@@ -1,22 +1,23 @@
 <script setup lang="ts">
+import { FormKitMessages } from '@formkit/vue'
 import { v4 as uuid4 } from 'uuid'
 
 import { ControlsField } from '../../data-model/blocks'
-import ErrorCallout from '../ErrorCallout.vue'
 
 const p = defineProps<{
-  onChange: (v: { name: string; value: any }) => void
-  update: () => void
   children: ControlsField[]
   prompt: string
   label: string
   method: string
   subtitle?: string
   action?: string
-  error?: string
 }>()
 
 const formId = uuid4()
+
+const isControlField = (child: any) => {
+  return child instanceof ControlsField
+}
 </script>
 
 <template>
@@ -47,12 +48,10 @@ const formId = uuid4()
             v-for="child in children"
             v-bind="child.componentProps"
             :key="child.refId"
-            @change="onChange"
+            :class="{ 'py-4': !isControlField(child) }"
           />
         </div>
-        <div
-          class="bg-gray-50 px-4 py-3 sm:px-6 flex items-center justify-start"
-        >
+        <div class="px-4 py-3 sm:px-6 items-center justify-start">
           <form-kit
             type="submit"
             :class="[
@@ -61,8 +60,10 @@ const formId = uuid4()
           >
             {{ p.prompt }}
           </form-kit>
+          <div>
+            <form-kit-messages />
+          </div>
         </div>
-        <error-callout v-if="error" :error="error" />
       </form-kit>
     </div>
   </div>

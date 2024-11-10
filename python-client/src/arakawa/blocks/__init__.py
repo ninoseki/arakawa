@@ -7,17 +7,17 @@ from .base import (  # noqa: F401
     wrap_block,
 )
 from .controls import (  # noqa: F401
-    Choice,
-    Date,
-    DateTime,
-    File,
-    MultiChoice,
+    ChoiceField,
+    DateField,
+    DateTimeField,
+    FileField,
+    MultiChoiceField,
     NumberBox,
-    Range,
-    Switch,
-    Tags,
+    RangeField,
+    SwitchField,
+    TagsField,
     TextBox,
-    Time,
+    TimeField,
 )
 from .empty import Empty  # noqa: F401
 from .layout import (  # noqa: F401

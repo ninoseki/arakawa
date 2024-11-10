@@ -184,14 +184,7 @@ export const useRootStore = defineStore('root', () => {
       elem.attributes = {}
     }
 
-    if (b.isComputeElem(elem)) {
-      console.log(elem)
-      // Skip inner `Controls` block.
-      // Can assert not-null as layout block JSON always contains `elements`
-      // const controlBlock = elem.elements![0]
-      // elem.elements = controlBlock.elements
-      // elem.attributes.subtitle = controlBlock.attributes?.label
-    } else if (b.isViewElem(elem) && isFragment) {
+    if (b.isViewElem(elem) && isFragment) {
       elem.name = 'Group'
       elem.attributes.columns = '1'
     }

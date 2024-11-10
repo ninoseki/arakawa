@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-
-const emit = defineEmits(['change'])
+import { ref } from 'vue'
 
 const p = defineProps<{
   name: string
@@ -13,15 +11,8 @@ const p = defineProps<{
   label?: string
 }>()
 
-const onChange = (value?: string) => {
-  emit('change', { name: p.name, value: value ? +value : undefined })
-}
-
 // Hold value in state so that it can be shown in input prefix
 const inputValue = ref(p.initial)
-
-// Cast inputValue to string to match the formkit type
-watch(inputValue, () => void onChange(`${inputValue.value}`))
 </script>
 
 <template>

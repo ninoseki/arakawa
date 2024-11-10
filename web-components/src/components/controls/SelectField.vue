@@ -1,17 +1,11 @@
 <script setup lang="ts">
-const emit = defineEmits(['change'])
-
-const p = defineProps<{
+defineProps<{
   name: string
   options: string[]
   initial?: string
   label?: string
   required?: boolean
 }>()
-
-const onChange = (value: string) => {
-  emit('change', { name: p.name, value })
-}
 </script>
 
 <template>
@@ -22,7 +16,6 @@ const onChange = (value: string) => {
       :name="name"
       :options="options"
       :value="initial"
-      @input="onChange"
       data-cy="select-field"
     />
   </span>

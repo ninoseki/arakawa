@@ -1,0 +1,7 @@
+version: "3"
+
+tasks:
+  renew-rng:
+    desc: "Renew RNG schema"
+    cmds:
+      - cmd: trang src/arakawa/resources/view_resources/full_schema.rnc src/arakawa/resources/view_resources/full_schema.rng

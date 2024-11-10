@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { computed, type ComputedRef } from 'vue'
 
-const emit = defineEmits(['change'])
-
 const p = defineProps<{
   name: string
   type: string
@@ -10,13 +8,6 @@ const p = defineProps<{
   label?: string
   required?: boolean
 }>()
-
-const onChange = (event: Event) => {
-  const target = event.target as HTMLInputElement
-  if (target) {
-    emit('change', { name: p.name, value: target.value })
-  }
-}
 
 const validation: ComputedRef = computed(() =>
   p.required ? [['+required']] : [],
@@ -32,7 +23,6 @@ const validation: ComputedRef = computed(() =>
     :label="label || name"
     :validation="validation"
     validation-visibility="live"
-    @change="onChange"
     step="1"
   />
 </template>

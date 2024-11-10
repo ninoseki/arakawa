@@ -4,17 +4,30 @@ from .base import BlockId, DataBlock
 
 
 class ControlBlock(DataBlock):
-    pass
+    """
+    Abstract block for all the control blocks.
+    """
 
 
 class BaseDateTimeBlock(ControlBlock):
+    """
+    Abstract block for DateTime, Date and Time blocks.
+    """
+
     def __init__(
         self,
-        name: BlockId | None = None,
+        name: BlockId,
         label: str | None = None,
         initial: str | None = None,
         required: bool | None = None,
     ):
+        """
+        Args:
+            name (BlockId): Name.
+            label (str | None, optional): Label. Defaults to None.
+            initial (str | None, optional): Initial value. Defaults to None.
+            required (bool | None, optional): Whether it's required or not. Defaults to None.
+        """
         super().__init__(
             name=name,
             label=label,
@@ -23,27 +36,49 @@ class BaseDateTimeBlock(ControlBlock):
         )
 
 
-class DateTime(BaseDateTimeBlock):
+class DateTimeField(BaseDateTimeBlock):
+    """
+    DateTimeField allows you to add a datetime type input.
+    """
+
     _tag = "DateTime"
 
 
-class Date(BaseDateTimeBlock):
+class DateField(BaseDateTimeBlock):
+    """
+    DateField allows you to add a date type input.
+    """
+
     _tag = "Date"
 
 
-class Time(BaseDateTimeBlock):
+class TimeField(BaseDateTimeBlock):
+    """
+    TimeField allows you to add a time type input.
+    """
+
     _tag = "Time"
 
 
-class File(ControlBlock):
+class FileField(ControlBlock):
+    """
+    FileField allows you to add a file type input.
+    """
+
     _tag = "File"
 
     def __init__(
         self,
-        name: BlockId | None = None,
+        name: BlockId,
         label: str | None = None,
         required: bool | None = None,
     ):
+        """
+        Args:
+            name (BlockId): name.
+            label (str | None, optional): Label. Defaults to None.
+            required (bool | None, optional): Whether it's required or not. Defaults to None.
+        """
         super().__init__(
             name=name,
             label=label,
@@ -51,17 +86,29 @@ class File(ControlBlock):
         )
 
 
-class MultiChoice(ControlBlock):
+class MultiChoiceField(ControlBlock):
+    """
+    MultiChoiceField allows you to have a multiple select type input.
+    """
+
     _tag = "MultiChoice"
 
     def __init__(
         self,
+        name: BlockId,
         initial: list[str],
         options: list[str],
-        name: BlockId | None = None,
         label: str | None = None,
         required: bool | None = None,
     ):
+        """
+        Args:
+            name (BlockId): Name.
+            initial (list[str]): Initial value.
+            options (list[str]): Options.
+            label (str | None, optional): Label. Defaults to None.
+            required (bool | None, optional): Whether it's required or not. Defaults to None.
+        """
         super().__init__(
             initial=initial,
             options=options,
@@ -72,15 +119,26 @@ class MultiChoice(ControlBlock):
 
 
 class NumberBox(ControlBlock):
+    """
+    NumberBox allows you to add a number type input.
+    """
+
     _tag = "NumberBox"
 
     def __init__(
         self,
-        name: BlockId | None = None,
+        name: BlockId,
         label: str | None = None,
         initial: int | float | None = None,
         required: bool | None = None,
     ):
+        """
+        Args:
+            name (BlockId): Name.
+            label (str | None, optional): Label . Defaults to None.
+            initial (int | float | None, optional): Initial value. Defaults to None.
+            required (bool | None, optional): Whether it's required or not. Defaults to None.
+        """
         super().__init__(
             name=name,
             label=label,
@@ -89,22 +147,37 @@ class NumberBox(ControlBlock):
         )
 
 
-class Range(ControlBlock):
+class RangeField(ControlBlock):
+    """
+    RangeField allows you to add a range type input.
+    """
+
     _tag = "Range"
 
     def __init__(
         self,
-        min: int | float,
-        max: int | float,
+        name: BlockId,
+        min_: int | float,
+        max_: int | float,
         step: int | float,
-        name: BlockId | None = None,
         label: str | None = None,
         initial: int | float | None = None,
         required: bool | None = None,
     ):
+        """
+        Args:
+            name (BlockId): Name.
+            min_ (int | float): Min value.
+            max_ (int | float): Max value.
+            step (int | float): Step value.
+            label (str | None, optional): Label. Defaults to None.
+            initial (int | float | None, optional): Initial value. Defaults to None.
+            required (bool | None, optional): Whether it's required or not. Defaults to None.
+        """
+        initial = initial or min_
         super().__init__(
-            min=min,
-            max=max,
+            min=min_,
+            max=max_,
             step=step,
             name=name,
             label=label,
@@ -113,17 +186,29 @@ class Range(ControlBlock):
         )
 
 
-class Choice(ControlBlock):
+class ChoiceField(ControlBlock):
+    """
+    ChoiceField allows you to add a select type input.
+    """
+
     _tag = "Choice"
 
     def __init__(
         self,
+        name: BlockId,
         options: list[str],
-        name: BlockId | None = None,
         label: str | None = None,
         initial: str | None = None,
         required: bool | None = None,
     ):
+        """
+        Args:
+            name (BlockId): Name.
+            options (list[str]): Options.
+            label (str | None, optional): Label. Defaults to None.
+            initial (str | None, optional): Initial value. Defaults to None.
+            required (bool | None, optional): Whether it's required or not. Defaults to None.
+        """
         super().__init__(
             options=options,
             name=name,
@@ -133,34 +218,53 @@ class Choice(ControlBlock):
         )
 
 
-class Switch(ControlBlock):
+class SwitchField(ControlBlock):
+    """
+    SwitchField allows you to add a checkbox type input.
+    """
+
     _tag = "Switch"
 
     def __init__(
         self,
-        name: BlockId | None = None,
+        name: BlockId,
         label: str | None = None,
         initial: bool | None = None,
-        required: bool | None = None,
     ):
+        """
+        Args:
+            name (BlockId): Name.
+            label (str | None, optional): Label. Defaults to None.
+            initial (bool | None, optional): Initial value. Defaults to None.
+        """
         super().__init__(
             name=name,
             label=label,
             initial=initial,
-            required=required,
         )
 
 
-class Tags(ControlBlock):
+class TagsField(ControlBlock):
+    """
+    TagsField allows you to add a multi select type input along with the free form input.
+    """
+
     _tag = "Tags"
 
     def __init__(
         self,
+        name: BlockId,
         initial: list[str],
-        name: BlockId | None = None,
         label: str | None = None,
         required: bool | None = None,
     ):
+        """
+        Args:
+            name (BlockId): Name
+            label (str | None, optional): Label. Defaults to None.
+            initial (list[str]): Initial value.
+            required (bool | None, optional): Whether it's required or not. Defaults to None.
+        """
         super().__init__(
             name=name,
             label=label,
@@ -170,15 +274,26 @@ class Tags(ControlBlock):
 
 
 class TextBox(ControlBlock):
+    """
+    TextBox allows you to add a text type input.
+    """
+
     _tag = "TextBox"
 
     def __init__(
         self,
-        name: BlockId | None = None,
+        name: BlockId,
         label: str | None = None,
         initial: str | None = None,
         required: bool | None = None,
     ):
+        """
+        Args:
+            name (BlockId): Name.
+            label (str | None, optional): Label.. Defaults to None.
+            initial (str | None, optional): Initial value. Defaults to None.
+            required (bool | None, optional): Whether it's required or not. Defaults to None.
+        """
         super().__init__(
             name=name,
             label=label,
