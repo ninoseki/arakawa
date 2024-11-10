@@ -272,3 +272,13 @@ class ExportHTMLStringInlineAssets(BaseExportHTML):
             name=self.name, formatting=self.formatting, cdn_base=self.cdn_base
         )
         return HTML(html)
+
+
+class ExportHTMLStringInlineNonResizableAssets(ExportHTMLStringInlineAssets):
+    """
+    Export the View as an in-memory string representing a non-resizable HTML fragment, containing
+    - View XML - embedded
+    - Assets - embedded as b64 data-uris
+    """
+
+    template_name = "local_template.html.j2"

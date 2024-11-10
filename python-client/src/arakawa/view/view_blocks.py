@@ -148,6 +148,7 @@ class Report(Blocks):
         name: str | None = None,
         formatting: Formatting | None = None,
         cdn_base: str | None = None,
+        resizable: bool = True,
     ) -> str:
         from ..processors import stringify_report
 
@@ -156,4 +157,5 @@ class Report(Blocks):
             name=name,
             formatting=formatting,
             cdn_base=cdn_base,
+            resizable=resizable,
         )
