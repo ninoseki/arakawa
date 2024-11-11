@@ -13,11 +13,7 @@ export const Primary = makeTemplate(Compute)
 Primary.args = {
   label: 'Compute block',
   subtitle: 'Compute subtitle',
-  update: () => null,
-  onChange: () => null,
   prompt: 'Custom prompt',
-  functionId: 'abc',
-  trigger: 'submit',
   children: [
     new b.TemporalField(
       {
