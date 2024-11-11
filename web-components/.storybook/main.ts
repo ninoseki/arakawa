@@ -26,7 +26,7 @@ const config: StorybookConfig = {
         ],
       },
     }
-    config.plugins = config.plugins.filter(p => p.name !== 'vite:vue')
+    config.plugins = (config.plugins || []).filter(p => p.name !== 'vite:vue')
     config.plugins.push(
       vue({
         template: {

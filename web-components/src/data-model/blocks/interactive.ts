@@ -24,10 +24,9 @@ const parseJsonProp = (json: string): Record<string, unknown> | string[] =>
 export abstract class ControlsField extends Block {
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure) // TODO -- `figure` is unused, should use new base class?
-    const { helpText, name, required, initial, label } = elem.attributes
+    const { name, required, initial, label } = elem.attributes
     this.componentProps = {
       ...this.componentProps,
-      helpText,
       name,
       label,
       initial,

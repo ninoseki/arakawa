@@ -27,7 +27,7 @@ export type AppDataResult = {
 
 export type AppData = {
   data: {
-    result?: AppDataResult
+    result: AppDataResult
     error?: { message: string; code: number }
   }
 }
@@ -44,12 +44,6 @@ export enum SwapType {
   INNER = 'inner',
   APPEND = 'append',
   PREPEND = 'prepend',
-}
-
-export enum TriggerType {
-  SUBMIT = 'submit',
-  SCHEDULE = 'schedule',
-  MOUNT = 'mount',
 }
 
 export enum VAlign {

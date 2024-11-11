@@ -241,11 +241,54 @@ class Toggle(ContainerBlock):
             self.blocks = [Group(blocks=self.blocks)]
 
 
+class Compute(ContainerBlock):
+    """
+    Compute acts as a container that holds a list of ControlBlock objects to compose an HTML form.
+    """
+
+    _tag = "Compute"
+
+    def __init__(
+        self,
+        *arg_blocks: BlockOrPrimitive,
+        blocks: list[BlockOrPrimitive] | None = None,
+        name: BlockId | None = None,
+        label: str | None = None,
+        prompt: str | None = None,
+        subtitle: str | None = None,
+        action: str | None = "",
+        method: str = "GET",
+    ):
+        """
+        Args:
+            *arg_blocks: Compute to add to report.
+            blocks (list[BlockOrPrimitive] | None, optional): Blocks to compose a form. Defaults to None.
+            name (BlockId | None, optional): A name. Defaults to None.
+            label (str | None, optional): A label. Defaults to None.
+            prompt (str | None, optional): A prompt. Defaults to None.
+            subtitle (str | None, optional): A subtitle. Defaults to None.
+            action (str | None, optional): The form action. Defaults to "".
+            method (str, optional): The form method. Defaults to "GET".
+        """
+        super().__init__(
+            *arg_blocks,
+            action=action or "",
+            method=method,
+            blocks=blocks,
+            name=name,
+            label=label,
+            prompt=prompt,
+            subtitle=subtitle,
+        )
+
+
 class BlockListIterator:
-    """Wrapper around default list iterator that supports depth-first traversal of blocks"""
+    """
+    Wrapper around default list iterator that supports depth-first traversal of blocks.
+    """
 
     def __init__(self, _iter):
-        # linearise all blocks into a deque as we traverse
+        # linearize all blocks into a deque as we traverse
         self.nested = deque(_iter)
 
     def __next__(self) -> Block:

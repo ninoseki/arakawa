@@ -15,33 +15,4 @@
 
   <!--  Strip all comments-->
   <xsl:template match="comment()" />
-
-  <!-- Drop blocks if embedded -->
-  <!-- Disabled for now as local report rendering handles Blocks -->
-  <!--
-  <xsl:template match="/View//Blocks">
-    <xsl:choose>
-      <xsl:when test="$embedded">
-        <xsl:apply-templates/>
-      </xsl:when>
-
-      <xsl:otherwise>
-        <xsl:copy>
-          <xsl:apply-templates select="@* | node()"/>
-        </xsl:copy>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-  -->
-
-  <!-- find/replace nested Views -> Group -->
-  <!--
-  <xsl:template match="/View//View">
-    <Group valign="center" columns="1">
-      <xsl:apply-templates/>
-    </Group>
-  </xsl:template>
-  -->
-
-
 </xsl:stylesheet>

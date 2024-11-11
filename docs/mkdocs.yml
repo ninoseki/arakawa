@@ -10,6 +10,7 @@ nav:
   - Blocks and Views:
       - Overview: "blocks/overview.ipynb"
       - Display Blocks: "blocks/display-blocks.ipynb"
+      - Control Blocks: "blocks/control-blocks.ipynb"
       - Layout Blocks: "blocks/layout-blocks.ipynb"
   - Sharing Reports:
       - Overview: "reports/overview.ipynb"
@@ -27,6 +28,14 @@ nav:
           - Selects: "reference/layout-blocks/select.ipynb"
           - Pages: "reference/layout-blocks/page.ipynb"
           - Toggle: "reference/layout-blocks/toggle.ipynb"
+          - Compute: "reference/layout-blocks/compute.ipynb"
+      - Control Blocks:
+          - Choices & Tags: "reference/control-blocks/choices.md"
+          - DateTimes: "reference/control-blocks/datetimes.md"
+          - File: "reference/control-blocks/file.md"
+          - Numbers: "reference/control-blocks/numbers.md"
+          - Switch: "reference/control-blocks/switch.md"
+          - Text: "reference/control-blocks/text.md"
       - Reports: "reference/reports.md"
 
   # - Release Notes: releasenotes.md

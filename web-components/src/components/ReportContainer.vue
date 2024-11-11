@@ -21,7 +21,7 @@ const p = defineProps<{
   id: ReportProps['id']
   htmlHeader: ReportProps['htmlHeader']
   webUrl?: AppMetaData['webUrl']
-  appData?: AppData
+  appData: AppData
 }>()
 
 const rootStore = useRootStore()
@@ -42,16 +42,6 @@ const setApp = async () => {
     error.value = parseError(e)
     console.error(e)
   }
-}
-
-const resetApp = async () => {
-  try {
-    await rootStore.resetAppSession()
-  } catch (e) {
-    error.value = parseError(e)
-    console.error(e)
-  }
-  await setApp()
 }
 
 setApp()
@@ -87,7 +77,6 @@ onMounted(() => {
   <div id="html-header" v-html="htmlHeader" />
   <report-component
     v-if="isView(report) && !error"
-    :reset-app="resetApp"
     :report-width-class="p.reportWidthClass"
     :is-org="p.isOrg"
     :mode="p.mode"

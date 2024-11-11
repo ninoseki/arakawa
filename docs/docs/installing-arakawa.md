@@ -15,13 +15,13 @@ If you use `pip`, you can install it with:
 === "Shell"
 
     ```bash
-    pip3 install -U arakawa
+    pip install -U arakawa
     ```
 
 === "Jupyter"
 
     ```bash
-    !pip3 install -U arakawa
+    !pip install -U arakawa
     ```
 
 ## conda

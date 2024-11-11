@@ -83,6 +83,8 @@
     <choice>
       <ref name="LayoutBlock"/>
       <ref name="DataBlock"/>
+      <ref name="Compute"/>
+      <ref name="ControlBlock"/>
       <ref name="Empty"/>
     </choice>
   </define>
@@ -150,6 +152,252 @@
       <ref name="block_label_or_name"/>
       <ref name="Block"/>
     </element>
+  </define>
+  <define name="Compute">
+    <a:documentation/>
+    <element name="Compute">
+      <ref name="block_label_or_name"/>
+      <attribute name="method">
+        <choice>
+          <value type="string" datatypeLibrary="">POST</value>
+          <value type="string" datatypeLibrary="">GET</value>
+        </choice>
+      </attribute>
+      <optional>
+        <!-- optional attributes -->
+        <attribute name="action">
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="subtitle">
+          <data type="string">
+            <param name="minLength">1</param>
+            <param name="maxLength">255</param>
+          </data>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="prompt">
+          <data type="string">
+            <param name="minLength">1</param>
+            <param name="maxLength">127</param>
+          </data>
+        </attribute>
+      </optional>
+      <zeroOrMore>
+        <ref name="Block"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!-- Controls -->
+  <define name="DateTime">
+    <a:documentation/>
+    <element name="DateTime">
+      <ref name="block_label_or_name"/>
+      <optional>
+        <!-- optional attributes -->
+        <attribute name="initial">
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="required">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+    </element>
+  </define>
+  <define name="Date">
+    <element name="Date">
+      <ref name="block_label_or_name"/>
+      <optional>
+        <!-- optional attributes -->
+        <attribute name="initial">
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="required">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+    </element>
+  </define>
+  <define name="Time">
+    <element name="Time">
+      <ref name="block_label_or_name"/>
+      <optional>
+        <!-- optional attributes -->
+        <attribute name="initial">
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="required">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+    </element>
+  </define>
+  <define name="File">
+    <element name="File">
+      <ref name="block_label_or_name"/>
+      <optional>
+        <!-- optional attributes -->
+        <attribute name="required">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+    </element>
+  </define>
+  <define name="MultiChoice">
+    <element name="MultiChoice">
+      <ref name="block_label_or_name"/>
+      <attribute name="initial">
+        <list>
+          <oneOrMore>
+            <data type="string"/>
+          </oneOrMore>
+        </list>
+      </attribute>
+      <attribute name="options">
+        <list>
+          <oneOrMore>
+            <data type="string"/>
+          </oneOrMore>
+        </list>
+      </attribute>
+      <optional>
+        <!-- optional attributes -->
+        <attribute name="required">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+    </element>
+  </define>
+  <define name="NumberBox">
+    <element name="NumberBox">
+      <ref name="block_label_or_name"/>
+      <optional>
+        <!-- optional attributes -->
+        <attribute name="initial">
+          <data type="decimal"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="required">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+    </element>
+  </define>
+  <define name="Range">
+    <element name="Range">
+      <ref name="block_label_or_name"/>
+      <attribute name="min">
+        <data type="decimal"/>
+      </attribute>
+      <attribute name="max">
+        <data type="decimal"/>
+      </attribute>
+      <attribute name="step">
+        <data type="decimal"/>
+      </attribute>
+      <optional>
+        <!-- optional attributes -->
+        <attribute name="initial">
+          <data type="decimal"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="required">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+    </element>
+  </define>
+  <define name="Choice">
+    <element name="Choice">
+      <ref name="block_label_or_name"/>
+      <attribute name="options">
+        <list>
+          <oneOrMore>
+            <data type="string"/>
+          </oneOrMore>
+        </list>
+      </attribute>
+      <optional>
+        <!-- optional attributes -->
+        <attribute name="initial">
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="required">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+    </element>
+  </define>
+  <define name="Switch">
+    <element name="Switch">
+      <ref name="block_label_or_name"/>
+      <optional>
+        <attribute name="initial">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+    </element>
+  </define>
+  <define name="Tags">
+    <element name="Tags">
+      <ref name="block_label_or_name"/>
+      <attribute name="initial">
+        <list>
+          <oneOrMore>
+            <data type="string"/>
+          </oneOrMore>
+        </list>
+      </attribute>
+      <optional>
+        <!-- optional attributes -->
+        <attribute name="required">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+    </element>
+  </define>
+  <define name="TextBox">
+    <element name="TextBox">
+      <ref name="block_label_or_name"/>
+      <optional>
+        <!-- optional attributes -->
+        <attribute name="initial">
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="required">
+          <data type="boolean"/>
+        </attribute>
+      </optional>
+    </element>
+  </define>
+  <define name="ControlBlock">
+    <choice>
+      <ref name="DateTime"/>
+      <ref name="Date"/>
+      <ref name="Time"/>
+      <ref name="File"/>
+      <ref name="MultiChoice"/>
+      <ref name="NumberBox"/>
+      <ref name="Range"/>
+      <ref name="Choice"/>
+      <ref name="Switch"/>
+      <ref name="Tags"/>
+      <ref name="TextBox"/>
+    </choice>
   </define>
   <define name="DataBlock">
     <a:documentation/>

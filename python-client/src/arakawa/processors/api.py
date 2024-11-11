@@ -13,6 +13,7 @@ from .processors import (
     ConvertXML,
     ExportHTMLInlineAssets,
     ExportHTMLStringInlineAssets,
+    ExportHTMLStringInlineNonResizableAssets,
     PreProcessView,
 )
 from .types import Formatting, Pipeline, ViewState
@@ -59,6 +60,7 @@ def stringify_report(
     name: str | None = None,
     formatting: Formatting | None = None,
     cdn_base: str | None = None,
+    resizable: bool = True,
 ) -> str:
     """Stringify the app document to a HTML string
 
@@ -66,20 +68,23 @@ def stringify_report(
         blocks: The `Blocks` object or a list of Blocks
         name: Name of the document (optional: uses path if not provided)
         formatting: Sets the basic app styling
+        resizable: Whether the app should be resizable. Defaults to True.
     """
     s = ViewState(blocks=Blocks.wrap_blocks(blocks), file_entry_klass=B64FileEntry)
-    report_html: str = (
+    klass = (
+        ExportHTMLStringInlineAssets
+        if resizable
+        else ExportHTMLStringInlineNonResizableAssets
+    )
+    export = klass(
+        name=name or "Report",
+        formatting=formatting,
+        cdn_base=cdn_base,
+    )
+    return (
         Pipeline(s)
         .pipe(PreProcessView(is_finalized=False))
         .pipe(ConvertXML())
-        .pipe(
-            ExportHTMLStringInlineAssets(
-                name=name or "Report",
-                formatting=formatting,
-                cdn_base=cdn_base,
-            )
-        )
+        .pipe(export)
         .result
     )
-
-    return report_html

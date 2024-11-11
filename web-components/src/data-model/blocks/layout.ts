@@ -5,7 +5,7 @@ import VGroup from '@/components/layout/Group.vue'
 import VSelect from '@/components/layout/SelectBlock.vue'
 import VToggle from '@/components/layout/Toggle.vue'
 
-import { useControlStore, useLayoutStore, useViewStore } from '../layout-store'
+import { useLayoutStore, useViewStore } from '../layout-store'
 import { type EmptyObject } from '../root-store'
 import { SwapType } from '../types'
 import * as b from './index'
@@ -144,37 +144,21 @@ export class Toggle extends LayoutBlock {
 }
 
 export class ComputeBlock extends ParentBlock<ControlsField> {
-  public store: any
-
   public component = markRaw(VCompute)
   public name = 'Compute'
 
   public constructor(elem: any, figure: BlockFigure) {
     super(elem, figure)
-    const {
-      target,
-      swap,
-      submit_label,
-      label,
-      subtitle,
-      function_id,
-      trigger,
-      timer,
-      immediate,
-    } = elem.attributes
-
-    this.store = useControlStore(this.children, target, swap)()
+    const { prompt, label, subtitle, action, method } = elem.attributes
 
     this.componentProps = {
       ...this.componentProps,
-      prompt: submit_label || 'Submit',
-      functionId: function_id,
-      store: this.store,
-      timer: +timer,
-      immediate: immediate ? JSON.parse(immediate) : undefined,
+      children: this.children,
+      prompt: prompt || 'Submit',
       label,
       subtitle,
-      trigger,
+      action,
+      method,
     }
   }
 }

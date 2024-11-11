@@ -15,7 +15,6 @@ const p = defineProps<{
   reportWidthClass: ReportProps['reportWidthClass']
   mode: ReportProps['mode']
   htmlHeader?: ReportProps['htmlHeader']
-  resetApp: () => void
   report: View
 }>()
 
@@ -48,7 +47,6 @@ const { isIPythonEmbed } = window
   <template v-if="p.report">
     <nav-bar
       v-if="hasPages || !(isIPythonEmbed || singleBlockEmbed)"
-      :reset-app="p.resetApp"
       :labels="pageLabels"
       :page-number="tabNumber"
       :report-width-class="p.reportWidthClass"
