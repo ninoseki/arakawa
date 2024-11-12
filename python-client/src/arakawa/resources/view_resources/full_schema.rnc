@@ -101,28 +101,22 @@ Compute = element Compute {
 
 ################################################################################
 # Controls
-DateTime = element DateTime {
+controlCommonAttributes =
   block_label_or_name,
-
   # optional attributes
   attribute initial { xsd:string }?,
-  attribute required { xsd:boolean }?
+  attribute required{ xsd:boolean }?
+
+DateTime = element DateTime {
+  controlCommonAttributes
 }
 
 Date = element Date {
-  block_label_or_name,
-
-  # optional attributes
-  attribute initial { xsd:string }?,
-  attribute required { xsd:boolean }?
+  controlCommonAttributes
 }
 
 Time = element Time {
-  block_label_or_name,
-
-  # optional attributes
-  attribute initial { xsd:string }?,
-  attribute required { xsd:boolean }?
+  controlCommonAttributes
 }
 
 File = element File {
@@ -185,14 +179,51 @@ Tags = element Tags {
 }
 
 TextBox = element TextBox {
-  block_label_or_name,
-
+  controlCommonAttributes,
   # optional attributes
-  attribute initial { xsd:string }?,
-  attribute required{ xsd:boolean }?
+  attribute validation { xsd:string }?
 }
 
-ControlBlock = DateTime | Date | Time | File | MultiChoice | NumberBox | Range | Choice | Switch | Tags | TextBox
+URL = element URL {
+  controlCommonAttributes,
+  # optional attributes
+  attribute validation { xsd:string }?
+}
+
+Email = element Email {
+  controlCommonAttributes,
+  # optional attributes
+  attribute validation { xsd:string }?
+}
+
+Search = element Search {
+  controlCommonAttributes,
+  # optional attributes
+  attribute validation { xsd:string }?
+}
+
+Telephone = element Telephone {
+  controlCommonAttributes,
+  # optional attributes
+  attribute validation { xsd:string }?
+}
+
+Password = element Password {
+  controlCommonAttributes,
+  attribute validation { xsd:string }?
+}
+
+Hidden = element Hidden {
+  block_label_or_name,
+  attribute initial { xsd:string }
+}
+
+Textarea = element Textarea {
+  controlCommonAttributes,
+  attribute validation { xsd:string }?
+}
+
+ControlBlock = DateTime | Date | Time | File | MultiChoice | NumberBox | Range | Choice | Switch | Tags | TextBox | Password | Hidden | Textarea | URL | Email | Search | Telephone
 
 ################################################################################
 DataBlock = EmbeddedTextBlock | AssetBlock | BigNumber
@@ -274,14 +305,14 @@ commonAttributes =
 Media = element Media {
   staticAssetAttributes?,
   commonAttributes
-  }
+}
 
 # Additional atrtibutes (and Type tag) per Asset type, these can be set by the user
 Attachment = element Attachment {
   staticAssetAttributes?,
   commonAttributes,
   attribute filename { xsd:string { minLength = "1" maxLength = "127" } }
-  }
+}
 
 Plot = element Plot {
   staticAssetAttributes?,

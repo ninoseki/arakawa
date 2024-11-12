@@ -27,6 +27,23 @@ export const jsonIsEmpty = (json: any): boolean => json.name === 'Empty'
 
 export const jsonIsTextBox = (json: any): boolean => json.name === 'TextBox'
 
+export const jsonIsURLField = (json: any): boolean => json.name === 'URL'
+
+export const jsonIsEmailField = (json: any): boolean => json.name === 'Email'
+
+export const jsonIsTelephoneField = (json: any): boolean =>
+  json.name === 'Telephone'
+
+export const jsonIsSearchField = (json: any): boolean => json.name === 'Search'
+
+export const jsonIsTextareaField = (json: any): boolean =>
+  json.name === 'Textarea'
+
+export const jsonIsPasswordField = (json: any): boolean =>
+  json.name === 'Password'
+
+export const jsonIsHiddenField = (json: any): boolean => json.name === 'Hidden'
+
 export const jsonIsNumberBox = (json: any): boolean => json.name === 'NumberBox'
 
 export const jsonIsRangeField = (json: any): boolean => json.name === 'Range'

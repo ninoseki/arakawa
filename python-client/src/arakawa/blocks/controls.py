@@ -273,24 +273,19 @@ class TagsField(ControlBlock):
         )
 
 
-class TextBox(ControlBlock):
-    """
-    TextBox allows you to add a text type input.
-    """
-
-    _tag = "TextBox"
-
+class BaseTextField(ControlBlock):
     def __init__(
         self,
         name: BlockId,
         label: str | None = None,
         initial: str | None = None,
         required: bool | None = None,
+        validation: str | None = None,
     ):
         """
         Args:
             name (BlockId): A name.
-            label (str | None, optional): A label.. Defaults to None.
+            label (str | None, optional): A label. Defaults to None.
             initial (str | None, optional): An initial value. Defaults to None.
             required (bool | None, optional): Whether it's required or not. Defaults to None.
         """
@@ -299,4 +294,68 @@ class TextBox(ControlBlock):
             label=label,
             initial=initial,
             required=required,
+            validation=validation,
         )
+
+
+class TextBox(BaseTextField):
+    """
+    TextBox allows you to add a text type input.
+    """
+
+    _tag = "TextBox"
+
+
+class URLField(BaseTextField):
+    _tag = "URL"
+
+
+class EmailField(BaseTextField):
+    _tag = "Email"
+
+
+class SearchField(BaseTextField):
+    _tag = "Search"
+
+
+class TelephoneField(BaseTextField):
+    _tag = "Telephone"
+
+
+class PasswordField(BaseTextField):
+    """
+    PasswordField allows you to add a password type input.
+    """
+
+    _tag = "Password"
+
+
+class HiddenField(ControlBlock):
+    """
+    HiddenField allows you to add a password type input.
+    """
+
+    _tag = "Hidden"
+
+    def __init__(
+        self,
+        name: BlockId,
+        initial: str,
+    ):
+        """
+        Args:
+            name (BlockId): A name.
+            initial (str): An initial value.
+        """
+        super().__init__(
+            name=name,
+            initial=initial,
+        )
+
+
+class TextareaField(BaseTextField):
+    """
+    TextareaField allows you to add a search type input.
+    """
+
+    _tag = "Textarea"

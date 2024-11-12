@@ -10,24 +10,17 @@ const p = defineProps<{
   validation: string
 }>()
 
-const typeToValidation = new Map<string, string>([
-  ['url', 'url'],
-  ['email', 'email'],
-])
-
 const validation = computed(() => {
-  const values = [
-    p.required ? 'required' : undefined,
-    typeToValidation.get(p.type),
-    p.validation,
-  ].filter((i): i is Exclude<typeof i, undefined> => i !== undefined)
+  const values = [p.required ? 'required' : undefined, p.validation].filter(
+    (i): i is Exclude<typeof i, undefined> => i !== undefined,
+  )
   return values.join('|')
 })
 </script>
 
 <template>
   <form-kit
-    :type="type"
+    type="password"
     :label="label || name"
     :name="name"
     :value="initial"

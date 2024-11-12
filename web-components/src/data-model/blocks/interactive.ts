@@ -11,6 +11,8 @@ import VSelectField from '@/components/controls/SelectField.vue'
 import VSwitchField from '@/components/controls/SwitchField.vue'
 import VTagsField from '@/components/controls/TagsField.vue'
 import VTextBox from '@/components/controls/TextBox.vue'
+import VPasswordField from '@/components/controls/PasswordField.vue'
+import VHiddenField from '@/components/controls/HiddenField.vue'
 
 import { Block, type BlockFigure, type Elem } from './leaf-blocks'
 
@@ -51,8 +53,40 @@ export class RangeField extends ControlsField {
   }
 }
 
-export class TextBox extends ControlsField {
+export class PasswordField extends ControlsField {
+  public component = markRaw(VPasswordField)
+
+  public constructor(elem: Elem, figure: BlockFigure) {
+    super(elem, figure)
+    const { name, required, initial, label, validation } = elem.attributes
+    this.componentProps = {
+      ...this.componentProps,
+      validation,
+      name,
+      label,
+      initial,
+      required: required ? JSON.parse(required) : undefined,
+    }
+  }
+}
+
+export class TemporalTextBox extends ControlsField {
   public component = markRaw(VTextBox)
+
+  public constructor(elem: Elem, figure: BlockFigure, opts?: any) {
+    super(elem, figure)
+    const { name, required, initial, label, validation } = elem.attributes
+    const { type } = opts
+    this.componentProps = {
+      ...this.componentProps,
+      validation,
+      type,
+      name,
+      label,
+      initial,
+      required: required ? JSON.parse(required) : undefined,
+    }
+  }
 }
 
 export class NumberBox extends ControlsField {
@@ -64,6 +98,19 @@ export class NumberBox extends ControlsField {
     this.componentProps = {
       ...this.componentProps,
       initial: +initial,
+    }
+  }
+}
+
+export class HiddenField extends ControlsField {
+  public component = markRaw(VHiddenField)
+
+  public constructor(elem: Elem, figure: BlockFigure) {
+    super(elem, figure)
+    const { initial } = elem.attributes
+    this.componentProps = {
+      ...this.componentProps,
+      initial,
     }
   }
 }
@@ -103,7 +150,7 @@ export class FileField extends ControlsField {
   }
 }
 
-export class TemporalField extends ControlsField {
+export class TemporalDateTimeField extends ControlsField {
   public component = markRaw(VDateTimeField)
 
   public constructor(elem: Elem, figure: BlockFigure, opts?: any) {

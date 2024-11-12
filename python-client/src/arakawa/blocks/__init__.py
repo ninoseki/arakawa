@@ -10,14 +10,21 @@ from .controls import (  # noqa: F401
     ChoiceField,
     DateField,
     DateTimeField,
+    EmailField,
     FileField,
+    HiddenField,
     MultiChoiceField,
     NumberBox,
+    PasswordField,
     RangeField,
+    SearchField,
     SwitchField,
     TagsField,
+    TelephoneField,
+    TextareaField,
     TextBox,
     TimeField,
+    URLField,
 )
 from .empty import Empty  # noqa: F401
 from .layout import (  # noqa: F401

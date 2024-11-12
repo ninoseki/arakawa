@@ -50,7 +50,6 @@ const mkBlockMap = (
     { class_: b.PlotapiBlock, test: maps.jsonIsPlotapi },
     { class_: b.BigNumberBlock, test: maps.jsonIsBigNumber },
     { class_: b.ComputeBlock, test: maps.jsonIsCompute },
-    { class_: b.TextBox, test: maps.jsonIsTextBox },
     { class_: b.NumberBox, test: maps.jsonIsNumberBox },
     { class_: b.RangeField, test: maps.jsonIsRangeField },
     { class_: b.TagsField, test: maps.jsonIsTagsField },
@@ -58,18 +57,50 @@ const mkBlockMap = (
     { class_: b.MultiChoiceField, test: maps.jsonIsMultiChoiceField },
     { class_: b.FileField, test: maps.jsonIsFileField },
     { class_: b.SelectField, test: maps.jsonIsSelectField },
+    { class_: b.PasswordField, test: maps.jsonIsPasswordField },
+    { class_: b.HiddenField, test: maps.jsonIsHiddenField },
     {
-      class_: b.TemporalField,
+      class_: b.TemporalTextBox,
+      test: maps.jsonIsTextBox,
+      opts: { type: 'text' },
+    },
+    {
+      class_: b.TemporalTextBox,
+      test: maps.jsonIsURLField,
+      opts: { type: 'url' },
+    },
+    {
+      class_: b.TemporalTextBox,
+      test: maps.jsonIsTelephoneField,
+      opts: { type: 'tel' },
+    },
+    {
+      class_: b.TemporalTextBox,
+      test: maps.jsonIsEmailField,
+      opts: { type: 'email' },
+    },
+    {
+      class_: b.TemporalTextBox,
+      test: maps.jsonIsSearchField,
+      opts: { type: 'search' },
+    },
+    {
+      class_: b.TemporalTextBox,
+      test: maps.jsonIsTextareaField,
+      opts: { type: 'textarea' },
+    },
+    {
+      class_: b.TemporalDateTimeField,
       test: maps.jsonIsDateTimeField,
       opts: { timeFormat: 'YYYY-MM-DDTHH:mm:ss', type: 'datetime-local' },
     },
     {
-      class_: b.TemporalField,
+      class_: b.TemporalDateTimeField,
       test: maps.jsonIsDateField,
       opts: { timeFormat: 'YYYY-MM-DD', type: 'date' },
     },
     {
-      class_: b.TemporalField,
+      class_: b.TemporalDateTimeField,
       test: maps.jsonIsTimeField,
       opts: {
         timeFormat: 'HH:mm:ss',
