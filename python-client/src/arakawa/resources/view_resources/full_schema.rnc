@@ -101,35 +101,30 @@ Compute = element Compute {
 
 ################################################################################
 # Controls
-DateTime = element DateTime {
+controlCommonAttributes =
   block_label_or_name,
-
   # optional attributes
+  attribute help { xsd:string }?,
   attribute initial { xsd:string }?,
-  attribute required { xsd:boolean }?
+  attribute required{ xsd:boolean }?,
+  attribute validation { xsd:string }?
+
+DateTime = element DateTime {
+  controlCommonAttributes
 }
 
 Date = element Date {
-  block_label_or_name,
-
-  # optional attributes
-  attribute initial { xsd:string }?,
-  attribute required { xsd:boolean }?
+  controlCommonAttributes
 }
 
 Time = element Time {
-  block_label_or_name,
-
-  # optional attributes
-  attribute initial { xsd:string }?,
-  attribute required { xsd:boolean }?
+  controlCommonAttributes
 }
 
 File = element File {
-  block_label_or_name,
-
+  controlCommonAttributes,
   # optional attributes
-  attribute required { xsd:boolean }?
+  attribute accept { xsd:string }?
 }
 
 MultiChoice = element MultiChoice {
@@ -139,15 +134,19 @@ MultiChoice = element MultiChoice {
   attribute options { list { xsd:string+ } },
 
   # optional attributes
-  attribute required { xsd:boolean }?
+  attribute help { xsd:string }?,
+  attribute required{ xsd:boolean }?,
+  attribute validation { xsd:string }?
 }
 
 NumberBox = element NumberBox {
   block_label_or_name,
 
   # optional attributes
+  attribute help { xsd:string }?,
   attribute initial { xsd:decimal }?,
-  attribute required { xsd:boolean }?
+  attribute required{ xsd:boolean }?,
+  attribute validation { xsd:string }?
 }
 
 Range = element Range {
@@ -157,23 +156,23 @@ Range = element Range {
   attribute max { xsd:decimal },
   attribute step { xsd:decimal },
   # optional attributes
+  attribute help { xsd:string }?,
   attribute initial { xsd:decimal }?,
-  attribute required { xsd:boolean }?
+  attribute validation { xsd:string }?
 }
 
 Choice = element Choice {
-  block_label_or_name,
-
-  attribute options { list { xsd:string+ } },
-  # optional attributes
-  attribute initial { xsd:string }?,
-  attribute required { xsd:boolean }?
+  controlCommonAttributes,
+  attribute options { list { xsd:string+ } }
 }
 
 Switch = element Switch {
   block_label_or_name,
 
-  attribute initial { xsd:boolean }?
+  # optional attributes
+  attribute help { xsd:string }?,
+  attribute initial { xsd:boolean }?,
+  attribute validation { xsd:string }?
 }
 
 Tags = element Tags {
@@ -181,18 +180,49 @@ Tags = element Tags {
 
   attribute initial { list { xsd:string+ } },
   # optional attributes
-  attribute required{ xsd:boolean }?
+  attribute help { xsd:string }?,
+  attribute required{ xsd:boolean }?,
+  attribute validation { xsd:string }?
 }
 
 TextBox = element TextBox {
-  block_label_or_name,
-
-  # optional attributes
-  attribute initial { xsd:string }?,
-  attribute required{ xsd:boolean }?
+  controlCommonAttributes
 }
 
-ControlBlock = DateTime | Date | Time | File | MultiChoice | NumberBox | Range | Choice | Switch | Tags | TextBox
+URL = element URL {
+  controlCommonAttributes
+}
+
+Email = element Email {
+  controlCommonAttributes
+}
+
+Search = element Search {
+  controlCommonAttributes
+}
+
+Telephone = element Telephone {
+  controlCommonAttributes
+}
+
+Password = element Password {
+  controlCommonAttributes
+}
+
+Hidden = element Hidden {
+  block_label_or_name,
+  attribute initial { xsd:string }
+}
+
+Textarea = element Textarea {
+  controlCommonAttributes
+}
+
+Color = element Color {
+  controlCommonAttributes
+}
+
+ControlBlock = DateTime | Date | Time | File | MultiChoice | NumberBox | Range | Choice | Switch | Tags | TextBox | Password | Hidden | Textarea | URL | Email | Search | Telephone | Color
 
 ################################################################################
 DataBlock = EmbeddedTextBlock | AssetBlock | BigNumber
@@ -274,14 +304,14 @@ commonAttributes =
 Media = element Media {
   staticAssetAttributes?,
   commonAttributes
-  }
+}
 
 # Additional atrtibutes (and Type tag) per Asset type, these can be set by the user
 Attachment = element Attachment {
   staticAssetAttributes?,
   commonAttributes,
   attribute filename { xsd:string { minLength = "1" maxLength = "127" } }
-  }
+}
 
 Plot = element Plot {
   staticAssetAttributes?,

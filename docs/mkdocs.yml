@@ -1,7 +1,7 @@
 site_name: Arakawa
 repo_name: ninoseki/arakawa
 repo_url: https://github.com/ninoseki/arakawa/
-edit_uri: "edit/master/docs/docs/"
+site_url: https://ninoseki.github.io/arakawa/
 
 nav:
   - Introduction: index.md
@@ -49,7 +49,6 @@ theme:
     - toc.follow
     - navigation.indexes
     - content.tabs.link
-    #- toc.integrate
   palette:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
@@ -99,11 +98,6 @@ plugins:
             show_if_no_docstring: true
   - search:
       lang: en
-  - redirects:
-      redirect_maps:
-        # "tutorials/index.md": "index.ipynb"
-        # "tutorials/basics/create-a-report.md": "features/reports.md"
-        # "tutorials/datapane-cloud/upload-a-report-to-datapane-cloud.md": "deployment/sharing_report.md"
 
 markdown_extensions:
   - pymdownx.highlight:

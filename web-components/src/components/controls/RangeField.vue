@@ -7,8 +7,9 @@ const p = defineProps<{
   max: number
   step: number
   initial?: number
-  required?: boolean
   label?: string
+  validation?: string
+  help?: string
 }>()
 
 // Hold value in state so that it can be shown in input prefix
@@ -24,6 +25,8 @@ const inputValue = ref(p.initial)
     :min="min"
     :max="max"
     :step="step"
+    :validation="validation"
+    :help="help"
     data-cy="range-field"
     outer-class="flex-1"
   >
