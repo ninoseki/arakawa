@@ -3,6 +3,7 @@ defineProps<{
   initial: boolean
   name: string
   label?: string
+  help?: string
 }>()
 </script>
 
@@ -17,6 +18,7 @@ defineProps<{
       :value="initial"
       :label="label || name"
       :name="name"
+      :help="help"
       data-cy="switch-field"
     />
   </span>

@@ -104,8 +104,10 @@ Compute = element Compute {
 controlCommonAttributes =
   block_label_or_name,
   # optional attributes
+  attribute help { xsd:string }?,
   attribute initial { xsd:string }?,
-  attribute required{ xsd:boolean }?
+  attribute required{ xsd:boolean }?,
+  attribute validation { xsd:string }?
 
 DateTime = element DateTime {
   controlCommonAttributes
@@ -120,10 +122,9 @@ Time = element Time {
 }
 
 File = element File {
-  block_label_or_name,
-
+  controlCommonAttributes,
   # optional attributes
-  attribute required { xsd:boolean }?
+  attribute accept { xsd:string }?
 }
 
 MultiChoice = element MultiChoice {
@@ -133,15 +134,19 @@ MultiChoice = element MultiChoice {
   attribute options { list { xsd:string+ } },
 
   # optional attributes
-  attribute required { xsd:boolean }?
+  attribute help { xsd:string }?,
+  attribute required{ xsd:boolean }?,
+  attribute validation { xsd:string }?
 }
 
 NumberBox = element NumberBox {
   block_label_or_name,
 
   # optional attributes
+  attribute help { xsd:string }?,
   attribute initial { xsd:decimal }?,
-  attribute required { xsd:boolean }?
+  attribute required{ xsd:boolean }?,
+  attribute validation { xsd:string }?
 }
 
 Range = element Range {
@@ -151,23 +156,23 @@ Range = element Range {
   attribute max { xsd:decimal },
   attribute step { xsd:decimal },
   # optional attributes
+  attribute help { xsd:string }?,
   attribute initial { xsd:decimal }?,
-  attribute required { xsd:boolean }?
+  attribute validation { xsd:string }?
 }
 
 Choice = element Choice {
-  block_label_or_name,
-
-  attribute options { list { xsd:string+ } },
-  # optional attributes
-  attribute initial { xsd:string }?,
-  attribute required { xsd:boolean }?
+  controlCommonAttributes,
+  attribute options { list { xsd:string+ } }
 }
 
 Switch = element Switch {
   block_label_or_name,
 
-  attribute initial { xsd:boolean }?
+  # optional attributes
+  attribute help { xsd:string }?,
+  attribute initial { xsd:boolean }?,
+  attribute validation { xsd:string }?
 }
 
 Tags = element Tags {
@@ -175,42 +180,33 @@ Tags = element Tags {
 
   attribute initial { list { xsd:string+ } },
   # optional attributes
-  attribute required{ xsd:boolean }?
+  attribute help { xsd:string }?,
+  attribute required{ xsd:boolean }?,
+  attribute validation { xsd:string }?
 }
 
 TextBox = element TextBox {
-  controlCommonAttributes,
-  # optional attributes
-  attribute validation { xsd:string }?
+  controlCommonAttributes
 }
 
 URL = element URL {
-  controlCommonAttributes,
-  # optional attributes
-  attribute validation { xsd:string }?
+  controlCommonAttributes
 }
 
 Email = element Email {
-  controlCommonAttributes,
-  # optional attributes
-  attribute validation { xsd:string }?
+  controlCommonAttributes
 }
 
 Search = element Search {
-  controlCommonAttributes,
-  # optional attributes
-  attribute validation { xsd:string }?
+  controlCommonAttributes
 }
 
 Telephone = element Telephone {
-  controlCommonAttributes,
-  # optional attributes
-  attribute validation { xsd:string }?
+  controlCommonAttributes
 }
 
 Password = element Password {
-  controlCommonAttributes,
-  attribute validation { xsd:string }?
+  controlCommonAttributes
 }
 
 Hidden = element Hidden {
@@ -219,11 +215,14 @@ Hidden = element Hidden {
 }
 
 Textarea = element Textarea {
-  controlCommonAttributes,
-  attribute validation { xsd:string }?
+  controlCommonAttributes
 }
 
-ControlBlock = DateTime | Date | Time | File | MultiChoice | NumberBox | Range | Choice | Switch | Tags | TextBox | Password | Hidden | Textarea | URL | Email | Search | Telephone
+Color = element Color {
+  controlCommonAttributes
+}
+
+ControlBlock = DateTime | Date | Time | File | MultiChoice | NumberBox | Range | Choice | Switch | Tags | TextBox | Password | Hidden | Textarea | URL | Email | Search | Telephone | Color
 
 ################################################################################
 DataBlock = EmbeddedTextBlock | AssetBlock | BigNumber

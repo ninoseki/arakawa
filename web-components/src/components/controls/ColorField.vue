@@ -6,20 +6,28 @@ const p = defineProps<{
   label?: string
   initial?: string
   required?: boolean
+  help?: string
+  type: string
+  validation: string
 }>()
 
-const validation = computed(() => (p.required ? 'required' : ''))
+const validation = computed(() => {
+  const values = [p.required ? 'required' : undefined, p.validation].filter(
+    (i): i is Exclude<typeof i, undefined> => i !== undefined,
+  )
+  return values.join('|')
+})
 </script>
 
 <template>
   <form-kit
-    type="tel"
+    type="color"
     :label="label || name"
     :name="name"
     :value="initial"
     :validation="validation"
+    :help="help"
     validation-visibility="live"
-    data-cy="text-field"
     outer-class="flex-1"
   />
 </template>

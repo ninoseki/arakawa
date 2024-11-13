@@ -7,12 +7,15 @@ const p = defineProps<{
   initial?: string
   required?: boolean
   type: string
-  validation: string
+  validation?: string
+  help?: string
 }>()
 
 const typeToValidation = new Map<string, string>([
   ['url', 'url'],
   ['email', 'email'],
+  ['search', 'search'],
+  ['textarea', 'textarea'],
 ])
 
 const validation = computed(() => {
@@ -32,6 +35,7 @@ const validation = computed(() => {
     :name="name"
     :value="initial"
     :validation="validation"
+    :help="help"
     validation-visibility="live"
     outer-class="flex-1"
   />

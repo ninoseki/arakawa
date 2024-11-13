@@ -8,6 +8,7 @@ from .base import (  # noqa: F401
 )
 from .controls import (  # noqa: F401
     ChoiceField,
+    ColorField,
     DateField,
     DateTimeField,
     EmailField,

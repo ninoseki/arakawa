@@ -59,6 +59,7 @@ const mkBlockMap = (
     { class_: b.SelectField, test: maps.jsonIsSelectField },
     { class_: b.PasswordField, test: maps.jsonIsPasswordField },
     { class_: b.HiddenField, test: maps.jsonIsHiddenField },
+    { class_: b.ColorField, test: maps.jsonIsColorField },
     {
       class_: b.TemporalTextBox,
       test: maps.jsonIsTextBox,

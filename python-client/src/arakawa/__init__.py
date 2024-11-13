@@ -12,6 +12,7 @@ from .blocks import (  # noqa: F401
     Block,
     ChoiceField,
     Code,
+    ColorField,
     Compute,
     DataTable,
     DateField,

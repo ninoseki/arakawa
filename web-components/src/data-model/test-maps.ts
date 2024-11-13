@@ -44,6 +44,8 @@ export const jsonIsPasswordField = (json: any): boolean =>
 
 export const jsonIsHiddenField = (json: any): boolean => json.name === 'Hidden'
 
+export const jsonIsColorField = (json: any): boolean => json.name === 'Color'
+
 export const jsonIsNumberBox = (json: any): boolean => json.name === 'NumberBox'
 
 export const jsonIsRangeField = (json: any): boolean => json.name === 'Range'

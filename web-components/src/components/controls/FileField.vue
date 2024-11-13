@@ -1,16 +1,22 @@
 <script setup lang="ts">
 import { CloudArrowUpIcon } from '@heroicons/vue/24/outline'
-import { computed, type ComputedRef, ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const p = defineProps<{
   name: string
   label?: string
+  help?: string
+  validation?: string
   required?: boolean
+  accept?: string
 }>()
 
-const validation: ComputedRef = computed(() =>
-  p.required ? [['+required']] : [],
-)
+const validation = computed(() => {
+  const values = [p.required ? 'required' : undefined, p.validation].filter(
+    (i): i is Exclude<typeof i, undefined> => i !== undefined,
+  )
+  return values.join('|')
+})
 
 const hasFile = ref(false)
 
@@ -24,6 +30,8 @@ const id = `file_${p.name}`
     :label="label || name"
     name="parameter_files"
     :validation="validation"
+    :help="help"
+    :accept="accept"
     file-item-icon="fileDoc"
     file-remove-icon="trash"
     no-files-icon="fileDoc"

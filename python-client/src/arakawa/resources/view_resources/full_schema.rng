@@ -196,6 +196,11 @@
     <ref name="block_label_or_name"/>
     <optional>
       <!-- optional attributes -->
+      <attribute name="help">
+        <data type="string"/>
+      </attribute>
+    </optional>
+    <optional>
       <attribute name="initial">
         <data type="string"/>
       </attribute>
@@ -203,6 +208,11 @@
     <optional>
       <attribute name="required">
         <data type="boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="validation">
+        <data type="string"/>
       </attribute>
     </optional>
   </define>
@@ -223,11 +233,11 @@
   </define>
   <define name="File">
     <element name="File">
-      <ref name="block_label_or_name"/>
+      <ref name="controlCommonAttributes"/>
       <optional>
         <!-- optional attributes -->
-        <attribute name="required">
-          <data type="boolean"/>
+        <attribute name="accept">
+          <data type="string"/>
         </attribute>
       </optional>
     </element>
@@ -251,8 +261,18 @@
       </attribute>
       <optional>
         <!-- optional attributes -->
+        <attribute name="help">
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
         <attribute name="required">
           <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="validation">
+          <data type="string"/>
         </attribute>
       </optional>
     </element>
@@ -262,6 +282,11 @@
       <ref name="block_label_or_name"/>
       <optional>
         <!-- optional attributes -->
+        <attribute name="help">
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
         <attribute name="initial">
           <data type="decimal"/>
         </attribute>
@@ -269,6 +294,11 @@
       <optional>
         <attribute name="required">
           <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="validation">
+          <data type="string"/>
         </attribute>
       </optional>
     </element>
@@ -287,20 +317,25 @@
       </attribute>
       <optional>
         <!-- optional attributes -->
+        <attribute name="help">
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
         <attribute name="initial">
           <data type="decimal"/>
         </attribute>
       </optional>
       <optional>
-        <attribute name="required">
-          <data type="boolean"/>
+        <attribute name="validation">
+          <data type="string"/>
         </attribute>
       </optional>
     </element>
   </define>
   <define name="Choice">
     <element name="Choice">
-      <ref name="block_label_or_name"/>
+      <ref name="controlCommonAttributes"/>
       <attribute name="options">
         <list>
           <oneOrMore>
@@ -308,25 +343,25 @@
           </oneOrMore>
         </list>
       </attribute>
-      <optional>
-        <!-- optional attributes -->
-        <attribute name="initial">
-          <data type="string"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="required">
-          <data type="boolean"/>
-        </attribute>
-      </optional>
     </element>
   </define>
   <define name="Switch">
     <element name="Switch">
       <ref name="block_label_or_name"/>
       <optional>
+        <!-- optional attributes -->
+        <attribute name="help">
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
         <attribute name="initial">
           <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="validation">
+          <data type="string"/>
         </attribute>
       </optional>
     </element>
@@ -343,8 +378,18 @@
       </attribute>
       <optional>
         <!-- optional attributes -->
+        <attribute name="help">
+          <data type="string"/>
+        </attribute>
+      </optional>
+      <optional>
         <attribute name="required">
           <data type="boolean"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="validation">
+          <data type="string"/>
         </attribute>
       </optional>
     </element>
@@ -352,66 +397,31 @@
   <define name="TextBox">
     <element name="TextBox">
       <ref name="controlCommonAttributes"/>
-      <optional>
-        <!-- optional attributes -->
-        <attribute name="validation">
-          <data type="string"/>
-        </attribute>
-      </optional>
     </element>
   </define>
   <define name="URL">
     <element name="URL">
       <ref name="controlCommonAttributes"/>
-      <optional>
-        <!-- optional attributes -->
-        <attribute name="validation">
-          <data type="string"/>
-        </attribute>
-      </optional>
     </element>
   </define>
   <define name="Email">
     <element name="Email">
       <ref name="controlCommonAttributes"/>
-      <optional>
-        <!-- optional attributes -->
-        <attribute name="validation">
-          <data type="string"/>
-        </attribute>
-      </optional>
     </element>
   </define>
   <define name="Search">
     <element name="Search">
       <ref name="controlCommonAttributes"/>
-      <optional>
-        <!-- optional attributes -->
-        <attribute name="validation">
-          <data type="string"/>
-        </attribute>
-      </optional>
     </element>
   </define>
   <define name="Telephone">
     <element name="Telephone">
       <ref name="controlCommonAttributes"/>
-      <optional>
-        <!-- optional attributes -->
-        <attribute name="validation">
-          <data type="string"/>
-        </attribute>
-      </optional>
     </element>
   </define>
   <define name="Password">
     <element name="Password">
       <ref name="controlCommonAttributes"/>
-      <optional>
-        <attribute name="validation">
-          <data type="string"/>
-        </attribute>
-      </optional>
     </element>
   </define>
   <define name="Hidden">
@@ -425,11 +435,11 @@
   <define name="Textarea">
     <element name="Textarea">
       <ref name="controlCommonAttributes"/>
-      <optional>
-        <attribute name="validation">
-          <data type="string"/>
-        </attribute>
-      </optional>
+    </element>
+  </define>
+  <define name="Color">
+    <element name="Color">
+      <ref name="controlCommonAttributes"/>
     </element>
   </define>
   <define name="ControlBlock">
@@ -452,6 +462,7 @@
       <ref name="Email"/>
       <ref name="Search"/>
       <ref name="Telephone"/>
+      <ref name="Color"/>
     </choice>
   </define>
   <define name="DataBlock">
