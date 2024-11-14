@@ -47,35 +47,36 @@ exclude = ["images/", ".vscode/", "tests/"]
 dev = [
   "pytest~=8.3.3",
   "pytest-pretty~=1.2.0",
-  "pytest-randomly~=3.15.0",
-  "ruff~=0.7.2",
+  "pytest-randomly~=3.16.0",
+  "ruff~=0.7.3",
   "vega-datasets~=0.9.0",
   "pytest-datadir~=1.5.0",
   "pytest-timeout~=2.3.1",
   "uv-sort~=0.4.0",
   "build~=1.2.2",
   "twine~=5.1.1",
-  "glom>=23.5.0",
+  "glom>=24.11.0",
   "pytest-github-actions-annotate-failures>=0.2.0",
-  "types-lxml>=2024.9.16",
+  "types-lxml>=2024.11.8",
 ]
 
 [tool.ruff.lint]
 select = [
-  "ARG", # flake8-unused-arguments
-  "B",   # flake8-bugbear
-  "C",   # flake8-comprehensions
-  "E",   # pycodestyle errors
-  "F",   # pyflakes
-  "FA",  # flake8-future-annotations
-  "I",   # isort
-  "N",   # pep8-naming
-  "PT",  # flake8-pytest-style
-  "RET", # flake8-return
-  "RUF", # Ruff-specific rules
-  "SIM", # flake8-simplify
-  "T20", # flake8-print
-  "UP",  # pyupgrade
-  "W",   # pycodestyle warnings
+  "ARG",  # flake8-unused-arguments
+  "B",    # flake8-bugbear
+  "C4",   # flake8-comprehensions
+  "E",    # pycodestyle errors
+  "F",    # pyflakes
+  "FA",   # flake8-future-annotations
+  "I",    # isort
+  "N",    # pep8-naming
+  "PERF", # Perflint
+  "PT",   # flake8-pytest-style
+  "RET",  # flake8-return
+  "RUF",  # Ruff-specific rules
+  "SIM",  # flake8-simplify
+  "T20",  # flake8-print
+  "UP",   # pyupgrade
+  "W",    # pycodestyle warnings
 ]
 ignore = ["E501", "PT012"]

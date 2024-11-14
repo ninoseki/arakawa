@@ -50,7 +50,7 @@ def get_ipython_user_ns() -> dict:
     return _get_ipython().user_ns  # type: ignore
 
 
-def _get_environment() -> PythonEnvironment:  # noqa: C901
+def _get_environment() -> PythonEnvironment:
     """Determines the current IPython environment and returns an instance of the appropriate class"""
 
     # TODO: change this to be a list, and put the logic in a `.supported()` method

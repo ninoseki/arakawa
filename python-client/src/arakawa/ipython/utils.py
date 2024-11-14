@@ -83,7 +83,7 @@ def check_notebook_cache_parity(
     return is_dirty, dirty_cells
 
 
-def cells_to_blocks(  # noqa: C901
+def cells_to_blocks(
     opt_out: bool = True, show_code: bool = False, show_markdown: bool = True
 ) -> list[BaseBlock]:
     """Convert IPython notebook cells to a list of Arakawa Blocks
