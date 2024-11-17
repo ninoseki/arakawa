@@ -1,16 +1,22 @@
 from __future__ import annotations
 
+import sys
 from collections.abc import Mapping
 from copy import copy
 from typing import TYPE_CHECKING, Union
 
 from lxml import etree
 from lxml.etree import _Element as ElementT
-from typing_extensions import Self
 
 from arakawa.blocks import Group
 from arakawa.blocks.base import BlockOrPrimitive
 from arakawa.blocks.layout import ContainerBlock
+
+if sys.version_info <= (3, 11):
+    from typing_extensions import Self
+else:
+    from typing import Self
+
 
 if TYPE_CHECKING:
     from arakawa.processors.types import Formatting

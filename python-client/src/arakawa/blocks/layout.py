@@ -1,10 +1,9 @@
 from __future__ import annotations
 
+import sys
 from collections import deque
 from functools import reduce
 from typing import TYPE_CHECKING
-
-from typing_extensions import Self
 
 from arakawa.common.ar_types import StrEnum
 from arakawa.exceptions import ARError
@@ -12,6 +11,11 @@ from arakawa.utils import log
 
 from .base import BaseBlock, BlockId, BlockList, BlockOrPrimitive, wrap_block
 from .empty import Empty, gen_name
+
+if sys.version_info <= (3, 11):
+    from typing_extensions import Self
+else:
+    from typing import Self
 
 if TYPE_CHECKING:
     from arakawa.blocks import Block
