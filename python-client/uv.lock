@@ -33,7 +33,7 @@ wheels = [
 
 [[package]]
 name = "arakawa"
-version = "0.0.2"
+version = "0.0.2.post1.dev0+11a6270"
 source = { editable = "." }
 dependencies = [
     { name = "altair" },
@@ -50,7 +50,7 @@ dependencies = [
     { name = "pandas" },
     { name = "pyarrow" },
     { name = "semver" },
-    { name = "typing-extensions" },
+    { name = "typing-extensions", marker = "python_full_version < '3.11'" },
 ]
 
 [package.optional-dependencies]
@@ -98,7 +98,7 @@ requires-dist = [
     { name = "plotly", marker = "extra == 'plotting'", specifier = "~=5.24" },
     { name = "pyarrow", specifier = "~=17.0" },
     { name = "semver", specifier = ">=3.0" },
-    { name = "typing-extensions", specifier = ">=4.12" },
+    { name = "typing-extensions", marker = "python_full_version < '3.11'", specifier = ">=4.12" },
 ]
 
 [package.metadata.requires-dev]
