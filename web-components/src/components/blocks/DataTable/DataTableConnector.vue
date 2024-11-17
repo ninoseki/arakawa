@@ -20,7 +20,6 @@ const p = defineProps<{
   refId: string
   getCsvText: () => Promise<string>
   downloadLocal: (type: ExportType) => Promise<void>
-  downloadRemote: (type: ExportType) => Promise<void>
   figure: BlockFigureProps
   singleBlockEmbed?: boolean
 }>()
@@ -73,7 +72,6 @@ const handleLoadFull = async () => {
       :previewMode="previewMode"
       :getCsvText="p.getCsvText"
       :downloadLocal="p.downloadLocal"
-      :downloadRemote="p.downloadRemote"
       :refId="p.refId"
       @load-full="handleLoadFull"
     />

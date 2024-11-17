@@ -1,65 +1,13 @@
-import axios, { type AxiosResponse } from 'axios'
-import download from 'downloadjs'
-import urljoin from 'url-join'
 import { markRaw } from 'vue'
 
 import VDataTableBlock from '@/components/blocks/DataTable/DataTableConnector.vue'
-import env from '@/environment'
 
 import {
   AssetBlock,
   type BlockFigure,
   type CaptionType,
   type Elem,
-  type ExportType,
 } from './index'
-
-const addQueryParam = (url: string, qp: { k: string; v: string }): string => {
-  /**
-   * Adds a query param k=v to a relative URL
-   */
-  const urlObj = new URL(url, env.url)
-  const searchParams = urlObj.searchParams
-  searchParams.append(qp.k, qp.v)
-  urlObj.search = searchParams.toString()
-  return `${urlObj.pathname}?${urlObj.searchParams.toString()}`
-}
-
-const filenameFromResponse = (response: Response): string => {
-  /**
-   * Creates a filename from file response header
-   */
-  const FALLBACK_NAME = 'ar-export.csv'
-
-  const FILENAME_ATTR = 'filename="'
-  const contentDisposition = response.headers.get('Content-Disposition')
-
-  if (!contentDisposition || !contentDisposition.includes(FILENAME_ATTR)) {
-    return FALLBACK_NAME
-  }
-
-  // We use string split to extract the filename from header as FF doesn't support positive lookahead regexp
-
-  return contentDisposition.split(FILENAME_ATTR)[1].split('"')[0]
-}
-
-const downloadObject = async (url: string, mimeType: string) => {
-  /**
-   * Downloads a file from the server to the local client
-   */
-  try {
-    const response = await fetch(urljoin(window.location.origin, url))
-    if (response) {
-      const blob = await response.blob()
-      const filename = filenameFromResponse(response)
-      download(blob, filename, mimeType)
-    } else {
-      console.error('No url provided')
-    }
-  } catch (e) {
-    console.error(`An error occurred while downloading the file: ${e}`)
-  }
-}
 
 const AUTO_LOAD_CELLS_LIMIT = 500000
 
@@ -77,7 +25,6 @@ export class DataTableBlock extends AssetBlock {
   public size: number
   public casRef: string
 
-  private webUrl: string
   private _revogridExportPlugin: any
 
   public get cells(): number {
@@ -92,30 +39,31 @@ export class DataTableBlock extends AssetBlock {
     return this.buildExtensionUrl('export')
   }
 
-  public constructor(elem: Elem, figure: BlockFigure, opts?: any) {
+  public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
     const { attributes } = elem
     this.rows = attributes.rows
     this.columns = attributes.columns
     this.size = attributes.size
     this.casRef = attributes.cas_ref
-    this.webUrl = opts.webUrl
 
     this.componentProps = {
       ...this.componentProps,
       streamContents: this.streamContents,
       getCsvText: this.getCsvText,
       downloadLocal: this.downloadLocal,
-      downloadRemote: this.downloadRemote,
       deferLoad: this.deferLoad,
       cells: this.cells,
       refId: this.refId,
     }
   }
 
-  private fetchDataset(opts: Record<string, string>): Promise<any> {
-    return axios.get(this.src, opts).then((r: AxiosResponse) => {
-      return r.data
+  private fetchDataset(): Promise<any> {
+    return fetch(this.src).then(r => {
+      if (!r.ok) {
+        throw new Error('Failed to fetch dataset')
+      }
+      return r.arrayBuffer()
     })
   }
 
@@ -123,11 +71,8 @@ export class DataTableBlock extends AssetBlock {
     /**
      * Fetch dataset and convert to arrow format
      */
-    const opts = {
-      responseType: 'arraybuffer',
-    }
     const { apiResponseToArrow } = await import('../datatable/arrow-utils')
-    const arrayBuffer = await this.fetchDataset(opts)
+    const arrayBuffer = await this.fetchDataset()
     return apiResponseToArrow(arrayBuffer)
   }
 
@@ -143,21 +88,6 @@ export class DataTableBlock extends AssetBlock {
     } catch (e) {
       console.error('An error occurred while exporting dataset: ', e)
     }
-  }
-
-  public downloadRemote = async (format: ExportType): Promise<void> => {
-    /**
-     * Download the original resource via the server
-     */
-    const exportUrl = addQueryParam(this.exportUrl, {
-      k: 'export_format',
-      v: format,
-    })
-    const mimeType =
-      format === 'CSV'
-        ? 'text/csv'
-        : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    await downloadObject(exportUrl, mimeType)
   }
 
   public getCsvText = async (): Promise<string> => {
@@ -201,6 +131,6 @@ export class DataTableBlock extends AssetBlock {
   }
 
   private buildExtensionUrl(name: string): string {
-    return new URL(`extensions/${name}/${this.casRef}`, this.webUrl).toString()
+    return new URL(`extensions/${name}/${this.casRef}`).toString()
   }
 }

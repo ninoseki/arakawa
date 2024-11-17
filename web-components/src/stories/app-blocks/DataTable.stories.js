@@ -13,7 +13,6 @@ Primary.args = {
   cells: 600,
   deferLoad: false,
   downloadLocal: async () => ({}),
-  downloadRemote: async () => ({}),
   getCsvText: async () => ({}),
   refId: '1e3104e2-1e7f-4750-ae97-4c354041df29',
   data: [...Array(100).keys()].map(n => ({

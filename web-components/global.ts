@@ -3,9 +3,6 @@ declare global {
     isIPythonEmbed: boolean
     arLocal: boolean
     reportProps?: any
-    Alpine: any
-    $testResources: any
-    errorHandler: any
   }
 }
 

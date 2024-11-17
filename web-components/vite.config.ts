@@ -5,7 +5,6 @@ import path from 'path'
 import copy from 'rollup-plugin-copy'
 import tailwindcss from 'tailwindcss'
 import { defineConfig, LibraryFormats } from 'vite'
-import vueDevTools from 'vite-plugin-vue-devtools'
 
 import vueESM from './rollup-plugin-vue-esm'
 
@@ -14,7 +13,6 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      emitter: require.resolve('emitter-component'),
     },
   },
   css: {
@@ -34,7 +32,6 @@ export default defineConfig(({ mode }) => ({
         },
       },
     }),
-    vueDevTools(),
   ],
   define: {
     // Bokeh 2.4 expects a global PACKAGE_VERSION to be defined

@@ -74,7 +74,6 @@ const p = defineProps<{
   refId: string
   getCsvText: () => Promise<string>
   downloadLocal: (type: ExportType) => Promise<void>
-  downloadRemote: (type: ExportType) => Promise<void>
 }>()
 
 const emit = defineEmits(['load-full'])
@@ -99,7 +98,13 @@ const createHeader = (h: any, column: Col) => {
   /**
    * generate a custom hyperscript header based on column data type
    */
-  const columnType: any = column.type || 'unknown'
+  const columnType: any = (() => {
+    // treat utf8 and LargeUtf8 as a category
+    if (column.type?.toString().toLowerCase().includes('utf8')) {
+      return 'category'
+    }
+    return column.type || 'unknown'
+  })()
   const iconName = (TableIcons as any)[columnType]
   const colorName = (TableColors as any)[columnType]
 
@@ -263,7 +268,6 @@ const clearQuery = () => {
       :cells="p.cells"
       :get-csv-text="p.getCsvText"
       :download-local="p.downloadLocal"
-      :download-remote="p.downloadRemote"
       @toggle-query-open="queryOpen = !queryOpen"
     />
     <query-area

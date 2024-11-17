@@ -523,6 +523,12 @@
       <data type="string">
         <param name="minLength">1</param>
       </data>
+      <optional>
+        <!-- optional attributes -->
+        <attribute name="sandbox">
+          <data type="string"/>
+        </attribute>
+      </optional>
     </element>
   </define>
   <define name="Code">

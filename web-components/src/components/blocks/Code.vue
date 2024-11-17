@@ -45,7 +45,7 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style>
+<style scoped>
 pre {
   @apply w-full;
 }

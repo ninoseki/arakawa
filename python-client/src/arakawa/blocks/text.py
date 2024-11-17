@@ -149,21 +149,26 @@ class HTML(EmbeddedTextBlock):
     The HTML block allows you to add raw HTML to your app,  allowing for highly customized components, such as your company's brand, logo, and more.
 
     !!! info
-        The HTML block is sandboxed and cannot execute JavaScript.
+        The HTML block is sandboxed and cannot execute JavaScript by default.
     """
 
     _tag = "HTML"
 
     def __init__(
-        self, html: str | dom_tag, name: BlockId | None = None, label: str | None = None
+        self,
+        html: str | dom_tag,
+        name: BlockId | None = None,
+        label: str | None = None,
+        sandbox: str | None = None,
     ):
         """
         Args:
             html: The HTML fragment to embed - can be a string or a [dominate](https://github.com/Knio/dominate/) tag
             name: A unique name for the block to reference when adding text or embedding (optional)
             label: A label used when displaying the block (optional)
+            sandbox: A sandbox attribute. Defaults to None.
         """
-        super().__init__(content=str(html), name=name, label=label)
+        super().__init__(content=str(html), name=name, label=label, sandbox=sandbox)
 
 
 class Formula(EmbeddedTextBlock):

@@ -6,7 +6,7 @@ tasks:
   build-notebooks:
     cmd: ./nbbuild.sh
   clear-notebooks:
-    cmd: ./nbclear.sh
+    cmd: find . -name "*.ipynb" | xargs nbstripout
   serve:
     cmd: mkdocs serve
     deps:
