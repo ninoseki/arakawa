@@ -5,13 +5,19 @@ import datetime
 import gzip
 import hashlib
 import io
+import sys
 import tempfile
 from pathlib import Path
 from shutil import copyfileobj
 from typing import IO, BinaryIO
 
 import base64io
-from typing_extensions import Self
+
+if sys.version_info <= (3, 11):
+    from typing_extensions import Self
+else:
+    from typing import Self
+
 
 from arakawa.common import guess_type
 

@@ -1,11 +1,11 @@
 import dataclasses
+import sys
 from collections import namedtuple
 from typing import TYPE_CHECKING, Any, Protocol
 
 from lxml import etree
 from lxml.builder import ElementMaker
 from multimethod import DispatchError, multimethod
-from typing_extensions import Self
 
 from arakawa.blocks import BaseBlock
 from arakawa.blocks.asset import AssetBlock
@@ -16,6 +16,11 @@ from arakawa.exceptions import ARError
 from arakawa.utils import log
 from arakawa.view.view_blocks import Blocks
 from arakawa.view.visitors import ViewVisitor
+
+if sys.version_info <= (3, 11):
+    from typing_extensions import Self
+else:
+    from typing import Self
 
 if TYPE_CHECKING:
     from arakawa.processors import FileEntry, FileStore

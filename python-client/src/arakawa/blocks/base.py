@@ -6,15 +6,20 @@ Describes the collection of `Block` objects that can be combined together to mak
 
 from __future__ import annotations
 
+import sys
 from abc import ABC
 from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 
 from lxml.builder import ElementMaker
-from typing_extensions import Self
 
 from arakawa.common.viewxml_utils import is_valid_id, mk_attribs
 from arakawa.exceptions import ARError
 from arakawa.utils import log
+
+if sys.version_info <= (3, 11):
+    from typing_extensions import Self
+else:
+    from typing import Self
 
 if TYPE_CHECKING:
     from arakawa.blocks import Block
