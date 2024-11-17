@@ -15,7 +15,6 @@ const p = defineProps<{
   cells: number
   getCsvText: () => Promise<string>
   downloadLocal: (type: ExportType) => Promise<void>
-  downloadRemote: (type: ExportType) => Promise<void>
 }>()
 
 const emit = defineEmits(['toggle-query-open'])
@@ -46,28 +45,7 @@ const localActionSections: Section[] = [
   },
 ]
 
-const remoteActionSections: Section[] = [
-  {
-    title: 'Original Data',
-    options: [
-      {
-        name: 'Download CSV',
-        onClick: withErrHandling(() => p.downloadRemote('CSV')),
-        id: 'download-original-csv',
-      },
-      {
-        name: 'Download Excel',
-        onClick: withErrHandling(() => p.downloadRemote('EXCEL')),
-        id: 'download-original-excel',
-      },
-    ],
-  },
-]
-
-const actionSections: Section[] = [
-  ...localActionSections,
-  ...(window.arLocal ? [] : remoteActionSections),
-]
+const actionSections: Section[] = [...localActionSections]
 </script>
 
 <template>

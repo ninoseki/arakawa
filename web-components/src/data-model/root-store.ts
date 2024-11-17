@@ -9,11 +9,7 @@ import type { AppData, AppMetaData } from './types'
 
 export type EmptyObject = Record<string, never>
 
-const mkBlockMap = (
-  isLightProse: boolean,
-  isOrg: boolean,
-  webUrl?: string,
-): BlockTest[] => {
+const mkBlockMap = (isLightProse: boolean): BlockTest[] => {
   /**
    * class_: The deserialized class that maps to a JSON `elem`
    * test: Function that returns true if the JSON should deserialize into the associated `class_`
@@ -29,7 +25,6 @@ const mkBlockMap = (
     {
       class_: b.DataTableBlock,
       test: maps.jsonIsArrowTable,
-      opts: { webUrl },
     },
     { class_: b.CodeBlock, test: maps.jsonIsCode },
     { class_: b.VegaBlock, test: maps.jsonIsVega },
@@ -38,7 +33,6 @@ const mkBlockMap = (
     {
       class_: b.HTMLBlock,
       test: maps.jsonIsHTML,
-      opts: { isOrg },
     },
     // NOTE - `MediaBlock` check should go before `SVGBlock` check,
     // as SVGs in a `Media` tag have precedence over plot SVGs
@@ -197,7 +191,7 @@ export const useRootStore = defineStore('root', () => {
      */
     const { view_xml: viewXml, assets } = localAppData.data.result!
 
-    blockMap.push(...mkBlockMap(meta.isLightProse, meta.isOrg, meta.webUrl))
+    blockMap.push(...mkBlockMap(meta.isLightProse))
 
     Object.assign(assetMap, assets)
 

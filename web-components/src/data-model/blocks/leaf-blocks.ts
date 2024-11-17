@@ -132,13 +132,14 @@ export class CodeBlock extends Block {
 export class HTMLBlock extends Block {
   public component = markRaw(VHTMLBlock)
 
-  public constructor(elem: Elem, figure: BlockFigure, opts?: any) {
+  public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
     const html = getInnerText(elem)
+    const { sandbox } = elem.attributes
     this.componentProps = {
       ...this.componentProps,
       html,
-      sandbox: opts.isOrg ? undefined : 'allow-scripts',
+      sandbox,
     }
   }
 }

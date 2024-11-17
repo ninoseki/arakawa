@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any, NewType, Union
 
 # Typedefs
-# A JSON-serialisable config object
+# A JSON-serializable config object
 SDict = dict[str, Any]
 SSDict = dict[str, str]
 SList = list[str]

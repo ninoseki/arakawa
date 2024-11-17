@@ -246,7 +246,9 @@ Text = element Text {
 
 HTML = element HTML {
   block_label_or_name,
-  xsd:string { minLength = "1" }
+  xsd:string { minLength = "1" },
+  # optional attributes
+  attribute sandbox { xsd:string }?
 }
 
 Code = element Code {

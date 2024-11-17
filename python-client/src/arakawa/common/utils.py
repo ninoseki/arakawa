@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+import datetime
 import importlib.resources as ir
 import locale
 import mimetypes
-import re
 import sys
+import time
 from pathlib import Path
 
 import chardet
@@ -74,37 +75,11 @@ def utf_read_text(file: Path) -> str:
     return file.read_text()
 
 
-def dict_drop_empty(xs: dict | None = None, none_only: bool = False, **kwargs) -> dict:
-    """Return a new dict with the empty/falsey values removed"""
-    xs = {**(xs or {}), **kwargs}
-
-    if none_only:
-        return {k: v for (k, v) in xs.items() if v is not None}
-    return {k: v for (k, v) in xs.items() if v or isinstance(v, bool)}
+def unixtime() -> int:
+    return int(time.time())
 
 
-def should_compress_mime_type_for_upload(mime_type: str) -> bool:
-    # This strategy is based on:
-    # - looking at mime type databases used by `mimetypes` module
-    # - our custom mime types in double_ext_map
-    # - some other online sources that capture real-world usage:
-    #   - https://letstalkaboutwebperf.com/en/gzip-brotli-server-config/
-    #   - https://github.com/h5bp/server-configs-nginx/blob/main/mime.types
-    return any(
-        pattern.search(mime_type) for pattern in _SHOULD_COMPRESS_MIME_TYPE_REGEXPS
-    )
-
-
-_SHOULD_COMPRESS_MIME_TYPE_REGEXPS = [
-    re.compile(p)
-    for p in [
-        r"^text/",
-        r"\+json$",
-        r"\+xml$",
-        r"\+html$",
-        r"^application/json$",
-        r"^application/vnd\.pickle\+binary$",
-        r"^application/vnd\.apache\.arrow\+binary$",
-        r"^application/xml$",
-    ]
-]
+def timestamp(x: datetime.datetime | None = None) -> str:
+    """Return ISO timestamp for a datetime"""
+    x = x or datetime.datetime.utcnow()
+    return f'{x.isoformat(timespec="seconds")}{"" if x.tzinfo else "Z"}'

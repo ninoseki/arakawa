@@ -1,9 +1,8 @@
-// JS Polyfills
-import 'whatwg-fetch'
-import './styles/base.scss'
-import './styles/report.scss'
-import '@fortawesome/fontawesome-free/css/all.css'
+import '@/styles/base.scss'
+import '@/styles/report.scss'
 import 'highlight.js/styles/stackoverflow-light.css'
+import '@fortawesome/fontawesome-free/css/fontawesome.css'
+import '@fortawesome/fontawesome-free/css/solid.css'
 
 import { defaultConfig, plugin as formkitPlugin } from '@formkit/vue'
 import iframeResize from 'iframe-resizer/js/iframeResizer'
@@ -13,10 +12,6 @@ import { createApp, defineCustomElement } from 'vue'
 import TableBlock from './components/blocks/Table.ce.vue'
 import { formkitConfig } from './components/controls/formkit'
 import Report from './components/ReportContainer.vue'
-import { ARClipboard } from './shared/ARClipboard'
-
-// base
-window.errorHandler = window.errorHandler || {}
 
 // report
 import('./tailwind')
@@ -40,4 +35,4 @@ const mountReport = (props: any) => {
   return app
 }
 
-export { ARClipboard, iframeResize, mountReport, parseElementProps }
+export { iframeResize, mountReport, parseElementProps }

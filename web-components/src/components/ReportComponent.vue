@@ -11,7 +11,6 @@ import NavBar from './layout/NavBar.vue'
 // Vue can't use a ts interface as props
 // see https://github.com/vuejs/core/issues/4294
 const p = defineProps<{
-  isOrg: ReportProps['isOrg']
   reportWidthClass: ReportProps['reportWidthClass']
   mode: ReportProps['mode']
   htmlHeader?: ReportProps['htmlHeader']

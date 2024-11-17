@@ -5,8 +5,6 @@ const p = defineProps<{
   class: string
 }>()
 
-const { arLocal } = window
-
 const tableRef = (node: any): void => {
   /**
    * Remove legacy "border" attribute set by pandas
@@ -21,7 +19,7 @@ const tableRef = (node: any): void => {
 </script>
 
 <template>
-  <link v-if="!arLocal" rel="stylesheet" href="/report/index.css" />
+  <link rel="stylesheet" href="/report/index.css" />
   <div
     :ref="tableRef"
     :class="['w-full', { 'h-full absolute top-0': p.singleBlockEmbed }]"

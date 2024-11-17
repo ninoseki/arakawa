@@ -42,8 +42,7 @@ class XMLBuilder(ViewVisitor):
 
         # create top-level structure
         return E.View(  # type: ignore
-            # E.Internal(),
-            *_top_group.getchildren(),
+            *(list(_top_group)),
             **mk_attribs(version="1", fragment=fragment),
         )
 
