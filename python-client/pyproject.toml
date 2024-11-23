@@ -1,7 +1,7 @@
 [project]
 name = "arakawa"
 dynamic = ["version"]
-description = "Add your description here"
+description = "Build interactive reports in seconds using Python"
 readme = "README.md"
 requires-python = ">=3.9,<4.0"
 dependencies = [
@@ -18,8 +18,8 @@ dependencies = [
   "multimethod~=1.10",
   "pandas~=2.2",
   "pyarrow~=17.0",
-  "semver>=3.0",
-  'typing-extensions>=4.12;python_version<"3.11"',
+  "semver~=3.0",
+  'typing-extensions~=4.12;python_version<"3.11"',
 ]
 
 [project.optional-dependencies]
@@ -48,7 +48,7 @@ dev = [
   "pytest~=8.3.3",
   "pytest-pretty~=1.2.0",
   "pytest-randomly~=3.16.0",
-  "ruff~=0.7.4",
+  "ruff~=0.8.0",
   "vega-datasets~=0.9.0",
   "pytest-datadir~=1.5.0",
   "pytest-timeout~=2.3.1",
