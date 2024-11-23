@@ -3,6 +3,7 @@ import pluginVitest from '@vitest/eslint-plugin'
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 import vueTsEslintConfig from '@vue/eslint-config-typescript'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
+import storybook from 'eslint-plugin-storybook'
 import pluginVue from 'eslint-plugin-vue'
 import tseslint from 'typescript-eslint'
 
@@ -24,11 +25,14 @@ export default tseslint.config(
   },
   ...pluginVue.configs['flat/essential'],
   ...vueTsEslintConfig(),
+  ...storybook.configs['flat/recommended'],
+  {
+    ignores: ['!.storybook'],
+  },
   {
     ...pluginVitest.configs.recommended,
     files: ['src/**/__tests__/*'],
   },
-  // @ts-expect-error this plugin is not typed
   skipFormatting,
   {
     plugins: {
