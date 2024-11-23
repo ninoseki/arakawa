@@ -54,7 +54,6 @@ dev = [
   "pytest-timeout~=2.3.1",
   "uv-sort~=0.4.0",
   "build~=1.2.2",
-  "twine~=5.1.1",
   "glom>=24.11.0",
   "pytest-github-actions-annotate-failures>=0.2.0",
   "types-lxml>=2024.11.8",
