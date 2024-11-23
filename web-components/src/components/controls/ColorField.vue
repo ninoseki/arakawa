@@ -7,7 +7,6 @@ const p = defineProps<{
   initial?: string
   required?: boolean
   help?: string
-  type: string
   validation: string
 }>()
 
