@@ -49,6 +49,9 @@ jobs:
       - run: uv run pyproject-build
       - name: publish
         uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          # NOTE: need to use absolute path since working-directory is not respected...
+          packages-dir: ./python-client/dist/
   publish-docs:
     needs: [publish-npm-package, publish-pypi-package]
     runs-on: ubuntu-latest
