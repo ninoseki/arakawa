@@ -2,7 +2,6 @@
 defineProps<{
   name: string
   initial: string
-  type: string
 }>()
 </script>
 

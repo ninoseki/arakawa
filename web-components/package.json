@@ -28,13 +28,13 @@
   "dependencies": {
     "@bokeh/bokehjs": "3.4.3",
     "@codemirror/lang-sql": "^6.8.0",
-    "@formkit/themes": "^1.6.8",
-    "@formkit/vue": "^1.6.8",
-    "@fortawesome/fontawesome-free": "^6.6.0",
-    "@heroicons/vue": "^2.1.5",
+    "@formkit/themes": "^1.6.9",
+    "@formkit/vue": "^1.6.9",
+    "@fortawesome/fontawesome-free": "^6.7.1",
+    "@heroicons/vue": "^2.2.0",
     "@highlightjs/vue-plugin": "^2.1.0",
     "@popperjs/core": "^2.11.8",
-    "@revolist/vue3-datagrid": "^4.10.28",
+    "@revolist/vue3-datagrid": "^4.10.30",
     "alasql": "^4.5.2",
     "apache-arrow": "^17.0.0",
     "axios": "^1.7.7",
@@ -47,7 +47,7 @@
     "highlight.js": "^11.10.0",
     "iframe-resizer": "4.3.11",
     "katex": "^0.16.11",
-    "marked": "^15.0.0",
+    "marked": "^15.0.2",
     "marked-highlight": "^2.2.1",
     "mobx-vue-lite": "^0.4.3",
     "moment": "^2.30.1",
@@ -66,17 +66,17 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
-    "@eslint/js": "^9.14.0",
+    "@eslint/js": "^9.15.0",
     "@mdx-js/react": "^3.1.0",
     "@rollup/plugin-replace": "^6.0.1",
-    "@storybook/addon-essentials": "^8.4.3",
-    "@storybook/addon-interactions": "^8.4.3",
-    "@storybook/addon-links": "^8.4.3",
-    "@storybook/addon-onboarding": "^8.4.3",
-    "@storybook/blocks": "^8.4.3",
-    "@storybook/test": "^8.4.3",
-    "@storybook/vue3": "^8.4.3",
-    "@storybook/vue3-vite": "^8.4.3",
+    "@storybook/addon-essentials": "^8.4.5",
+    "@storybook/addon-interactions": "^8.4.5",
+    "@storybook/addon-links": "^8.4.5",
+    "@storybook/addon-onboarding": "^8.4.5",
+    "@storybook/blocks": "^8.4.5",
+    "@storybook/test": "^8.4.5",
+    "@storybook/vue3": "^8.4.5",
+    "@storybook/vue3-vite": "^8.4.5",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.9",
     "@tailwindcss/typography": "^0.5.15",
@@ -87,7 +87,7 @@
     "@types/he": "^1.2.3",
     "@types/iframe-resizer": "^3.5.13",
     "@types/katex": "^0.16.7",
-    "@types/node": "^22.9.0",
+    "@types/node": "^22.9.3",
     "@types/numeral": "^2.0.5",
     "@types/ramda": "^0.30.2",
     "@types/sanitize-html": "^2.13.0",
@@ -102,14 +102,14 @@
     "esbuild": "^0.24.0",
     "eslint": "^9.14.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-storybook": "^0.11.1",
     "http-server": "^14.1.1",
     "jsdom": "^25.0.1",
     "postcss": "^8.4.49",
     "prettier": "^3.3.3",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-esbuild": "^6.1.1",
-    "sass": "^1.80.7",
-    "storybook": "^8.4.3",
+    "storybook": "^8.4.5",
     "tailwindcss": "^3.4.15",
     "terser": "^5.36.0",
     "typescript": "^5.6.3",
@@ -119,11 +119,6 @@
     "vue-tsc": "^2.1.10"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "^4.26.0"
-  },
-  "eslintConfig": {
-    "extends": [
-      "plugin:storybook/recommended"
-    ]
+    "@rollup/rollup-linux-x64-gnu": "^4.27.4"
   }
 }
