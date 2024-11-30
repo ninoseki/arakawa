@@ -4,10 +4,10 @@
     min-width: 100%;
   }
 </style>
-<iframe id="ar-{{ report_id }}" srcdoc="{%filter e %}{% include 'ipython_base.html.j2' %}{% endfilter %}"
-  style="border: none">
+<iframe id="ar-{{ report_id }}" style="border: none;"
+  srcdoc="{%filter e %}{% include 'ipython_base.html.j2' %}{% endfilter %}">
 </iframe>
 <script type="module">
   import { iframeResize } from "{{ cdn_base }}/report/index.es.js";
-  iframeResize({ log: true, checkOrigin: false }, "#ar-{{ report_id }}");
+  iframeResize({ log: true, checkOrigin: false, license: "GPLv3" }, "#ar-{{ report_id }}");
 </script>
