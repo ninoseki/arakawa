@@ -31,11 +31,12 @@ nav:
           - Compute: "reference/layout-blocks/compute.ipynb"
       - Control Blocks:
           - Choices & Tags: "reference/control-blocks/choices.md"
+          - Color: "reference/control-blocks/color.md"
           - DateTimes: "reference/control-blocks/datetimes.md"
           - File: "reference/control-blocks/file.md"
           - Numbers: "reference/control-blocks/numbers.md"
           - Switch: "reference/control-blocks/switch.md"
-          - Text: "reference/control-blocks/text.md"
+          - Text: "reference/control-blocks/texts.md"
       - Reports: "reference/reports.md"
 
   # - Release Notes: releasenotes.md
