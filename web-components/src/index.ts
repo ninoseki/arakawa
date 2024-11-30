@@ -5,7 +5,7 @@ import '@fortawesome/fontawesome-free/css/fontawesome.css'
 import '@fortawesome/fontawesome-free/css/solid.css'
 
 import { defaultConfig, plugin as formkitPlugin } from '@formkit/vue'
-import iframeResize from 'iframe-resizer/js/iframeResizer'
+import iframeResize from '@iframe-resizer/parent'
 import { createPinia } from 'pinia'
 import { createApp, defineCustomElement } from 'vue'
 

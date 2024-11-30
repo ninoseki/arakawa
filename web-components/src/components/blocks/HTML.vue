@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import iframeResize from 'iframe-resizer/js/iframeResizer'
-import contentWindowJs from 'iframe-resizer/js/iframeResizer.contentWindow.js?raw'
-import { v4 as uuid4 } from 'uuid'
-import { computed, type ComputedRef, onMounted } from 'vue'
+import childIframeResizerJs from '@iframe-resizer/child/index.umd.js?raw'
+import IframeResizer from '@iframe-resizer/vue/sfc'
+import { computed, type ComputedRef } from 'vue'
 
 import type { BlockFigureProps } from '@/data-model/blocks'
 
@@ -16,8 +15,6 @@ const p = defineProps<{
   singleBlockEmbed?: boolean
 }>()
 
-const iframeId = `iframe_${uuid4()}`
-
 const iframeDoc: ComputedRef<string> = computed(() => {
   /**
    * Inject some base CSS into the iframe, alongside the JS needed to
@@ -27,27 +24,30 @@ const iframeDoc: ComputedRef<string> = computed(() => {
         <!DOCTYPE html>
         <html>
         <body>
-            <style>${userIframeCss}</style>
-            <script>${contentWindowJs}<\/script>
-            <div class="doc-root">${p.html}</div>
+          <style>${userIframeCss}</style>
+          <script>${childIframeResizerJs}<\/script>
+          <div class="doc-root">${p.html}</div>
         </body>
         </html>
     `
-})
-
-onMounted(() => {
-  iframeResize({ checkOrigin: false, warningTimeout: 10000 }, `#${iframeId}`)
 })
 </script>
 
 <template>
   <block-wrapper :figure="p.figure" :single-block-embed="singleBlockEmbed">
-    <iframe
+    <iframe-resizer
+      license="GPLv3"
       :srcdoc="iframeDoc"
       :sandbox="p.sandbox || ''"
-      :id="iframeId"
       width="100%"
       data-cy="block-user-iframe"
-    ></iframe>
+    ></iframe-resizer>
   </block-wrapper>
 </template>
+
+<style scoped>
+iframe {
+  width: 100%;
+  height: 100vh;
+}
+</style>

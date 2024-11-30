@@ -1,17 +1,15 @@
 <script setup lang="ts">
-import iframeResize from 'iframe-resizer/js/iframeResizer'
-import contentWindowJs from 'iframe-resizer/js/iframeResizer.contentWindow.js?raw'
-import { v4 as uuid4 } from 'uuid'
+import IframeResizer from '@iframe-resizer/vue/sfc'
+import childIframeResizerJs from '@iframe-resizer/child/index.umd.js?raw'
 import { computed, type ComputedRef, onMounted } from 'vue'
 
 const p = defineProps<{ iframeContent: string; singleBlockEmbed?: boolean }>()
-const iframeId = `iframe_${uuid4()}`
 
 // Unescape script tags when embedding
 const iframeDoc: ComputedRef<string> = computed(() => {
   return p.iframeContent.replace(
     '<body>',
-    `<body><script>${contentWindowJs}<\/script>`,
+    `<body><script>${childIframeResizerJs}<\/script>`,
   )
 })
 
@@ -21,11 +19,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <iframe
-    :id="iframeId"
+  <iframe-resizer
     :style="{ border: 'none !important' }"
     :class="['w-full', { 'h-iframe': singleBlockEmbed }]"
     :srcdoc="iframeDoc"
     sandbox="allow-scripts"
-  />
+  ></iframe-resizer>
 </template>

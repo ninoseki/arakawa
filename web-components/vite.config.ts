@@ -70,11 +70,7 @@ export default defineConfig(({ mode }) => ({
         copy({
           targets: [
             {
-              src: './node_modules/iframe-resizer/js/iframeResizer.contentWindow.min.js',
-              dest: './dist/assets',
-            },
-            {
-              src: './node_modules/iframe-resizer/js/iframeResizer.contentWindow.map',
+              src: './/node_modules/@iframe-resizer/child/index.umd.js',
               dest: './dist/assets',
             },
           ],

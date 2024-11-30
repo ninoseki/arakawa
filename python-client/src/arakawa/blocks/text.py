@@ -159,14 +159,14 @@ class HTML(EmbeddedTextBlock):
         html: str | dom_tag,
         name: BlockId | None = None,
         label: str | None = None,
-        sandbox: str | None = None,
+        sandbox: str | None = "allow-scripts",
     ):
         """
         Args:
             html: The HTML fragment to embed - can be a string or a [dominate](https://github.com/Knio/dominate/) tag
             name: A unique name for the block to reference when adding text or embedding (optional)
             label: A label used when displaying the block (optional)
-            sandbox: A sandbox attribute. Defaults to None.
+            sandbox: A sandbox attribute. Defaults to "allow-scripts". "allow-scripts" is needed to resize iframe.
         """
         super().__init__(content=str(html), name=name, label=label, sandbox=sandbox)
 
