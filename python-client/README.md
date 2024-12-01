@@ -1,7 +1,7 @@
 # Arakawa
 
 <p align='center'>
-  <h1 align='center'>Build interactive reports in seconds using Python.</h1>
+  <h2 align='center'>Build interactive reports in seconds using Python.</h2>
 </p>
 
 Arakawa makes it simple to build interactive reports in seconds using Python.
