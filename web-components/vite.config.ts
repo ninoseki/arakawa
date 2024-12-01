@@ -60,17 +60,16 @@ export default defineConfig(({ mode }) => ({
             mode === 'development'
               ? '../vue.esm-browser.js'
               : '../vue.esm-browser.prod.js',
-          katex: 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.mjs',
         },
       },
-      external: ['vue', 'katex'],
+      external: ['vue'],
       plugins: [
         vueESM(),
         // Cast as `any` as there seems to be a type conflict between the rollup plugin and Vite's typed config (which uses rollup under the hood)
         copy({
           targets: [
             {
-              src: './/node_modules/@iframe-resizer/child/index.umd.js',
+              src: './node_modules/@iframe-resizer/child/index.umd.js',
               dest: './dist/assets',
             },
           ],
