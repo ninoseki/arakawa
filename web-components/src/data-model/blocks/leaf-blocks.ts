@@ -13,7 +13,6 @@ import VFoliumBlock from '@/components/blocks/FoliumConnector.vue'
 import VFormulaBlock from '@/components/blocks/FormulaConnector.vue'
 import VHTMLBlock from '@/components/blocks/HTML.vue'
 import VMediaBlock from '@/components/blocks/Media.vue'
-import VPlotapiBlock from '@/components/blocks/PlotapiConnector.vue'
 import VPlotlyBlock from '@/components/blocks/PlotlyConnector.vue'
 import VSVGBlock from '@/components/blocks/SVGConnector.vue'
 import VTableBlock from '@/components/blocks/TableConnector.vue'
@@ -263,11 +262,6 @@ export class TableBlock extends AssetBlock {
 
 export class FoliumBlock extends AssetBlock {
   public component = markRaw(VFoliumBlock)
-  public static captionType: CaptionType = 'Plot'
-}
-
-export class PlotapiBlock extends AssetBlock {
-  public component = markRaw(VPlotapiBlock)
   public static captionType: CaptionType = 'Plot'
 }
 
