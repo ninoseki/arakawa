@@ -30,13 +30,13 @@ nav:
           - Toggle: "reference/layout-blocks/toggle.ipynb"
           - Compute: "reference/layout-blocks/compute.ipynb"
       - Control Blocks:
-          - Choices & Tags: "reference/control-blocks/choices.md"
-          - Color: "reference/control-blocks/color.md"
-          - DateTimes: "reference/control-blocks/datetimes.md"
-          - File: "reference/control-blocks/file.md"
-          - Numbers: "reference/control-blocks/numbers.md"
-          - Switch: "reference/control-blocks/switch.md"
-          - Text: "reference/control-blocks/texts.md"
+          - Choices & Tags: "reference/control-blocks/choices.ipynb"
+          - Color: "reference/control-blocks/color.ipynb"
+          - DateTimes: "reference/control-blocks/datetimes.ipynb"
+          - File: "reference/control-blocks/file.ipynb"
+          - Numbers: "reference/control-blocks/numbers.ipynb"
+          - Texts: "reference/control-blocks/texts.ipynb"
+          - Validation: "reference/control-blocks/validation.ipynb"
       - Reports: "reference/reports.md"
 
   # - Release Notes: releasenotes.md
