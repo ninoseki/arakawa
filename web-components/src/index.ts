@@ -1,8 +1,9 @@
 import '@/styles/base.scss'
 import '@/styles/report.scss'
-import 'highlight.js/styles/stackoverflow-light.css'
 import '@fortawesome/fontawesome-free/css/fontawesome.css'
 import '@fortawesome/fontawesome-free/css/solid.css'
+import 'highlight.js/styles/stackoverflow-light.css'
+import 'katex/dist/katex.min.css'
 
 import { defaultConfig, plugin as formkitPlugin } from '@formkit/vue'
 import iframeResize from '@iframe-resizer/parent'
