@@ -53,4 +53,4 @@ jobs:
       - run: uv sync --frozen --all-extras
       - run: uv run uv-sort --check
       - run: uv run ruff check --output-format github src/
-      - run: uv run ruff format src/
+      - run: uv run ruff format --check src/
