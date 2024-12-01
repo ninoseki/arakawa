@@ -8,12 +8,7 @@ export PYTHONWARNINGS="ignore"
 # we use `true`, as it should always be available, and always give a '0' exit code
 export BROWSER='true'
 
-
 # remove artifacts before building
 find docs -type f \( -name '*.html' -o -name '*-preview.png' \) -delete
 
-find docs -type f -name '*.ipynb' -not -path '*.ipynb_checkpoints*' -print0 | while IFS= read -r -d '' f; do
-    cd "${f%/*}"
-    uv run jupyter nbconvert --to notebook --inplace --ExecutePreprocessor.timeout=-1 --ClearMetadataPreprocessor.enabled=True --ClearMetadataPreprocessor.preserve_cell_metadata_mask tags --execute "${f##*/}"
-    cd -
-done
+uv run jupyter nbconvert --to notebook --inplace --ExecutePreprocessor.timeout=-1 --ClearMetadataPreprocessor.enabled=True --ClearMetadataPreprocessor.preserve_cell_metadata_mask tags --execute $(find docs -type f -name '*.ipynb' -not -path '*.ipynb_checkpoints*')
