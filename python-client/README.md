@@ -1,7 +1,5 @@
 # Arakawa
 
-## Overview
-
 <p align='center'>
   <h1 align='center'>Build interactive reports in seconds using Python.</h1>
 </p>
