@@ -41,7 +41,6 @@ const mkBlockMap = (isLightProse: boolean): BlockTest[] => {
     { class_: b.FormulaBlock, test: maps.jsonIsFormula },
     { class_: b.EmbedBlock, test: maps.jsonIsEmbed },
     { class_: b.FoliumBlock, test: maps.jsonIsIFrameHTML },
-    { class_: b.PlotapiBlock, test: maps.jsonIsPlotapi },
     { class_: b.BigNumberBlock, test: maps.jsonIsBigNumber },
     { class_: b.ComputeBlock, test: maps.jsonIsCompute },
     { class_: b.NumberBox, test: maps.jsonIsNumberBox },

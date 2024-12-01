@@ -94,9 +94,6 @@ export const jsonIsHTMLTable = (json: any): boolean =>
 export const jsonIsIFrameHTML = (json: any): boolean =>
   jsonType(json) === 'application/vnd.folium+html'
 
-export const jsonIsPlotapi = (json: any): boolean =>
-  jsonType(json) === 'application/vnd.plotapi+html'
-
 export const jsonIsBokeh = (json: any): boolean =>
   jsonType(json) === 'application/vnd.bokeh.show+json'
 
