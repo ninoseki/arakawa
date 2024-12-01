@@ -14,6 +14,6 @@ const IFRAME_HEIGHT = '35rem'
       :class="['w-full', { 'h-iframe': singleBlockEmbed }]"
       :srcdoc="p.iframeContent"
       sandbox="allow-scripts"
-    />
+    ></iframe>
   </div>
 </template>

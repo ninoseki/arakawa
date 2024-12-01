@@ -70,6 +70,6 @@ const PLOTLY_LAYOUT_DEFAULTS = {
       { 'w-full': p.responsive, 'h-iframe': singleBlockEmbed },
     ]"
   >
-    <div :id="divId" class="w-full" />
+    <div :id="divId" class="w-full"></div>
   </div>
 </template>

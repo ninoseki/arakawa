@@ -82,5 +82,5 @@ onUnmounted(() => {
       'bk-root m-auto flex justify-center items-center w-full',
       { 'w-full': p.responsive, 'h-iframe': singleBlockEmbed },
     ]"
-  />
+  ></div>
 </template>

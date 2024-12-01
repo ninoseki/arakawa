@@ -28,7 +28,7 @@ const tableRef = (node: any): void => {
   ></div>
 </template>
 
-<style>
+<style scoped>
 /**
  * Taken from https://github.com/tailwindlabs/tailwindcss-typography/blob/446eed16e3c63119e840ec6951c667577b69d811/src/styles.js#L147
  */

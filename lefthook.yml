@@ -18,9 +18,14 @@ pre-commit:
       glob: "*.py"
       run: uv run ruff format {staged_files}
       stage_fixed: true
+    eslint:
+      root: "web-components/"
+      glob: "*.{js,mjs,cjs,ts,vue}"
+      run: npx eslint --fix {staged_files}
+      stage_fixed: true
     prettier:
       root: "web-components/"
-      glob: "*.{js,ts,vue}"
+      glob: "*.{js,mjs,cjs,ts,vue}"
       run: npx prettier --write {staged_files}
       stage_fixed: true
     actionlint:
