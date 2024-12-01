@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import IframeResizer from '@iframe-resizer/vue/sfc'
 import childIframeResizerJs from '@iframe-resizer/child/index.umd.js?raw'
+import IframeResizer from '@iframe-resizer/vue/sfc'
 import { computed, type ComputedRef, onMounted } from 'vue'
 
 const p = defineProps<{ iframeContent: string; singleBlockEmbed?: boolean }>()
