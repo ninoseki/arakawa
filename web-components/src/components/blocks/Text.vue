@@ -4,9 +4,8 @@ import { Marked } from 'marked'
 import { markedHighlight } from 'marked-highlight'
 import { computed } from 'vue'
 
+import BlockWrapper from '@/components/layout/BlockWrapper.vue'
 import type { BlockFigureProps } from '@/data-model/blocks'
-
-import BlockWrapper from '../layout/BlockWrapper.vue'
 
 const marked = new Marked(
   markedHighlight({

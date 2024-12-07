@@ -2,11 +2,10 @@
 import { storeToRefs } from 'pinia'
 import { computed, type ComputedRef } from 'vue'
 
+import NavBar from '@/components/layout/NavBar.vue'
 import { Block, View } from '@/data-model/blocks'
 import { useRootStore } from '@/data-model/root-store'
 import type { ReportProps } from '@/data-model/types'
-
-import NavBar from './layout/NavBar.vue'
 
 // Vue can't use a ts interface as props
 // see https://github.com/vuejs/core/issues/4294

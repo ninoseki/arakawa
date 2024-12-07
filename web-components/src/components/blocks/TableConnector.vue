@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+import BlockWrapper from '@/components/layout/BlockWrapper.vue'
 import type { BlockFigureProps } from '@/data-model/blocks'
-
-import BlockWrapper from '../layout/BlockWrapper.vue'
 
 const p = defineProps<{
   fetchAssetData: any
   figure: BlockFigureProps
-  singleBlockEmbed?: { type: boolean; default: false }
+  singleBlockEmbed?: boolean
 }>()
 const html = ref<string | null>(null)
 

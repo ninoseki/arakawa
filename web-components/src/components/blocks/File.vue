@@ -1,8 +1,7 @@
 <script setup lang="ts">
+import BlockWrapper from '@/components/layout/BlockWrapper.vue'
 import type { BlockFigureProps } from '@/data-model/blocks'
-
-import ArButton from '../../shared/ARButton.vue'
-import BlockWrapper from '../layout/BlockWrapper.vue'
+import ArButton from '@/shared/ARButton.vue'
 
 const p = defineProps<{
   downloadFile: () => Promise<void>

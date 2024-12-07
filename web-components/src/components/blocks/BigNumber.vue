@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import BlockWrapper from '@/components/layout/BlockWrapper.vue'
 import { type BlockFigureProps } from '@/data-model/blocks'
 
-import BlockWrapper from '../layout/BlockWrapper.vue'
 import BigNumberArrow from './BigNumberArrow.vue'
 
 const p = defineProps<{

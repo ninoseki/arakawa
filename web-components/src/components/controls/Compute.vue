@@ -2,7 +2,7 @@
 import { FormKitMessages } from '@formkit/vue'
 import { v4 as uuid4 } from 'uuid'
 
-import { ControlsField } from '../../data-model/blocks'
+import { ControlsField } from '@/data-model/blocks'
 
 const p = defineProps<{
   children: ControlsField[]

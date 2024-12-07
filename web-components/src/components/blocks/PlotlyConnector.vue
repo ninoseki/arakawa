@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { defineAsyncComponent, ref } from 'vue'
 
+import BlockWrapper from '@/components/layout/BlockWrapper.vue'
 import type { BlockFigureProps } from '@/data-model/blocks'
-
-import BlockWrapper from '../layout/BlockWrapper.vue'
 
 const PlotlyBlock = defineAsyncComponent(() => import('./Plotly.vue'))
 

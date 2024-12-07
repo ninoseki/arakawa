@@ -5,7 +5,7 @@ import { storeToRefs } from 'pinia'
 import { computed, type ComputedRef } from 'vue'
 import MultiSelect from 'vue-multiselect'
 
-import { Block } from '../../data-model/blocks'
+import { Block } from '@/data-model/blocks'
 
 const p = defineProps<{ type?: string; store: any }>()
 
@@ -26,7 +26,7 @@ const tabNumbers: ComputedRef<number[]> = computed(() =>
   labels.value.map((_, idx) => idx),
 )
 
-// Used by `vue-multiselect` to overwrite the default behaviour of displaying tab number only
+// Used by `vue-multiselect` to overwrite the default behavior of displaying tab number only
 const multiSelectCustomLabel = (tabNumber: number) => labels.value[tabNumber]
 // Used by `vue-multiselect` to set tab number on change
 const setTabNumber = (val: number) => p.store.setTab(val)

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+import BlockWrapper from '@/components/layout/BlockWrapper.vue'
 import type { BlockFigureProps } from '@/data-model/blocks'
 
-import BlockWrapper from '../layout/BlockWrapper.vue'
 import SvgBlock from './SVG.vue'
 
 const p = defineProps<{
