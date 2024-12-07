@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { ref } from 'vue'
+import { type Ref, ref } from 'vue'
+
+import type { Block } from '@/data-model/blocks'
 
 const p = defineProps<{ label?: string; store: any }>()
-
 const isOpen = ref(false)
-
-const { children } = storeToRefs(p.store)
+const { children }: { children: Ref<Block[]> } = storeToRefs(p.store)
 </script>
 
 <template>

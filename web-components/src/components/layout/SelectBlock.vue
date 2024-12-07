@@ -2,14 +2,17 @@
 import 'vue-multiselect/dist/vue-multiselect.esm.css'
 
 import { storeToRefs } from 'pinia'
-import { computed, type ComputedRef } from 'vue'
+import { computed, type ComputedRef, type Ref } from 'vue'
 import MultiSelect from 'vue-multiselect'
 
-import { Block } from '@/data-model/blocks'
+import type { Block } from '@/data-model/blocks'
 
 const p = defineProps<{ type?: string; store: any }>()
 
-const { children, tabNumber } = storeToRefs(p.store)
+const {
+  children,
+  tabNumber,
+}: { children: Ref<Block[]>; tabNumber: Ref<number> } = storeToRefs(p.store)
 
 const sectionType: ComputedRef<string> = computed(() => {
   if (p.type) return p.type
@@ -17,9 +20,7 @@ const sectionType: ComputedRef<string> = computed(() => {
 })
 
 const labels: ComputedRef<string[]> = computed(() =>
-  children.value.map(
-    (child: Block, idx: number) => child.label || `Section ${idx + 1}`,
-  ),
+  children.value.map((child, idx) => child.label || `Section ${idx + 1}`),
 )
 
 const tabNumbers: ComputedRef<number[]> = computed(() =>
