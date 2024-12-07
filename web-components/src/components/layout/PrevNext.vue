@@ -39,9 +39,9 @@ const prevPage = () => {
         :class="[
           'border-t-2 h-12 border-transparent pl-2 pr-1 inline-flex items-center text-sm font-medium text-ar-light-gray',
           {
-            'cursor-default opacity-40': p.pageNumber === 0,
+            'cursor-default opacity-40': pageNumber === 0,
             'cursor-pointer hover:text-ar-dark-gray hover:border-gray-300':
-              p.pageNumber !== 0,
+              pageNumber !== 0,
           },
         ]"
         @click="prevPage"
@@ -74,9 +74,9 @@ const prevPage = () => {
         :class="[
           'border-t-2 h-12 border-transparent pr-2 pl-1 inline-flex items-center text-sm font-medium text-ar-light-gray',
           {
-            'cursor-default opacity-40': p.pageNumber === p.numPages - 1,
+            'cursor-default opacity-40': pageNumber == numPages - 1,
             'cursor-pointer hover:text-ar-dark-gray hover:border-gray-300':
-              p.pageNumber !== p.numPages - 1,
+              pageNumber !== numPages - 1,
           },
         ]"
       >

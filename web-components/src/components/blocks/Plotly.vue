@@ -67,7 +67,7 @@ const PLOTLY_LAYOUT_DEFAULTS = {
     data-cy="block-plotly"
     :class="[
       'bg-white flex justify-center',
-      { 'w-full': p.responsive, 'h-iframe': singleBlockEmbed },
+      { 'w-full': responsive, 'h-iframe': singleBlockEmbed },
     ]"
   >
     <div :id="divId" class="w-full"></div>

@@ -4,12 +4,12 @@
  * Also possible to pass the individual store properties from the data model class via `Compute.componentProps`,
  * but this would remove re-rendering on `store.children` change.
  */
+import BlockWrapper from '@/components/layout/BlockWrapper.vue'
 import type { BlockFigureProps } from '@/data-model/blocks'
 
-import BlockWrapper from '../layout/BlockWrapper.vue'
 import ComputeBlock from './Compute.vue'
 
-const p = defineProps<{
+defineProps<{
   children: any
   prompt: string
   label: string
@@ -21,14 +21,14 @@ const p = defineProps<{
 </script>
 
 <template>
-  <block-wrapper :figure="p.figure" :show-overflow="true">
+  <block-wrapper :figure="figure" :show-overflow="true">
     <compute-block
       :children="children"
-      :subtitle="p.subtitle"
-      :label="p.label"
-      :prompt="p.prompt"
-      :action="p.action"
-      :method="p.method"
+      :subtitle="subtitle"
+      :label="label"
+      :prompt="prompt"
+      :action="action"
+      :method="method"
     />
   </block-wrapper>
 </template>

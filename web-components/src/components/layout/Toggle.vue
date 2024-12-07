@@ -16,7 +16,7 @@ const { children } = storeToRefs(p.store)
       @click="isOpen = !isOpen"
     >
       <div class="flex-1">
-        {{ p.label || 'Toggle Section' }}
+        {{ label || 'Toggle Section' }}
       </div>
       <div class="flex-initial ml-auto">
         <i
@@ -24,7 +24,7 @@ const { children } = storeToRefs(p.store)
             'opacity-50 fa',
             { 'fa-chevron-up': isOpen, 'fa-chevron-down': !isOpen },
           ]"
-        />
+        ></i>
       </div>
     </div>
     <div :class="['w-full pt-2 m-auto overflow-hidden', { hidden: !isOpen }]">

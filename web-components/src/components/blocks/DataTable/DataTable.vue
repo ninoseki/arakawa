@@ -256,18 +256,18 @@ const clearQuery = () => {
     data-cy="block-datatable"
     :class="[
       'rounded shadow w-full',
-      { 'h-full flex flex-col': p.singleBlockEmbed },
+      { 'h-full flex flex-col': singleBlockEmbed },
     ]"
   >
     <table-header
-      :single-block-embed="p.singleBlockEmbed"
-      :preview-mode="p.previewMode"
+      :single-block-embed="singleBlockEmbed"
+      :preview-mode="previewMode"
       :query-open="queryOpen"
-      :rows="p.data.length"
+      :rows="data.length"
       :columns="cols.length"
-      :cells="p.cells"
-      :get-csv-text="p.getCsvText"
-      :download-local="p.downloadLocal"
+      :cells="cells"
+      :get-csv-text="getCsvText"
+      :download-local="downloadLocal"
       @toggle-query-open="queryOpen = !queryOpen"
     />
     <query-area
@@ -279,13 +279,13 @@ const clearQuery = () => {
       @clear-query="clearQuery"
     />
     <v-grid
-      v-if="cols.length && !p.previewMode"
+      v-if="cols.length && !previewMode"
       theme="compact"
       :source="data"
       :columns="cols"
       :class="{
-        'flex-1': p.singleBlockEmbed,
-        'h-96': !p.singleBlockEmbed,
+        'flex-1': singleBlockEmbed,
+        'h-96': !singleBlockEmbed,
       }"
       :resize="true"
       :autoSizeColumn="true"
@@ -293,15 +293,15 @@ const clearQuery = () => {
       :filter="true"
       :readonly="true"
       :exporting="true"
-      :id="`grid-${p.refId}`"
+      :id="`grid-${refId}`"
     />
-    <div v-if="p.previewMode" class="w-full flex justify-center">
+    <div v-if="previewMode" class="w-full flex justify-center">
       <ar-button
         dataCy="button-load-dataset"
         @click="emit('load-full')"
         icon="fa fa-table"
       >
-        Click to load dataset ({{ formatNumber(p.cells) }} cells)
+        Click to load dataset ({{ formatNumber(cells) }} cells)
       </ar-button>
     </div>
   </div>

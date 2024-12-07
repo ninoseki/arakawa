@@ -52,19 +52,19 @@ const actionSections: Section[] = [...localActionSections]
   <div class="bg-gray-100 py-2" data-cy="block-datatable">
     <div class="flex justify-between items-center flex-wrap">
       <div class="flex justify-end md:space-x-2 ml-2">
-        <data-tag :value="p.rows" icon="fa-bars" unit="rows" />
-        <data-tag :value="p.columns" icon="fa-columns" unit="columns" />
-        <data-tag :value="p.cells" icon="fa-th-large" unit="cells" />
+        <data-tag :value="rows" icon="fa-bars" unit="rows" />
+        <data-tag :value="columns" icon="fa-columns" unit="columns" />
+        <data-tag :value="cells" icon="fa-th-large" unit="cells" />
       </div>
       <div
-        v-if="!p.previewMode"
+        v-if="!previewMode"
         class="min-w-0 flex items-center pr-2 sm:divide-x flex-wrap"
       >
         <div class="pr-2 sm:flex hidden space-x-2">
           <ar-button
             @click="emit('toggle-query-open')"
-            :icon="`fa ${p.queryOpen ? 'fa-caret-up' : 'fa-caret-down'}`"
-            :disabled="p.previewMode"
+            :icon="`fa ${queryOpen ? 'fa-caret-up' : 'fa-caret-down'}`"
+            :disabled="previewMode"
             data-cy="btn-open-query"
             class="ar-btn-info"
           >

@@ -18,17 +18,15 @@ const textColor: ComputedRef<string> = computed(() =>
 </script>
 
 <template>
-  <div v-if="p.change" class="flex justify-start align-center">
+  <div v-if="change" class="flex justify-start align-center">
     <div
-      v-if="p.change"
+      v-if="change"
       :class="[
         `items-baseline px-2.5 py-0.5 rounded-lg text-sm font-medium leading-5 ${bgColor} ${textColor}`,
       ]"
     >
-      {{ p.isUpwardChange ? '+' : '-' }}{{ p.change }}
+      {{ isUpwardChange ? '+' : '-' }}{{ change }}
     </div>
-    <div v-if="p.prevValue" class="pl-1 text-gray-500">
-      from {{ p.prevValue }}
-    </div>
+    <div v-if="prevValue" class="pl-1 text-gray-500">from {{ prevValue }}</div>
   </div>
 </template>

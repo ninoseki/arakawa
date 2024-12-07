@@ -2,10 +2,9 @@
 import { storeToRefs } from 'pinia'
 import { defineAsyncComponent, ref } from 'vue'
 
+import BlockWrapper from '@/components/layout/BlockWrapper.vue'
 import type { BlockFigureProps } from '@/data-model/blocks'
-
-import { useRootStore } from '../../data-model/root-store'
-import BlockWrapper from '../layout/BlockWrapper.vue'
+import { useRootStore } from '@/data-model/root-store'
 
 const VegaBlock = defineAsyncComponent(() => import('./Vega.vue'))
 
@@ -27,13 +26,13 @@ const plotJson = ref<any>(null)
 
 <template>
   <block-wrapper
-    :figure="p.figure"
+    :figure="figure"
     :single-block-embed="singleBlockEmbed || storedSingleBlockEmbed"
   >
     <vega-block
       v-if="plotJson"
       :plot-json="plotJson"
-      :responsive="p.responsive"
+      :responsive="responsive"
       :single-block-embed="singleBlockEmbed"
     ></vega-block>
   </block-wrapper>

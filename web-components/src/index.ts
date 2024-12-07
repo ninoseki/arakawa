@@ -10,9 +10,9 @@ import iframeResize from '@iframe-resizer/parent'
 import { createPinia } from 'pinia'
 import { createApp, defineCustomElement } from 'vue'
 
-import TableBlock from './components/blocks/Table.ce.vue'
-import { formkitConfig } from './components/controls/formkit'
-import Report from './components/ReportContainer.vue'
+import TableBlock from '@/components/blocks/Table.ce.vue'
+import { formkitConfig } from '@/components/controls/formkit'
+import Report from '@/components/ReportContainer.vue'
 
 // report
 import('./tailwind')

@@ -80,7 +80,7 @@ onUnmounted(() => {
     :id="divId"
     :class="[
       'bk-root m-auto flex justify-center items-center w-full',
-      { 'w-full': p.responsive, 'h-iframe': singleBlockEmbed },
+      { 'w-full': responsive, 'h-iframe': singleBlockEmbed },
     ]"
   ></div>
 </template>

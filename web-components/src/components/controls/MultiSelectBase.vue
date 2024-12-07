@@ -41,7 +41,7 @@ const addTag = (name: string) => {
 </script>
 
 <template>
-  <input type="hidden" :value="p.context._value" ref="hiddenRef" />
+  <input type="hidden" :value="context._value" ref="hiddenRef" />
   <multi-select
     v-model="value"
     tag-placeholder="Add this as new tag"
@@ -52,6 +52,6 @@ const addTag = (name: string) => {
     :taggable="true"
     :options="options"
     @tag="addTag"
-    v-bind="p.context.multiSelectProps"
+    v-bind="context.multiSelectProps"
   />
 </template>

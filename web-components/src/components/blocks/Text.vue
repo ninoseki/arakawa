@@ -4,9 +4,8 @@ import { Marked } from 'marked'
 import { markedHighlight } from 'marked-highlight'
 import { computed } from 'vue'
 
+import BlockWrapper from '@/components/layout/BlockWrapper.vue'
 import type { BlockFigureProps } from '@/data-model/blocks'
-
-import BlockWrapper from '../layout/BlockWrapper.vue'
 
 const marked = new Marked(
   markedHighlight({
@@ -27,9 +26,9 @@ const md = computed(() => marked.parse(p.content))
 </script>
 
 <template>
-  <block-wrapper :figure="p.figure" :single-block-embed="singleBlockEmbed">
+  <block-wrapper :figure="figure" :single-block-embed="singleBlockEmbed">
     <div
-      :class="['w-full overflow-y-hidden', { dark: p.isLightProse }]"
+      :class="['w-full overflow-y-hidden', { dark: isLightProse }]"
       data-cy="block-markdown"
     >
       <div

@@ -8,7 +8,13 @@
   window.arLocal = true;
   /* construct the view */
   const htmlHeader = `<style type="text/css">{{ css_header }}</style>`;
-  window.reportProps = { htmlHeader, isLightProse: {{ is_light_prose }}, mode: "VIEW", reportWidthClass: "{{ report_width_class }}" };
+  window.reportProps = {
+    id: "{{ report_id }}",
+    htmlHeader,
+    isLightProse: {{ is_light_prose }},
+    mode: "VIEW",
+    reportWidthClass: "{{ report_width_class }}"
+  };
   window.reportProps["appData"] = { data: { result: {{ app_data }} }};
 </script>
 <script type="module">

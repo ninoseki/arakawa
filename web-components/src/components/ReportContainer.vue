@@ -46,11 +46,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div id="html-header" v-html="p.htmlHeader"></div>
+  <div id="html-header" v-html="htmlHeader"></div>
   <report-component
     v-if="isView(report) && !error"
-    :report-width-class="p.reportWidthClass"
-    :mode="p.mode"
+    :report-width-class="reportWidthClass"
+    :mode="mode"
     :report="report"
     :key="report.refId"
   />

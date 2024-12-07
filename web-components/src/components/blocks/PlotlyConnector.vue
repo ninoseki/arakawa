@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { defineAsyncComponent, ref } from 'vue'
 
+import BlockWrapper from '@/components/layout/BlockWrapper.vue'
 import type { BlockFigureProps } from '@/data-model/blocks'
-
-import BlockWrapper from '../layout/BlockWrapper.vue'
 
 const PlotlyBlock = defineAsyncComponent(() => import('./Plotly.vue'))
 
@@ -22,11 +21,11 @@ const plotJson = ref<any>(null)
 </script>
 
 <template>
-  <block-wrapper :figure="p.figure" :single-block-embed="singleBlockEmbed">
+  <block-wrapper :figure="figure" :single-block-embed="singleBlockEmbed">
     <plotly-block
       v-if="plotJson"
       :plot-json="plotJson"
-      :responsive="p.responsive"
+      :responsive="responsive"
       :single-block-embed="singleBlockEmbed"
     />
   </block-wrapper>

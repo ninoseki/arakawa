@@ -8,7 +8,7 @@ import { type BlockFigureProps } from '@/data-model/blocks'
 
 const p = defineProps<{
   figure: BlockFigureProps
-  singleBlockEmbed?: { type: boolean; default: false }
+  singleBlockEmbed?: boolean
   showOverflow?: boolean
 }>()
 
@@ -21,8 +21,8 @@ const { caption, count, captionType } = toRefs(p.figure)
       'w-full relative flex flex-col justify-start items-center',
       { 'h-iframe': singleBlockEmbed },
       // TODO - why does overflow-x-auto create auto-y overflow in `Compute` block?
-      { 'overflow-x-auto': !p.showOverflow },
-      { 'overflow-visible': p.showOverflow },
+      { 'overflow-x-auto': !showOverflow },
+      { 'overflow-visible': showOverflow },
     ]"
   >
     <slot></slot>

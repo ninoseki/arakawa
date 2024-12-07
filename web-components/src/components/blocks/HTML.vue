@@ -3,10 +3,9 @@ import childIframeResizerJs from '@iframe-resizer/child/index.umd.js?raw'
 import IframeResizer from '@iframe-resizer/vue/sfc'
 import { computed, type ComputedRef } from 'vue'
 
+import BlockWrapper from '@/components/layout/BlockWrapper.vue'
 import type { BlockFigureProps } from '@/data-model/blocks'
-
-import userIframeCss from '../../styles/user-iframe.css?inline'
-import BlockWrapper from '../layout/BlockWrapper.vue'
+import userIframeCss from '@/styles/user-iframe.css?inline'
 
 const p = defineProps<{
   html: string
@@ -34,11 +33,11 @@ const iframeDoc: ComputedRef<string> = computed(() => {
 </script>
 
 <template>
-  <block-wrapper :figure="p.figure" :single-block-embed="singleBlockEmbed">
+  <block-wrapper :figure="figure" :single-block-embed="singleBlockEmbed">
     <iframe-resizer
       license="GPLv3"
       :srcdoc="iframeDoc"
-      :sandbox="p.sandbox || ''"
+      :sandbox="sandbox || ''"
       width="100%"
       data-cy="block-user-iframe"
     ></iframe-resizer>
