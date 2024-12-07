@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const p = defineProps<{ error: string }>()
+defineProps<{ error: string }>()
 </script>
 
 <template>
@@ -8,6 +8,6 @@ const p = defineProps<{ error: string }>()
       <i class="fa fa-exclamation-circle mr-1"></i>
       <div>Something went wrong</div>
     </h3>
-    <p>{{ p.error }}</p>
+    <p>{{ error }}</p>
   </div>
 </template>

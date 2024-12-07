@@ -22,7 +22,7 @@ const validation = computed(() => {
 <template>
   <form-kit
     :type="type"
-    :data-cy="`${p.type}-field`"
+    :data-cy="`${type}-field`"
     :value="initial"
     :name="name"
     :label="label || name"

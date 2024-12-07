@@ -26,13 +26,13 @@ const plotJson = ref<any>(null)
 
 <template>
   <block-wrapper
-    :figure="p.figure"
+    :figure="figure"
     :single-block-embed="singleBlockEmbed || storedSingleBlockEmbed"
   >
     <vega-block
       v-if="plotJson"
       :plot-json="plotJson"
-      :responsive="p.responsive"
+      :responsive="responsive"
       :single-block-embed="singleBlockEmbed"
     ></vega-block>
   </block-wrapper>

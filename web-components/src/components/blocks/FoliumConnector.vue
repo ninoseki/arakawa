@@ -19,7 +19,7 @@ const iframeContent = ref<string | null>(null)
 </script>
 
 <template>
-  <block-wrapper :figure="p.figure" :single-block-embed="singleBlockEmbed">
+  <block-wrapper :figure="figure" :single-block-embed="singleBlockEmbed">
     <folium
       v-if="iframeContent"
       :iframe-content="iframeContent"

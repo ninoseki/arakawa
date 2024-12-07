@@ -51,7 +51,7 @@ const dropdownMenuLinks = [
       { 'border-b border-gray-100 sticky top-0': labels.length > 0 },
     ]"
   >
-    <div class="mx-auto px-4" :class="p.reportWidthClass">
+    <div class="mx-auto px-4" :class="reportWidthClass">
       <div class="flex h-16 justify-between">
         <div class="flex">
           <div
@@ -59,15 +59,15 @@ const dropdownMenuLinks = [
             v-if="!alwaysShowPagesDropdown"
           >
             <a
-              v-for="(label, idx) in p.labels"
+              v-for="(label, idx) in labels"
               :key="idx"
               :data-cy="`page-${idx}`"
               :class="[
                 'inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium cursor-pointer',
                 {
                   'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700':
-                    idx !== p.pageNumber,
-                  'border-ar-accent text-gray-900': idx === p.pageNumber,
+                    idx !== pageNumber,
+                  'border-ar-accent text-gray-900': idx === pageNumber,
                 },
               ]"
               @click="emit('page-change', idx)"
@@ -85,7 +85,7 @@ const dropdownMenuLinks = [
               class="group cursor-pointer inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-gray-500"
               @click="showPagesDropdown = !showPagesDropdown"
             >
-              {{ p.labels.length }} pages
+              {{ labels.length }} pages
               <chevron-down-icon
                 :class="[
                   'ml-2 h-5 w-5 group-hover:text-gray-500 text-gray-400',
@@ -141,16 +141,16 @@ const dropdownMenuLinks = [
       >
         <div class="space-y-1 pt-2 pb-3">
           <a
-            v-for="(label, idx) in p.labels"
+            v-for="(label, idx) in labels"
             :key="idx"
             :data-cy="`page-${idx}`"
             :class="[
               'cursor-pointer block border-l-4 py-2 pl-3 pr-4 text-base font-medium',
               {
                 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700':
-                  idx !== p.pageNumber,
+                  idx !== pageNumber,
                 'border-indigo-500 bg-indigo-50 text-indigo-700':
-                  idx === p.pageNumber,
+                  idx === pageNumber,
               },
             ]"
             @click="emit('page-change', idx)"

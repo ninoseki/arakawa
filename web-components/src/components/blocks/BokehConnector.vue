@@ -20,11 +20,11 @@ const plotJson = ref<any>(null)
 </script>
 
 <template>
-  <block-wrapper :figure="p.figure" :single-block-embed="singleBlockEmbed">
+  <block-wrapper :figure="figure" :single-block-embed="singleBlockEmbed">
     <bokeh-block
       v-if="plotJson"
       :plot-json="plotJson"
-      :responsive="p.responsive"
+      :responsive="responsive"
       :single-block-embed="singleBlockEmbed"
     ></bokeh-block>
   </block-wrapper>

@@ -41,7 +41,7 @@ onUnmounted(() => {
         ></path>
       </svg>
     </button>
-    <highlightjs :language="p.language" :code="code" data-cy="block-code" />
+    <highlightjs :language="language" :code="code" data-cy="block-code" />
   </div>
 </template>
 

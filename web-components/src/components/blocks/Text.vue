@@ -26,9 +26,9 @@ const md = computed(() => marked.parse(p.content))
 </script>
 
 <template>
-  <block-wrapper :figure="p.figure" :single-block-embed="singleBlockEmbed">
+  <block-wrapper :figure="figure" :single-block-embed="singleBlockEmbed">
     <div
-      :class="['w-full overflow-y-hidden', { dark: p.isLightProse }]"
+      :class="['w-full overflow-y-hidden', { dark: isLightProse }]"
       data-cy="block-markdown"
     >
       <div

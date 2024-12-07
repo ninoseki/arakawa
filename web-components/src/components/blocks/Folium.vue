@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const p = defineProps<{ iframeContent: string; singleBlockEmbed?: boolean }>()
+defineProps<{ iframeContent: string; singleBlockEmbed?: boolean }>()
 const IFRAME_HEIGHT = '35rem'
 </script>
 
@@ -12,7 +12,7 @@ const IFRAME_HEIGHT = '35rem'
     <iframe
       :style="{ border: 'none !important' }"
       :class="['w-full', { 'h-iframe': singleBlockEmbed }]"
-      :srcdoc="p.iframeContent"
+      :srcdoc="iframeContent"
       sandbox="allow-scripts"
     ></iframe>
   </div>

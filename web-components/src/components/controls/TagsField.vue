@@ -33,8 +33,8 @@ const multiSelectProps = {
       :help="help"
       :multiSelectProps="multiSelectProps"
       validation-visibility="live"
-      :tags="p.initial"
-      :options="p.initial"
+      :tags="initial"
+      :options="initial"
     />
   </div>
 </template>

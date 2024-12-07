@@ -33,11 +33,11 @@ const iframeDoc: ComputedRef<string> = computed(() => {
 </script>
 
 <template>
-  <block-wrapper :figure="p.figure" :single-block-embed="singleBlockEmbed">
+  <block-wrapper :figure="figure" :single-block-embed="singleBlockEmbed">
     <iframe-resizer
       license="GPLv3"
       :srcdoc="iframeDoc"
-      :sandbox="p.sandbox || ''"
+      :sandbox="sandbox || ''"
       width="100%"
       data-cy="block-user-iframe"
     ></iframe-resizer>

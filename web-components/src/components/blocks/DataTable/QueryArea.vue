@@ -7,7 +7,7 @@ import { onMounted, ref } from 'vue'
 
 import ArButton from '@/shared/ARButton.vue'
 
-const p = defineProps<{
+defineProps<{
   initialQuery: string
   errors?: string
 }>()
@@ -52,7 +52,7 @@ onMounted(() => {
 <template>
   <div class="flex flex-col justify-start border-b border-gray-200">
     <div class="flex flex-col flex-fixed h-full">
-      <textarea ref="cmEl" :value="p.initialQuery"></textarea>
+      <textarea ref="cmEl" :value="initialQuery"></textarea>
       <div class="flex justify-start flex-fixed my-2 px-2">
         <ar-button
           @click="emit('run-query')"
@@ -73,7 +73,7 @@ onMounted(() => {
       </div>
     </div>
   </div>
-  <div v-if="p.errors" class="w-full bg-red-100" data-cy="alasql-error-msg">
-    {{ p.errors }}
+  <div v-if="errors" class="w-full bg-red-100" data-cy="alasql-error-msg">
+    {{ errors }}
   </div>
 </template>

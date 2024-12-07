@@ -21,11 +21,11 @@ const plotSrc = ref<string | null>(null)
 </script>
 
 <template>
-  <block-wrapper :figure="p.figure" :single-block-embed="singleBlockEmbed">
+  <block-wrapper :figure="figure" :single-block-embed="singleBlockEmbed">
     <svg-block
       v-if="plotSrc"
       :src="plotSrc"
-      :responsive="p.responsive"
+      :responsive="responsive"
       :single-block-embed="singleBlockEmbed"
     />
   </block-wrapper>

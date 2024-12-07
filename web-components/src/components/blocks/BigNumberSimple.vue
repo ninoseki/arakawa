@@ -2,7 +2,7 @@
 import BlockWrapper from '@/components/layout/BlockWrapper.vue'
 import type { BlockFigureProps } from '@/data-model/blocks'
 
-const p = defineProps<{
+defineProps<{
   heading: string
   value: string
   figure: BlockFigureProps
@@ -10,7 +10,7 @@ const p = defineProps<{
 </script>
 
 <template>
-  <block-wrapper :figure="p.figure">
+  <block-wrapper :figure="figure">
     <div
       data-cy="block-bignumber"
       class="bg-white overflow-hidden border border-gray-300 rounded-lg w-full"
@@ -18,10 +18,10 @@ const p = defineProps<{
       <div class="px-4 py-5 sm:p-6">
         <dl>
           <dt class="text-base leading-6 font-normal text-gray-900 truncate">
-            {{ p.heading }}
+            {{ heading }}
           </dt>
           <dd class="mt-1 text-4xl leading-9 font-semibold text-gray-900">
-            {{ p.value }}
+            {{ value }}
           </dd>
         </dl>
       </div>

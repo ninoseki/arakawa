@@ -16,7 +16,7 @@ const { children } = storeToRefs(p.store)
       @click="isOpen = !isOpen"
     >
       <div class="flex-1">
-        {{ p.label || 'Toggle Section' }}
+        {{ label || 'Toggle Section' }}
       </div>
       <div class="flex-initial ml-auto">
         <i

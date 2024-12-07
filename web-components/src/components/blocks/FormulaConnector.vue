@@ -5,7 +5,7 @@ import BlockWrapper from '@/components/layout/BlockWrapper.vue'
 import type { BlockFigureProps } from '@/data-model/blocks'
 
 const Formula = defineAsyncComponent(() => import('./Formula.vue'))
-const p = defineProps<{
+defineProps<{
   content: string
   figure: BlockFigureProps
   singleBlockEmbed?: boolean
@@ -13,7 +13,7 @@ const p = defineProps<{
 </script>
 
 <template>
-  <block-wrapper :figure="p.figure" :single-block-embed="singleBlockEmbed">
-    <formula :content="p.content"></formula>
+  <block-wrapper :figure="figure" :single-block-embed="singleBlockEmbed">
+    <formula :content="content"></formula>
   </block-wrapper>
 </template>

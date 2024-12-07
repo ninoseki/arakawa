@@ -42,16 +42,16 @@ const { isIPythonEmbed } = window
 </script>
 
 <template>
-  <template v-if="p.report">
+  <template v-if="report">
     <nav-bar
       v-if="hasPages || !(isIPythonEmbed || singleBlockEmbed)"
       :labels="pageLabels"
       :page-number="tabNumber"
-      :report-width-class="p.reportWidthClass"
+      :report-width-class="reportWidthClass"
       @page-change="handlePageChange"
     />
     <main
-      :class="['w-full bg-ar-background mx-auto pb-4', p.reportWidthClass]"
+      :class="['w-full bg-ar-background mx-auto pb-4', reportWidthClass]"
       data-cy="report-component"
     >
       <div class="flex flex-col justify-end bg-ar-background">

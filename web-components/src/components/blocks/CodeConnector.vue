@@ -14,7 +14,7 @@ const childProps = { code: p.code, language: p.language }
 </script>
 
 <template>
-  <block-wrapper :figure="p.figure" :single-block-embed="singleBlockEmbed">
+  <block-wrapper :figure="figure" :single-block-embed="singleBlockEmbed">
     <code-block v-bind="childProps" class="w-full"></code-block>
   </block-wrapper>
 </template>
