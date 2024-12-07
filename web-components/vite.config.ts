@@ -5,6 +5,7 @@ import path from 'path'
 import copy from 'rollup-plugin-copy'
 import tailwindcss from 'tailwindcss'
 import { defineConfig, LibraryFormats } from 'vite'
+import VueDevTools from 'vite-plugin-vue-devtools'
 
 import vueESM from './rollup-plugin-vue-esm'
 
@@ -25,6 +26,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   plugins: [
+    VueDevTools(),
     vue({
       template: {
         compilerOptions: {
