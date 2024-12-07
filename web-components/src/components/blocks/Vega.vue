@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { v4 as uuid4 } from 'uuid'
 import vegaEmbed, { type Result } from 'vega-embed'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, toRaw } from 'vue'
 
 const p = defineProps<{
   plotJson: any
@@ -47,7 +47,8 @@ const addPlotToDom = async () => {
     if (p.responsive) {
       makeResponsive(p.plotJson)
     }
-    const view = await vegaEmbed(`#${divId}`, p.plotJson, {
+    const unwrapped = toRaw(p.plotJson)
+    const view = await vegaEmbed(`#${divId}`, unwrapped, {
       mode: 'vega-lite',
       actions: false, // disable the altair action menu
     })
