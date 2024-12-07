@@ -61,9 +61,9 @@
     "ramda": "^0.30.1",
     "url-join": "^5.0.0",
     "uuid": "^11.0.3",
-    "vega": "5.25.0",
-    "vega-embed": "6.21.3",
-    "vega-lite": "5.14.1",
+    "vega": "5.30.0",
+    "vega-embed": "6.29.0",
+    "vega-lite": "5.22.0",
     "vue": "^3.5.13",
     "vue-multiselect": "^3.1.0",
     "xml-js": "^1.6.11"
