@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { computed, type ComputedRef } from 'vue'
+import { computed, type ComputedRef, type Ref } from 'vue'
 
+import type { Block } from '@/data-model/blocks'
 import { useRootStore } from '@/data-model/root-store'
 import { VAlign } from '@/data-model/types'
 
@@ -14,7 +15,7 @@ const p = defineProps<{
 
 const rootStore = useRootStore()
 const { singleBlockEmbed } = storeToRefs(rootStore)
-const { children } = storeToRefs(p.store)
+const { children }: { children: Ref<Block[]> } = storeToRefs(p.store)
 
 const alignItems: ComputedRef<string> = computed(() => {
   switch (p.valign) {
