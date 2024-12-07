@@ -18,6 +18,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "dev:build": "NODE_ENV=development npm run build --  --mode development",
     "format": "prettier --write src",
     "lint": "eslint . --fix",
     "prepack": "npm run build",
@@ -112,6 +113,7 @@
     "tailwindcss": "^3.4.16",
     "typescript": "^5.7.2",
     "vite": "^6.0.3",
+    "vite-plugin-vue-devtools": "^7.6.7",
     "vitest": "^2.1.8"
   },
   "optionalDependencies": {
