@@ -4,11 +4,6 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
-from packaging.specifiers import SpecifierSet
-from packaging.version import Version
-
-PD_VERSION = Version(pd.__version__)
-PD_1_3_GREATER = SpecifierSet(">=1.3.0")
 
 
 def convert_axis(df: pd.DataFrame):
