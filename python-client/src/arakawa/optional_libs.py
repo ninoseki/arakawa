@@ -11,8 +11,8 @@ from arakawa.utils import log
 
 # NOTE - need to update this and keep in sync with JS
 BOKEH_V_SPECIFIER = SpecifierSet(">=3.4.0,<3.5.0")
-PLOTLY_V_SPECIFIER = SpecifierSet(">=5.24.1")
-FOLIUM_V_SPECIFIER = SpecifierSet(">=0.17.0")
+PLOTLY_V_SPECIFIER = SpecifierSet("~=5.24")
+FOLIUM_V_SPECIFIER = SpecifierSet("~=0.18")
 
 
 def _check_version(name: str, _v: v.Version, ss: SpecifierSet):

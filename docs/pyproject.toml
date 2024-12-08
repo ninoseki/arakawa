@@ -8,7 +8,7 @@ dependencies = [
     "arakawa[plotting]",
     "mkdocs-redirects>=1.2.2",
     "mkdocstrings[python]>=0.27.0",
-    "mkdocs-material>=9.5.45",
+    "mkdocs-material>=9.5.47",
     "mknotebooks>=0.8.0,<0.9.0",
     "jupyterlab>=4.3.0",
     "seaborn>=0.13.2",
