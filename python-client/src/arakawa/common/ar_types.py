@@ -1,5 +1,4 @@
 from collections.abc import Mapping
-from datetime import timedelta
 from enum import Enum
 from os import PathLike
 from pathlib import Path
@@ -26,11 +25,6 @@ EnumType = int  # alias for enum values
 PKL_MIMETYPE = MIME("application/vnd.pickle+binary")
 ARROW_MIMETYPE = MIME("application/vnd.apache.arrow+binary")
 ARROW_EXT = ".arrow"
-TD_1_HOUR = timedelta(hours=1)
-TD_1_DAY = timedelta(days=1)
-SECS_1_HOUR: int = int(TD_1_HOUR.total_seconds())
-SECS_1_WEEK: int = int(timedelta(weeks=1).total_seconds())
-SIZE_1_MB: int = 1024 * 1024
 
 
 class StrEnum(str, Enum):
