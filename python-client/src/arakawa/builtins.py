@@ -9,7 +9,7 @@ from typing import cast
 
 from . import Blocks
 from . import blocks as b
-from .common import NPath
+from .types import NPath
 
 
 def add_code(

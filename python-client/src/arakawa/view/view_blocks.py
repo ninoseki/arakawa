@@ -5,9 +5,6 @@ from collections.abc import Mapping
 from copy import copy
 from typing import TYPE_CHECKING, Union
 
-from lxml import etree
-from lxml.etree import _Element as ElementT
-
 from arakawa.blocks import Group
 from arakawa.blocks.base import BlockOrPrimitive
 from arakawa.blocks.layout import ContainerBlock
@@ -69,20 +66,14 @@ class Blocks(ContainerBlock):
         app_template.validate()
         return cls(blocks=app_template.blocks)
 
-    def get_dom(self) -> ElementT:
-        """Return the Document structure for the View"""
-        # internal debugging method
+    def get_view(self):
         from arakawa.processors.file_store import DummyFileEntry, FileStore
 
-        from .xml_visitor import XMLBuilder
+        from .pydantic_visitor import PydanticBuilder
 
-        builder = XMLBuilder(FileStore(DummyFileEntry))
+        builder = PydanticBuilder(FileStore(DummyFileEntry))
         self.accept(builder)
         return builder.get_root()
-
-    def get_dom_str(self) -> str:
-        dom = self.get_dom()
-        return etree.tostring(dom, pretty_print=True).decode()
 
     def pprint(self) -> None:
         from .visitors import PrettyPrinter
@@ -98,10 +89,6 @@ class Blocks(ContainerBlock):
             return cls(*x)
 
         return cls(x)
-
-    @property
-    def has_compute(self):
-        return False
 
 
 class View(Blocks):

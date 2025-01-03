@@ -1,18 +1,28 @@
 from __future__ import annotations
 
+import dataclasses as dc
 import datetime
 import importlib.resources as ir
+import json
 import locale
+import math
 import mimetypes
+import re
 import sys
 import time
+from collections.abc import Sized
+from numbers import Number
 from pathlib import Path
+from typing import Any
 
 import chardet
+import humps
 from chardet.universaldetector import UniversalDetector
 from loguru import logger as log
+from micawber import ProviderException, bootstrap_basic, bootstrap_noembed, cache
 
-from .ar_types import MIME
+from arakawa.exceptions import ARError
+from arakawa.types import HTML, MIME, SSDict
 
 ################################################################################
 # CONSTANTS
@@ -80,3 +90,79 @@ def timestamp(x: datetime.datetime | None = None) -> str:
     """Return ISO timestamp for a datetime"""
     x = x or datetime.datetime.utcnow()
     return f'{x.isoformat(timespec="seconds")}{"" if x.tzinfo else "Z"}'
+
+
+def is_valid_id(id: str) -> bool:
+    """(cached) regex to check for a xsd:ID name"""
+    return re.fullmatch(r"^[a-zA-Z_][\w.-]*$", id) is not None
+
+
+def conv_attrib(v: Any) -> str | None:
+    """
+    Convert a value to a str for use as an ElementBuilder attribute
+    - also handles None to a string for optional field values
+    """
+    # TODO - use a proper serialization framework here / lxml features
+    if v is None:
+        return v
+
+    if isinstance(v, Sized) and len(v) == 0:
+        return None
+
+    if isinstance(v, str):
+        return v
+
+    if isinstance(v, Number) and not isinstance(v, bool):
+        if math.isinf(v) and v > 0:  # type: ignore
+            return "INF"
+
+        if math.isinf(v) and v < 0:  # type: ignore
+            return "-INF"
+
+        if math.isnan(v):  # type: ignore
+            return "NaN"
+
+        return str(v)
+
+    return json.dumps(v)
+
+
+def mk_attribs(**attribs: Any) -> SSDict:
+    """convert attributes, dropping None and empty values"""
+    return humps.camelize(
+        {str(k): v1 for (k, v) in attribs.items() if (v1 := conv_attrib(v)) is not None}
+    )
+
+
+#####################################################################
+# Embed Asset Helpers
+providers = bootstrap_basic(cache=cache.Cache())
+
+
+@dc.dataclass(frozen=True)
+class Embedded:
+    html: HTML
+    title: str
+    provider: str
+
+
+def get_embed_url(url: str, width: int = 960, height: int = 540) -> Embedded:
+    """Return html for an embeddable URL"""
+    try:
+        r = providers.request(url, maxwidth=width, maxheight=height)
+    except ProviderException:
+        # add NoEmbed to the list and try again
+        try:
+            log.debug("Initializing NoEmbed OEmbed provider")
+            bootstrap_noembed(registry=providers)
+            r = providers.request(url, maxwidth=width, maxheight=height)
+        except ProviderException as e:
+            raise ARError(
+                f"No embed provider found for URL '{url}' - is there an active internet connection?"
+            ) from e
+
+    return Embedded(
+        html=r["html"],
+        title=r.get("title", "Title"),
+        provider=r.get("provider_name", "Embedding"),
+    )

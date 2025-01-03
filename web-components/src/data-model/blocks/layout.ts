@@ -20,8 +20,8 @@ export abstract class ParentBlock<T extends Block = Block> extends Block {
 
   public constructor(elem: any, figure: BlockFigure) {
     super(elem, figure)
-    const { children } = elem.attributes
-    this.children = children
+    const { blocks } = elem as unknown as { blocks: any[] }
+    this.children = blocks
   }
 }
 
@@ -52,9 +52,12 @@ export abstract class LayoutBlock<
     ) {
       this.insertAtEdge(group, method)
       return true
-    } else if (method === SwapType.REPLACE || method === SwapType.INNER) {
+    }
+
+    if (method === SwapType.REPLACE || method === SwapType.INNER) {
       return this.swap(group, target, method)
     }
+
     return false
   }
 
@@ -104,10 +107,14 @@ export class Group extends LayoutBlock {
 
   public constructor(elem: any, figure: BlockFigure) {
     super(elem, figure)
-    const { columns, widths, valign } = elem.attributes
+    const { columns, widths, valign } = elem as unknown as {
+      columns: number
+      valign: 'top' | 'center' | 'bottom'
+      widths?: string | null
+    }
     this.componentProps = {
       ...this.componentProps,
-      widths: widths ? JSON.parse(widths) : undefined,
+      widths: widths || undefined,
       columns: +columns,
       valign,
     }
@@ -117,15 +124,16 @@ export class Group extends LayoutBlock {
 export class Select extends LayoutBlock {
   public component = markRaw(VSelect)
   public type: string
-  public layout: string
   public name = 'Select'
 
   public constructor(elem: any, figure: BlockFigure) {
     super(elem, figure)
-    const { label, type, layout } = elem.attributes
-    this.label = label
+    const { label, type } = elem as unknown as {
+      label: string
+      type: 'dropdown' | 'tabs'
+    }
+    this.label = label || undefined
     this.type = type
-    this.layout = layout
     this.componentProps = { ...this.componentProps, type }
   }
 }
@@ -136,9 +144,12 @@ export class Toggle extends LayoutBlock {
 
   public constructor(elem: any, figure: BlockFigure) {
     super(elem, figure)
-    const { children, label } = elem.attributes
-    this.children = children
-    this.label = label
+    const { blocks, label } = elem as unknown as {
+      blocks: any[]
+      label?: string | null
+    }
+    this.children = blocks
+    this.label = label || undefined
     this.componentProps = { ...this.componentProps, label }
   }
 }
@@ -149,8 +160,14 @@ export class ComputeBlock extends ParentBlock<ControlsField> {
 
   public constructor(elem: any, figure: BlockFigure) {
     super(elem, figure)
-    const { prompt, label, subtitle, action, method } = elem.attributes
-
+    const { prompt, label, subtitle, action, method } = elem as unknown as {
+      label?: string | null
+      name?: string | null
+      prompt?: string | null
+      subtitle?: string | null
+      action?: string | null
+      method: string
+    }
     this.componentProps = {
       ...this.componentProps,
       children: this.children,
@@ -169,11 +186,10 @@ export class View extends LayoutBlock {
 
   public constructor(elem: any, figure: BlockFigure) {
     super(elem, figure)
-    const { layout, fragment } = elem.attributes
+    const { fragment } = elem as unknown as { fragment: boolean }
 
-    this.store = JSON.parse(fragment)
-      ? undefined
-      : useViewStore(this.children, layout)()
+    // FIXME: don't use layout?
+    this.store = fragment ? undefined : useViewStore(this.children, undefined)()
 
     this.componentProps = { ...this.componentProps, store: this.store }
   }
@@ -182,19 +198,19 @@ export class View extends LayoutBlock {
 /* Block/element type guards and checks */
 
 export const isComputeElem = (elem: Block | b.Elem): boolean =>
-  elem.name === 'Compute'
+  elem._id === 'Compute'
 
 export const isGroupElem = (elem: Block | b.Elem): boolean =>
-  elem.name === 'Group'
+  elem._id === 'Group'
 
 export const isSelectElem = (elem: Block | b.Elem): boolean =>
-  elem.name === 'Select'
+  elem._id === 'Select'
 
 export const isToggleElem = (elem: Block | b.Elem): boolean =>
-  elem.name === 'Toggle'
+  elem._id === 'Toggle'
 
 export const isViewElem = (elem: Block | b.Elem | EmptyObject): boolean =>
-  elem.name === 'View'
+  elem._id === 'View'
 
 export const isParentElem = (elem: Block | b.Elem): boolean =>
   isSelectElem(elem) ||

@@ -1,17 +1,17 @@
+from __future__ import annotations
+
 import dataclasses
 import sys
 from collections import namedtuple
 from typing import TYPE_CHECKING, Any, Protocol
 
-from lxml import etree
-from lxml.builder import ElementMaker
 from multimethod import DispatchError, multimethod
 
+from arakawa import schemas
 from arakawa.blocks import BaseBlock
 from arakawa.blocks.asset import AssetBlock
 from arakawa.blocks.layout import ContainerBlock
 from arakawa.blocks.text import EmbeddedTextBlock
-from arakawa.common.viewxml_utils import ElementT, mk_attribs
 from arakawa.exceptions import ARError
 from arakawa.utils import log
 from arakawa.view.view_blocks import Blocks
@@ -25,30 +25,26 @@ else:
 if TYPE_CHECKING:
     from arakawa.processors import FileEntry, FileStore
 
-E = ElementMaker()  # XML Tag Factory
-
 
 @dataclasses.dataclass
-class XMLBuilder(ViewVisitor):
-    """Convert the Blocks into an XML document"""
+class PydanticBuilder(ViewVisitor):
+    store: FileStore
+    elements: list[dict[str, Any]] = dataclasses.field(default_factory=list)
 
-    store: "FileStore"
-    # element: t.Optional[etree.Element] = None  # Empty Group Element?
-    elements: list[ElementT] = dataclasses.field(default_factory=list)
+    _seen_names: set[str] = dataclasses.field(default_factory=set)
 
-    def get_root(self, fragment: bool = False) -> ElementT:
-        """Return the top-level ViewXML"""
-        # create the top-level
-
-        # get the top-level root
-        _top_group: ElementT = self.elements.pop()
-        assert _top_group.tag == "Group"
+    def get_root(self, fragment: bool = False):
+        _top_group = self.elements.pop()
+        assert _top_group["_id"] == "Group"
         assert not self.elements
 
-        # create top-level structure
-        return E.View(  # type: ignore
-            *(list(_top_group)),
-            **mk_attribs(version="1", fragment=fragment),
+        return schemas.View.model_validate(
+            {
+                "_id": "View",
+                "fragment": fragment,
+                "version": 1,
+                "blocks": _top_group["blocks"],
+            }
         )
 
     @property
@@ -58,16 +54,22 @@ class XMLBuilder(ViewVisitor):
     def add_element(self, _: BaseBlock, e: Any) -> Self:
         """Add an element to the list of nodes at the current XML tree location"""
         self.elements.append(e)
+
+        name: str | None = e.get("name")
+        if name:
+            if name in self._seen_names:
+                raise ARError(f"Duplicate name {name} found in the View")
+
+            self._seen_names.add(name)
+
         return self
 
-    # xml convertors
     @multimethod
     def visit(self, b: BaseBlock) -> Self:
         """Base implementation - just created an empty tag including all the initial attributes"""
-        _E = getattr(E, b._tag)  # noqa: N806
-        return self.add_element(b, _E(**b._attributes))
+        return self.add_element(b, b.as_dict())
 
-    def _visit_subnodes(self, b: ContainerBlock) -> list[ElementT]:
+    def _visit_subnodes(self, b: ContainerBlock):
         cur_elements = self.elements
         self.elements = []
         b.traverse(self)  # visit subnodes
@@ -78,9 +80,10 @@ class XMLBuilder(ViewVisitor):
     @visit.register  # type: ignore
     def _(self, b: ContainerBlock) -> Self:
         sub_elements = self._visit_subnodes(b)
-        # build the element
-        _E = getattr(E, b._tag)  # noqa: N806
-        element = _E(*sub_elements, **b._attributes)
+
+        element = b.as_dict()
+        element["blocks"] = sub_elements
+
         return self.add_element(b, element)
 
     @visit.register  # type: ignore
@@ -90,37 +93,33 @@ class XMLBuilder(ViewVisitor):
         # Blocks are converted to Group internally
         if label := b._attributes.get("label"):
             log.info(f"Found label {label} in top-level Blocks/View")
-        element = E.Group(*sub_elements, columns="1", valign="top")
+
+        element = {
+            "blocks": sub_elements,
+            "columns": "1",
+            "valign": "top",
+            "_id": "Group",
+        }
         return self.add_element(b, element)
 
     @visit.register  # type: ignore
     def _(self, b: EmbeddedTextBlock) -> Self:
-        # NOTE - do we use etree.CDATA wrapper?
-        _E = getattr(E, b._tag)  # noqa: N806
-        return self.add_element(b, _E(etree.CDATA(b.content), **b._attributes))
+        return self.add_element(b, b.as_dict())
 
     @visit.register  # type: ignore
     def _(self, b: AssetBlock):
-        """Main XMl creation method - visitor method"""
         fe = self._add_asset_to_store(b)
 
-        _E = getattr(E, b._tag)  # noqa: N806
-
-        e: etree._Element = _E(
-            type=fe.mime,
-            # size=conv_attrib(fe.size),
-            # hash=fe.hash,
-            **{**b._attributes, **b.get_file_attribs()},
-            # src=f"attachment://{self.store_count}",
-            src=f"ref://{fe.hash}",
+        element = b.as_dict()
+        element.update(
+            {
+                "type": fe.mime,
+                "src": f"ref://{fe.hash}",
+            }
         )
+        return self.add_element(b, element)
 
-        if b.caption:
-            e.set("caption", b.caption)
-
-        return self.add_element(b, e)
-
-    def _add_asset_to_store(self, b: AssetBlock) -> "FileEntry":
+    def _add_asset_to_store(self, b: AssetBlock) -> FileEntry:
         """Default asset store handler that operates on native Python objects"""
         # import here as a very slow module due to nested imports
         # from .. import files

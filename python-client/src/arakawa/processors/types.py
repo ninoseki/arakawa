@@ -3,9 +3,8 @@ from __future__ import annotations
 import dataclasses
 from enum import Enum
 from pathlib import Path
-from typing import Generic, TypeVar
+from typing import Any, Generic, TypeVar
 
-from arakawa.common import ViewXML
 from arakawa.view import Blocks
 
 from .file_store import DummyFileEntry, FileEntry, FileStore
@@ -17,7 +16,7 @@ class ViewState:
     blocks: Blocks
     file_entry_klass: dataclasses.InitVar[type[FileEntry]]
     store: FileStore = dataclasses.field(init=False)
-    view_xml: ViewXML = ""
+    view_json: dict[str, Any] = dataclasses.field(default_factory=dict)
     entries: dict[str, str] = dataclasses.field(default_factory=dict)
     dir_path: dataclasses.InitVar[Path | None] = None
 
@@ -98,12 +97,6 @@ class FontChoice(Enum):
     SANS = "ui-sans-serif, sans-serif, system-ui"
     SERIF = "ui-serif, serif, system-ui"
     MONOSPACE = "ui-monospace, monospace, system-ui"
-
-
-# Currently unused
-# class PageLayout(Enum):
-#     TOP = "top"
-#     SIDE = "side"
 
 
 @dataclasses.dataclass

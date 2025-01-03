@@ -3,12 +3,12 @@ import { saveAs } from 'file-saver'
 import { v4 as uuid4 } from 'uuid'
 import { markRaw } from 'vue'
 
+import VAttachmentBlock from '@/components/blocks/Attachment.vue'
 import VBigNumberBlock from '@/components/blocks/BigNumber.vue'
 import VBigNumberBlockSimple from '@/components/blocks/BigNumberSimple.vue'
 import VBokehBlock from '@/components/blocks/BokehConnector.vue'
 import VCodeBlock from '@/components/blocks/CodeConnector.vue'
 import VEmbedBlock from '@/components/blocks/Embed.vue'
-import VFileBlock from '@/components/blocks/File.vue'
 import VFoliumBlock from '@/components/blocks/FoliumConnector.vue'
 import VFormulaBlock from '@/components/blocks/FormulaConnector.vue'
 import VHTMLBlock from '@/components/blocks/HTML.vue'
@@ -23,12 +23,11 @@ import { useRootStore } from '../root-store'
 
 // Represents a serialized JSON element prior to becoming a Page/Group/Select/Block
 export type Elem = {
-  name: string
-  attributes?: any
-  elements?: Elem[]
-  text?: string
-  cdata?: string
-  type: 'element'
+  _id: string
+  name?: string
+  label?: string
+  blocks?: Elem[]
+  [x: string]: any
 }
 
 type AssetResource = Promise<string | object>
@@ -44,16 +43,6 @@ export type BlockFigure = Pick<BlockFigureProps, 'count' | 'caption'>
 export type CaptionType = 'Table' | 'Figure' | 'Plot'
 
 /* Helper functions */
-
-const getInnerText = (elem: Elem): string => {
-  /**
-   * get the CDATA of a JSON-serialized element
-   */
-  if (!elem.elements || !elem.elements.length)
-    throw new Error("Can't get inner text of a node without elements")
-  const innerElem = elem.elements[0]
-  return innerElem.text || innerElem.cdata || ''
-}
 
 const readGcsTextOrJsonFile = <T = string | object | null>(
   url: string,
@@ -79,13 +68,16 @@ export class Block {
   public id?: string
   public name?: string
 
+  // block ID
+  public _id: string
+
   public constructor(
     elem: Elem,
     figure: BlockFigure,
     /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
     opts?: any,
   ) {
-    const { attributes } = elem
+    const { name, label, _id } = elem
     this.count = figure.count
     this.caption = figure.caption
     const rootStore = useRootStore()
@@ -94,12 +86,12 @@ export class Block {
       singleBlockEmbed: rootStore.singleBlockEmbed,
     }
 
-    if (attributes) {
-      // TODO - use `id` not `name`
-      // this.id = attributes.id;
-      this.id = attributes.name
-      this.label = attributes.label
-    }
+    // TODO - use `id` not `name`
+    // this.id = attributes.id;`
+    this.id = name
+    this.label = label
+
+    this._id = _id
   }
 }
 
@@ -108,7 +100,7 @@ export class TextBlock extends Block {
 
   public constructor(elem: Elem, figure: BlockFigure, opts?: any) {
     super(elem, figure)
-    const content = getInnerText(elem)
+    const { content } = elem as unknown as { content: string }
     this.componentProps = {
       ...this.componentProps,
       content,
@@ -122,9 +114,11 @@ export class CodeBlock extends Block {
 
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
-    const { language } = elem.attributes
-    const code = getInnerText(elem)
-    this.componentProps = { ...this.componentProps, code, language }
+    const { content, language } = elem as unknown as {
+      content: string
+      language: string
+    }
+    this.componentProps = { ...this.componentProps, code: content, language }
   }
 }
 
@@ -133,11 +127,13 @@ export class HTMLBlock extends Block {
 
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
-    const html = getInnerText(elem)
-    const { sandbox } = elem.attributes
+    const { content, sandbox } = elem as unknown as {
+      content: string
+      sandbox?: string | null
+    }
     this.componentProps = {
       ...this.componentProps,
-      html,
+      html: content,
       sandbox,
     }
   }
@@ -148,7 +144,7 @@ export class FormulaBlock extends Block {
 
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
-    const content = getInnerText(elem)
+    const content = (elem as unknown as { content: string }).content
     this.componentProps = {
       ...this.componentProps,
       content,
@@ -161,23 +157,37 @@ export class EmptyBlock extends Block {}
 export class BigNumberBlock extends Block {
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
-    const { attributes } = elem
-    const useSimple = !attributes.prev_value && !attributes.change
+    const {
+      preValue,
+      change,
+      heading,
+      value,
+      isPositiveIntent,
+      isUpwardChange,
+    } = elem as unknown as {
+      preValue?: string
+      change?: string
+      heading: string
+      value: string
+      isPositiveIntent?: boolean
+      isUpwardChange?: boolean
+    }
+    const useSimple = !preValue && !change
     this.component = markRaw(
       useSimple ? VBigNumberBlockSimple : VBigNumberBlock,
     )
     this.componentProps = {
       ...this.componentProps,
-      heading: attributes.heading,
-      value: attributes.value,
+      heading,
+      value,
     }
     if (!useSimple) {
       this.componentProps = {
         ...this.componentProps,
-        isPositiveIntent: JSON.parse(attributes.is_positive_intent || 'false'),
-        isUpwardChange: JSON.parse(attributes.is_upward_change || 'false'),
-        prevValue: attributes.prev_value,
-        change: attributes.change,
+        isPositiveIntent: isPositiveIntent || false,
+        isUpwardChange: isUpwardChange || false,
+        preValue,
+        change,
       }
     }
   }
@@ -191,7 +201,8 @@ export class EmbedBlock extends Block {
 
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
-    this.html = getInnerText(elem)
+    const { content } = elem as unknown as { content: string }
+    this.html = content
     this.componentProps = {
       ...this.componentProps,
       html: this.html,
@@ -230,15 +241,14 @@ export abstract class AssetBlock extends Block {
 
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
-    const { attributes } = elem
     const rootStore = useRootStore()
 
     // Setting asset in constructor (during deserialization) as there's currently
     // no case where an existing block instance needs to have its asset dynamically updated
-    const [, assetId] = attributes.src.split('://')
+    const [, assetId] = (elem as unknown as { src: string }).src.split('://')
 
     if (!assetId) {
-      throw new Error(`Couldn't get block asset ID from src ${attributes.src}`)
+      throw new Error(`Couldn't get block asset ID from src ${elem.src}`)
     }
 
     const { src, mime } = rootStore.assetMap[assetId]
@@ -265,19 +275,19 @@ export class FoliumBlock extends AssetBlock {
   public static captionType: CaptionType = 'Plot'
 }
 
-export class FileBlock extends AssetBlock {
-  public component = markRaw(VFileBlock)
+export class AttachmentBlock extends AssetBlock {
+  public component = markRaw(VAttachmentBlock)
 
   private readonly filename: string
 
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
-    const { attributes } = elem
-    this.filename = attributes.filename
+    const { filename } = elem as unknown as { filename: string }
+    this.filename = filename
     this.componentProps = {
       ...this.componentProps,
       downloadFile: this.downloadFile.bind(this),
-      filename: this.filename,
+      filename,
     }
   }
 
@@ -305,11 +315,11 @@ export abstract class PlotAssetBlock extends AssetBlock {
 
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
-    const { attributes } = elem
-    this.responsive = JSON.parse(attributes.responsive)
+    const { responsive } = elem as unknown as { responsive: boolean }
+    this.responsive = responsive
     this.componentProps = {
       ...this.componentProps,
-      responsive: this.responsive,
+      responsive,
     }
   }
 }

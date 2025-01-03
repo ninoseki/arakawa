@@ -7,10 +7,9 @@ from pathlib import Path
 
 from dominate.dom_tag import dom_tag
 
-from arakawa.common.ar_types import NPath
-from arakawa.common.utils import utf_read_text
-from arakawa.common.viewxml_utils import get_embed_url
+from arakawa.common.utils import get_embed_url, utf_read_text
 from arakawa.exceptions import ARError
+from arakawa.types import NPath
 
 from .base import BlockId, BlockOrPrimitive, DataBlock, wrap_block
 from .layout import Group
@@ -18,8 +17,7 @@ from .layout import Group
 
 class EmbeddedTextBlock(DataBlock):
     """
-    Abstract Block for embedded text formats that are stored directly in the
-    document (rather than external references)
+    Abstract Block for embedded text formats that are stored directly in the document (rather than external references)
     """
 
     content: str
@@ -50,8 +48,8 @@ class Text(EmbeddedTextBlock):
     ):
         """
         Args:
-            text: The markdown formatted text, use triple-quotes, (`\"\"\"# My Title\"\"\"`) to create multi-line markdown text
-            file: Path to a file containing markdown text
+            text: A markdown formatted text, use triple-quotes, (`\"\"\"# My Title\"\"\"`) to create multi-line markdown text
+            file: A path to a file containing markdown text
             name: A unique name for the block to reference when adding text or embedding (optional)
             label: A label used when displaying the block (optional)
 
@@ -133,8 +131,8 @@ class Code(EmbeddedTextBlock):
     ):
         """
         Args:
-            code: The source code
-            language: The language of the code, most common languages are supported (optional - defaults to Python)
+            code: A source code
+            language: A language of the code, most common languages are supported (optional - defaults to Python)
             caption: A caption to display below the Code (optional)
             name: A unique name for the block to reference when adding text or embedding (optional)
             label: A label used when displaying the block (optional)
@@ -163,7 +161,7 @@ class HTML(EmbeddedTextBlock):
     ):
         """
         Args:
-            html: The HTML fragment to embed - can be a string or a [dominate](https://github.com/Knio/dominate/) tag
+            html: An HTML fragment to embed - can be a string or a [dominate](https://github.com/Knio/dominate/) tag
             name: A unique name for the block to reference when adding text or embedding (optional)
             label: A label used when displaying the block (optional)
             sandbox: A sandbox attribute. Defaults to "allow-scripts". "allow-scripts" is needed to resize iframe.
@@ -190,7 +188,7 @@ class Formula(EmbeddedTextBlock):
     ):
         r"""
         Args:
-            formula: The formula to embed, using LaTeX format (use raw strings)
+            formula: A formula to embed, using LaTeX format (use raw strings)
             caption: A caption to display below the Formula (optional)
             name: A unique name for the block to reference when adding text or embedding (optional)
             label: A label used when displaying the block (optional)
@@ -223,17 +221,13 @@ class Embed(EmbeddedTextBlock):
     ):
         """
         Args:
-            url: The URL of the resource to be embedded
-            width: The width of the embedded object (optional)
-            height: The height of the embedded object (optional)
+            url: A URL of the resource to be embedded
+            width: A width of the embedded object (optional)
+            height: A height of the embedded object (optional)
             name: A unique name for the block to reference when adding text or embedding (optional)
             label: A label used when displaying the block (optional)
         """
-
         result = get_embed_url(url, width=width, height=height)
-
-        # if "html" not in result:
-        #     raise DPClientError(f"Can't embed result from provider for URL '{url}'")
         super().__init__(
             content=result.html,
             name=name,

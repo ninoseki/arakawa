@@ -8,15 +8,15 @@ from typing import BinaryIO
 import pandas as pd
 import pytest
 from _pytest.monkeypatch import MonkeyPatch
+from boltons import iterutils
 from dominate.tags import h2
 from glom import glom
-from lxml.etree import DocumentInvalid
+from pydantic import ValidationError
 
 import arakawa as ar
 from arakawa.blocks import BaseBlock
-from arakawa.common.viewxml_utils import load_doc, validate_view_doc
 from arakawa.exceptions import ARError
-from arakawa.processors import ConvertXML, Pipeline, PreProcessView, ViewState
+from arakawa.processors import ConvertPydantic, Pipeline, PreProcessView, ViewState
 from arakawa.processors.file_store import B64FileEntry
 from arakawa.processors.types import mk_null_pipe
 from tests.builtins import gen_df, gen_plot
@@ -29,40 +29,43 @@ md_block = ar.Text(text="# Test markdown block <hello/> \n Test **content**")
 str_md_block = "Simple string Markdown"
 
 
-def element_to_str(e: BaseBlock) -> str:
+def element_to_dict(e: BaseBlock):
     # NOTE - this validates as well
-    return mk_null_pipe(ar.Blocks(e)).pipe(ConvertXML(pretty_print=True)).state.view_xml
+    return (
+        mk_null_pipe(ar.Blocks(e))
+        .pipe(ConvertPydantic(pretty_print=True))
+        .state.view_json
+    )
 
 
-def num_blocks(view_str: str) -> int:
-    x = "count(/View//*)"
-    return int(load_doc(view_str).xpath(x))
+def num_blocks(view_json: dict) -> int:
+    # subtract 1 for the root block
+    count = len(iterutils.research(view_json, query=lambda _p, k, _v: k == "_id"))
+    return count - 1
 
 
-def _view_to_xml_and_files(app_or_view: ar.Blocks | ar.Report) -> ViewState:
+def _view_to_json_and_files(app_or_view: ar.Blocks | ar.Report) -> ViewState:
     """Create a viewstate resulting from converting the View to XML & in-mem B64 files"""
     s = ViewState(blocks=app_or_view, file_entry_klass=B64FileEntry)
-    return Pipeline(s).pipe(PreProcessView()).pipe(ConvertXML()).state
+    return Pipeline(s).pipe(PreProcessView()).pipe(ConvertPydantic()).state
 
 
 def assert_view(
     view: ar.Report | ar.Blocks,
     expected_attachments: int | None = None,
     expected_num_blocks: int | None = None,
-) -> tuple[str, list[BinaryIO]]:
-    state = _view_to_xml_and_files(view)
-    view_xml = state.view_xml
+) -> tuple[dict, list[BinaryIO]]:
+    state = _view_to_json_and_files(view)
+    view_json = state.view_json
     attachments = state.store.file_list
 
     if expected_attachments:
         assert len(attachments) == expected_attachments
 
     if expected_num_blocks:
-        assert num_blocks(view_xml) == expected_num_blocks
+        assert num_blocks(view_json) == expected_num_blocks
 
-    assert validate_view_doc(xml_str=view_xml)
-
-    return (view_xml, attachments)
+    return (view_json, attachments)
 
 
 ################################################################################
@@ -214,9 +217,9 @@ def test_gen_view_nested_mixed():
 
 
 def test_gen_view_primitives(datadir: Path):
-    # check we don't allow arbitary python primitives - must be pickled directly via ar.Attachment
+    # check we don't allow arbitrary python primitives - must be pickled directly via ar.Attachment
     with pytest.raises(ARError):
-        _ = ar.Blocks([1, 2, 3]).get_dom()
+        _ = ar.Blocks([1, 2, 3]).get_view()
 
     view = ar.Blocks(
         "Simple string Markdown #2",  # Markdown
@@ -232,37 +235,48 @@ def test_gen_failing_views():
     # nested pages
     with pytest.raises(ARError):
         v = ar.Blocks(ar.Page(ar.Page(md_block)))
-        _view_to_xml_and_files(v)
+        _view_to_json_and_files(v)
 
     # we only transform top-level pages
-    with pytest.raises(DocumentInvalid):
+    with pytest.raises(ValidationError):
         v = ar.Blocks(ar.Group(ar.Page(md_block)))
-        _view_to_xml_and_files(v)
+        _view_to_json_and_files(v)
 
     # page/pages with 0 objects
     with pytest.raises(ARError):
         v = ar.Blocks(ar.Page(blocks=[]))
-        _view_to_xml_and_files(v)
+        _view_to_json_and_files(v)
 
     # select with 1 object
     with pytest.raises(ARError):
         v = ar.Blocks(ar.Page(ar.Select(blocks=[md_block])))
-        _view_to_xml_and_files(v)
+        _view_to_json_and_files(v)
 
     # empty text block
     with pytest.raises(AssertionError):
         v = ar.Blocks(ar.Text(" "))
-        _view_to_xml_and_files(v)
+        _view_to_json_and_files(v)
 
     # empty df
     with pytest.raises(ARError):
         v = ar.Blocks(ar.DataTable(pd.DataFrame()))
-        _view_to_xml_and_files(v)
+        _view_to_json_and_files(v)
 
     # invalid names
-    with pytest.raises(DocumentInvalid):
+    with pytest.raises(ARError):
         v = ar.Blocks(ar.Text("a", name="my-name"), ar.Text("a", name="my-name"))
-        _view_to_xml_and_files(v)
+        _view_to_json_and_files(v)
+
+    # invalid names
+    with pytest.raises(ARError):
+        v = ar.Blocks(
+            ar.Group(
+                ar.Text("foo", name="my-name"),
+                ar.Text("bar", name="bar"),
+                name="my-name",
+            )
+        )
+        _view_to_json_and_files(v)
 
     with pytest.raises(ARError):
         ar.Blocks(ar.Text("a", name="3-invalid-name"))

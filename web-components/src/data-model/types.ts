@@ -20,7 +20,7 @@ export type ReportProps = {
 }
 
 export type AppDataResult = {
-  view_xml: string
+  viewJson: any
   assets: any
 }
 

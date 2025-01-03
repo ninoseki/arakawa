@@ -1,12 +1,14 @@
 """Tests for the API that can run locally (due to design or mocked out)"""
 
+import json
+
 from glom import glom
 
 import arakawa as ar
 from arakawa.builtins import add_code, build_md_view
 from tests.builtins import demo, gen_df
 
-from .test_views import assert_view, element_to_str, md_block
+from .test_views import assert_view, element_to_dict, md_block
 
 
 ################################################################################
@@ -21,7 +23,7 @@ def test_add_code():
     b = add_code(md_block, "print(1)")
     assert isinstance(b, ar.Select)
     assert glom(b, ("blocks", ["_tag"])) == ["Text", "Code"]
-    assert "print(1)" in element_to_str(b)
+    assert "print(1)" in json.dumps(element_to_dict(b))
 
 
 def test_build_md_view():

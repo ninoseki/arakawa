@@ -11,15 +11,13 @@ from uuid import uuid4
 
 from jinja2 import Environment, FileSystemLoader, Template
 from jinja2.utils import htmlsafe_json_dumps
-from lxml import etree
-from lxml.etree import _ElementTree, _XSLTResultTree
 
 from arakawa import blocks as b
-from arakawa.common import HTML, NPath, timestamp, validate_view_doc
-from arakawa.common.viewxml_utils import ElementT, local_view_resources
+from arakawa.common import timestamp
 from arakawa.exceptions import InvalidReportError
-from arakawa.utils import display_msg, log, open_in_browser
-from arakawa.view import PreProcess, XMLBuilder
+from arakawa.types import HTML, NPath
+from arakawa.utils import display_msg, open_in_browser
+from arakawa.view import PreProcess
 
 from .types import BaseProcessor, Formatting
 
@@ -64,51 +62,20 @@ class PreProcessView(BaseProcessor):
         return
 
 
-class ConvertXML(BaseProcessor):
-    """Convert the View AST into an XML fragment"""
-
-    local_post_xslt: _ElementTree = etree.parse(  # type: ignore
-        str(local_view_resources / "local_post_process.xslt")
-    )
-    local_post_transform = etree.XSLT(local_post_xslt)
-
+class ConvertPydantic(BaseProcessor):
     def __init__(self, *, pretty_print: bool = False, fragment: bool = False) -> None:
         self.pretty_print: bool = pretty_print
         self.fragment: bool = fragment
         super().__init__()
 
-    def __call__(self, _: Any) -> ElementT:
-        initial_doc = self.convert_xml()
-        transformed_doc = self.post_transforms(initial_doc)
+    def __call__(self, _: Any):
+        from arakawa.view.pydantic_visitor import PydanticBuilder
 
-        # convert to string
-        view_xml_str: str = etree.tostring(
-            transformed_doc, pretty_print=self.pretty_print, encoding="unicode"
-        )
-        # s1 = dc.replace(s, view_xml=view_xml_str)
-        self.s.view_xml = view_xml_str
-
-        log.debug(etree.tostring(transformed_doc, pretty_print=True))
-
-        # return the doc for further processing (xml str stored in state)
-        return transformed_doc
-
-    def convert_xml(self) -> ElementT:
-        # create initial state
-        builder_state = XMLBuilder(store=self.s.store)
+        builder_state = PydanticBuilder(store=self.s.store)
         self.s.blocks.accept(builder_state)
-        return builder_state.get_root(self.fragment)
-
-    def post_transforms(self, view_doc: ElementT) -> _XSLTResultTree:
-        # TODO - post-xml transformations, essentially xslt / lxml-based DOM operations
-        # post_process via xslt
-        processed_view_doc = self.local_post_transform(view_doc)
-
-        # TODO - custom lxml-based transforms go here...
-
-        # validate post all transformations
-        validate_view_doc(xml_doc=processed_view_doc)
-        return processed_view_doc
+        view = builder_state.get_root(self.fragment)
+        self.s.view_json = view.model_dump(mode="json", by_alias=True)
+        return view
 
 
 ###############################################################################
@@ -151,12 +118,12 @@ class BaseExportHTML(BaseProcessor, ABC):
         vs = self.s
         if vs:
             assets = vs.store.as_dict() or {}
-            view_xml = vs.view_xml
+            view_json = vs.view_json
         else:
             assets = {}
-            view_xml = ""
+            view_json = {}
 
-        app_data = {"view_xml": view_xml, "assets": assets}
+        app_data = {"viewJson": view_json, "assets": assets}
         html = self.template.render(
             # Escape JS multi-line strings
             app_data=htmlsafe_json_dumps(app_data),
@@ -165,7 +132,7 @@ class BaseExportHTML(BaseProcessor, ABC):
             report_date=timestamp(),
             css_header=formatting.to_css(),
             is_light_prose=json.dumps(formatting.light_prose),
-            events=False,
+            events=True,
             report_id=report_id,
             cdn_base=cdn_base or self.get_cdn(),
         )

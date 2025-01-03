@@ -48,11 +48,11 @@ export default tseslint.config(
         'error',
         {
           ignores: [
+            'Attachment',
             'Bokeh',
             'Code',
             'Compute',
             'Embed',
-            'File',
             'Folium',
             'Formula',
             'Group',

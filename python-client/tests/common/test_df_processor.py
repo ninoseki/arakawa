@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import vega_datasets as vd
 
-from arakawa.common import ArrowFormat, SList
+from arakawa.common import ArrowFormat
 from arakawa.common.df_processor import (
     convert_axis,
     downcast_numbers,
@@ -16,6 +16,7 @@ from arakawa.common.df_processor import (
     process_df,
     timedelta_to_str,
 )
+from arakawa.types import SList
 
 
 def _check_categories_parsed(df: pd.DataFrame, categorical_columns: SList):

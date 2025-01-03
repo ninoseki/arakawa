@@ -65,6 +65,7 @@ class FileEntry:
     def __eq__(self, other: FileEntry) -> bool:
         if self.hash:
             return self.hash == other.hash
+
         raise NotImplementedError()
 
 
