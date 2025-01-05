@@ -3,7 +3,6 @@ from __future__ import annotations
 import dataclasses as dc
 import datetime
 import importlib.resources as ir
-import json
 import locale
 import math
 import mimetypes
@@ -97,7 +96,7 @@ def is_valid_id(id: str) -> bool:
     return re.fullmatch(r"^[a-zA-Z_][\w.-]*$", id) is not None
 
 
-def conv_attrib(v: Any) -> str | None:
+def conv_attrib(v: Any) -> Any | None:
     """
     Convert a value to a str for use as an ElementBuilder attribute
     - also handles None to a string for optional field values
@@ -124,7 +123,7 @@ def conv_attrib(v: Any) -> str | None:
 
         return str(v)
 
-    return json.dumps(v)
+    return v
 
 
 def mk_attribs(**attribs: Any) -> SSDict:
