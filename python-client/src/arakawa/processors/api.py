@@ -10,7 +10,7 @@ from arakawa.view import Blocks, BlocksT
 
 from .file_store import B64FileEntry
 from .processors import (
-    ConvertXML,
+    ConvertPydantic,
     ExportHTMLInlineAssets,
     ExportHTMLStringInlineAssets,
     ExportHTMLStringInlineNonResizableAssets,
@@ -38,10 +38,11 @@ def save_report(
         formatting: Sets the basic app styling
     """
     s = ViewState(blocks=Blocks.wrap_blocks(blocks), file_entry_klass=B64FileEntry)
-    _: str = (
+
+    _ = (
         Pipeline(s)
         .pipe(PreProcessView(is_finalized=True))
-        .pipe(ConvertXML())
+        .pipe(ConvertPydantic())
         .pipe(
             ExportHTMLInlineAssets(
                 path=path,
@@ -83,8 +84,8 @@ def stringify_report(
     )
     return (
         Pipeline(s)
-        .pipe(PreProcessView(is_finalized=False))
-        .pipe(ConvertXML())
+        .pipe(PreProcessView(is_finalized=True))
+        .pipe(ConvertPydantic())
         .pipe(export)
         .result
     )

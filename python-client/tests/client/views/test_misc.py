@@ -60,5 +60,4 @@ Here's the dataset used...
         "Text",
         "Table",
     ]
-    assert "file-input" in ar.Blocks(group).get_dom_str()
     assert "file-input" in glom(group, "blocks.0.content")

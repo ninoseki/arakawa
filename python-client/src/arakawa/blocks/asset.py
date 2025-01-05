@@ -8,9 +8,8 @@ from typing import TYPE_CHECKING, Any, Optional, cast
 import pandas as pd
 from pandas.io.formats.style import Styler
 
-from arakawa.common import NPath, SSDict
 from arakawa.common.df_processor import to_df
-from arakawa.common.viewxml_utils import mk_attribs
+from arakawa.types import NPath
 
 from .base import BlockId, DataBlock
 
@@ -39,11 +38,7 @@ class AssetBlock(DataBlock):
         super().__init__(name=name, label=label, **kwargs)
         self.data = data
         self.file = file
-        self.caption = caption or ""
-        self.file_attribs: SSDict = {}
-
-    def get_file_attribs(self) -> SSDict:
-        return self.file_attribs
+        self.caption = caption
 
 
 class Media(AssetBlock):
@@ -67,7 +62,7 @@ class Media(AssetBlock):
     ):
         """
         Args:
-            file: Path to a file to attach to the report (e.g. a JPEG image)
+            file: A ath to a file to attach to the report (e.g. a JPEG image)
             name: A unique name for the block to reference when adding text or embedding (optional)
             caption: A caption to display below the file (optional)
             label: A label used when displaying the block (optional)
@@ -100,8 +95,8 @@ class Attachment(AssetBlock):
         """
         Args:
             data: A python object to attach to the report (e.g. a dictionary)
-            file: Path to a file to attach to the report (e.g. a csv file)
-            filename: Name to be used when downloading the file (optional)
+            file: A path to a file to attach to the report (e.g. a csv file)
+            filename: A name to be used when downloading the file (optional)
             caption: A caption to display below the file (optional)
             name: A unique name for the block to reference when adding text or embedding (optional)
             label: A label used when displaying the block (optional)
@@ -149,7 +144,7 @@ class Plot(AssetBlock):
     ):
         """
         Args:
-            data: The `plot` object to attach
+            data: A `plot` object to attach
             caption: A caption to display below the plot (optional)
             responsive: Whether the plot should automatically be resized to fit, set to False if your plot looks odd (optional, default: True)
             scale: Set the scaling factor for the plt (optional, default = 1.0)
@@ -168,8 +163,7 @@ class Plot(AssetBlock):
 
 class Table(AssetBlock):
     """
-    Table blocks store the contents of a DataFrame as a HTML `table` whose style can be customised using
-    pandas' `Styler` API.
+    Table blocks store the contents of a DataFrame as a HTML `table` whose style can be customized using pandas' `Styler` API.
 
     !!! tip
         `Table` is the best option for displaying multidimensional DataFrames, as `DataTable` will flatten your data.
@@ -188,7 +182,7 @@ class Table(AssetBlock):
     ):
         """
         Args:
-            data: The pandas `Styler` instance or dataframe to generate the table from
+            data: A pandas `Styler` instance or dataframe to generate the table from
             caption: A caption to display below the table (optional)
             name: A unique name for the block to reference when adding text or embedding (optional)
             label: A label used when displaying the block (optional)
@@ -217,7 +211,7 @@ class DataTable(AssetBlock):
     ):
         """
         Args:
-            df: The pandas dataframe to attach to the report
+            df: A pandas dataframe to attach to the report
             caption: A caption to display below the plot (optional)
             name: A unique name for the block to reference when adding text or embedding (optional)
             label: A label used when displaying the block (optional)
@@ -227,4 +221,4 @@ class DataTable(AssetBlock):
         super().__init__(data=df, caption=caption, name=name, label=label)
         # TODO - support pyarrow schema for local reports
         (rows, columns) = df.shape
-        self.file_attribs = mk_attribs(rows=rows, columns=columns, schema="[]")
+        self._add_attributes(rows=rows, columns=columns)

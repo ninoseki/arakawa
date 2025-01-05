@@ -58,7 +58,7 @@ class PreProcess(ViewVisitor):
     """
 
     in_collapsible_group: bool = False
-    # is_finalized determines if we allow dynamic blocks or validate based on their static/current subblocks
+    # is_finalized determines if we allow dynamic blocks or validate based on their static/current sub-blocks
     is_finalized: bool = True
     current_state: list[BaseBlock] = dc.field(default_factory=list)
     current_text: list[bk.Text] = dc.field(default_factory=list)

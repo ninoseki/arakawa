@@ -19,6 +19,8 @@ HTML = NewType("HTML", str)
 NPath = Union[Path, PathLike, str]
 Hash = NewType("Hash", str)
 EnumType = int  # alias for enum values
+NumberValue = Union[str, int, float]
+
 
 # Constants
 # NOTE - PKL_MIMETYPE and ARROW_MIMETYPE are custom mimetypes
@@ -31,3 +33,26 @@ class StrEnum(str, Enum):
     # TODO - replace with StrEnum in py3.11 stdlib
     def __str__(self):
         return str(self.value)
+
+
+class SelectType(StrEnum):
+    DROPDOWN = "dropdown"
+    TABS = "tabs"
+
+
+class VAlign(StrEnum):
+    TOP = "top"
+    CENTER = "center"
+    BOTTOM = "bottom"
+
+
+class MethodType(StrEnum):
+    CONNECT = "CONNECT"
+    DELETE = "DELETE"
+    GET = "GET"
+    HEAD = "HEAD"
+    OPTIONS = "OPTIONS"
+    PATCH = "PATCH"
+    POST = "POST"
+    PUT = "PUT"
+    TRACE = "TRACE"

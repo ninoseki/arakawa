@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  initial: boolean
+  initial?: boolean
   name: string
   label?: string
   help?: string

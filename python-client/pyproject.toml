@@ -9,15 +9,17 @@ dependencies = [
   "base64io~=1.0",
   "chardet~=5.2",
   "dominate~=2.9",
+  'eval_type_backport~=0.2;python_version<"3.10"',
   "ipynbname~=2024.1",
   "ipython~=8.13",
   "jinja2~=3.0",
   "loguru~=0.7",
-  "lxml~=5.3",
   "micawber~=0.5",
-  "multimethod~=1.10",
+  "multimethod~=2.0",
   "pandas~=2.2",
   "pyarrow~=18.1",
+  "pydantic~=2.10",
+  "pyhumps~=3.8",
   "semver~=3.0",
   'typing-extensions~=4.12;python_version<"3.11"',
 ]
@@ -48,7 +50,7 @@ dev = [
   "pytest~=8.3.4",
   "pytest-pretty~=1.2.0",
   "pytest-randomly~=3.16.0",
-  "ruff~=0.8.2",
+  "ruff~=0.8.6",
   "vega-datasets~=0.9.0",
   "pytest-datadir~=1.5.0",
   "pytest-timeout~=2.3.1",
@@ -56,7 +58,7 @@ dev = [
   "build~=1.2.2",
   "glom>=24.11.0",
   "pytest-github-actions-annotate-failures>=0.2.0",
-  "types-lxml>=2024.11.8",
+  "boltons>=24.1.0",
 ]
 
 [tool.ruff.lint]

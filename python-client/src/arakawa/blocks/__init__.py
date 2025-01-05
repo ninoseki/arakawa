@@ -27,7 +27,6 @@ from .controls import (  # noqa: F401
     TimeField,
     URLField,
 )
-from .empty import Empty  # noqa: F401
 from .layout import (  # noqa: F401
     Compute,
     Group,
@@ -37,7 +36,7 @@ from .layout import (  # noqa: F401
     Toggle,
     VAlign,
 )
-from .misc_blocks import BigNumber  # noqa: F401
+from .misc_blocks import BigNumber, Empty  # noqa: F401
 from .text import HTML, Code, Embed, Formula, Text  # noqa: F401
 
 Block = BaseBlock

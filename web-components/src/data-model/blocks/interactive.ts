@@ -1,4 +1,3 @@
-import he from 'he'
 import moment from 'moment'
 import { markRaw } from 'vue'
 
@@ -17,23 +16,24 @@ import VTextBox from '@/components/controls/TextBox.vue'
 
 import { Block, type BlockFigure, type Elem } from './leaf-blocks'
 
-const parseJsonProp = (json: string): Record<string, unknown> | string[] =>
-  /**
-   * Decode HTML entities and parse as JSON,
-   * e.g. `"[&quot;foo&qout;]"` -> `["foo"]`
-   */
-  JSON.parse(he.decode(json))
-
 export abstract class ControlsField extends Block {
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure) // TODO -- `figure` is unused, should use new base class?
-    const { name, required, initial, label, validation, help } = elem.attributes
+    const { name, required, initial, label, validation, help } =
+      elem as unknown as {
+        name: string
+        required?: boolean | null
+        help?: string | null
+        label?: string | null
+        initial?: any | null
+        validation?: string | null
+      }
     this.componentProps = {
       ...this.componentProps,
       name,
       label,
       initial,
-      required: required ? JSON.parse(required) : undefined,
+      required,
       validation,
       help,
     }
@@ -45,8 +45,12 @@ export class RangeField extends ControlsField {
 
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
-    const { min, max, step, initial } = elem.attributes
-
+    const { min, max, step, initial } = elem as unknown as {
+      initial: number
+      min: number
+      max: number
+      step: number
+    }
     this.componentProps = {
       ...this.componentProps,
       min: +min,
@@ -66,7 +70,7 @@ export class TemporalTextBox extends ControlsField {
 
   public constructor(elem: Elem, figure: BlockFigure, opts?: any) {
     super(elem, figure)
-    const { type } = opts
+    const { type } = opts as { type: string }
     this.componentProps = {
       ...this.componentProps,
       type,
@@ -83,10 +87,10 @@ export class NumberBox extends ControlsField {
 
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
-    const { initial } = elem.attributes
+    const { initial } = elem as unknown as { initial?: number | null }
     this.componentProps = {
       ...this.componentProps,
-      initial: +initial,
+      initial,
     }
   }
 }
@@ -100,10 +104,10 @@ export class TagsField extends ControlsField {
 
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
-    const { initial } = elem.attributes
+    const { initial } = elem as unknown as { initial: string[] }
     this.componentProps = {
       ...this.componentProps,
-      initial: initial ? parseJsonProp(initial) : [],
+      initial,
     }
   }
 }
@@ -113,11 +117,14 @@ export class MultiChoiceField extends ControlsField {
 
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
-    const { initial, options } = elem.attributes
+    const { initial, options } = elem as unknown as {
+      initial: string[]
+      options: string[]
+    }
     this.componentProps = {
       ...this.componentProps,
-      options: JSON.parse(options),
-      initial: initial ? parseJsonProp(initial) : [],
+      options,
+      initial,
     }
   }
 }
@@ -127,7 +134,7 @@ export class FileField extends ControlsField {
 
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
-    const { accept } = elem.attributes
+    const { accept } = elem as unknown as { accept?: string | null }
     this.componentProps = {
       ...this.componentProps,
       accept,
@@ -140,7 +147,7 @@ export class TemporalDateTimeField extends ControlsField {
 
   public constructor(elem: Elem, figure: BlockFigure, opts?: any) {
     super(elem, figure)
-    const { initial } = elem.attributes
+    const { initial } = elem as unknown as { initial?: string | null }
     const { timeFormat, type, parseFormat } = opts
     this.componentProps = {
       ...this.componentProps,
@@ -160,9 +167,11 @@ export class SelectField extends ControlsField {
 
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
-    const { initial, options } = elem.attributes
-    this.options = parseJsonProp(options) as string[]
-
+    const { initial, options } = elem as unknown as {
+      initial?: string | null
+      options: string[]
+    }
+    this.options = options
     this.componentProps = {
       ...this.componentProps,
       options: this.options,
@@ -176,10 +185,10 @@ export class SwitchField extends ControlsField {
 
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
-    const { initial } = elem.attributes
+    const { initial } = elem as unknown as { initial?: boolean | null }
     this.componentProps = {
       ...this.componentProps,
-      initial: initial ? JSON.parse(initial) : false,
+      initial,
     }
   }
 }

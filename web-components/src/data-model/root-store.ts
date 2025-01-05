@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
-import convert from 'xml-js'
 
 import * as b from './blocks'
 import { isParentElem } from './blocks'
@@ -42,17 +41,24 @@ const mkBlockMap = (isLightProse: boolean): BlockTest[] => {
     { class_: b.EmbedBlock, test: maps.jsonIsEmbed },
     { class_: b.FoliumBlock, test: maps.jsonIsIFrameHTML },
     { class_: b.BigNumberBlock, test: maps.jsonIsBigNumber },
+    { class_: b.AttachmentBlock, test: maps.jsonIsAttachment },
     { class_: b.ComputeBlock, test: maps.jsonIsCompute },
-    { class_: b.NumberBox, test: maps.jsonIsNumberBox },
-    { class_: b.RangeField, test: maps.jsonIsRangeField },
-    { class_: b.TagsField, test: maps.jsonIsTagsField },
-    { class_: b.SwitchField, test: maps.jsonIsSwitchField },
-    { class_: b.MultiChoiceField, test: maps.jsonIsMultiChoiceField },
-    { class_: b.FileField, test: maps.jsonIsFileField },
-    { class_: b.SelectField, test: maps.jsonIsSelectField },
-    { class_: b.PasswordField, test: maps.jsonIsPasswordField },
-    { class_: b.HiddenField, test: maps.jsonIsHiddenField },
+    { class_: b.Group, test: maps.jsonIsGroup },
+    { class_: b.View, test: maps.jsonIsView },
+    { class_: b.Select, test: maps.jsonIsSelect },
+    { class_: b.Toggle, test: maps.jsonIsToggle },
+    { class_: b.EmptyBlock, test: maps.jsonIsEmpty },
+    // control blocks
     { class_: b.ColorField, test: maps.jsonIsColorField },
+    { class_: b.FileField, test: maps.jsonIsFileField },
+    { class_: b.HiddenField, test: maps.jsonIsHiddenField },
+    { class_: b.MultiChoiceField, test: maps.jsonIsMultiChoiceField },
+    { class_: b.NumberBox, test: maps.jsonIsNumberBox },
+    { class_: b.PasswordField, test: maps.jsonIsPasswordField },
+    { class_: b.RangeField, test: maps.jsonIsRangeField },
+    { class_: b.SelectField, test: maps.jsonIsSelectField },
+    { class_: b.SwitchField, test: maps.jsonIsSwitchField },
+    { class_: b.TagsField, test: maps.jsonIsTagsField },
     {
       class_: b.TemporalTextBox,
       test: maps.jsonIsTextBox,
@@ -102,12 +108,6 @@ const mkBlockMap = (isLightProse: boolean): BlockTest[] => {
         parseFormat: 'HH:mm:ss',
       },
     },
-    { class_: b.Group, test: maps.jsonIsGroup },
-    { class_: b.View, test: maps.jsonIsView },
-    { class_: b.Select, test: maps.jsonIsSelect },
-    { class_: b.Toggle, test: maps.jsonIsToggle },
-    { class_: b.EmptyBlock, test: maps.jsonIsEmpty },
-    { class_: b.FileBlock, test: () => true },
   ]
 }
 
@@ -115,18 +115,6 @@ type BlockTest = {
   class_: typeof b.Block
   test: (elem: b.Elem) => boolean
   opts?: any
-}
-
-const getAttributes = (elem: b.Elem): any =>
-  /**
-   * Ensures the `attributes` object is never undefined
-   * -- xml-js removes the attributes property when a tag has none
-   **/
-  elem.attributes || {}
-
-const getElementByName = (elem: b.Elem, name: string): any => {
-  if (!elem.elements) return null
-  return elem.elements.find((elem: any) => elem.name === name)
 }
 
 const isSingleBlockEmbed = (
@@ -174,7 +162,7 @@ export const useRootStore = defineStore('root', () => {
 
     if (blockTest) {
       const { class_, opts } = blockTest
-      const { caption } = getAttributes(elem)
+      const { caption } = elem
       const count = caption ? updateFigureCount(class_.captionType) : undefined
       const figure = { caption, count, captionType: class_.captionType }
       return new class_(elem, figure, opts)
@@ -188,14 +176,13 @@ export const useRootStore = defineStore('root', () => {
      * Set report object either from given app data or
      * by fetching from the app server
      */
-    const { view_xml: viewXml, assets } = localAppData.data.result!
+    const { viewJson, assets } = localAppData.data.result!
 
     blockMap.push(...mkBlockMap(meta.isLightProse))
 
     Object.assign(assetMap, assets)
 
-    // Using `reactive` / Object.assign on `report` only preserved JSON-serializable properties (i.e. no methods)
-    report.value = xmlToView(viewXml)
+    report.value = deserialize(viewJson as b.Elem) as b.View
 
     // Can cast to `View` as we just assigned the response to `report.value`
     singleBlockEmbed.value = isSingleBlockEmbed(
@@ -205,39 +192,17 @@ export const useRootStore = defineStore('root', () => {
   }
 
   const deserialize = (elem: b.Elem, isFragment = false): b.Block => {
-    if (!elem.attributes) {
-      elem.attributes = {}
-    }
-
     if (b.isViewElem(elem) && isFragment) {
-      elem.name = 'Group'
-      elem.attributes.columns = '1'
+      elem._id = 'Group'
+      elem.columns = 1
     }
 
     if (isParentElem(elem)) {
       // Recursively deserialize children if present
-      elem.attributes.children = elem.elements
-        ? elem.elements.map(e => deserialize(e))
-        : []
+      elem.blocks = elem.blocks ? elem.blocks.map(e => deserialize(e)) : []
     }
 
     return deserializeBlock(elem)
-  }
-
-  const xmlToJson = (xml: string): any => {
-    /**
-     * TODO
-     */
-    const json: any = convert.xml2js(xml, { compact: false })
-    return getElementByName(json, 'View')
-  }
-
-  const xmlToView = (xml: string): b.View => {
-    /**
-     * Convert an XML string document to a deserialized `View` of `Block` objects
-     */
-    const root = xmlToJson(xml)
-    return deserialize(root) as b.View
   }
 
   function updateFigureCount(captionType: b.CaptionType): number {

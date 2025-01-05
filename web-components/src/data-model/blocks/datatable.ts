@@ -22,8 +22,6 @@ export class DataTableBlock extends AssetBlock {
   public static captionType: CaptionType = 'Table'
   public rows: number
   public columns: number
-  public size: number
-  public casRef: string
 
   private _revogridExportPlugin: any
 
@@ -41,11 +39,12 @@ export class DataTableBlock extends AssetBlock {
 
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
-    const { attributes } = elem
-    this.rows = attributes.rows
-    this.columns = attributes.columns
-    this.size = attributes.size
-    this.casRef = attributes.cas_ref
+    const { rows, columns } = elem as unknown as {
+      rows: number
+      columns: number
+    }
+    this.rows = rows
+    this.columns = columns
 
     this.componentProps = {
       ...this.componentProps,
@@ -131,6 +130,6 @@ export class DataTableBlock extends AssetBlock {
   }
 
   private buildExtensionUrl(name: string): string {
-    return new URL(`extensions/${name}/${this.casRef}`).toString()
+    return new URL(`extensions/${name}/`).toString()
   }
 }

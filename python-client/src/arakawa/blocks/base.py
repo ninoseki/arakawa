@@ -1,20 +1,11 @@
-"""
-Arakawa Blocks API
-
-Describes the collection of `Block` objects that can be combined together to make a `arakawa.utils.api.report.core.Report`.
-"""
-
 from __future__ import annotations
 
 import sys
 from abc import ABC
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, ClassVar, TypeVar, Union, cast
 
-from lxml.builder import ElementMaker
-
-from arakawa.common.viewxml_utils import is_valid_id, mk_attribs
+from arakawa.common.utils import is_valid_id, mk_attribs
 from arakawa.exceptions import ARError
-from arakawa.utils import log
 
 if sys.version_info <= (3, 11):
     from typing_extensions import Self
@@ -24,8 +15,6 @@ else:
 if TYPE_CHECKING:
     from arakawa.blocks import Block
     from arakawa.view import ViewVisitor
-
-E = ElementMaker()  # XML Tag Factory
 
 
 BlockId = str
@@ -39,14 +28,14 @@ class BaseBlock(ABC):
     ..note:: The class is not used directly.
     """
 
-    _tag: str
+    _tag: ClassVar[str]
 
     def __init__(self, name: BlockId | None = None, **kwargs: Any):
         """
         Args:
             name: A unique name to reference the block, used when referencing blocks via the report editor and when embedding
         """
-        self._block_name: str = self._tag.lower()
+        self._id = self._tag
         self.name = name
 
         # validate name
@@ -56,23 +45,14 @@ class BaseBlock(ABC):
         self._attributes: dict[str, str] = {}
         self._add_attributes(name=name, **kwargs)
 
-        self._truncate_strings(kwargs, "caption", 512)
-        self._truncate_strings(kwargs, "label", 256)
-
-    @staticmethod
-    def _truncate_strings(kwargs: dict, key: str, max_length: int):
-        if key in kwargs:
-            x: str = kwargs[key]
-            if x and len(x) > max_length:
-                kwargs[key] = f"{x[:max_length-3]}..."
-                log.warning(f"{key} currently '{x}'")
-                log.warning(
-                    f"{key} must be less than {max_length} characters, truncating"
-                )
-                # raise DPClientError(f"{key} must be less than {max_length} characters, '{x}'")
-
     def _add_attributes(self, **kwargs):
         self._attributes.update(mk_attribs(**kwargs))
+
+    def as_dict(self):
+        d = self.__dict__.copy()
+        d.pop("_attributes")
+        d.update(self._attributes)
+        return d
 
     def _ipython_display_(self):
         """Display the block as a side effect within a Jupyter notebook"""
@@ -123,6 +103,6 @@ def wrap_block(b: BlockOrPrimitive) -> Block:
     if not isinstance(b, BaseBlock):
         # import here as a very slow module due to nested imports
         # from ..files import convert
-
         return convert_to_block(b)
+
     return cast("Block", b)

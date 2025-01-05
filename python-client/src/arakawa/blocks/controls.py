@@ -47,7 +47,7 @@ class DateTimeField(BaseDateTimeBlock):
     DateTimeField allows you to add a datetime type input.
     """
 
-    _tag = "DateTime"
+    _tag = "DateTimeField"
 
 
 class DateField(BaseDateTimeBlock):
@@ -55,7 +55,7 @@ class DateField(BaseDateTimeBlock):
     DateField allows you to add a date type input.
     """
 
-    _tag = "Date"
+    _tag = "DateField"
 
 
 class TimeField(BaseDateTimeBlock):
@@ -63,7 +63,7 @@ class TimeField(BaseDateTimeBlock):
     TimeField allows you to add a time type input.
     """
 
-    _tag = "Time"
+    _tag = "TimeField"
 
 
 class FileField(ControlBlock):
@@ -71,7 +71,7 @@ class FileField(ControlBlock):
     FileField allows you to add a file type input.
     """
 
-    _tag = "File"
+    _tag = "FileField"
 
     def __init__(
         self,
@@ -106,7 +106,7 @@ class MultiChoiceField(ControlBlock):
     MultiChoiceField allows you to have a multiple select type input.
     """
 
-    _tag = "MultiChoice"
+    _tag = "MultiChoiceField"
 
     def __init__(
         self,
@@ -179,7 +179,7 @@ class RangeField(ControlBlock):
     RangeField allows you to add a range type input.
     """
 
-    _tag = "Range"
+    _tag = "RangeField"
 
     def __init__(
         self,
@@ -221,7 +221,7 @@ class ChoiceField(ControlBlock):
     ChoiceField allows you to add a select type input.
     """
 
-    _tag = "Choice"
+    _tag = "ChoiceField"
 
     def __init__(
         self,
@@ -259,7 +259,7 @@ class SwitchField(ControlBlock):
     SwitchField allows you to add a checkbox type input.
     """
 
-    _tag = "Switch"
+    _tag = "SwitchField"
 
     def __init__(
         self,
@@ -291,7 +291,7 @@ class TagsField(ControlBlock):
     TagsField allows you to add a multi select type input along with the free form input.
     """
 
-    _tag = "Tags"
+    _tag = "TagsField"
 
     def __init__(
         self,
@@ -363,7 +363,7 @@ class URLField(BaseTextField):
     URLField allows you to add a url type input.
     """
 
-    _tag = "URL"
+    _tag = "URLField"
 
 
 class EmailField(BaseTextField):
@@ -371,7 +371,7 @@ class EmailField(BaseTextField):
     EmailField allows you to add an email type input.
     """
 
-    _tag = "Email"
+    _tag = "EmailField"
 
 
 class SearchField(BaseTextField):
@@ -379,7 +379,7 @@ class SearchField(BaseTextField):
     SearchField allows you to add a search type input.
     """
 
-    _tag = "Search"
+    _tag = "SearchField"
 
 
 class TelephoneField(BaseTextField):
@@ -387,7 +387,7 @@ class TelephoneField(BaseTextField):
     TelephoneField allows you to add a tel type input.
     """
 
-    _tag = "Telephone"
+    _tag = "TelephoneField"
 
 
 class PasswordField(BaseTextField):
@@ -395,7 +395,7 @@ class PasswordField(BaseTextField):
     PasswordField allows you to add a password type input.
     """
 
-    _tag = "Password"
+    _tag = "PasswordField"
 
 
 class TextareaField(BaseTextField):
@@ -403,7 +403,7 @@ class TextareaField(BaseTextField):
     TextareaField allows you to add a search type input.
     """
 
-    _tag = "Textarea"
+    _tag = "TextareaField"
 
 
 class HiddenField(ControlBlock):
@@ -411,7 +411,7 @@ class HiddenField(ControlBlock):
     HiddenField allows you to add a hidden type input.
     """
 
-    _tag = "Hidden"
+    _tag = "HiddenField"
 
     def __init__(
         self,
@@ -434,4 +434,4 @@ class ColorField(BaseTextField):
     ColorField allows you to add a color picker.
     """
 
-    _tag = "Color"
+    _tag = "ColorField"

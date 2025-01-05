@@ -1,5 +1,5 @@
 """
-# TODO - optimise import handling here
+# TODO - optimize import handling here
 """
 # ruff: noqa: FA100
 
@@ -19,10 +19,10 @@ from arakawa.common import ArrowFormat
 from arakawa.exceptions import ARError
 from arakawa.utils import log
 
-from .xml_visitor import AssetMeta
+from .pydantic_visitor import AssetMeta
 
 
-class DPTextIOWrapper(TextIOWrapper):
+class ARTextIOWrapper(TextIOWrapper):
     """Custom IO Wrapper that detaches before closing - see https://bugs.python.org/issue21363"""
 
     def __init__(self, f, *a, **kw):
@@ -100,7 +100,7 @@ class PlotWriter:
 
     @multimethod
     def write_file(self, x: SchemaBase, f) -> None:
-        json.dump(x.to_dict(), DPTextIOWrapper(f))
+        json.dump(x.to_dict(), ARTextIOWrapper(f))
 
     if opt.HAVE_FOLIUM:
 
@@ -123,7 +123,7 @@ class PlotWriter:
         def _(self, x: Union[opt.BFigure, opt.BLayout], f):
             from bokeh.embed import json_item
 
-            json.dump(json_item(x), DPTextIOWrapper(f))
+            json.dump(json_item(x), ARTextIOWrapper(f))
 
     if opt.HAVE_PLOTLY:
 
@@ -133,7 +133,7 @@ class PlotWriter:
 
         @write_file.register  # type: ignore
         def _(self, x: opt.PFigure, f):
-            json.dump(x.to_json(), DPTextIOWrapper(f))
+            json.dump(x.to_json(), ARTextIOWrapper(f))
 
     if opt.HAVE_MATPLOTLIB:
 
@@ -143,7 +143,7 @@ class PlotWriter:
 
         @write_file.register  # type: ignore
         def _(self, x: opt.Figure, f) -> None:
-            x.savefig(DPTextIOWrapper(f), format="svg", bbox_inches="tight")
+            x.savefig(ARTextIOWrapper(f), format="svg", bbox_inches="tight")
 
         @write_file.register  # type: ignore
         def _(self, x: opt.Axes, f) -> None:

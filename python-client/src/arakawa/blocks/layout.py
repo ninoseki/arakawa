@@ -5,12 +5,12 @@ from collections import deque
 from functools import reduce
 from typing import TYPE_CHECKING
 
-from arakawa.common.ar_types import StrEnum
 from arakawa.exceptions import ARError
+from arakawa.types import MethodType, SelectType, VAlign
 from arakawa.utils import log
 
 from .base import BaseBlock, BlockId, BlockList, BlockOrPrimitive, wrap_block
-from .empty import Empty, gen_name
+from .misc_blocks import Empty, gen_name
 
 if sys.version_info <= (3, 11):
     from typing_extensions import Self
@@ -21,17 +21,6 @@ if TYPE_CHECKING:
     from arakawa.blocks import Block
 
     from .base import VV
-
-
-class SelectType(StrEnum):
-    DROPDOWN = "dropdown"
-    TABS = "tabs"
-
-
-class VAlign(StrEnum):
-    TOP = "top"
-    CENTER = "center"
-    BOTTOM = "bottom"
 
 
 class ContainerBlock(BaseBlock):
@@ -261,7 +250,7 @@ class Compute(ContainerBlock):
         prompt: str | None = None,
         subtitle: str | None = None,
         action: str | None = "",
-        method: str = "GET",
+        method: MethodType = MethodType.GET,
     ):
         """
         Args:
@@ -272,7 +261,7 @@ class Compute(ContainerBlock):
             prompt (str | None, optional): A prompt. Defaults to None.
             subtitle (str | None, optional): A subtitle. Defaults to None.
             action (str | None, optional): The form action. Defaults to "".
-            method (str, optional): The form method. Defaults to "GET".
+            method (MethodType, optional): The form method. Defaults to MethodType.GET.
         """
         super().__init__(
             *arg_blocks,
