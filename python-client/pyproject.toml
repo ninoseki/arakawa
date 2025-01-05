@@ -9,6 +9,7 @@ dependencies = [
   "base64io~=1.0",
   "chardet~=5.2",
   "dominate~=2.9",
+  'eval_type_backport~=0.2;python_version<"3.10"',
   "ipynbname~=2024.1",
   "ipython~=8.13",
   "jinja2~=3.0",
@@ -18,10 +19,9 @@ dependencies = [
   "pandas~=2.2",
   "pyarrow~=18.1",
   "pydantic~=2.10",
+  "pyhumps~=3.8",
   "semver~=3.0",
   'typing-extensions~=4.12;python_version<"3.11"',
-  'eval_type_backport~=0.2;python_version<"3.10"',
-  "pyhumps~=3.8",
 ]
 
 [project.optional-dependencies]
