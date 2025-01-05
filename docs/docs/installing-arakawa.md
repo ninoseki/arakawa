@@ -8,7 +8,7 @@ Arakawa's Python library and CLI can be installed using either `pip` or `conda` 
 
     Instructions for installing Python can be found at [https://wiki.python.org/moin/BeginnersGuide/Download](https://wiki.python.org/moin/BeginnersGuide/Download).
 
-## pip
+## Pip
 
 If you use `pip`, you can install it with:
 
@@ -24,7 +24,7 @@ If you use `pip`, you can install it with:
     !pip install -U arakawa
     ```
 
-## conda
+## Conda
 
 If you use `conda`, you can install it with:
 
@@ -45,7 +45,7 @@ Conda sometimes installs an older version of Arakawa. If you receive errors, ple
 
 ## Upgrading
 
-### Upgrading via pip
+### Upgrading Via Pip
 
 If you installed Arakawa via pip, run the following command:
 
@@ -53,7 +53,7 @@ If you installed Arakawa via pip, run the following command:
 pip install -U arakawa
 ```
 
-### Upgrading via conda
+### Upgrading Via Conda
 
 If you installed `arakawa` via conda, run the following command, adding the `--all` flag if needed. As above, if you receive errors please try using a fresh conda environment.
 
