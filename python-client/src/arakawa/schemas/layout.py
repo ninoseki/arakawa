@@ -9,6 +9,7 @@ from arakawa.types import MethodType, SelectType, VAlign
 from .asset import Attachment, DataTable, Media, Plot, Table
 from .base import DataBlock
 from .controls import (
+    ChoiceField,
     DateTimeField,
     FileField,
     HiddenField,
@@ -24,7 +25,9 @@ from .mixins import OptionalLabelMixin, OptionalNameMinx
 from .text import HTML, Code, Embed, Text
 
 ControlBlocks = Union[
+    ChoiceField,
     DateTimeField,
+    FileField,
     HiddenField,
     MultiChoiceField,
     NumberBox,
@@ -32,7 +35,6 @@ ControlBlocks = Union[
     SwitchField,
     TagsField,
     TextBox,
-    FileField,
 ]
 AssetBlocks = Union[Media, Attachment, Plot, Table, DataTable]
 TextBlocks = Union[Code, Embed, Text, HTML]
