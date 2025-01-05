@@ -1,4 +1,4 @@
-## Overview
+# Overview
 
 Arakawa makes it simple to build interactive reports in seconds using Python.
 
@@ -12,6 +12,6 @@ Import Arakawa's Python library into your script or notebook and build reports p
 
 Arakawa reports are interactive and can also contain pages, tabs, drop downs, and more. Once created, reports can be exported as HTML, shared as standalone files, or embedded into your own application, where your viewers can interact with your data and visualizations.
 
-## Get started
+## Get Started
 
 Get up and running with our [Quickstart](./quickstart.ipynb), or dig deeper into the rest of the docs.
