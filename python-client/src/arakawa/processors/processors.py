@@ -74,7 +74,9 @@ class ConvertPydantic(BaseProcessor):
         builder_state = PydanticBuilder(store=self.s.store)
         self.s.blocks.accept(builder_state)
         view = builder_state.get_root(self.fragment)
-        self.s.view_json = view.model_dump(mode="json", by_alias=True)
+        self.s.view_json = view.model_dump(
+            mode="json", by_alias=True, exclude_none=True
+        )
         return view
 
 
