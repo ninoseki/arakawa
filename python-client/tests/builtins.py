@@ -306,6 +306,7 @@ ar.Attachment(data=[1,2,3])
         columns=2,
     )
     media = b.Group(
+        b.Media(file="tests/fixtures/Example.png"),
         b.Attachment(data=[1, 2, 3]),
         columns=2,
     )

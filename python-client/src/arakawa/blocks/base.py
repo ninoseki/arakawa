@@ -42,17 +42,12 @@ class BaseBlock(ABC):
         if name and not is_valid_id(name):
             raise ARError(f"Invalid name '{name}' for block")
 
-        self._attributes: dict[str, str] = {}
         self._add_attributes(name=name, **kwargs)
 
     def _add_attributes(self, **kwargs):
-        self._attributes.update(mk_attribs(**kwargs))
-
-    def as_dict(self):
-        d = self.__dict__.copy()
-        d.pop("_attributes")
-        d.update(self._attributes)
-        return d
+        attrs = mk_attribs(**kwargs)
+        for k, v in attrs.items():
+            setattr(self, k, v)
 
     def _ipython_display_(self):
         """Display the block as a side effect within a Jupyter notebook"""
@@ -72,15 +67,10 @@ class BaseBlock(ABC):
         visitor.visit(self)
         return visitor
 
-    def __str__(self) -> str:
-        return f"<{self._tag} attribs={self._attributes}>"
-
     def __copy__(self) -> Self:
         """custom copy that deep copies attributes"""
         inst = self.__class__.__new__(self.__class__)
         inst.__dict__.update(self.__dict__)
-        inst._attributes = self._attributes.copy()
-
         return inst
 
 

@@ -7,7 +7,6 @@ from typing import Any, NewType, Union
 # Typedefs
 # A JSON-serializable config object
 SDict = dict[str, Any]
-SSDict = dict[str, str]
 SList = list[str]
 # NOTE - mypy cannot handle recursive types like this currently. Will review in the future
 JSON = Union[str, int, float, bool, None, Mapping[str, "JSON"], list["JSON"]]  # type: ignore

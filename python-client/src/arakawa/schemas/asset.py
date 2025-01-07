@@ -14,7 +14,7 @@ class AssetBlock(OptionalLabelMixin, OptionalNameMinx, OptionalCaptionMixin, Dat
 
 
 class Media(AssetBlock):
-    id_: Literal["Media"] = Field(..., alias="_id")
+    id: Literal["Media"] = Field(..., alias="_id")
 
 
 class Attachment(AssetBlock):
