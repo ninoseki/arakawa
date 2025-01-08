@@ -36,12 +36,12 @@ class PydanticBuilder(ViewVisitor):
 
     def get_root(self, fragment: bool = False):
         _top_group = cast(blocks.Group, self.elements.pop())
-        assert _top_group._id == "Group"
+        assert _top_group._type == "Group"
         assert not self.elements
 
         return schemas.View.model_validate(
             {
-                "_id": "View",
+                "_type": "View",
                 "fragment": fragment,
                 "version": 1,
                 "blocks": _top_group.blocks,

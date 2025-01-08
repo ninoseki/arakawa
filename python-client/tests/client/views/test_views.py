@@ -40,7 +40,7 @@ def element_to_dict(e: BaseBlock):
 
 def num_blocks(view_json: dict) -> int:
     # subtract 1 for the root block
-    count = len(iterutils.research(view_json, query=lambda _p, k, _v: k == "_id"))
+    count = len(iterutils.research(view_json, query=lambda _p, k, _v: k == "_type"))
     return count - 1
 
 
@@ -314,13 +314,13 @@ def test_gen_view_nested_blocks():
     assert isinstance(view.blocks[1], ar.Select)
     assert isinstance(view.blocks[2], ar.Toggle)
     assert isinstance(view.blocks[1].blocks[1], ar.Text)
-    assert glom(view, ("blocks", ["_attributes.label"])) == [
+    assert glom(view, ("blocks", ["label"])) == [
         "test-group-label",
         "test-select-label",
         "test-toggle-label",
     ]
     assert glom(view, "blocks.0.blocks.0.name") == "test-id-1"
-    assert glom(view, "blocks.1.blocks.0._attributes.label") == "test-block-label"
+    assert glom(view, "blocks.1.blocks.0.label") == "test-block-label"
     assert_view(view, 0)
 
 

@@ -11,11 +11,11 @@ from .mixins import NameMixin
 
 
 class Empty(NameMixin, DataBlock):
-    id: Literal["Empty"] = Field(..., alias="_id")
+    type_: Literal["Empty"] = Field(..., alias="_type")
 
 
 class BigNumber(DataBlock):
-    id: Literal["BigNumber"] = Field(..., alias="_id")
+    type_: Literal["BigNumber"] = Field(..., alias="_type")
 
     heading: str = Field(..., min_length=1, max_length=128)
     value: NumberValue = Field(..., min_length=1, max_length=128)

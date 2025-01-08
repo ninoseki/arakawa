@@ -35,7 +35,7 @@ class BaseBlock(ABC):
         Args:
             name: A unique name to reference the block, used when referencing blocks via the report editor and when embedding
         """
-        self._id = self._tag
+        self._type = self._tag
         self.name = name
 
         # validate name

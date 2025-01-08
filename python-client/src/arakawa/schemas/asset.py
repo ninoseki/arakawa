@@ -14,28 +14,28 @@ class AssetBlock(OptionalLabelMixin, OptionalNameMinx, OptionalCaptionMixin, Dat
 
 
 class Media(AssetBlock):
-    id: Literal["Media"] = Field(..., alias="_id")
+    type_: Literal["Media"] = Field(..., alias="_type")
 
 
 class Attachment(AssetBlock):
-    id: Literal["Attachment"] = Field(..., alias="_id")
+    type_: Literal["Attachment"] = Field(..., alias="_type")
 
     filename: str = Field(..., min_length=1, max_length=128)
 
 
 class Plot(AssetBlock):
-    id: Literal["Plot"] = Field(..., alias="_id")
+    type_: Literal["Plot"] = Field(..., alias="_type")
 
     scale: float = Field(default=1.0, ge=0.0)
     responsive: bool = Field(default=True)
 
 
 class Table(AssetBlock):
-    id: Literal["Table"] = Field(..., alias="_id")
+    type_: Literal["Table"] = Field(..., alias="_type")
 
 
 class DataTable(AssetBlock):
-    id: Literal["DataTable"] = Field(..., alias="_id")
+    type_: Literal["DataTable"] = Field(..., alias="_type")
 
     rows: int = Field(..., ge=0)
     columns: int = Field(..., ge=0)

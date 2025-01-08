@@ -35,7 +35,9 @@ class DateTimeField(
     OptionalHelpMixin,
     ControlBlock,
 ):
-    id: Literal["DateTimeField", "DateField", "TimeField"] = Field(..., alias="_id")
+    type_: Literal["DateTimeField", "DateField", "TimeField"] = Field(
+        ..., alias="_type"
+    )
 
 
 class FileField(
@@ -45,7 +47,7 @@ class FileField(
     OptionalHelpMixin,
     ControlBlock,
 ):
-    id: Literal["FileField"] = Field(..., alias="_id")
+    type_: Literal["FileField"] = Field(..., alias="_type")
 
     accept: str | None = Field(default=None)
 
@@ -56,7 +58,7 @@ class MultiChoiceField(
     OptionalHelpMixin,
     ControlBlock,
 ):
-    id: Literal["MultiChoiceField"] = Field(..., alias="_id")
+    type_: Literal["MultiChoiceField"] = Field(..., alias="_type")
 
     initial: list[str] = Field(..., min_length=1)
     options: list[str] = Field(..., min_length=1)
@@ -68,7 +70,7 @@ class NumberBox(
     OptionalRequiredMixin,
     ControlBlock,
 ):
-    id: Literal["NumberBox"] = Field(..., alias="_id")
+    type_: Literal["NumberBox"] = Field(..., alias="_type")
 
     initial: int | float | None = Field(default=None)
 
@@ -79,7 +81,7 @@ class RangeField(
     OptionalRequiredMixin,
     ControlBlock,
 ):
-    id: Literal["RangeField"] = Field(..., alias="_id")
+    type_: Literal["RangeField"] = Field(..., alias="_type")
 
     initial: int | float
     min: int | float
@@ -94,7 +96,7 @@ class ChoiceField(
     OptionalRequiredMixin,
     ControlBlock,
 ):
-    id: Literal["ChoiceField"] = Field(..., alias="_id")
+    type_: Literal["ChoiceField"] = Field(..., alias="_type")
 
     options: list[str] = Field(..., min_length=1)
 
@@ -105,7 +107,7 @@ class SwitchField(
     OptionalRequiredMixin,
     ControlBlock,
 ):
-    id: Literal["SwitchField"] = Field(..., alias="_id")
+    type_: Literal["SwitchField"] = Field(..., alias="_type")
 
     initial: bool | None = Field(default=None)
 
@@ -116,7 +118,7 @@ class TagsField(
     OptionalRequiredMixin,
     ControlBlock,
 ):
-    id: Literal["TagsField"] = Field(..., alias="_id")
+    type_: Literal["TagsField"] = Field(..., alias="_type")
 
     initial: list[str] = Field(..., min_length=1)
 
@@ -128,7 +130,7 @@ class TextBox(
     OptionalRequiredMixin,
     ControlBlock,
 ):
-    id: Literal[
+    type_: Literal[
         "TextBox",
         "TextAreaField",
         "URLField",
@@ -137,10 +139,10 @@ class TextBox(
         "TelephoneField",
         "PasswordField",
         "ColorField",
-    ] = Field(..., alias="_id")
+    ] = Field(..., alias="_type")
 
 
 class HiddenField(ControlBlock):
-    id: Literal["HiddenField"] = Field(..., alias="_id")
+    type_: Literal["HiddenField"] = Field(..., alias="_type")
 
     initial: str

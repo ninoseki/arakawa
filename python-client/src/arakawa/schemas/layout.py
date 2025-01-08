@@ -48,13 +48,13 @@ class LayoutBlock(OptionalNameMinx, OptionalLabelMixin, DataBlock):
 
 
 class Page(LayoutBlock):
-    id: Literal["_Page"] = Field(..., alias="_id")
+    type_: Literal["_Page"] = Field(..., alias="_type")
 
     title: str | None = Field(default=None, min_length=1, max_length=256)
 
 
 class Group(LayoutBlock):
-    id: Literal["Group"] = Field(..., alias="_id")
+    type_: Literal["Group"] = Field(..., alias="_type")
 
     columns: int = Field(default=1)
     valign: VAlign
@@ -62,17 +62,17 @@ class Group(LayoutBlock):
 
 
 class Select(LayoutBlock):
-    id: Literal["Select"] = Field(..., alias="_id")
+    type_: Literal["Select"] = Field(..., alias="_type")
 
     type: SelectType
 
 
 class Toggle(LayoutBlock):
-    id: Literal["Toggle"] = Field(..., alias="_id")
+    type_: Literal["Toggle"] = Field(..., alias="_type")
 
 
 class Compute(LayoutBlock):
-    id: Literal["Compute"] = Field(..., alias="_id")
+    type_: Literal["Compute"] = Field(..., alias="_type")
 
     prompt: str | None = Field(default=None)
     subtitle: str | None = Field(default=None)
@@ -81,7 +81,7 @@ class Compute(LayoutBlock):
 
 
 class View(LayoutBlock):
-    id: Literal["View"] = Field(..., alias="_id")
+    type_: Literal["View"] = Field(..., alias="_type")
 
     fragment: bool
     version: int = Field(..., ge=1)

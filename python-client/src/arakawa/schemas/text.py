@@ -13,23 +13,23 @@ class TextBase(OptionalLabelMixin, OptionalNameMinx, DataBlock):
 
 
 class Text(TextBase):
-    id: Literal["Text", "Formula"] = Field(..., alias="_id")
+    type_: Literal["Text", "Formula"] = Field(..., alias="_type")
 
 
 class HTML(TextBase):
-    id: Literal["HTML"] = Field(..., alias="_id")
+    type_: Literal["HTML"] = Field(..., alias="_type")
 
     sandbox: str | None = Field(default=None)
 
 
 class Code(OptionalCaptionMixin, TextBase):
-    id: Literal["Code"] = Field(..., alias="_id")
+    type_: Literal["Code"] = Field(..., alias="_type")
 
     language: str = Field(..., min_length=1, max_length=128)
 
 
 class Embed(TextBase):
-    id: Literal["Embed"] = Field(..., alias="_id")
+    type_: Literal["Embed"] = Field(..., alias="_type")
 
     url: AnyHttpUrl
     title: str = Field(..., min_length=1, max_length=256)
