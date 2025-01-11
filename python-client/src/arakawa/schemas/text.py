@@ -5,6 +5,7 @@ from typing import Literal
 from pydantic import AnyHttpUrl, Field
 
 from .base import DataBlock
+from .fields import TypeAliasedField
 from .mixins import OptionalCaptionMixin, OptionalLabelMixin, OptionalNameMinx
 
 
@@ -13,23 +14,23 @@ class TextBase(OptionalLabelMixin, OptionalNameMinx, DataBlock):
 
 
 class Text(TextBase):
-    id: Literal["Text", "Formula"] = Field(..., alias="_id")
+    type_: Literal["Text", "Formula"] = TypeAliasedField()
 
 
 class HTML(TextBase):
-    id: Literal["HTML"] = Field(..., alias="_id")
+    type_: Literal["HTML"] = TypeAliasedField()
 
     sandbox: str | None = Field(default=None)
 
 
 class Code(OptionalCaptionMixin, TextBase):
-    id: Literal["Code"] = Field(..., alias="_id")
+    type_: Literal["Code"] = TypeAliasedField()
 
     language: str = Field(..., min_length=1, max_length=128)
 
 
 class Embed(TextBase):
-    id: Literal["Embed"] = Field(..., alias="_id")
+    type_: Literal["Embed"] = TypeAliasedField()
 
     url: AnyHttpUrl
     title: str = Field(..., min_length=1, max_length=256)

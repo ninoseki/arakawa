@@ -91,7 +91,7 @@ export class Block {
     this.id = name
     this.label = label
 
-    this._id = _id
+    this._type = _id
   }
 }
 

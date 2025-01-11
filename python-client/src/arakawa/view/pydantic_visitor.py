@@ -3,16 +3,17 @@ from __future__ import annotations
 import dataclasses
 import sys
 from collections import namedtuple
-from typing import TYPE_CHECKING, Any, Protocol
+from typing import TYPE_CHECKING, Any, Protocol, cast
 
 from multimethod import DispatchError, multimethod
 
 from arakawa import schemas
-from arakawa.blocks import BaseBlock
+from arakawa.blocks import BaseBlock, Group
 from arakawa.blocks.asset import AssetBlock
 from arakawa.blocks.layout import ContainerBlock
 from arakawa.blocks.text import EmbeddedTextBlock
 from arakawa.exceptions import ARError
+from arakawa.types import VAlign
 from arakawa.utils import log
 from arakawa.view.view_blocks import Blocks
 from arakawa.view.visitors import ViewVisitor
@@ -29,21 +30,21 @@ if TYPE_CHECKING:
 @dataclasses.dataclass
 class PydanticBuilder(ViewVisitor):
     store: FileStore
-    elements: list[dict[str, Any]] = dataclasses.field(default_factory=list)
+    elements: list[BaseBlock] = dataclasses.field(default_factory=list)
 
     _seen_names: set[str] = dataclasses.field(default_factory=set)
 
     def get_root(self, fragment: bool = False):
-        _top_group = self.elements.pop()
-        assert _top_group["_id"] == "Group"
+        _top_group = cast(Group, self.elements.pop())
+        assert _top_group._type == "Group"
         assert not self.elements
 
         return schemas.View.model_validate(
             {
-                "_id": "View",
+                "_type": "View",
                 "fragment": fragment,
                 "version": 1,
-                "blocks": _top_group["blocks"],
+                "blocks": _top_group.blocks,
             }
         )
 
@@ -51,11 +52,11 @@ class PydanticBuilder(ViewVisitor):
     def store_count(self) -> int:
         return len(self.store.files)
 
-    def add_element(self, _: BaseBlock, e: Any) -> Self:
+    def add_element(self, _: BaseBlock, e: BaseBlock) -> Self:
         """Add an element to the list of nodes at the current XML tree location"""
         self.elements.append(e)
 
-        name: str | None = e.get("name")
+        name: str | None = e.get("name", None)  # type: ignore
         if name:
             if name in self._seen_names:
                 raise ARError(f"Duplicate name {name} found in the View")
@@ -67,7 +68,7 @@ class PydanticBuilder(ViewVisitor):
     @multimethod
     def visit(self, b: BaseBlock) -> Self:
         """Base implementation - just created an empty tag including all the initial attributes"""
-        return self.add_element(b, b.as_dict())
+        return self.add_element(b, b)
 
     def _visit_subnodes(self, b: ContainerBlock):
         cur_elements = self.elements
@@ -80,42 +81,38 @@ class PydanticBuilder(ViewVisitor):
     @visit.register  # type: ignore
     def _(self, b: ContainerBlock) -> Self:
         sub_elements = self._visit_subnodes(b)
-
-        element = b.as_dict()
-        element["blocks"] = sub_elements
-
-        return self.add_element(b, element)
+        b._add_attributes(blocks=sub_elements)
+        return self.add_element(b, b)
 
     @visit.register  # type: ignore
     def _(self, b: Blocks) -> Self:
         sub_elements = self._visit_subnodes(b)
 
         # Blocks are converted to Group internally
-        if label := b._attributes.get("label"):
+        if label := b.get("label"):
             log.info(f"Found label {label} in top-level Blocks/View")
 
-        element = {
-            "blocks": sub_elements,
-            "columns": "1",
-            "valign": "top",
-            "_id": "Group",
-        }
+        element = Group(
+            blocks=sub_elements,
+            name=b.name,
+            label=label,
+            columns=1,
+            valign=VAlign.TOP,
+        )
         return self.add_element(b, element)
 
     @visit.register  # type: ignore
     def _(self, b: EmbeddedTextBlock) -> Self:
-        return self.add_element(b, b.as_dict())
+        return self.add_element(b, b)
 
     @visit.register  # type: ignore
     def _(self, b: AssetBlock):
         fe = self._add_asset_to_store(b)
 
-        element = b.as_dict()
-        element.update(
-            {
-                "type": fe.mime,
-                "src": f"ref://{fe.hash}",
-            }
+        element = b.copy()
+        element._add_attributes(
+            type=fe.mime,
+            src=f"ref://{fe.hash}",
         )
         return self.add_element(b, element)
 

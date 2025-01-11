@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any, cast
 from uuid import uuid4
 
+import humps
 from jinja2 import Environment, FileSystemLoader, Template
 from jinja2.utils import htmlsafe_json_dumps
 
@@ -74,7 +75,9 @@ class ConvertPydantic(BaseProcessor):
         builder_state = PydanticBuilder(store=self.s.store)
         self.s.blocks.accept(builder_state)
         view = builder_state.get_root(self.fragment)
-        self.s.view_json = view.model_dump(mode="json", by_alias=True)
+        self.s.view_json = humps.camelize(
+            view.model_dump(mode="json", by_alias=True, exclude_none=True)
+        )
         return view
 
 

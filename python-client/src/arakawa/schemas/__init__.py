@@ -1,4 +1,5 @@
 from .asset import Attachment, DataTable, Media, Plot, Table  # noqa: F401
+from .base import DataBlock  # noqa: F401
 from .controls import (  # noqa: F401
     DateTimeField,
     HiddenField,

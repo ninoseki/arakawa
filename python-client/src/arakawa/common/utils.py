@@ -15,13 +15,12 @@ from pathlib import Path
 from typing import Any
 
 import chardet
-import humps
 from chardet.universaldetector import UniversalDetector
 from loguru import logger as log
 from micawber import ProviderException, bootstrap_basic, bootstrap_noembed, cache
 
 from arakawa.exceptions import ARError
-from arakawa.types import HTML, MIME, SSDict
+from arakawa.types import HTML, MIME
 
 ################################################################################
 # CONSTANTS
@@ -126,11 +125,11 @@ def conv_attrib(v: Any) -> Any | None:
     return v
 
 
-def mk_attribs(**attribs: Any) -> SSDict:
+def mk_attribs(**attribs: Any):
     """convert attributes, dropping None and empty values"""
-    return humps.camelize(
-        {str(k): v1 for (k, v) in attribs.items() if (v1 := conv_attrib(v)) is not None}
-    )
+    return {
+        str(k): v1 for (k, v) in attribs.items() if (v1 := conv_attrib(v)) is not None
+    }
 
 
 #####################################################################

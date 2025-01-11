@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from typing import Literal, Union
 
-from pydantic import Field
+from pydantic import Field, RootModel
 
-from arakawa.types import MethodType, SelectType, VAlign
+from arakawa.types import ComputeMethod, SelectType, VAlign
 
 from .asset import Attachment, DataTable, Media, Plot, Table
 from .base import DataBlock
@@ -20,6 +20,7 @@ from .controls import (
     TagsField,
     TextBox,
 )
+from .fields import TypeAliasedField
 from .misc_blocks import BigNumber, Empty
 from .mixins import OptionalLabelMixin, OptionalNameMinx
 from .text import HTML, Code, Embed, Text
@@ -48,13 +49,13 @@ class LayoutBlock(OptionalNameMinx, OptionalLabelMixin, DataBlock):
 
 
 class Page(LayoutBlock):
-    id: Literal["_Page"] = Field(..., alias="_id")
+    type_: Literal["_Page"] = TypeAliasedField()
 
     title: str | None = Field(default=None, min_length=1, max_length=256)
 
 
 class Group(LayoutBlock):
-    id: Literal["Group"] = Field(..., alias="_id")
+    type_: Literal["Group"] = TypeAliasedField()
 
     columns: int = Field(default=1)
     valign: VAlign
@@ -62,26 +63,30 @@ class Group(LayoutBlock):
 
 
 class Select(LayoutBlock):
-    id: Literal["Select"] = Field(..., alias="_id")
+    type_: Literal["Select"] = TypeAliasedField()
 
     type: SelectType
 
 
 class Toggle(LayoutBlock):
-    id: Literal["Toggle"] = Field(..., alias="_id")
+    type_: Literal["Toggle"] = TypeAliasedField()
 
 
 class Compute(LayoutBlock):
-    id: Literal["Compute"] = Field(..., alias="_id")
+    type_: Literal["Compute"] = TypeAliasedField()
 
     prompt: str | None = Field(default=None)
     subtitle: str | None = Field(default=None)
     action: str | None = Field(default="")
-    method: MethodType = Field(default=MethodType.GET)
+    method: ComputeMethod = Field(default=ComputeMethod.GET)
 
 
 class View(LayoutBlock):
-    id: Literal["View"] = Field(..., alias="_id")
+    type_: Literal["View"] = TypeAliasedField()
 
     fragment: bool
     version: int = Field(..., ge=1)
+
+
+class BlocksWrapper(RootModel):
+    root: list[AllBlocks]
