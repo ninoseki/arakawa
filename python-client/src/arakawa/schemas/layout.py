@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from typing import Literal, Union
 
-from pydantic import Field
+from pydantic import Field, RootModel
 
-from arakawa.types import MethodType, SelectType, VAlign
+from arakawa.types import ComputeMethod, SelectType, VAlign
 
 from .asset import Attachment, DataTable, Media, Plot, Table
 from .base import DataBlock
@@ -77,7 +77,7 @@ class Compute(LayoutBlock):
     prompt: str | None = Field(default=None)
     subtitle: str | None = Field(default=None)
     action: str | None = Field(default="")
-    method: MethodType = Field(default=MethodType.GET)
+    method: ComputeMethod = Field(default=ComputeMethod.GET)
 
 
 class View(LayoutBlock):
@@ -85,3 +85,7 @@ class View(LayoutBlock):
 
     fragment: bool
     version: int = Field(..., ge=1)
+
+
+class BlocksWrapper(RootModel):
+    root: list[AllBlocks]

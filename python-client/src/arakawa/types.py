@@ -45,7 +45,7 @@ class VAlign(StrEnum):
     BOTTOM = "bottom"
 
 
-class MethodType(StrEnum):
+class ComputeMethod(StrEnum):
     CONNECT = "CONNECT"
     DELETE = "DELETE"
     GET = "GET"

@@ -6,7 +6,7 @@ from functools import reduce
 from typing import TYPE_CHECKING
 
 from arakawa.exceptions import ARError
-from arakawa.types import MethodType, SelectType, VAlign
+from arakawa.types import ComputeMethod, SelectType, VAlign
 from arakawa.utils import log
 
 from .base import BaseBlock, BlockId, BlockList, BlockOrPrimitive, wrap_block
@@ -56,7 +56,7 @@ class ContainerBlock(BaseBlock):
         return self
 
     def __copy__(self) -> Self:
-        inst = super().__copy__()
+        inst = super().copy()
         inst.blocks = self.blocks.copy()
         return inst
 
@@ -250,7 +250,7 @@ class Compute(ContainerBlock):
         prompt: str | None = None,
         subtitle: str | None = None,
         action: str | None = "",
-        method: MethodType = MethodType.GET,
+        method: ComputeMethod = ComputeMethod.GET,
     ):
         """
         Args:
