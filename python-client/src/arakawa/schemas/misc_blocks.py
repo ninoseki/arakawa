@@ -7,15 +7,16 @@ from pydantic import Field
 from arakawa.types import NumberValue
 
 from .base import DataBlock
+from .fields import TypeAliasedField
 from .mixins import NameMixin
 
 
 class Empty(NameMixin, DataBlock):
-    type_: Literal["Empty"] = Field(..., alias="_type")
+    type_: Literal["Empty"] = TypeAliasedField()
 
 
 class BigNumber(DataBlock):
-    type_: Literal["BigNumber"] = Field(..., alias="_type")
+    type_: Literal["BigNumber"] = TypeAliasedField()
 
     heading: str = Field(..., min_length=1, max_length=128)
     value: NumberValue = Field(..., min_length=1, max_length=128)

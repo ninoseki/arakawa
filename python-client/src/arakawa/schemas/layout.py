@@ -20,6 +20,7 @@ from .controls import (
     TagsField,
     TextBox,
 )
+from .fields import TypeAliasedField
 from .misc_blocks import BigNumber, Empty
 from .mixins import OptionalLabelMixin, OptionalNameMinx
 from .text import HTML, Code, Embed, Text
@@ -48,13 +49,13 @@ class LayoutBlock(OptionalNameMinx, OptionalLabelMixin, DataBlock):
 
 
 class Page(LayoutBlock):
-    type_: Literal["_Page"] = Field(..., alias="_type")
+    type_: Literal["_Page"] = TypeAliasedField()
 
     title: str | None = Field(default=None, min_length=1, max_length=256)
 
 
 class Group(LayoutBlock):
-    type_: Literal["Group"] = Field(..., alias="_type")
+    type_: Literal["Group"] = TypeAliasedField()
 
     columns: int = Field(default=1)
     valign: VAlign
@@ -62,17 +63,17 @@ class Group(LayoutBlock):
 
 
 class Select(LayoutBlock):
-    type_: Literal["Select"] = Field(..., alias="_type")
+    type_: Literal["Select"] = TypeAliasedField()
 
     type: SelectType
 
 
 class Toggle(LayoutBlock):
-    type_: Literal["Toggle"] = Field(..., alias="_type")
+    type_: Literal["Toggle"] = TypeAliasedField()
 
 
 class Compute(LayoutBlock):
-    type_: Literal["Compute"] = Field(..., alias="_type")
+    type_: Literal["Compute"] = TypeAliasedField()
 
     prompt: str | None = Field(default=None)
     subtitle: str | None = Field(default=None)
@@ -81,7 +82,7 @@ class Compute(LayoutBlock):
 
 
 class View(LayoutBlock):
-    type_: Literal["View"] = Field(..., alias="_type")
+    type_: Literal["View"] = TypeAliasedField()
 
     fragment: bool
     version: int = Field(..., ge=1)

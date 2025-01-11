@@ -5,6 +5,7 @@ from typing import Literal
 from pydantic import Field
 
 from .base import DataBlock
+from .fields import TypeAliasedField
 from .mixins import NameMixin
 
 
@@ -47,7 +48,7 @@ class FileField(
     OptionalHelpMixin,
     ControlBlock,
 ):
-    type_: Literal["FileField"] = Field(..., alias="_type")
+    type_: Literal["FileField"] = TypeAliasedField()
 
     accept: str | None = Field(default=None)
 
@@ -58,7 +59,7 @@ class MultiChoiceField(
     OptionalHelpMixin,
     ControlBlock,
 ):
-    type_: Literal["MultiChoiceField"] = Field(..., alias="_type")
+    type_: Literal["MultiChoiceField"] = TypeAliasedField()
 
     initial: list[str] = Field(..., min_length=1)
     options: list[str] = Field(..., min_length=1)
@@ -70,7 +71,7 @@ class NumberBox(
     OptionalRequiredMixin,
     ControlBlock,
 ):
-    type_: Literal["NumberBox"] = Field(..., alias="_type")
+    type_: Literal["NumberBox"] = TypeAliasedField()
 
     initial: int | float | None = Field(default=None)
 
@@ -81,7 +82,7 @@ class RangeField(
     OptionalRequiredMixin,
     ControlBlock,
 ):
-    type_: Literal["RangeField"] = Field(..., alias="_type")
+    type_: Literal["RangeField"] = TypeAliasedField()
 
     initial: int | float
     min: int | float
@@ -96,7 +97,7 @@ class ChoiceField(
     OptionalRequiredMixin,
     ControlBlock,
 ):
-    type_: Literal["ChoiceField"] = Field(..., alias="_type")
+    type_: Literal["ChoiceField"] = TypeAliasedField()
 
     options: list[str] = Field(..., min_length=1)
 
@@ -107,7 +108,7 @@ class SwitchField(
     OptionalRequiredMixin,
     ControlBlock,
 ):
-    type_: Literal["SwitchField"] = Field(..., alias="_type")
+    type_: Literal["SwitchField"] = TypeAliasedField()
 
     initial: bool | None = Field(default=None)
 
@@ -118,7 +119,7 @@ class TagsField(
     OptionalRequiredMixin,
     ControlBlock,
 ):
-    type_: Literal["TagsField"] = Field(..., alias="_type")
+    type_: Literal["TagsField"] = TypeAliasedField()
 
     initial: list[str] = Field(..., min_length=1)
 
@@ -139,10 +140,10 @@ class TextBox(
         "TelephoneField",
         "PasswordField",
         "ColorField",
-    ] = Field(..., alias="_type")
+    ] = TypeAliasedField()
 
 
 class HiddenField(ControlBlock):
-    type_: Literal["HiddenField"] = Field(..., alias="_type")
+    type_: Literal["HiddenField"] = TypeAliasedField()
 
     initial: str
