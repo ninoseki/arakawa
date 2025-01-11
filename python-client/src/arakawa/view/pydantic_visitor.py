@@ -7,8 +7,8 @@ from typing import TYPE_CHECKING, Any, Protocol, cast
 
 from multimethod import DispatchError, multimethod
 
-from arakawa import blocks, schemas
-from arakawa.blocks import BaseBlock
+from arakawa import schemas
+from arakawa.blocks import BaseBlock, Group
 from arakawa.blocks.asset import AssetBlock
 from arakawa.blocks.layout import ContainerBlock
 from arakawa.blocks.text import EmbeddedTextBlock
@@ -30,12 +30,12 @@ if TYPE_CHECKING:
 @dataclasses.dataclass
 class PydanticBuilder(ViewVisitor):
     store: FileStore
-    elements: list[schemas.DataBlock] = dataclasses.field(default_factory=list)
+    elements: list[BaseBlock] = dataclasses.field(default_factory=list)
 
     _seen_names: set[str] = dataclasses.field(default_factory=set)
 
     def get_root(self, fragment: bool = False):
-        _top_group = cast(blocks.Group, self.elements.pop())
+        _top_group = cast(Group, self.elements.pop())
         assert _top_group._type == "Group"
         assert not self.elements
 
@@ -52,11 +52,11 @@ class PydanticBuilder(ViewVisitor):
     def store_count(self) -> int:
         return len(self.store.files)
 
-    def add_element(self, _: BaseBlock, e: Any) -> Self:
+    def add_element(self, _: BaseBlock, e: BaseBlock) -> Self:
         """Add an element to the list of nodes at the current XML tree location"""
         self.elements.append(e)
 
-        name: str | None = getattr(e, "name", None)
+        name: str | None = e.get("name", None)  # type: ignore
         if name:
             if name in self._seen_names:
                 raise ARError(f"Duplicate name {name} found in the View")
@@ -89,10 +89,10 @@ class PydanticBuilder(ViewVisitor):
         sub_elements = self._visit_subnodes(b)
 
         # Blocks are converted to Group internally
-        if label := getattr(b, "label", None):
+        if label := b.get("label"):
             log.info(f"Found label {label} in top-level Blocks/View")
 
-        element = blocks.Group(
+        element = Group(
             blocks=sub_elements,
             name=b.name,
             label=label,
@@ -109,7 +109,7 @@ class PydanticBuilder(ViewVisitor):
     def _(self, b: AssetBlock):
         fe = self._add_asset_to_store(b)
 
-        element = b.__copy__()
+        element = b.copy()
         element._add_attributes(
             type=fe.mime,
             src=f"ref://{fe.hash}",

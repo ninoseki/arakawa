@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import sys
 from abc import ABC
+from collections.abc import MutableMapping
 from typing import TYPE_CHECKING, Any, ClassVar, TypeVar, Union, cast
 
 from arakawa.common.utils import is_valid_id, mk_attribs
@@ -22,7 +23,7 @@ BlockId = str
 VV = TypeVar("VV", bound="ViewVisitor")
 
 
-class BaseBlock(ABC):
+class BaseBlock(ABC, MutableMapping[str, Any]):
     """Base Block class - subclassed by all Block types
 
     ..note:: The class is not used directly.
@@ -45,9 +46,7 @@ class BaseBlock(ABC):
         self._add_attributes(name=name, **kwargs)
 
     def _add_attributes(self, **kwargs):
-        attrs = mk_attribs(**kwargs)
-        for k, v in attrs.items():
-            setattr(self, k, v)
+        self.__dict__.update(mk_attribs(**kwargs))
 
     def _ipython_display_(self):
         """Display the block as a side effect within a Jupyter notebook"""
@@ -67,11 +66,79 @@ class BaseBlock(ABC):
         visitor.visit(self)
         return visitor
 
-    def __copy__(self) -> Self:
-        """custom copy that deep copies attributes"""
+    def items(self):
+        return self.__dict__.items()
+
+    def keys(self):
+        return self.__dict__.keys()
+
+    def __iter__(self):
+        return self.__dict__.__iter__()
+
+    def __setitem__(self, key: str, value: Any):
+        self.__setattr__(key, value)
+
+    def __getitem__(self, key: str):
+        return self.__getattr__(key)
+
+    def __getstate__(self):
+        return self.__dict__
+
+    def __setstate__(self, d: Any):
+        self.__dict__.update(d)
+
+    def __delitem__(self, key: str):
+        self.__dict__.__delitem__(key)
+
+    def __getattr__(self, key: str):
+        if key.startswith("__") and key.endswith("__"):
+            return super().__getattr__(key)  # type: ignore
+
+        return self.__dict__[key]
+
+    def __setattr__(self, key: str, value: Any):
+        self.__dict__[key] = value
+
+    def __delattr__(self, key: str):
+        self.__dict__.pop(key, None)
+
+    def __repr__(self):
+        return str(self.__dict__)
+
+    def __cmp__(self, rhs):
+        raise TypeError("unorderable types")
+
+    def __lt__(self, rhs):
+        raise TypeError("unorderable types")
+
+    def __gt__(self, rhs):
+        raise TypeError("unorderable types")
+
+    def __le__(self, rhs):
+        raise TypeError("unorderable types")
+
+    def __ge__(self, rhs):
+        raise TypeError("unorderable types")
+
+    def __eq__(self, rhs):
+        if hasattr(rhs, "__dict__"):
+            return self.__dict__ == rhs.__dict__
+
+        return self.__dict__ == rhs
+
+    def __ne__(self, rhs):
+        return not self.__eq__(rhs)
+
+    def __len__(self):
+        return len(self.__dict__)
+
+    def copy(self) -> Self:
         inst = self.__class__.__new__(self.__class__)
         inst.__dict__.update(self.__dict__)
         return inst
+
+    def __copy__(self):
+        return self.copy()
 
 
 class DataBlock(BaseBlock):
