@@ -25,11 +25,11 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: local-report-css
-          path: ./dist/local-report/local-report.css
+          path: ./web-components/dist/local-report/local-report.css
       - uses: actions/upload-artifact@v4
         with:
           name: local-report-js
-          path: ./dist/local-report/local-report.js
+          path: ./web-components/dist/local-report/local-report.js
   pypi-build:
     needs: [npm-build]
     runs-on: ubuntu-latest
