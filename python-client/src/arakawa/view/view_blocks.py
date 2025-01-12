@@ -124,7 +124,18 @@ class Report(Blocks):
         name: str | None = None,
         formatting: Formatting | None = None,
         cdn_base: str | None = None,
+        standalone: bool = False,
     ) -> None:
+        """Save a report as an HTML file.
+
+        Args:
+            path: A file path to store the document.
+            open: Open in your browser after creating. Default to False.
+            name: A name of a report. Optional. Uses path if not provided.
+            formatting: Sets the basic app styling.
+            cdn_base: Base URL of CDN. Defaults to None.
+            standalone: Whether or not to inline assets in an HTML instead of loading via CDN or not. Defaults to False.
+        """
         from ..processors import save_report
 
         save_report(
@@ -134,6 +145,7 @@ class Report(Blocks):
             name=name,
             formatting=formatting,
             cdn_base=cdn_base,
+            standalone=standalone,
         )
 
     def stringify(
@@ -142,7 +154,17 @@ class Report(Blocks):
         formatting: Formatting | None = None,
         cdn_base: str | None = None,
         resizable: bool = True,
+        standalone: bool = False,
     ) -> str:
+        """Stringify a report as an HTML string.
+
+        Args:
+            name: A name of a report. Optional. Uses path if not provided.
+            formatting: Sets the basic app styling.
+            cdn_base: Base URL of CDN. Defaults to None.
+            resizable: Wether or not to allow make an iframed report resizable or not. Defaults to True.
+            standalone: Whether or not to inline assets in an HTML instead of loading via CDN or not. Defaults to False.
+        """
         from ..processors import stringify_report
 
         return stringify_report(
@@ -151,4 +173,5 @@ class Report(Blocks):
             formatting=formatting,
             cdn_base=cdn_base,
             resizable=resizable,
+            standalone=standalone,
         )

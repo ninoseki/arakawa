@@ -104,6 +104,7 @@ markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
+  - pymdownx.magiclink
   - pymdownx.snippets
   - pymdownx.superfences
   - pymdownx.tabbed:
@@ -118,6 +119,7 @@ markdown_extensions:
   - footnotes
   - attr_list
   - md_in_html
+  - mdx_truly_sane_lists
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.emoji:

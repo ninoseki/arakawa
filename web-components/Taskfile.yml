@@ -1,0 +1,5 @@
+version: '3'
+
+tasks:
+  copy-local-report:
+    cmd: cp ./dist/local-report/local-report.* ../python-client/src/arakawa/resources/html_templates/

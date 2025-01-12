@@ -1,12 +1,13 @@
 {
   "extends": "@tsconfig/node22/tsconfig.json",
   "include": [
-    "vite.config.*",
-    "vitest.config.*",
+    "*.vite.config.ts",
     "cypress.config.*",
     "nightwatch.conf.*",
     "playwright.config.*",
-    "rollup-plugin-vue-esm.ts"
+    "rollup-plugin-vue-esm.ts",
+    "vite.config.*",
+    "vitest.config.*",
   ],
   "compilerOptions": {
     "composite": true,

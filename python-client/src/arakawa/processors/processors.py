@@ -10,8 +10,9 @@ from typing import Any, cast
 from uuid import uuid4
 
 import humps
-from jinja2 import Environment, FileSystemLoader, Template
+from jinja2 import Environment, FileSystemLoader, Template, pass_context
 from jinja2.utils import htmlsafe_json_dumps
+from markupsafe import Markup
 
 from arakawa import blocks as b
 from arakawa.common import timestamp
@@ -21,6 +22,16 @@ from arakawa.utils import display_msg, open_in_browser
 from arakawa.view import PreProcess
 
 from .types import BaseProcessor, Formatting
+
+
+@pass_context
+def include_raw(ctx, name) -> Markup:
+    """Normal jinja2 {% include %} doesn't escape {{...}} which appear in React's source code"""
+    env = ctx.environment
+    # Escape </script> to prevent 3rd party JS terminating the local app bundle.
+    # Note there's an extra "\" because it needs to be escaped at both the python and JS level
+    src = env.loader.get_source(env, name)[0].replace("</script>", r"<\\/script>")
+    return Markup(src)
 
 
 class PreProcessView(BaseProcessor):
@@ -98,6 +109,7 @@ class BaseExportHTML(BaseProcessor, ABC):
 
         template_loader = FileSystemLoader(cls.template_dir)
         template_env = Environment(loader=template_loader)
+        template_env.globals["include_raw"] = include_raw
         cls.template = template_env.get_template(cls.template_name)
 
     def get_cdn(self) -> str:
@@ -110,6 +122,7 @@ class BaseExportHTML(BaseProcessor, ABC):
         name: str,
         formatting: Formatting | None = None,
         cdn_base: str | None = None,
+        standalone: bool = False,
     ) -> tuple[str, str]:
         """Internal method to write the ViewXML and assets into a HTML container and associated files"""
         name = name or "app"
@@ -129,7 +142,7 @@ class BaseExportHTML(BaseProcessor, ABC):
         app_data = {"viewJson": view_json, "assets": assets}
         html = self.template.render(
             # Escape JS multi-line strings
-            app_data=htmlsafe_json_dumps(app_data),
+            app_data=htmlsafe_json_dumps({"data": {"result": app_data}}),
             report_width_class=formatting.width.to_css(),
             report_name=name,
             report_date=timestamp(),
@@ -138,6 +151,7 @@ class BaseExportHTML(BaseProcessor, ABC):
             events=True,
             report_id=report_id,
             cdn_base=cdn_base or self.get_cdn(),
+            standalone=standalone,
         )
 
         return html, report_id
@@ -159,18 +173,21 @@ class ExportHTMLInlineAssets(BaseExportHTML):
         name: str = "app",
         formatting: Formatting | None = None,
         cdn_base: str | None = None,
+        standalone: bool = False,
     ):
         self.path = path
         self.open = open
         self.name = name
         self.formatting = formatting
         self.cdn_base = cdn_base
+        self.standalone = standalone
 
     def __call__(self, _: Any) -> str:
         html, report_id = self._write_html_template(
             name=self.name,
             formatting=self.formatting,
             cdn_base=self.cdn_base,
+            standalone=self.standalone,
         )
 
         Path(self.path).write_text(html, encoding="utf-8")
@@ -199,17 +216,20 @@ class ExportHTMLFileAssets(BaseExportHTML):
         name: str = "app",
         formatting: Formatting | None = None,
         cdn_base: str | None = None,
+        standalone: bool = False,
     ):
         self.app_dir = app_dir
         self.name = name
         self.formatting = formatting
         self.cdn_base = cdn_base
+        self.standalone = standalone
 
     def __call__(self, _: NPath | None = None) -> Path:
         html, _ = self._write_html_template(
             name=self.name,
             formatting=self.formatting,
             cdn_base=self.cdn_base,
+            standalone=self.standalone,
         )
 
         index_path = self.app_dir / "index.html"
@@ -232,14 +252,19 @@ class ExportHTMLStringInlineAssets(BaseExportHTML):
         name: str = "Stringified App",
         formatting: Formatting | None = None,
         cdn_base: str | None = None,
+        standalone: bool = False,
     ):
         self.name = name
         self.formatting = formatting
         self.cdn_base = cdn_base
+        self.standalone = standalone
 
     def __call__(self, _: Any) -> HTML:
         html, _ = self._write_html_template(
-            name=self.name, formatting=self.formatting, cdn_base=self.cdn_base
+            name=self.name,
+            formatting=self.formatting,
+            cdn_base=self.cdn_base,
+            standalone=self.standalone,
         )
         return HTML(html)
 
