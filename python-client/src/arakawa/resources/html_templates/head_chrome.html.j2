@@ -2,8 +2,14 @@
 
 <link href="https://fonts.googleapis.com/css?family=Inter:400,500,600,700|Inconsolata|Karla|Rubik&display=swap"
   rel="stylesheet" />
+{% if standalone %}
+<style>
+  {% include "local-report.css" %}
+</style>
+{% else %}
 <link rel="stylesheet" href="{{ cdn_base }}/report/index.css" />
 <link rel="stylesheet" href="{{ cdn_base }}/report/tailwind.css" />
+{% endif %}
 <script>
   window.arLocal = true;
   /* construct the view */
@@ -12,12 +18,18 @@
     id: "{{ report_id }}",
     htmlHeader,
     isLightProse: {{ is_light_prose }},
-    mode: "VIEW",
+  mode: "VIEW",
     reportWidthClass: "{{ report_width_class }}"
   };
-  window.reportProps["appData"] = { data: { result: {{ app_data }} }};
+  window.reportProps["appData"] = {{ app_data }};
 </script>
+{% if standalone %}
+<script type="module">
+  {{ include_raw("local-report.js") }}
+</script>
+{% else %}
 <script type="module">
   import { mountReport } from "{{ cdn_base }}/report/index.es.js";
   mountReport(window.reportProps);
 </script>
+{% endif %}

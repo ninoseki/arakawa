@@ -124,6 +124,7 @@ class Report(Blocks):
         name: str | None = None,
         formatting: Formatting | None = None,
         cdn_base: str | None = None,
+        standalone: bool = False,
     ) -> None:
         from ..processors import save_report
 
@@ -134,6 +135,7 @@ class Report(Blocks):
             name=name,
             formatting=formatting,
             cdn_base=cdn_base,
+            standalone=standalone,
         )
 
     def stringify(
@@ -142,6 +144,7 @@ class Report(Blocks):
         formatting: Formatting | None = None,
         cdn_base: str | None = None,
         resizable: bool = True,
+        standalone: bool = False,
     ) -> str:
         from ..processors import stringify_report
 
@@ -151,4 +154,5 @@ class Report(Blocks):
             formatting=formatting,
             cdn_base=cdn_base,
             resizable=resizable,
+            standalone=standalone,
         )

@@ -19,7 +19,6 @@ const tableRef = (node: any): void => {
 </script>
 
 <template>
-  <link rel="stylesheet" href="/report/index.css" />
   <div
     :ref="tableRef"
     :class="['w-full', { 'h-full absolute top-0': p.singleBlockEmbed }]"

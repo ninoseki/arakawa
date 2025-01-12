@@ -27,6 +27,7 @@ def save_report(
     name: str | None = None,
     formatting: Formatting | None = None,
     cdn_base: str | None = None,
+    standalone: bool = False,
 ) -> None:
     """Save the app document to a local HTML file
 
@@ -36,6 +37,8 @@ def save_report(
         open: Open in your browser after creating (default: False)
         name: Name of the document (optional: uses path if not provided)
         formatting: Sets the basic app styling
+        cdn_base: Base URL of CDN. Defaults to None.
+        standalone: Inline the app source in the HTML app file rather than loading via CDN. Defaults to False.
     """
     s = ViewState(blocks=Blocks.wrap_blocks(blocks), file_entry_klass=B64FileEntry)
 
@@ -50,6 +53,7 @@ def save_report(
                 name=name or "Report",
                 formatting=formatting,
                 cdn_base=cdn_base,
+                standalone=standalone,
             )
         )
         .result
@@ -62,6 +66,7 @@ def stringify_report(
     formatting: Formatting | None = None,
     cdn_base: str | None = None,
     resizable: bool = True,
+    standalone: bool = False,
 ) -> str:
     """Stringify the app document to a HTML string
 
@@ -70,6 +75,8 @@ def stringify_report(
         name: Name of the document (optional: uses path if not provided)
         formatting: Sets the basic app styling
         resizable: Whether the app should be resizable. Defaults to True.
+        cdn_base: Base URL of CDN. Defaults to None.
+        standalone: Inline the app source in the HTML app file rather than loading via CDN. Defaults to False.
     """
     s = ViewState(blocks=Blocks.wrap_blocks(blocks), file_entry_klass=B64FileEntry)
     klass = (
@@ -81,6 +88,7 @@ def stringify_report(
         name=name or "Report",
         formatting=formatting,
         cdn_base=cdn_base,
+        standalone=standalone,
     )
     return (
         Pipeline(s)

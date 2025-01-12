@@ -1,8 +1,7 @@
-name: Publish packages & docs
+name: Build (test)
 
 on:
-  release:
-    types: ["created"]
+  workflow_dispatch:
 
 jobs:
   publish-npm-package:
@@ -20,11 +19,6 @@ jobs:
           cache-dependency-path: web-components/package-lock.json
       - run: npm install
       - run: npm run build
-      - run: npm version --no-git-tag-version ${{ github.event.release.tag_name }}
-      - uses: JS-DevTools/npm-publish@v3
-        with:
-          package: ./web-components
-          token: ${{ secrets.NPM_TOKEN }}
       # build local report
       - run: npm run build:local-report
       # upload local report assets
@@ -39,9 +33,6 @@ jobs:
   publish-pypi-package:
     needs: [publish-npm-package]
     runs-on: ubuntu-latest
-    permissions:
-      # IMPORTANT: this permission is mandatory for trusted publishing
-      id-token: write
     defaults:
       run:
         working-directory: ./python-client
@@ -64,30 +55,3 @@ jobs:
           pattern: local-report-*
           merge-multiple: true
       - run: uv run pyproject-build
-      - name: publish
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          # NOTE: need to use absolute path since working-directory is not respected...
-          packages-dir: ./python-client/dist/
-  publish-docs:
-    needs: [publish-npm-package, publish-pypi-package]
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./docs
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: 3.11
-          cache: pip
-      - run: pip install -r requirements.txt
-      - uses: actions/cache@v4
-        with:
-          path: ~/.cache/uv
-          key: uv-3.11-${{ hashFiles('uv.lock') }}
-      - run: uv sync --frozen --all-extras
-      - name: Reinstall from ../python-client
-        run: uv sync --reinstall-package arakawa
-      - run: AR_VERSION=${{ github.event.release.tag_name }} ./nbbuild.sh
-      - run: uv run mkdocs gh-deploy --force
