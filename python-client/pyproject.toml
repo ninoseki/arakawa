@@ -44,6 +44,10 @@ source = "uv-dynamic-versioning"
 
 [tool.hatch.build.targets.sdist]
 exclude = ["images/", ".vscode/", "tests/"]
+artifacts = [
+  "src/arakawa/resources/html_templates/local-report.css",
+  "src/arakawa/resources/html_templates/local-report.js",
+]
 
 [dependency-groups]
 dev = [
