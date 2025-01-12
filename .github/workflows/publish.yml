@@ -31,11 +31,11 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: local-report-css
-          path: ./dist/local-report/arakawa.css
+          path: ./dist/local-report/local-report.css
       - uses: actions/upload-artifact@v4
         with:
           name: local-report-js
-          path: ./dist/local-report/local-report.index.js
+          path: ./dist/local-report/local-report.js
   publish-pypi-package:
     needs: [publish-npm-package]
     runs-on: ubuntu-latest

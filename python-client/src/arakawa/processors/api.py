@@ -29,16 +29,16 @@ def save_report(
     cdn_base: str | None = None,
     standalone: bool = False,
 ) -> None:
-    """Save the app document to a local HTML file
+    """Save a report as an HTML file.
 
     Args:
-        blocks: The `Blocks` object or a list of Blocks
-        path: File path to store the document
-        open: Open in your browser after creating (default: False)
-        name: Name of the document (optional: uses path if not provided)
-        formatting: Sets the basic app styling
+        blocks: A `Blocks` object or a list of Blocks.
+        path: A file path to store the document.
+        open: Open in your browser after creating. Default to False.
+        name: A name of a report. Optional. Uses path if not provided.
+        formatting: Sets the basic app styling.
         cdn_base: Base URL of CDN. Defaults to None.
-        standalone: Inline the app source in the HTML app file rather than loading via CDN. Defaults to False.
+        standalone: Whether or not to inline assets in an HTML instead of loading via CDN or not. Defaults to False.
     """
     s = ViewState(blocks=Blocks.wrap_blocks(blocks), file_entry_klass=B64FileEntry)
 
@@ -68,15 +68,15 @@ def stringify_report(
     resizable: bool = True,
     standalone: bool = False,
 ) -> str:
-    """Stringify the app document to a HTML string
+    """Stringify a report as an HTML string.
 
     Args:
-        blocks: The `Blocks` object or a list of Blocks
-        name: Name of the document (optional: uses path if not provided)
-        formatting: Sets the basic app styling
-        resizable: Whether the app should be resizable. Defaults to True.
+        blocks: A `Blocks` object or a list of Blocks.
+        name: A name of a report. Optional. Uses path if not provided.
+        formatting: Sets the basic app styling.
         cdn_base: Base URL of CDN. Defaults to None.
-        standalone: Inline the app source in the HTML app file rather than loading via CDN. Defaults to False.
+        resizable: Wether or not to allow make an iframed report resizable or not. Defaults to True.
+        standalone: Whether or not to inline assets in an HTML instead of loading via CDN or not. Defaults to False.
     """
     s = ViewState(blocks=Blocks.wrap_blocks(blocks), file_entry_klass=B64FileEntry)
     klass = (

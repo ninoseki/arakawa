@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  publish-npm-package:
+  npm-build:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -25,13 +25,13 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: local-report-css
-          path: ./dist/local-report/arakawa.css
+          path: ./dist/local-report/local-report.css
       - uses: actions/upload-artifact@v4
         with:
           name: local-report-js
-          path: ./dist/local-report/local-report.index.js
-  publish-pypi-package:
-    needs: [publish-npm-package]
+          path: ./dist/local-report/local-report.js
+  pypi-build:
+    needs: [npm-build]
     runs-on: ubuntu-latest
     defaults:
       run:
