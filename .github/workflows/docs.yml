@@ -25,7 +25,7 @@ jobs:
         with:
           path: ~/.cache/uv
           key: uv-3.11-${{ hashFiles('uv.lock') }}
-      - run: uv sync --frozen --all-extras
+      - run: uv sync --frozen
       - name: Reinstall from ../python-client
         run: uv sync --reinstall-package arakawa
       - run: AR_VERSION=${{ inputs.arVersion }} ./nbbuild.sh
