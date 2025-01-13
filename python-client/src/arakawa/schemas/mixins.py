@@ -12,7 +12,7 @@ def truncate_optional_string(x: str | None, *, max_length: int) -> str | None:
     if x is None or len(x) <= max_length:
         return x
 
-    return f"{x[:max_length-3]}..."
+    return f"{x[: max_length - 3]}..."
 
 
 class OptionalLabelMixin(DataBlock):
