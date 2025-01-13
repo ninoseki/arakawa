@@ -49,9 +49,11 @@ artifacts = [
   "src/arakawa/resources/html_templates/local-report.js",
 ]
 
-[tool.hatch.build.targets.wheel.shared-data]
-"arakawa/resources/html_templates/local-report.css" = "src/arakawa/resources/html_templates/local-report.css"
-"arakawa/resources/html_templates/local-report.js" = "src/arakawa/resources/html_templates/local-report.js"
+[tool.hatch.build.targets.wheel]
+artifacts = [
+  "src/arakawa/resources/html_templates/local-report.css",
+  "src/arakawa/resources/html_templates/local-report.js",
+]
 
 [dependency-groups]
 dev = [

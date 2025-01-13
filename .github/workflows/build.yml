@@ -58,4 +58,11 @@ jobs:
       - run: |
           test -e ./src/arakawa/resources/html_templates/local-report.css
           test -e ./src/arakawa/resources/html_templates/local-report.js
-      - run: uv run pyproject-build
+      # build wheel to test what's inside
+      - run: uv run pyproject-build --wheel
+      # unzip wheel
+      - run: unzip -d dist -o "dist/*.whl"
+      # confirm local report assets are present in wheel
+      - run: |
+          test -e dist/arakawa/resources/html_templates/local-report.css
+          test -e dist/arakawa/resources/html_templates/local-report.js
