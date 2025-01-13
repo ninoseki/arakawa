@@ -127,9 +127,7 @@ def conv_attrib(v: Any) -> Any | None:
 
 def mk_attribs(**attribs: Any):
     """convert attributes, dropping None and empty values"""
-    return {
-        str(k): v1 for (k, v) in attribs.items() if (v1 := conv_attrib(v)) is not None
-    }
+    return {str(k): conv_attrib(v) for (k, v) in attribs.items()}
 
 
 #####################################################################

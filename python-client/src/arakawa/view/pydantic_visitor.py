@@ -56,7 +56,7 @@ class PydanticBuilder(ViewVisitor):
         """Add an element to the list of nodes at the current XML tree location"""
         self.elements.append(e)
 
-        name: str | None = e.get("name", None)  # type: ignore
+        name: str | None = getattr(e, "name", None)
         if name:
             if name in self._seen_names:
                 raise ARError(f"Duplicate name {name} found in the View")
@@ -89,7 +89,7 @@ class PydanticBuilder(ViewVisitor):
         sub_elements = self._visit_subnodes(b)
 
         # Blocks are converted to Group internally
-        if label := b.get("label"):
+        if label := getattr(b, "label", None):
             log.info(f"Found label {label} in top-level Blocks/View")
 
         element = Group(
