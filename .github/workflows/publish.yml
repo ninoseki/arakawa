@@ -99,7 +99,7 @@ jobs:
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
       # NOTE: tag name is semver
       - run: |
-          VERSION=$(python convert_to_py_version.py ${{ github.event.release.tag_name }})
+          VERSION=$(uv run python convert_to_py_version.py ${{ github.event.release.tag_name }})
           if echo $VERSION | grep -q "[A-Za-z]"; then
             uv run mike deploy $VERSION --update-aliases --push
           else
