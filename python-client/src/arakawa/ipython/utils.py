@@ -118,7 +118,7 @@ def cells_to_blocks(
         if dirty_cells:
             notebook_parity_message += f"""
 
-The following cells have not been executed and saved: {', '.join(map(str, dirty_cells))}"""
+The following cells have not been executed and saved: {", ".join(map(str, dirty_cells))}"""
 
         raise NotebookParityError(notebook_parity_message)
 
@@ -152,7 +152,7 @@ The following cells have not been executed and saved: {', '.join(map(str, dirty_
                     blocks.append(output_block)
                 elif "ar-include" in tags:
                     display_msg(
-                        f'Cell output of type {type(ipython_output_cache.get(cell["execution_count"]))} not supported. Skipping.',
+                        f"Cell output of type {type(ipython_output_cache.get(cell['execution_count']))} not supported. Skipping.",
                     )
 
     if not blocks:
