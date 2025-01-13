@@ -39,8 +39,7 @@ class ContainerBlock(BaseBlock):
         blocks: list[BlockOrPrimitive] | None = None,
         **kwargs,
     ):
-        self.blocks = blocks or list(arg_blocks)
-        self.blocks = [wrap_block(b) for b in self.blocks]
+        self.blocks = [wrap_block(b) for b in blocks or list(arg_blocks)]
 
         super().__init__(**kwargs)
 
@@ -196,7 +195,6 @@ class Group(ContainerBlock):
             blocks=blocks,
             name=name,
             label=label,
-            columns=columns,
             widths=widths,
             valign=valign,
         )
