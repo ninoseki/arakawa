@@ -51,7 +51,11 @@ jobs:
       # download local report assets
       - uses: actions/download-artifact@v4
         with:
-          path: ./src/arakawa/resources/html_templates/
+          path: ./python-client/src/arakawa/resources/html_templates/
           pattern: local-report-*
           merge-multiple: true
+      # confirm local report assets are present
+      - run: |
+          test -e ./src/arakawa/resources/html_templates/local-report.css
+          test -e ./src/arakawa/resources/html_templates/local-report.js
       - run: uv run pyproject-build
