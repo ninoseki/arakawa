@@ -1,5 +1,8 @@
 # Arakawa
 
+[![PyPI version](https://badge.fury.io/py/arakawa.svg)](https://badge.fury.io/py/arakawa)
+[![npm version](https://badge.fury.io/js/arakawa.svg)](https://badge.fury.io/js/arakawa)
+
 <p align='center'>
   <h2 align='center'>Build interactive reports in seconds using Python.</h2>
 </p>
