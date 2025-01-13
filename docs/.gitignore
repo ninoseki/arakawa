@@ -527,3 +527,6 @@ tmp
 /docs/**/*-preview.png
 
 docs/_report-statics
+
+# MkDocs documentation
+/site/
