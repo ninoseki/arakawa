@@ -131,3 +131,5 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/ninoseki/arakawa/
+  version:
+    provider: mike
