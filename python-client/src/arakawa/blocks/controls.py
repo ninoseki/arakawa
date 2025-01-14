@@ -17,7 +17,7 @@ class BaseDateTimeBlock(ControlBlock):
     def __init__(
         self,
         name: BlockId,
-        help_: str | None = None,
+        help: str | None = None,
         initial: str | None = None,
         label: str | None = None,
         required: bool | None = None,
@@ -26,7 +26,7 @@ class BaseDateTimeBlock(ControlBlock):
         """
         Args:
             name (BlockId): A name.
-            help_ (str | None, optional): A help text. Defaults to None.
+            help (str | None, optional): A help text. Defaults to None.
             initial (str | None, optional): An initial value. Defaults to None.
             label (str | None, optional): A label. Defaults to None.
             required (bool | None, optional): Whether it's required or not. Defaults to None.
@@ -37,7 +37,7 @@ class BaseDateTimeBlock(ControlBlock):
             label=label,
             initial=initial,
             required=required,
-            help=help_,
+            help=help,
             validation=validation,
         )
 
@@ -77,7 +77,7 @@ class FileField(ControlBlock):
         self,
         name: BlockId,
         accept: str | None = None,
-        help_: str | None = None,
+        help: str | None = None,
         label: str | None = None,
         required: bool | None = None,
         validation: str | None = None,
@@ -85,7 +85,7 @@ class FileField(ControlBlock):
         """
         Args:
             name (BlockId): A name.
-            help_ (str | None, optional): A help text. Defaults to None.
+            help (str | None, optional): A help text. Defaults to None.
             label (str | None, optional): A label. Defaults to None.
             required (bool | None, optional): Whether it's required or not. Defaults to None.
             validation (str | None, optional): A formkit validation in addition to required. Defaults to None.
@@ -95,7 +95,7 @@ class FileField(ControlBlock):
             name=name,
             label=label,
             required=required,
-            help=help_,
+            help=help,
             validation=validation,
             accept=accept,
         )
@@ -113,7 +113,7 @@ class MultiChoiceField(ControlBlock):
         name: BlockId,
         initial: list[str],
         options: list[str],
-        help_: str | None = None,
+        help: str | None = None,
         label: str | None = None,
         required: bool | None = None,
         validation: str | None = None,
@@ -123,7 +123,7 @@ class MultiChoiceField(ControlBlock):
             name (BlockId): A name.
             initial (list[str]): An initial value.
             options (list[str]): Options.
-            help_ (str | None, optional): A help text. Defaults to None.
+            help (str | None, optional): A help text. Defaults to None.
             label (str | None, optional): A label. Defaults to None.
             required (bool | None, optional): Whether it's required or not. Defaults to None.
             validation (str | None, optional): A formkit validation in addition to required. Defaults to None.
@@ -134,7 +134,7 @@ class MultiChoiceField(ControlBlock):
             name=name,
             label=label,
             required=required,
-            help=help_,
+            help=help,
             validation=validation,
         )
 
@@ -149,7 +149,7 @@ class NumberBox(ControlBlock):
     def __init__(
         self,
         name: BlockId,
-        help_: str | None = None,
+        help: str | None = None,
         initial: int | float | None = None,
         label: str | None = None,
         required: bool | None = None,
@@ -158,7 +158,7 @@ class NumberBox(ControlBlock):
         """
         Args:
             name (BlockId): A name.
-            help_ (str | None, optional): A help text. Defaults to None.
+            help (str | None, optional): A help text. Defaults to None.
             initial (int | float | None, optional): An initial value. Defaults to None.
             label (str | None, optional): A label. Defaults to None.
             required (bool | None, optional): Whether it's required or not. Defaults to None.
@@ -169,7 +169,7 @@ class NumberBox(ControlBlock):
             label=label,
             initial=initial,
             required=required,
-            help=help_,
+            help=help,
             validation=validation,
         )
 
@@ -184,10 +184,10 @@ class RangeField(ControlBlock):
     def __init__(
         self,
         name: BlockId,
-        min_: int | float,
-        max_: int | float,
+        min: int | float,
+        max: int | float,
         step: int | float,
-        help_: str | None = None,
+        help: str | None = None,
         initial: int | float | None = None,
         label: str | None = None,
         validation: str | None = None,
@@ -195,23 +195,23 @@ class RangeField(ControlBlock):
         """
         Args:
             name (BlockId): Name.
-            min_ (int | float): A min value.
-            max_ (int | float): A max value.
+            min (int | float): A min value.
+            max (int | float): A max value.
             step (int | float): A step value.
-            help_ (str | None, optional): A help text. Defaults to None.
+            help (str | None, optional): A help text. Defaults to None.
             initial (int | float | None, optional): An initial value. Defaults to None.
             label (str | None, optional): A label. Defaults to None.
             validation (str | None, optional): A formkit validation in addition to required. Defaults to None.
         """
-        initial = initial or min_
+        initial = initial or min
         super().__init__(
-            min=min_,
-            max=max_,
+            min=min,
+            max=max,
             step=step,
             name=name,
             label=label,
             initial=initial,
-            help=help_,
+            help=help,
             validation=validation,
         )
 
@@ -227,7 +227,7 @@ class ChoiceField(ControlBlock):
         self,
         name: BlockId,
         options: list[str],
-        help_: str | None = None,
+        help: str | None = None,
         initial: str | None = None,
         label: str | None = None,
         required: bool | None = None,
@@ -237,7 +237,7 @@ class ChoiceField(ControlBlock):
         Args:
             name (BlockId): A name.
             options (list[str]): Options.
-            help_ (str | None, optional): A help text. Defaults to None.
+            help (str | None, optional): A help text. Defaults to None.
             initial (str | None, optional): An initial value. Defaults to None.
             label (str | None, optional): A label. Defaults to None.
             required (bool | None, optional): Whether it's required or not. Defaults to None.
@@ -249,7 +249,7 @@ class ChoiceField(ControlBlock):
             label=label,
             initial=initial,
             required=required,
-            help=help_,
+            help=help,
             validation=validation,
         )
 
@@ -264,7 +264,7 @@ class SwitchField(ControlBlock):
     def __init__(
         self,
         name: BlockId,
-        help_: str | None = None,
+        help: str | None = None,
         initial: bool | None = None,
         label: str | None = None,
         validation: str | None = None,
@@ -272,7 +272,7 @@ class SwitchField(ControlBlock):
         """
         Args:
             name (BlockId): A name.
-            help_ (str | None, optional): A help text. Defaults to None.
+            help (str | None, optional): A help text. Defaults to None.
             initial (bool | None, optional): An initial value. Defaults to None.
             label (str | None, optional): A label. Defaults to None.
             validation (str | None, optional): A formkit validation in addition to required. Defaults to None.
@@ -281,7 +281,7 @@ class SwitchField(ControlBlock):
             name=name,
             label=label,
             initial=initial,
-            help=help_,
+            help=help,
             validation=validation,
         )
 
@@ -297,7 +297,7 @@ class TagsField(ControlBlock):
         self,
         name: BlockId,
         initial: list[str],
-        help_: str | None = None,
+        help: str | None = None,
         label: str | None = None,
         required: bool | None = None,
         validation: str | None = None,
@@ -306,7 +306,7 @@ class TagsField(ControlBlock):
         Args:
             name (BlockId): A name.
             initial (list[str]): An initial value.
-            help_ (str | None, optional): A help text. Defaults to None.
+            help (str | None, optional): A help text. Defaults to None.
             label (str | None, optional): A label. Defaults to None.
             required (bool | None, optional): Whether it's required or not. Defaults to None.
             validation (str | None, optional): A formkit validation in addition to required. Defaults to None.
@@ -316,7 +316,7 @@ class TagsField(ControlBlock):
             label=label,
             initial=initial,
             required=required,
-            help=help_,
+            help=help,
             validation=validation,
         )
 
@@ -325,7 +325,7 @@ class BaseTextField(ControlBlock):
     def __init__(
         self,
         name: BlockId,
-        help_: str | None = None,
+        help: str | None = None,
         initial: str | None = None,
         label: str | None = None,
         required: bool | None = None,
@@ -334,7 +334,7 @@ class BaseTextField(ControlBlock):
         """
         Args:
             name (BlockId): A name.
-            help_ (str | None, optional): A help text. Defaults to None.
+            help (str | None, optional): A help text. Defaults to None.
             initial (str | None, optional): An initial value. Defaults to None.
             label (str | None, optional): A label. Defaults to None.
             required (bool | None, optional): Whether it's required or not. Defaults to None.
@@ -346,7 +346,7 @@ class BaseTextField(ControlBlock):
             initial=initial,
             required=required,
             validation=validation,
-            help=help_,
+            help=help,
         )
 
 
