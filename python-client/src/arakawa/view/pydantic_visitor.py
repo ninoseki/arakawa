@@ -109,7 +109,7 @@ class PydanticBuilder(ViewVisitor):
     def _(self, b: AssetBlock):
         fe = self._add_asset_to_store(b)
 
-        element = b.copy()
+        element = b.__copy__()
         element._add_attributes(
             type=fe.mime,
             src=f"ref://{fe.hash}",

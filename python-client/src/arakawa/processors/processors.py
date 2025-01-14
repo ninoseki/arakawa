@@ -64,7 +64,7 @@ class PreProcessView(BaseProcessor):
 
         # Block-API visitors
         pp = PreProcess(is_finalized=self.is_finalized)
-        v.accept(pp)
+        v._accept(pp)
         v1 = pp.root
         # v1 = copy(v)
 
@@ -84,7 +84,7 @@ class ConvertPydantic(BaseProcessor):
         from arakawa.view.pydantic_visitor import PydanticBuilder
 
         builder_state = PydanticBuilder(store=self.s.store)
-        self.s.blocks.accept(builder_state)
+        self.s.blocks._accept(builder_state)
         view = builder_state.get_root(self.fragment)
         self.s.view_json = humps.camelize(
             view.model_dump(mode="json", by_alias=True, exclude_none=True)
