@@ -55,7 +55,7 @@ class ContainerBlock(BaseBlock):
         return self
 
     def __copy__(self) -> Self:
-        inst = super().copy()
+        inst = super().__copy__()
         inst.blocks = self.blocks.copy()
         return inst
 
@@ -66,7 +66,7 @@ class ContainerBlock(BaseBlock):
     def traverse(self, visitor: VV) -> VV:
         # perform a depth-first traversal of the contained blocks
         return reduce(
-            lambda _visitor, block: block.accept(_visitor), self.blocks, visitor
+            lambda _visitor, block: block._accept(_visitor), self.blocks, visitor
         )
 
 

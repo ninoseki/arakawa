@@ -72,13 +72,13 @@ class Blocks(ContainerBlock):
         from .pydantic_visitor import PydanticBuilder
 
         builder = PydanticBuilder(FileStore(DummyFileEntry))
-        self.accept(builder)
+        self._accept(builder)
         return builder.get_root()
 
     def pprint(self) -> None:
         from .visitors import PrettyPrinter
 
-        self.accept(PrettyPrinter())
+        self._accept(PrettyPrinter())
 
     @classmethod
     def wrap_blocks(cls, x: Self | list[BlockOrPrimitive] | BlockOrPrimitive) -> Self:

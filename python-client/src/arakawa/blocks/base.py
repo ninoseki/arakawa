@@ -8,9 +8,9 @@ from arakawa.common.utils import is_valid_id, mk_attribs
 from arakawa.exceptions import ARError
 
 if sys.version_info <= (3, 11):
-    from typing_extensions import Self
+    pass
 else:
-    from typing import Self
+    pass
 
 if TYPE_CHECKING:
     from arakawa.blocks import Block
@@ -63,17 +63,15 @@ class BaseBlock(ABC):
         else:
             display(self.__str__())
 
-    def accept(self, visitor: VV) -> VV:
+    def _accept(self, visitor: VV) -> VV:
+        # NOTE: use underscore prefix to avoid conflict
         visitor.visit(self)
         return visitor
 
-    def copy(self) -> Self:
+    def __copy__(self):
         inst = self.__class__.__new__(self.__class__)
         inst.__dict__.update(self.__dict__)
         return inst
-
-    def __copy__(self):
-        return self.copy()
 
 
 class DataBlock(BaseBlock):
