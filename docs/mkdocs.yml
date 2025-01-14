@@ -99,6 +99,8 @@ plugins:
             show_if_no_docstring: true
   - search:
       lang: en
+  - mike:
+      canonical_version: latest
 
 markdown_extensions:
   - pymdownx.highlight:
