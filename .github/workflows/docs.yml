@@ -42,4 +42,5 @@ jobs:
           else
             echo "stable version detected"
             uv run mike deploy $VERSION latest --update-aliases --push
+            uv run mike set-default --push latest
           fi
