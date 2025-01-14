@@ -42,7 +42,7 @@ wheels = [
 
 [[package]]
 name = "arakawa"
-version = "0.0.8.post4.dev0+9fa21a3"
+version = "0.0.9a5.post1.dev0+dbbf0b19"
 source = { editable = "." }
 dependencies = [
     { name = "altair" },
