@@ -16,6 +16,8 @@ jobs:
         working-directory: ./docs
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # fetch all commits/branches
       - uses: actions/setup-python@v5
         with:
           python-version: 3.11
@@ -35,7 +37,9 @@ jobs:
       - run: |
           VERSION=$(uv run python convert_to_py_version.py ${{ inputs.arVersion }})
           if echo $VERSION | grep -q "[A-Za-z]"; then
+            echo "beta/alpha version detected"
             uv run mike deploy $VERSION --update-aliases --push
           else
+            echo "stable version detected"
             uv run mike deploy $VERSION latest --update-aliases --push
           fi
