@@ -71,8 +71,6 @@ class Text(OptionalLabelMixin, EmbeddedTextBlock):
             content = utf_read_text(Path(file).expanduser())
 
         content = text or content
-        assert content
-
         return super().__init__(content=content, name=name, label=label)
 
     def format(self, *args: BlockOrPrimitive, **kwargs: BlockOrPrimitive):

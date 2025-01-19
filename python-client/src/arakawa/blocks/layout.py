@@ -31,6 +31,7 @@ class ContainerBlock(OptionalNameMinx, OptionalLabelMixin, DataBlock):
      - represents a subtree in the document
     """
 
+    # TODO: remove Any
     blocks: list[type[DataBlock] | Any] = Field(..., min_length=1)
 
     # how many blocks must there be in the container
@@ -120,6 +121,7 @@ class Select(ContainerBlock):
     """
 
     _tag = "Select"
+    report_minimum_blocks = 2
 
     type: SelectType = Field(...)
 
@@ -143,7 +145,7 @@ class Select(ContainerBlock):
             Select can be passed using either arg parameters or the `blocks` kwarg, e.g. `ar.Select(table, plot, type=ar.SelectType.TABS)` or `ar.Select(blocks=[table, plot])`
         """
         super().__init__(*arg_blocks, blocks=blocks, name=name, label=label, type=type)
-        if len(self.blocks) < 2:
+        if len(self.blocks) < self.report_minimum_blocks:
             log.info("Creating a Select with less than 2 objects")
 
 

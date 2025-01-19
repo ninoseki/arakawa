@@ -4,9 +4,9 @@ import sys
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Union
 
-from pydantic import Field
+from pydantic import Field, field_validator
 
-from arakawa.blocks import Group
+from arakawa.blocks import Block, Group, Page
 from arakawa.blocks.base import BlockOrPrimitive
 from arakawa.blocks.layout import ContainerBlock
 
@@ -68,7 +68,7 @@ class Blocks(ContainerBlock):
         return cls(blocks=app_template.blocks)
 
     def get_view(self):
-        from arakawa.processors.file_store import DummyFileEntry, FileStore
+        from arakawa.file_store import DummyFileEntry, FileStore
 
         from .pydantic_visitor import PydanticBuilder
 
@@ -92,15 +92,29 @@ class Blocks(ContainerBlock):
         return cls(x)
 
 
-class View(ContainerBlock):
-    """
-    The `View` block is a top-level block that contains all the blocks that make up the report. It is the root of the report tree.
-    """
-
+class ViewBlock(ContainerBlock):
     _tag = "View"
 
     fragment: bool = Field(...)
     version: int = Field(..., ge=1)
+
+    @field_validator("blocks", mode="after")
+    @classmethod
+    def _validate_blocks(cls, blocks: list[Block]):
+        for b in blocks:
+            if isinstance(b, ContainerBlock):
+                for nested in b.blocks:
+                    assert not isinstance(nested, Page), (
+                        "Layout block cannot contain Page block"
+                    )
+
+        return blocks
+
+
+class View(Blocks):
+    """
+    The `View` block is a top-level block that contains all the blocks that make up the report. It is the root of the report tree.
+    """
 
 
 BlocksT = Union[

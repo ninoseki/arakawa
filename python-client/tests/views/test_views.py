@@ -243,7 +243,7 @@ def test_gen_failing_views():
         _view_to_json_and_files(v)
 
     # page/pages with 0 objects
-    with pytest.raises(ARError):
+    with pytest.raises(ValidationError):
         v = ar.Blocks(ar.Page(blocks=[]))
         _view_to_json_and_files(v)
 
@@ -253,7 +253,7 @@ def test_gen_failing_views():
         _view_to_json_and_files(v)
 
     # empty text block
-    with pytest.raises(AssertionError):
+    with pytest.raises(ValidationError):
         v = ar.Blocks(ar.Text(" "))
         _view_to_json_and_files(v)
 
@@ -278,7 +278,7 @@ def test_gen_failing_views():
         )
         _view_to_json_and_files(v)
 
-    with pytest.raises(ARError):
+    with pytest.raises(ValidationError):
         ar.Blocks(ar.Text("a", name="3-invalid-name"))
 
 

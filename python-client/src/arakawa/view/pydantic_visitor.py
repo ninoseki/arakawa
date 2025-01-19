@@ -17,7 +17,7 @@ from arakawa.utils import log
 from arakawa.view.view_blocks import Blocks
 from arakawa.view.visitors import ViewVisitor
 
-from .view_blocks import View
+from .view_blocks import ViewBlock
 
 if sys.version_info <= (3, 11):
     from typing_extensions import Self
@@ -25,7 +25,7 @@ else:
     from typing import Self
 
 if TYPE_CHECKING:
-    from arakawa.processors import FileEntry, FileStore
+    from arakawa.file_store import FileEntry, FileStore
 
 
 @dataclasses.dataclass
@@ -39,7 +39,7 @@ class PydanticBuilder(ViewVisitor):
         _top_group = cast(Group, self.elements.pop())
         assert _top_group._type == "Group"
         assert not self.elements
-        return View(
+        return ViewBlock(
             fragment=fragment,
             version=1,
             blocks=_top_group.blocks,
@@ -78,8 +78,8 @@ class PydanticBuilder(ViewVisitor):
     @visit.register  # type: ignore
     def _(self, b: ContainerBlock) -> Self:
         sub_elements = self._visit_subnodes(b)
-        element = b.model_copy(update={"blocks": sub_elements})
-        return self.add_element(b, element)
+        b.blocks = sub_elements
+        return self.add_element(b, b)
 
     @visit.register  # type: ignore
     def _(self, b: Blocks) -> Self:

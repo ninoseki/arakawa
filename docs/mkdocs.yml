@@ -87,16 +87,16 @@ plugins:
       handlers:
         python:
           options:
-            show_signature: false
-            show_root_heading: true
-            show_source: false
-            show_root_full_path: false
-            show_root_members_full_path: false
-            show_bases: false
-            merge_init_into_class: yes
-            heading_level: 2
             docstring_style: google
-            show_if_no_docstring: true
+            heading_level: 2
+            merge_init_into_class: yes
+            show_bases: false
+            show_if_no_docstring: false
+            show_root_full_path: false
+            show_root_heading: true
+            show_root_members_full_path: false
+            show_signature: false
+            show_source: false
   - search:
       lang: en
   - mike:
