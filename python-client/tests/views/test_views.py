@@ -16,8 +16,8 @@ from pydantic import ValidationError
 import arakawa as ar
 from arakawa.blocks import BaseBlock
 from arakawa.exceptions import ARError
+from arakawa.file_store import B64FileEntry
 from arakawa.processors import ConvertPydantic, Pipeline, PreProcessView, ViewState
-from arakawa.processors.file_store import B64FileEntry
 from arakawa.processors.types import mk_null_pipe
 from tests.builtins import gen_df, gen_plot
 

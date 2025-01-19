@@ -3,14 +3,17 @@ from __future__ import annotations
 import sys
 from collections import deque
 from functools import reduce
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any, ClassVar
+
+from pydantic import Field
 
 from arakawa.exceptions import ARError
 from arakawa.types import ComputeMethod, SelectType, VAlign
 from arakawa.utils import log
 
-from .base import BaseBlock, BlockId, BlockList, BlockOrPrimitive, wrap_block
-from .misc_blocks import Empty, gen_name
+from .base import BlockId, BlockOrPrimitive, DataBlock, wrap_block
+from .misc_blocks import Empty
+from .mixins import OptionalLabelMixin, OptionalNameMinx
 
 if sys.version_info <= (3, 11):
     from typing_extensions import Self
@@ -18,20 +21,20 @@ else:
     from typing import Self
 
 if TYPE_CHECKING:
-    from arakawa.blocks import Block
-
+    from . import Block
     from .base import VV
 
 
-class ContainerBlock(BaseBlock):
+class ContainerBlock(OptionalNameMinx, OptionalLabelMixin, DataBlock):
     """
     Abstract Block that supports nested/contained blocks
      - represents a subtree in the document
     """
 
-    blocks: BlockList
+    blocks: list[type[DataBlock] | Any] = Field(..., min_length=1)
+
     # how many blocks must there be in the container
-    report_minimum_blocks: int = 1
+    report_minimum_blocks: ClassVar[int] = 1
 
     def __init__(
         self,
@@ -39,9 +42,8 @@ class ContainerBlock(BaseBlock):
         blocks: list[BlockOrPrimitive] | None = None,
         **kwargs,
     ):
-        self.blocks = [wrap_block(b) for b in blocks or list(arg_blocks)]
-
-        super().__init__(**kwargs)
+        blocks = [wrap_block(b) for b in blocks or list(arg_blocks)]
+        super().__init__(blocks=blocks, **kwargs)
 
     def __iter__(self):
         return BlockListIterator(self.blocks.__iter__())
@@ -54,14 +56,9 @@ class ContainerBlock(BaseBlock):
         self.blocks.extend(other.blocks)
         return self
 
-    def __copy__(self) -> Self:
-        inst = super().__copy__()
-        inst.blocks = self.blocks.copy()
-        return inst
-
     @classmethod
     def empty(cls) -> Self:
-        return cls(blocks=[Empty(gen_name())])
+        return cls(blocks=[Empty()])
 
     def traverse(self, visitor: VV) -> VV:
         # perform a depth-first traversal of the contained blocks
@@ -83,8 +80,9 @@ class Page(ContainerBlock):
         This is included for backwards-compatibility, and can be replaced by using Selects going forwards.
     """
 
-    # BC-only helper - converted into a Select + Group within the post-XML processor
-    _tag = "_Page"
+    _tag: str = "_Page"
+
+    title: str | None = Field(default=None, min_length=1, max_length=256)
 
     def __init__(
         self,
@@ -103,8 +101,7 @@ class Page(ContainerBlock):
         !!! tip
             Page can be passed using either arg parameters or the `blocks` kwarg, e.g. `ar.Page(group, select)` or `ar.Group(blocks=[group, select])`
         """
-        self.title = title
-        super().__init__(*arg_blocks, blocks=blocks, label=title, name=name)
+        super().__init__(*arg_blocks, blocks=blocks, title=title, name=name)
 
         if any(isinstance(b, Page) for b in self.blocks):
             raise ARError("Nested pages not supported, please use Selects and Groups")
@@ -123,7 +120,8 @@ class Select(ContainerBlock):
     """
 
     _tag = "Select"
-    report_minimum_blocks = 2
+
+    type: SelectType = Field(...)
 
     def __init__(
         self,
@@ -161,6 +159,10 @@ class Group(ContainerBlock):
 
     _tag = "Group"
 
+    columns: int = Field(default=1)
+    valign: VAlign
+    widths: str | None = Field(default=None, min_length=2, pattern=r"\[\d+(,\s*\d+)*\]")
+
     def __init__(
         self,
         *arg_blocks: BlockOrPrimitive,
@@ -188,9 +190,7 @@ class Group(ContainerBlock):
         if widths is not None and len(widths) != columns:
             raise ARError("Group 'widths' list length does not match number of columns")
 
-        # columns = columns or len(self.blocks)
-        self.columns = columns
-        super().__init__(
+        return super().__init__(
             *arg_blocks,
             blocks=blocks,
             name=name,
@@ -206,6 +206,7 @@ class Toggle(ContainerBlock):
     """
 
     _tag = "Toggle"
+
     report_minimum_blocks = 1
 
     def __init__(
@@ -238,6 +239,11 @@ class Compute(ContainerBlock):
     """
 
     _tag = "Compute"
+
+    prompt: str | None = Field(default=None)
+    subtitle: str | None = Field(default=None)
+    action: str | None = Field(default="")
+    method: ComputeMethod = Field(default=ComputeMethod.GET)
 
     def __init__(
         self,

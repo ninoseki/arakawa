@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import sys
 from collections.abc import Mapping
-from copy import copy
 from typing import TYPE_CHECKING, Union
+
+from pydantic import Field
 
 from arakawa.blocks import Group
 from arakawa.blocks.base import BlockOrPrimitive
@@ -83,7 +84,7 @@ class Blocks(ContainerBlock):
     @classmethod
     def wrap_blocks(cls, x: Self | list[BlockOrPrimitive] | BlockOrPrimitive) -> Self:
         if isinstance(x, Blocks):
-            return copy(x)  # type: ignore
+            return x.model_copy()  # type: ignore
 
         if isinstance(x, list):
             return cls(*x)
@@ -91,8 +92,15 @@ class Blocks(ContainerBlock):
         return cls(x)
 
 
-class View(Blocks):
-    pass
+class View(ContainerBlock):
+    """
+    The `View` block is a top-level block that contains all the blocks that make up the report. It is the root of the report tree.
+    """
+
+    _tag = "View"
+
+    fragment: bool = Field(...)
+    version: int = Field(..., ge=1)
 
 
 BlocksT = Union[

@@ -34,7 +34,6 @@ from .layout import (  # noqa: F401
     Select,
     SelectType,
     Toggle,
-    VAlign,
 )
 from .misc_blocks import BigNumber, Empty  # noqa: F401
 from .text import HTML, Code, Embed, Formula, Text  # noqa: F401

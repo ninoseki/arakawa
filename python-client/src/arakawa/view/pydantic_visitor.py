@@ -7,7 +7,6 @@ from typing import TYPE_CHECKING, Any, Protocol, cast
 
 from multimethod import DispatchError, multimethod
 
-from arakawa import schemas
 from arakawa.blocks import BaseBlock, Group
 from arakawa.blocks.asset import AssetBlock
 from arakawa.blocks.layout import ContainerBlock
@@ -17,6 +16,8 @@ from arakawa.types import VAlign
 from arakawa.utils import log
 from arakawa.view.view_blocks import Blocks
 from arakawa.view.visitors import ViewVisitor
+
+from .view_blocks import View
 
 if sys.version_info <= (3, 11):
     from typing_extensions import Self
@@ -38,14 +39,10 @@ class PydanticBuilder(ViewVisitor):
         _top_group = cast(Group, self.elements.pop())
         assert _top_group._type == "Group"
         assert not self.elements
-
-        return schemas.View.model_validate(
-            {
-                "_type": "View",
-                "fragment": fragment,
-                "version": 1,
-                "blocks": _top_group.blocks,
-            }
+        return View(
+            fragment=fragment,
+            version=1,
+            blocks=_top_group.blocks,
         )
 
     @property
@@ -81,8 +78,8 @@ class PydanticBuilder(ViewVisitor):
     @visit.register  # type: ignore
     def _(self, b: ContainerBlock) -> Self:
         sub_elements = self._visit_subnodes(b)
-        b._add_attributes(blocks=sub_elements)
-        return self.add_element(b, b)
+        element = b.model_copy(update={"blocks": sub_elements})
+        return self.add_element(b, element)
 
     @visit.register  # type: ignore
     def _(self, b: Blocks) -> Self:
@@ -108,12 +105,7 @@ class PydanticBuilder(ViewVisitor):
     @visit.register  # type: ignore
     def _(self, b: AssetBlock):
         fe = self._add_asset_to_store(b)
-
-        element = b.__copy__()
-        element._add_attributes(
-            type=fe.mime,
-            src=f"ref://{fe.hash}",
-        )
+        element = b.model_copy(update={"type": fe.mime, "src": f"ref://{fe.hash}"})
         return self.add_element(b, element)
 
     def _add_asset_to_store(self, b: AssetBlock) -> FileEntry:
@@ -123,11 +115,11 @@ class PydanticBuilder(ViewVisitor):
 
         # check if we already have stored this asset to the store
         # TODO - do we just persist the asset store across the session??
-        if b._prev_entry:
-            if type(b._prev_entry) == self.store.fw_klass:  # noqa: E721
-                self.store.add_file(b._prev_entry)
-                return b._prev_entry
-            b._prev_entry = None
+        if b.prev_entry:
+            if type(b.prev_entry) == self.store.fw_klass:  # noqa: E721
+                self.store.add_file(b.prev_entry)
+                return b.prev_entry
+            b.prev_entry = None
 
         if b.data is not None:
             # fe = files.add_to_store(self.data, s.store)
@@ -146,7 +138,7 @@ class PydanticBuilder(ViewVisitor):
         else:
             raise ARError("No asset to add")
 
-        b._prev_entry = fe
+        b.prev_entry = fe
         return fe
 
 

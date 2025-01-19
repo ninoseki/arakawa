@@ -4,8 +4,10 @@ import re
 import textwrap
 from collections import deque
 from pathlib import Path
+from typing import Any
 
 from dominate.dom_tag import dom_tag
+from pydantic import AnyHttpUrl, Field, field_validator
 
 from arakawa.common.utils import get_embed_url, utf_read_text
 from arakawa.exceptions import ARError
@@ -13,21 +15,26 @@ from arakawa.types import NPath
 
 from .base import BlockId, BlockOrPrimitive, DataBlock, wrap_block
 from .layout import Group
+from .mixins import OptionalCaptionMixin, OptionalLabelMixin, OptionalNameMinx
 
 
-class EmbeddedTextBlock(DataBlock):
+class EmbeddedTextBlock(OptionalNameMinx, DataBlock):
     """
     Abstract Block for embedded text formats that are stored directly in the document (rather than external references)
     """
 
-    content: str
+    content: str = Field(..., min_length=1, pattern=r"(.|\s)*\S(.|\s)*")  # type: ignore
+    name: str | None = Field(default=None)
 
-    def __init__(self, content: str, name: BlockId | None = None, **kwargs):
-        super().__init__(name, **kwargs)
-        self.content = content.strip()
+    @field_validator("content", mode="before")
+    @classmethod
+    def _validate_content(cls, v: Any):
+        assert isinstance(v, str), "content must be a string"
+
+        return v.strip()
 
 
-class Text(EmbeddedTextBlock):
+class Text(OptionalLabelMixin, EmbeddedTextBlock):
     """
     You can add short or long-form Markdown content to your app with the `Text` block.
 
@@ -66,9 +73,9 @@ class Text(EmbeddedTextBlock):
         content = text or content
         assert content
 
-        super().__init__(content=content, name=name, label=label)
+        return super().__init__(content=content, name=name, label=label)
 
-    def format(self, *args: BlockOrPrimitive, **kwargs: BlockOrPrimitive) -> Group:
+    def format(self, *args: BlockOrPrimitive, **kwargs: BlockOrPrimitive):
         """
         Format the markdown text template, using the supplied context to insert blocks into `{{}}` markers in the template.
 
@@ -108,10 +115,10 @@ class Text(EmbeddedTextBlock):
                 if x:
                     blocks.append(Text(x))
 
-        return Group(blocks=blocks)
+        return Group(blocks=blocks, label=self.label)
 
 
-class Code(EmbeddedTextBlock):
+class Code(OptionalLabelMixin, OptionalCaptionMixin, EmbeddedTextBlock):
     """
     The code block allows you to embed syntax-highlighted source code into your app.
 
@@ -120,6 +127,8 @@ class Code(EmbeddedTextBlock):
     """
 
     _tag = "Code"
+
+    language: str = Field(...)  # type: ignore
 
     def __init__(
         self,
@@ -137,12 +146,16 @@ class Code(EmbeddedTextBlock):
             name: A unique name for the block to reference when adding text or embedding (optional)
             label: A label used when displaying the block (optional)
         """
-        super().__init__(
-            content=code, language=language, caption=caption, name=name, label=label
+        return super().__init__(
+            content=code,
+            name=name,
+            language=language,
+            caption=caption,
+            label=label,
         )
 
 
-class HTML(EmbeddedTextBlock):
+class HTML(OptionalLabelMixin, EmbeddedTextBlock):
     """
     The HTML block allows you to add raw HTML to your app,  allowing for highly customized components, such as your company's brand, logo, and more.
 
@@ -151,6 +164,8 @@ class HTML(EmbeddedTextBlock):
     """
 
     _tag = "HTML"
+
+    sandbox: str | None = Field(default=None)
 
     def __init__(
         self,
@@ -166,10 +181,12 @@ class HTML(EmbeddedTextBlock):
             label: A label used when displaying the block (optional)
             sandbox: A sandbox attribute. Defaults to "allow-scripts". "allow-scripts" is needed to resize iframe.
         """
-        super().__init__(content=str(html), name=name, label=label, sandbox=sandbox)
+        return super().__init__(
+            content=str(html), name=name, label=label, sandbox=sandbox
+        )
 
 
-class Formula(EmbeddedTextBlock):
+class Formula(OptionalLabelMixin, OptionalCaptionMixin, EmbeddedTextBlock):
     """
     The formula block allows you easily to add [_LaTeX_](https://en.wikipedia.org/wiki/LaTeX)-formatted equations to your app, with an optional caption.
 
@@ -186,7 +203,7 @@ class Formula(EmbeddedTextBlock):
         name: BlockId | None = None,
         label: str | None = None,
     ):
-        r"""
+        """
         Args:
             formula: A formula to embed, using LaTeX format (use raw strings)
             caption: A caption to display below the Formula (optional)
@@ -194,11 +211,13 @@ class Formula(EmbeddedTextBlock):
             label: A label used when displaying the block (optional)
 
         !!! note
-            LaTeX commonly uses special characters, hence prefix your formulas with `r` to make them raw strings, e.g. `r"\frac{1}{\sqrt{x^2 + 1}}"`
+            LaTeX commonly uses special characters, hence prefix your formulas with `r` to make them raw strings, e.g. `r"\frac{1}{\\sqrt{x^2 + 1}}"`
 
         Under the hood we use MathJAX to render the equations in the browser and not a full TeX engine. This means that some of your TeX input may not be rendered correctly on our system - read the MathJAX documentation for more info.
         """
-        super().__init__(content=formula, caption=caption, name=name, label=label)
+        return super().__init__(
+            content=formula, name=name, caption=caption, label=label
+        )
 
 
 class Embed(EmbeddedTextBlock):
@@ -210,6 +229,11 @@ class Embed(EmbeddedTextBlock):
     """
 
     _tag = "Embed"
+
+    url: AnyHttpUrl = Field(...)  # type: ignore
+    title: str = Field(..., min_length=1, max_length=256)  # type: ignore
+    provider_name: str = Field(..., min_length=1, max_length=128)  # type: ignore
+    label: str | None = Field(default=None)
 
     def __init__(
         self,
@@ -228,11 +252,11 @@ class Embed(EmbeddedTextBlock):
             label: A label used when displaying the block (optional)
         """
         result = get_embed_url(url, width=width, height=height)
-        super().__init__(
+        return super().__init__(
             content=result.html,
-            name=name,
-            label=label,
-            url=url,
+            url=AnyHttpUrl(url),
             title=result.title,
             provider_name=result.provider,
+            name=name,
+            label=label,
         )

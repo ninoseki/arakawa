@@ -1,6 +1,13 @@
 from __future__ import annotations
 
+from pydantic import Field, field_validator
+
+from arakawa.common.utils import is_valid_id
+
 from .base import BlockId, DataBlock
+from .mixins import (
+    OptionalLabelMixin,
+)
 
 
 class ControlBlock(DataBlock):
@@ -8,8 +15,41 @@ class ControlBlock(DataBlock):
     Abstract block for all the control blocks.
     """
 
+    name: str = Field(...)
 
-class BaseDateTimeBlock(ControlBlock):
+    @field_validator("name", mode="after")
+    @classmethod
+    def _validate_name(cls, v: str):
+        if not is_valid_id(v):
+            raise ValueError(f"Invalid name '{v}' for block")
+
+        return v
+
+
+class OptionalHelpMixin(DataBlock):
+    help: str | None = Field(default=None)
+
+
+class OptionalRequiredMixin(DataBlock):
+    required: bool | None = Field(default=None)
+
+
+class OptionalValidationMixin(DataBlock):
+    validation: str | None = Field(default=None)
+
+
+class OptionalStringInitialMixin(DataBlock):
+    initial: str | None = Field(default=None)
+
+
+class BaseDateTime(
+    OptionalStringInitialMixin,
+    OptionalRequiredMixin,
+    OptionalValidationMixin,
+    OptionalHelpMixin,
+    OptionalLabelMixin,
+    ControlBlock,
+):
     """
     Abstract block for DateTime, Date and Time blocks.
     """
@@ -42,7 +82,7 @@ class BaseDateTimeBlock(ControlBlock):
         )
 
 
-class DateTimeField(BaseDateTimeBlock):
+class DateTimeField(BaseDateTime):
     """
     DateTimeField allows you to add a datetime type input.
     """
@@ -50,7 +90,7 @@ class DateTimeField(BaseDateTimeBlock):
     _tag = "DateTimeField"
 
 
-class DateField(BaseDateTimeBlock):
+class DateField(BaseDateTime):
     """
     DateField allows you to add a date type input.
     """
@@ -58,7 +98,7 @@ class DateField(BaseDateTimeBlock):
     _tag = "DateField"
 
 
-class TimeField(BaseDateTimeBlock):
+class TimeField(BaseDateTime):
     """
     TimeField allows you to add a time type input.
     """
@@ -66,12 +106,21 @@ class TimeField(BaseDateTimeBlock):
     _tag = "TimeField"
 
 
-class FileField(ControlBlock):
+class FileField(
+    OptionalStringInitialMixin,
+    OptionalRequiredMixin,
+    OptionalValidationMixin,
+    OptionalHelpMixin,
+    OptionalLabelMixin,
+    ControlBlock,
+):
     """
     FileField allows you to add a file type input.
     """
 
     _tag = "FileField"
+
+    accept: str | None = Field(default=None)
 
     def __init__(
         self,
@@ -93,20 +142,29 @@ class FileField(ControlBlock):
         """
         super().__init__(
             name=name,
+            accept=accept,
+            help=help,
             label=label,
             required=required,
-            help=help,
             validation=validation,
-            accept=accept,
         )
 
 
-class MultiChoiceField(ControlBlock):
+class MultiChoiceField(
+    OptionalRequiredMixin,
+    OptionalValidationMixin,
+    OptionalHelpMixin,
+    OptionalLabelMixin,
+    ControlBlock,
+):
     """
     MultiChoiceField allows you to have a multiple select type input.
     """
 
     _tag = "MultiChoiceField"
+
+    initial: list[str] = Field(..., min_length=1)
+    options: list[str] = Field(..., min_length=1)
 
     def __init__(
         self,
@@ -129,22 +187,30 @@ class MultiChoiceField(ControlBlock):
             validation (str | None, optional): A formkit validation in addition to required. Defaults to None.
         """
         super().__init__(
+            name=name,
             initial=initial,
             options=options,
-            name=name,
+            help=help,
             label=label,
             required=required,
-            help=help,
             validation=validation,
         )
 
 
-class NumberBox(ControlBlock):
+class NumberBox(
+    OptionalValidationMixin,
+    OptionalHelpMixin,
+    OptionalRequiredMixin,
+    OptionalLabelMixin,
+    ControlBlock,
+):
     """
     NumberBox allows you to add a number type input.
     """
 
     _tag = "NumberBox"
+
+    initial: int | float | None = Field(default=None)
 
     def __init__(
         self,
@@ -166,20 +232,31 @@ class NumberBox(ControlBlock):
         """
         super().__init__(
             name=name,
-            label=label,
-            initial=initial,
-            required=required,
             help=help,
+            initial=initial,
+            label=label,
+            required=required,
             validation=validation,
         )
 
 
-class RangeField(ControlBlock):
+class RangeField(
+    OptionalValidationMixin,
+    OptionalHelpMixin,
+    OptionalLabelMixin,
+    OptionalRequiredMixin,
+    ControlBlock,
+):
     """
     RangeField allows you to add a range type input.
     """
 
     _tag = "RangeField"
+
+    initial: int | float = Field(...)
+    min: int | float = Field(...)
+    max: int | float = Field(...)
+    step: int | float = Field(...)
 
     def __init__(
         self,
@@ -205,23 +282,32 @@ class RangeField(ControlBlock):
         """
         initial = initial or min
         super().__init__(
-            min=min,
-            max=max,
-            step=step,
             name=name,
-            label=label,
-            initial=initial,
             help=help,
+            initial=initial,
+            label=label,
+            max=max,
+            min=min,
+            step=step,
             validation=validation,
         )
 
 
-class ChoiceField(ControlBlock):
+class ChoiceField(
+    OptionalValidationMixin,
+    OptionalStringInitialMixin,
+    OptionalHelpMixin,
+    OptionalRequiredMixin,
+    OptionalLabelMixin,
+    ControlBlock,
+):
     """
     ChoiceField allows you to add a select type input.
     """
 
     _tag = "ChoiceField"
+
+    options: list[str] = Field(..., min_length=1)  # type: ignore
 
     def __init__(
         self,
@@ -244,22 +330,30 @@ class ChoiceField(ControlBlock):
             validation (str | None, optional): A formkit validation in addition to required. Defaults to None.
         """
         super().__init__(
-            options=options,
             name=name,
-            label=label,
-            initial=initial,
-            required=required,
+            options=options,
             help=help,
+            initial=initial,
+            label=label,
+            required=required,
             validation=validation,
         )
 
 
-class SwitchField(ControlBlock):
+class SwitchField(
+    OptionalValidationMixin,
+    OptionalHelpMixin,
+    OptionalRequiredMixin,
+    OptionalLabelMixin,
+    ControlBlock,
+):
     """
     SwitchField allows you to add a checkbox type input.
     """
 
     _tag = "SwitchField"
+
+    initial: bool | None = Field(default=None)
 
     def __init__(
         self,
@@ -278,20 +372,24 @@ class SwitchField(ControlBlock):
             validation (str | None, optional): A formkit validation in addition to required. Defaults to None.
         """
         super().__init__(
-            name=name,
-            label=label,
-            initial=initial,
-            help=help,
-            validation=validation,
+            name=name, help=help, initial=initial, label=label, validation=validation
         )
 
 
-class TagsField(ControlBlock):
+class TagsField(
+    OptionalValidationMixin,
+    OptionalHelpMixin,
+    OptionalRequiredMixin,
+    OptionalLabelMixin,
+    ControlBlock,
+):
     """
     TagsField allows you to add a multi select type input along with the free form input.
     """
 
     _tag = "TagsField"
+
+    initial: list[str] = Field(..., min_length=1)  # type: ignore
 
     def __init__(
         self,
@@ -313,15 +411,29 @@ class TagsField(ControlBlock):
         """
         super().__init__(
             name=name,
-            label=label,
             initial=initial,
-            required=required,
             help=help,
+            label=label,
+            required=required,
             validation=validation,
         )
 
 
-class BaseTextField(ControlBlock):
+class BaseTextField(
+    OptionalStringInitialMixin,
+    OptionalRequiredMixin,
+    OptionalValidationMixin,
+    OptionalHelpMixin,
+    OptionalLabelMixin,
+    ControlBlock,
+):
+    caption: str | None = Field(default=None)
+    help: str | None = Field(default=None)
+    initial: str | None = Field(default=None)
+    label: str | None = Field(default=None)
+    required: bool | None = Field(default=None)
+    validation: str | None = Field(default=None)
+
     def __init__(
         self,
         name: BlockId,
@@ -412,6 +524,8 @@ class HiddenField(ControlBlock):
     """
 
     _tag = "HiddenField"
+
+    initial: str = Field(...)  # type: ignore
 
     def __init__(
         self,

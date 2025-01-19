@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 import sys
-from abc import ABC
-from typing import TYPE_CHECKING, Any, ClassVar, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, ClassVar, TypeVar, Union
 
-from arakawa.common.utils import is_valid_id, mk_attribs
-from arakawa.exceptions import ARError
+from pydantic import BaseModel, ConfigDict, computed_field
+
+from arakawa.common.utils import mk_attribs
 
 if sys.version_info <= (3, 11):
     pass
@@ -13,7 +13,6 @@ else:
     pass
 
 if TYPE_CHECKING:
-    from arakawa.blocks import Block
     from arakawa.view import ViewVisitor
 
 
@@ -22,7 +21,7 @@ BlockId = str
 VV = TypeVar("VV", bound="ViewVisitor")
 
 
-class BaseBlock(ABC):
+class BaseBlock(BaseModel):
     """Base Block class - subclassed by all Block types
 
     ..note:: The class is not used directly.
@@ -30,24 +29,16 @@ class BaseBlock(ABC):
 
     _tag: ClassVar[str]
 
-    def __init__(self, name: BlockId | None = None, **kwargs: Any):
-        """
-        Args:
-            name: A unique name to reference the block, used when referencing blocks via the report editor and when embedding
-        """
-        self._type = self._tag
-        self.name = name
+    model_config = ConfigDict(arbitrary_types_allowed=True, extra="allow")
 
-        # validate name
-        if name and not is_valid_id(name):
-            raise ARError(f"Invalid name '{name}' for block")
-
-        self._add_attributes(**kwargs)
+    @computed_field
+    @property
+    def _type(self) -> str:
+        return self._tag
 
     def _add_attributes(self, **kwargs):
         attrs = mk_attribs(**kwargs)
-        for key, value in attrs.items():
-            setattr(self, key, value)
+        (self.model_extra or {}).update(attrs)
 
     def _ipython_display_(self):
         """Display the block as a side effect within a Jupyter notebook"""
@@ -68,11 +59,6 @@ class BaseBlock(ABC):
         visitor.visit(self)
         return visitor
 
-    def __copy__(self):
-        inst = self.__class__.__new__(self.__class__)
-        inst.__dict__.update(self.__dict__)
-        return inst
-
 
 class DataBlock(BaseBlock):
     """Abstract block that represents a leaf-node in the tree, e.g. a Plot or Table
@@ -85,7 +71,7 @@ BlockOrPrimitive = Union[BaseBlock, Any]  # TODO - expand
 BlockList = list[BaseBlock]
 
 
-def wrap_block(b: BlockOrPrimitive) -> Block:
+def wrap_block(b: BlockOrPrimitive) -> BaseBlock:
     from .wrappers import convert_to_block
 
     # if isinstance(b, Page):
@@ -95,4 +81,4 @@ def wrap_block(b: BlockOrPrimitive) -> Block:
         # from ..files import convert
         return convert_to_block(b)
 
-    return cast("Block", b)
+    return b

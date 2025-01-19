@@ -5,9 +5,8 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, Generic, TypeVar
 
+from arakawa.file_store import DummyFileEntry, FileEntry, FileStore
 from arakawa.view import Blocks
-
-from .file_store import DummyFileEntry, FileEntry, FileStore
 
 
 @dataclasses.dataclass

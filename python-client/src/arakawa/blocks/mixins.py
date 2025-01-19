@@ -3,7 +3,9 @@ from __future__ import annotations
 from functools import partial
 from typing import Annotated
 
-from pydantic import BeforeValidator, Field
+from pydantic import BeforeValidator, Field, field_validator
+
+from arakawa.common.utils import is_valid_id
 
 from .base import DataBlock
 
@@ -43,9 +45,12 @@ class OptionalNameMinx(DataBlock):
         description="A unique name for the block to reference when adding text or embedding",
     )
 
+    name: str | None = Field(default=None)
 
-class NameMixin(DataBlock):
-    name: str = Field(
-        ...,
-        description="A unique name for the block to reference when adding text or embedding",
-    )
+    @field_validator("name", mode="after")
+    @classmethod
+    def _validate_name(cls, v: str | None):
+        if v and not is_valid_id(v):
+            raise ValueError(f"Invalid name '{v}' for block")
+
+        return v

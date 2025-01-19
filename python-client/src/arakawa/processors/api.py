@@ -6,9 +6,9 @@ API for processing Views, e.g. rendering it locally and publishing to a remote s
 
 from __future__ import annotations
 
+from arakawa.file_store import B64FileEntry
 from arakawa.view import Blocks, BlocksT
 
-from .file_store import B64FileEntry
 from .processors import (
     ConvertPydantic,
     ExportHTMLInlineAssets,
