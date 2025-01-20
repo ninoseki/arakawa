@@ -2,9 +2,12 @@ from __future__ import annotations
 
 import secrets
 
+from pydantic import Field
+
 from arakawa.types import NumberValue
 
 from .base import BaseBlock, BlockId, DataBlock
+from .mixins import OptionalNameMinx
 
 
 def gen_name() -> str:
@@ -12,7 +15,7 @@ def gen_name() -> str:
     return f"id-{secrets.token_urlsafe(8)}"
 
 
-class Empty(BaseBlock):
+class Empty(OptionalNameMinx, BaseBlock):
     """
     An empty block that can be updated / replaced later
 
@@ -22,11 +25,12 @@ class Empty(BaseBlock):
 
     _tag = "Empty"
 
-    def __init__(self, name: BlockId):
-        super().__init__(name=name)
+    def __init__(self, name: BlockId | None = None):
+        name = name or gen_name()
+        return super().__init__(name=name)
 
 
-class BigNumber(DataBlock):
+class BigNumber(OptionalNameMinx, DataBlock):
     """
     A single number or change can often be the most important thing in an app.
 
@@ -36,6 +40,18 @@ class BigNumber(DataBlock):
     """
 
     _tag = "BigNumber"
+
+    heading: str = Field(..., min_length=1, max_length=128)
+    value: str = Field(..., min_length=1, max_length=128, coerce_numbers_to_str=True)
+    change: str | None = Field(
+        default=None, min_length=1, max_length=128, coerce_numbers_to_str=True
+    )
+    is_positive_intent: bool | None = Field(default=None)
+    is_upward_change: bool | None = Field(default=None)
+    label: str | None = Field(default=None)
+    pre_value: str | None = Field(
+        default=None, min_length=1, max_length=128, coerce_numbers_to_str=True
+    )
 
     def __init__(
         self,
@@ -69,13 +85,13 @@ class BigNumber(DataBlock):
                 # Set the intent to be the direction of change if not specified (up = green, down = red)
                 is_positive_intent = is_upward_change
 
-        super().__init__(
+        return super().__init__(
             heading=heading,
             value=value,
             change=change,
-            prev_value=prev_value,
-            is_positive_intent=bool(is_positive_intent),
-            is_upward_change=bool(is_upward_change),
+            pre_value=prev_value,
+            is_positive_intent=is_positive_intent,
+            is_upward_change=is_upward_change,
             name=name,
             label=label,
         )

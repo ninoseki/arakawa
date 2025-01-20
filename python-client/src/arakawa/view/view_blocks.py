@@ -2,10 +2,11 @@ from __future__ import annotations
 
 import sys
 from collections.abc import Mapping
-from copy import copy
 from typing import TYPE_CHECKING, Union
 
-from arakawa.blocks import Group
+from pydantic import Field, field_validator
+
+from arakawa.blocks import Block, Group, Page
 from arakawa.blocks.base import BlockOrPrimitive
 from arakawa.blocks.layout import ContainerBlock
 
@@ -67,7 +68,7 @@ class Blocks(ContainerBlock):
         return cls(blocks=app_template.blocks)
 
     def get_view(self):
-        from arakawa.processors.file_store import DummyFileEntry, FileStore
+        from arakawa.file_store import DummyFileEntry, FileStore
 
         from .pydantic_visitor import PydanticBuilder
 
@@ -83,7 +84,7 @@ class Blocks(ContainerBlock):
     @classmethod
     def wrap_blocks(cls, x: Self | list[BlockOrPrimitive] | BlockOrPrimitive) -> Self:
         if isinstance(x, Blocks):
-            return copy(x)  # type: ignore
+            return x.model_copy()  # type: ignore
 
         if isinstance(x, list):
             return cls(*x)
@@ -91,8 +92,37 @@ class Blocks(ContainerBlock):
         return cls(x)
 
 
+class ViewBlock(ContainerBlock):
+    _tag = "View"
+
+    fragment: bool = Field(...)
+    version: int = Field(..., ge=1)
+
+    @field_validator("blocks", mode="after")
+    @classmethod
+    def _validate_blocks(cls, blocks: list[Block]):
+        for b in blocks:
+            if isinstance(b, ContainerBlock):
+                for nested in b.blocks:
+                    assert not isinstance(nested, Page), (
+                        "Layout block cannot contain Page block"
+                    )
+
+        return blocks
+
+
 class View(Blocks):
-    pass
+    """
+    The `View` block is a top-level block that contains all the blocks that make up the report. It is the root of the report tree.
+    """
+
+    def __init__(
+        self,
+        *arg_blocks: BlockOrPrimitive,
+        blocks: list[BlockOrPrimitive] | None = None,
+        **kwargs,
+    ):
+        super().__init__(*arg_blocks, blocks=blocks, **kwargs)
 
 
 BlocksT = Union[

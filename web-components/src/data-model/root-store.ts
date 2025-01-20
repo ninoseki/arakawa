@@ -193,7 +193,7 @@ export const useRootStore = defineStore('root', () => {
 
   const deserialize = (elem: b.Elem, isFragment = false): b.Block => {
     if (b.isViewElem(elem) && isFragment) {
-      elem._type = 'Group'
+      elem._tag = 'Group'
       elem.columns = 1
     }
 

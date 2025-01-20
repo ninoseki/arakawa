@@ -44,7 +44,6 @@ from .blocks import (  # noqa: F401
     TimeField,
     Toggle,
     URLField,
-    VAlign,
     wrap_block,
 )
 from .exceptions import ARError  # noqa: F401

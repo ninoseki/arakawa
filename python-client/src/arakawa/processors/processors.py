@@ -86,6 +86,7 @@ class ConvertPydantic(BaseProcessor):
         builder_state = PydanticBuilder(store=self.s.store)
         self.s.blocks._accept(builder_state)
         view = builder_state.get_root(self.fragment)
+
         self.s.view_json = humps.camelize(
             view.model_dump(mode="json", by_alias=True, exclude_none=True)
         )

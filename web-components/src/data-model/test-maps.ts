@@ -4,94 +4,88 @@ const jsonType = (json: any): string => {
 
 /* Inline blocks */
 
-export const jsonIsMarkdown = (json: any): boolean => json._type === 'Text'
+export const jsonIsMarkdown = (json: any): boolean => json._tag === 'Text'
 
-export const jsonIsFormula = (json: any): boolean => json._type === 'Formula'
+export const jsonIsFormula = (json: any): boolean => json._tag === 'Formula'
 
-export const jsonIsBigNumber = (json: any): boolean =>
-  json._type === 'BigNumber'
+export const jsonIsBigNumber = (json: any): boolean => json._tag === 'BigNumber'
 
-export const jsonIsMedia = (json: any): boolean => json._type === 'Media'
+export const jsonIsMedia = (json: any): boolean => json._tag === 'Media'
 
-export const jsonIsHTML = (json: any): boolean => json._type === 'HTML'
+export const jsonIsHTML = (json: any): boolean => json._tag === 'HTML'
 
-export const jsonIsCode = (json: any): boolean => json._type === 'Code'
+export const jsonIsCode = (json: any): boolean => json._tag === 'Code'
 
-export const jsonIsEmbed = (json: any): boolean => json._type === 'Embed'
+export const jsonIsEmbed = (json: any): boolean => json._tag === 'Embed'
 
-export const jsonIsEmpty = (json: any): boolean => json._type === 'Empty'
+export const jsonIsEmpty = (json: any): boolean => json._tag === 'Empty'
 
 export const jsonIsAttachment = (json: any): boolean =>
-  json._type === 'Attachment'
+  json._tag === 'Attachment'
 
 /* Control fields */
 
-export const jsonIsTextBox = (json: any): boolean => json._type === 'TextBox'
+export const jsonIsTextBox = (json: any): boolean => json._tag === 'TextBox'
 
-export const jsonIsURLField = (json: any): boolean => json._type === 'URLField'
+export const jsonIsURLField = (json: any): boolean => json._tag === 'URLField'
 
 export const jsonIsEmailField = (json: any): boolean =>
-  json._type === 'EmailField'
+  json._tag === 'EmailField'
 
 export const jsonIsTelephoneField = (json: any): boolean =>
-  json._type === 'TelephoneField'
+  json._tag === 'TelephoneField'
 
 export const jsonIsSearchField = (json: any): boolean =>
-  json._type === 'SearchField'
+  json._tag === 'SearchField'
 
 export const jsonIsTextareaField = (json: any): boolean =>
-  json._type === 'TextareaField'
+  json._tag === 'TextareaField'
 
 export const jsonIsPasswordField = (json: any): boolean =>
-  json._type === 'PasswordField'
+  json._tag === 'PasswordField'
 
 export const jsonIsHiddenField = (json: any): boolean =>
-  json._type === 'HiddenField'
+  json._tag === 'HiddenField'
 
 export const jsonIsColorField = (json: any): boolean =>
-  json._type === 'ColorField'
+  json._tag === 'ColorField'
 
-export const jsonIsNumberBox = (json: any): boolean =>
-  json._type === 'NumberBox'
+export const jsonIsNumberBox = (json: any): boolean => json._tag === 'NumberBox'
 
 export const jsonIsRangeField = (json: any): boolean =>
-  json._type === 'RangeField'
+  json._tag === 'RangeField'
 
 export const jsonIsSwitchField = (json: any): boolean =>
-  json._type === 'SwitchField'
+  json._tag === 'SwitchField'
 
-export const jsonIsTagsField = (json: any): boolean =>
-  json._type === 'TagsField'
+export const jsonIsTagsField = (json: any): boolean => json._tag === 'TagsField'
 
 export const jsonIsSelectField = (json: any): boolean =>
-  json._type === 'ChoiceField'
+  json._tag === 'ChoiceField'
 
 export const jsonIsMultiChoiceField = (json: any): boolean =>
-  json._type === 'MultiChoiceField'
+  json._tag === 'MultiChoiceField'
 
-export const jsonIsFileField = (json: any): boolean =>
-  json._type === 'FileField'
+export const jsonIsFileField = (json: any): boolean => json._tag === 'FileField'
 
 export const jsonIsDateTimeField = (json: any): boolean =>
-  json._type === 'DateTimeField'
+  json._tag === 'DateTimeField'
 
-export const jsonIsDateField = (json: any): boolean =>
-  json._type === 'DateField'
+export const jsonIsDateField = (json: any): boolean => json._tag === 'DateField'
 
-export const jsonIsTimeField = (json: any): boolean =>
-  json._type === 'TimeField'
+export const jsonIsTimeField = (json: any): boolean => json._tag === 'TimeField'
 
 /* Layout blocks */
 
-export const jsonIsGroup = (json: any): boolean => json._type === 'Group'
+export const jsonIsGroup = (json: any): boolean => json._tag === 'Group'
 
-export const jsonIsView = (json: any): boolean => json._type === 'View'
+export const jsonIsView = (json: any): boolean => json._tag === 'View'
 
-export const jsonIsSelect = (json: any): boolean => json._type === 'Select'
+export const jsonIsSelect = (json: any): boolean => json._tag === 'Select'
 
-export const jsonIsToggle = (json: any): boolean => json._type === 'Toggle'
+export const jsonIsToggle = (json: any): boolean => json._tag === 'Toggle'
 
-export const jsonIsCompute = (json: any): boolean => json._type === 'Compute'
+export const jsonIsCompute = (json: any): boolean => json._tag === 'Compute'
 
 /* Asset blocks */
 

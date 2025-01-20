@@ -16,8 +16,8 @@ from pydantic import ValidationError
 import arakawa as ar
 from arakawa.blocks import BaseBlock
 from arakawa.exceptions import ARError
+from arakawa.file_store import B64FileEntry
 from arakawa.processors import ConvertPydantic, Pipeline, PreProcessView, ViewState
-from arakawa.processors.file_store import B64FileEntry
 from arakawa.processors.types import mk_null_pipe
 from tests.builtins import gen_df, gen_plot
 
@@ -40,7 +40,7 @@ def element_to_dict(e: BaseBlock):
 
 def num_blocks(view_json: dict) -> int:
     # subtract 1 for the root block
-    count = len(iterutils.research(view_json, query=lambda _p, k, _v: k == "_type"))
+    count = len(iterutils.research(view_json, query=lambda _p, k, _v: k == "_tag"))
     return count - 1
 
 
@@ -243,7 +243,7 @@ def test_gen_failing_views():
         _view_to_json_and_files(v)
 
     # page/pages with 0 objects
-    with pytest.raises(ARError):
+    with pytest.raises(ValidationError):
         v = ar.Blocks(ar.Page(blocks=[]))
         _view_to_json_and_files(v)
 
@@ -253,7 +253,7 @@ def test_gen_failing_views():
         _view_to_json_and_files(v)
 
     # empty text block
-    with pytest.raises(AssertionError):
+    with pytest.raises(ValidationError):
         v = ar.Blocks(ar.Text(" "))
         _view_to_json_and_files(v)
 
@@ -278,7 +278,7 @@ def test_gen_failing_views():
         )
         _view_to_json_and_files(v)
 
-    with pytest.raises(ARError):
+    with pytest.raises(ValidationError):
         ar.Blocks(ar.Text("a", name="3-invalid-name"))
 
 

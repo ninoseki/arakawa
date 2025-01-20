@@ -3,42 +3,32 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Optional, cast
+from typing import Any, Optional, cast
 
 import pandas as pd
 from pandas.io.formats.style import Styler
+from pydantic import AnyUrl, Field
 
 from arakawa.common.df_processor import to_df
+from arakawa.file_store import FileEntry
 from arakawa.types import NPath
 
 from .base import BlockId, DataBlock
-
-if TYPE_CHECKING:
-    from arakawa.processors.file_store import FileEntry
+from .mixins import OptionalCaptionMixin, OptionalLabelMixin, OptionalNameMinx
 
 
-class AssetBlock(DataBlock):
+class AssetBlock(OptionalNameMinx, OptionalCaptionMixin, OptionalLabelMixin, DataBlock):
     """
     AssetBlock objects form basis of all File-related blocks (abstract class, not exported)
     """
 
-    _prev_entry: FileEntry | None = None
+    prev_entry: FileEntry | None = Field(default=None, exclude=True)
 
-    # TODO - we may need to support file here as well to handle media, etc.
-    def __init__(
-        self,
-        data: Any = None,
-        file: Path | None = None,
-        caption: str | None = None,
-        name: BlockId | None = None,
-        label: str | None = None,
-        **kwargs,
-    ):
-        # storing objects for delayed upload
-        super().__init__(name=name, label=label, **kwargs)
-        self.data = data
-        self.file = file
-        self.caption = caption
+    data: Any = Field(default=None, exclude=True)
+    file: NPath | None = Field(default=None, exclude=True)
+
+    src: AnyUrl | None = Field(default=None)
+    type: str | None = Field(default=None)  # pattern=r"\w+/[\w.+\-]+"
 
 
 class Media(AssetBlock):
@@ -83,6 +73,8 @@ class Attachment(AssetBlock):
 
     _tag = "Attachment"
 
+    filename: str = Field(..., min_length=1, max_length=255)
+
     def __init__(
         self,
         data: Any = None,
@@ -111,13 +103,15 @@ class Attachment(AssetBlock):
         elif data:
             filename = filename or "test.data"
 
+        assert filename
+
         super().__init__(
             data=data,
             file=cast(Optional[Path], file),
-            filename=filename,
             name=name,
             caption=caption,
             label=label,
+            filename=filename,
         )
 
 
@@ -132,6 +126,9 @@ class Plot(AssetBlock):
     """
 
     _tag = "Plot"
+
+    responsive: bool = Field(default=True)
+    scale: float = Field(default=1.0)
 
     def __init__(
         self,
@@ -154,22 +151,21 @@ class Plot(AssetBlock):
         super().__init__(
             data=data,
             caption=caption,
-            responsive=responsive,
-            scale=scale,
             name=name,
             label=label,
+            responsive=responsive,
+            scale=scale,
         )
 
 
 class Table(AssetBlock):
+    # NOTE - Tables are stored as HTML fragment files rather than inline within the Report document
     """
     Table blocks store the contents of a DataFrame as a HTML `table` whose style can be customized using pandas' `Styler` API.
 
     !!! tip
         `Table` is the best option for displaying multidimensional DataFrames, as `DataTable` will flatten your data.
     """
-
-    # NOTE - Tables are stored as HTML fragment files rather than inline within the Report document
 
     _tag = "Table"
 
@@ -202,6 +198,9 @@ class DataTable(AssetBlock):
 
     _tag = "DataTable"
 
+    rows: int = Field(..., ge=0)
+    columns: int = Field(..., ge=0)
+
     def __init__(
         self,
         df: pd.DataFrame,
@@ -218,7 +217,8 @@ class DataTable(AssetBlock):
         """
         # create a copy of the df to process
         df = to_df(df)
-        super().__init__(data=df, caption=caption, name=name, label=label)
         # TODO - support pyarrow schema for local reports
         (rows, columns) = df.shape
-        self._add_attributes(rows=rows, columns=columns)
+        super().__init__(
+            data=df, caption=caption, name=name, label=label, rows=rows, columns=columns
+        )
