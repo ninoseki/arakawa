@@ -5,7 +5,7 @@ from collections import deque
 from functools import reduce
 from typing import TYPE_CHECKING, Any, ClassVar
 
-from pydantic import Field
+from pydantic import Field, field_validator
 
 from arakawa.exceptions import ARError
 from arakawa.types import ComputeMethod, SelectType, VAlign
@@ -31,8 +31,8 @@ class ContainerBlock(OptionalNameMinx, OptionalLabelMixin, DataBlock):
      - represents a subtree in the document
     """
 
-    # TODO: remove Any
-    blocks: list[type[DataBlock] | Any] = Field(..., min_length=1)
+    # TODO: don't use Any
+    blocks: list[Any] = Field(..., min_length=1)
 
     # how many blocks must there be in the container
     report_minimum_blocks: ClassVar[int] = 1
@@ -45,6 +45,14 @@ class ContainerBlock(OptionalNameMinx, OptionalLabelMixin, DataBlock):
     ):
         blocks = [wrap_block(b) for b in blocks or list(arg_blocks)]
         super().__init__(blocks=blocks, **kwargs)
+
+    @field_validator("blocks", mode="after")
+    @classmethod
+    def _validate_blocks(cls, blocks: list[Any]):
+        for b in blocks:
+            assert isinstance(b, DataBlock), f"Invalid block type: {type(b)}"
+
+        return blocks
 
     def __iter__(self):
         return BlockListIterator(self.blocks.__iter__())

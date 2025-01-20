@@ -198,19 +198,19 @@ export class View extends LayoutBlock {
 /* Block/element type guards and checks */
 
 export const isComputeElem = (elem: Block | b.Elem): boolean =>
-  elem._type === 'Compute'
+  elem._tag === 'Compute'
 
 export const isGroupElem = (elem: Block | b.Elem): boolean =>
-  elem._type === 'Group'
+  elem._tag === 'Group'
 
 export const isSelectElem = (elem: Block | b.Elem): boolean =>
-  elem._type === 'Select'
+  elem._tag === 'Select'
 
 export const isToggleElem = (elem: Block | b.Elem): boolean =>
-  elem._type === 'Toggle'
+  elem._tag === 'Toggle'
 
 export const isViewElem = (elem: Block | b.Elem | EmptyObject): boolean =>
-  elem._type === 'View'
+  elem._tag === 'View'
 
 export const isParentElem = (elem: Block | b.Elem): boolean =>
   isSelectElem(elem) ||

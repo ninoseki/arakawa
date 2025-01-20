@@ -37,7 +37,7 @@ class PydanticBuilder(ViewVisitor):
 
     def get_root(self, fragment: bool = False):
         _top_group = cast(Group, self.elements.pop())
-        assert _top_group._type == "Group"
+        assert isinstance(_top_group, Group)
         assert not self.elements
         return ViewBlock(
             fragment=fragment,

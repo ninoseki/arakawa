@@ -40,7 +40,7 @@ def element_to_dict(e: BaseBlock):
 
 def num_blocks(view_json: dict) -> int:
     # subtract 1 for the root block
-    count = len(iterutils.research(view_json, query=lambda _p, k, _v: k == "_type"))
+    count = len(iterutils.research(view_json, query=lambda _p, k, _v: k == "_tag"))
     return count - 1
 
 

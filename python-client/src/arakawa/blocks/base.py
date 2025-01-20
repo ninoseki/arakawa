@@ -31,9 +31,9 @@ class BaseBlock(BaseModel):
 
     model_config = ConfigDict(arbitrary_types_allowed=True, extra="allow")
 
-    @computed_field
+    @computed_field(alias="_tag")
     @property
-    def _type(self) -> str:
+    def computed_tag(self) -> str:
         return self._tag
 
     def _add_attributes(self, **kwargs):
