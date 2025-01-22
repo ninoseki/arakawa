@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pydantic import Field
+from pydantic import Field, computed_field
 
 from .base import DataBlock
 from .mixins import NameMixin, OptionalLabelMixin
@@ -10,6 +10,11 @@ class ControlBlock(NameMixin, DataBlock):
     """
     Abstract block for all the control blocks.
     """
+
+    @computed_field(alias="name")
+    @property
+    def name_(self) -> str:
+        return self.name
 
 
 class OptionalHelpMixin(DataBlock):

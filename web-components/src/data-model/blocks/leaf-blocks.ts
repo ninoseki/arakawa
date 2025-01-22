@@ -24,6 +24,7 @@ import { useRootStore } from '../root-store'
 // Represents a serialized JSON element prior to becoming a Page/Group/Select/Block
 export type Elem = {
   id?: string
+  name?: string // for control blocks
   label?: string
   blocks?: Elem[]
   [x: string]: any
@@ -73,7 +74,7 @@ export class Block {
     /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
     opts?: any,
   ) {
-    const { label, id } = elem
+    const { label, id, name } = elem
     this.count = figure.count
     this.caption = figure.caption
     const rootStore = useRootStore()
@@ -83,9 +84,8 @@ export class Block {
     }
 
     this.id = id
+    this.name = name
     this.label = label
-    // for control blocks (FIXME)
-    this.name = id
   }
 }
 
