@@ -13,7 +13,7 @@ from arakawa.common.df_processor import to_df
 from arakawa.file_store import FileEntry
 from arakawa.types import NPath
 
-from .base import BlockId, DataBlock
+from .base import DataBlock
 from .mixins import OptionalCaptionMixin, OptionalLabelMixin, OptionalNameMinx
 
 
@@ -46,7 +46,7 @@ class Media(AssetBlock):
     def __init__(
         self,
         file: NPath,
-        name: BlockId | None = None,
+        name: str | None = None,
         label: str | None = None,
         caption: str | None = None,
     ):
@@ -81,7 +81,7 @@ class Attachment(AssetBlock):
         file: NPath | None = None,
         filename: str | None = None,
         caption: str | None = None,
-        name: BlockId | None = None,
+        name: str | None = None,
         label: str | None = None,
     ):
         """
@@ -136,7 +136,7 @@ class Plot(AssetBlock):
         caption: str | None = None,
         responsive: bool = True,
         scale: float = 1.0,
-        name: BlockId | None = None,
+        name: str | None = None,
         label: str | None = None,
     ):
         """
@@ -173,7 +173,7 @@ class Table(AssetBlock):
         self,
         data: pd.DataFrame | Styler,
         caption: str | None = None,
-        name: BlockId | None = None,
+        name: str | None = None,
         label: str | None = None,
     ):
         """
@@ -205,7 +205,7 @@ class DataTable(AssetBlock):
         self,
         df: pd.DataFrame,
         caption: str | None = None,
-        name: BlockId | None = None,
+        name: str | None = None,
         label: str | None = None,
     ):
         """

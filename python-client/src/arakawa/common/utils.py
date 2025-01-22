@@ -4,15 +4,11 @@ import dataclasses as dc
 import datetime
 import importlib.resources as ir
 import locale
-import math
 import mimetypes
 import re
 import sys
 import time
-from collections.abc import Sized
-from numbers import Number
 from pathlib import Path
-from typing import Any
 
 import chardet
 from chardet.universaldetector import UniversalDetector
@@ -93,41 +89,6 @@ def timestamp(x: datetime.datetime | None = None) -> str:
 def is_valid_id(id: str) -> bool:
     """(cached) regex to check for a xsd:ID name"""
     return re.fullmatch(r"^[a-zA-Z_][\w.-]*$", id) is not None
-
-
-def conv_attrib(v: Any) -> Any | None:
-    """
-    Convert a value to a str for use as an ElementBuilder attribute
-    - also handles None to a string for optional field values
-    """
-    # TODO - use a proper serialization framework here / lxml features
-    if v is None:
-        return v
-
-    if isinstance(v, Sized) and len(v) == 0:
-        return None
-
-    if isinstance(v, str):
-        return v
-
-    if isinstance(v, Number) and not isinstance(v, bool):
-        if math.isinf(v) and v > 0:  # type: ignore
-            return "INF"
-
-        if math.isinf(v) and v < 0:  # type: ignore
-            return "-INF"
-
-        if math.isnan(v):  # type: ignore
-            return "NaN"
-
-        return str(v)
-
-    return v
-
-
-def mk_attribs(**attribs: Any):
-    """convert attributes, dropping None and empty values"""
-    return {str(k): conv_attrib(v) for (k, v) in attribs.items()}
 
 
 #####################################################################

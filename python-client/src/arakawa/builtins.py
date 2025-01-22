@@ -28,7 +28,6 @@ def add_code(
     """
 
     w_block = b.wrap_block(block)
-    w_block._add_attributes(label="Figure")
     return b.Select(
         w_block, b.Code(code, language, label="Code"), type=b.SelectType.TABS
     )
