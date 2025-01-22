@@ -207,6 +207,7 @@ class Group(ContainerBlock):
             label=label,
             widths=widths,
             valign=valign,
+            columns=columns,
         )
 
 
