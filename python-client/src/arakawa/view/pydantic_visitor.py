@@ -6,6 +6,7 @@ from collections import namedtuple
 from typing import TYPE_CHECKING, Any, Protocol, cast
 
 from multimethod import DispatchError, multimethod
+from pydantic import AnyUrl
 
 from arakawa.blocks import BaseBlock, Group
 from arakawa.blocks.asset import AssetBlock
@@ -104,7 +105,9 @@ class PydanticBuilder(ViewVisitor):
     @visit.register  # type: ignore
     def _(self, b: AssetBlock):
         fe = self._add_asset_to_store(b)
-        element = b.model_copy(update={"type": fe.mime, "src": f"ref://{fe.hash}"})
+        element = b.model_copy(
+            update={"type": fe.mime, "src": AnyUrl(f"ref://{fe.hash}")}
+        )
         return self.add_element(b, element)
 
     def _add_asset_to_store(self, b: AssetBlock) -> FileEntry:
