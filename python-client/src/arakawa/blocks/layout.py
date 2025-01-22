@@ -11,7 +11,7 @@ from arakawa.exceptions import ARError
 from arakawa.types import ComputeMethod, SelectType, VAlign
 from arakawa.utils import log
 
-from .base import BlockId, BlockOrPrimitive, DataBlock, wrap_block
+from .base import BlockOrPrimitive, DataBlock, wrap_block
 from .misc_blocks import Empty
 from .mixins import OptionalLabelMixin, OptionalNameMinx
 
@@ -98,7 +98,7 @@ class Page(ContainerBlock):
         *arg_blocks: BlockOrPrimitive,
         blocks: list[BlockOrPrimitive] | None = None,
         title: str | None = None,
-        name: BlockId | None = None,
+        name: str | None = None,
     ):
         """
         Args:
@@ -138,7 +138,7 @@ class Select(ContainerBlock):
         *arg_blocks: BlockOrPrimitive,
         blocks: list[BlockOrPrimitive] | None = None,
         type: SelectType = SelectType.TABS,
-        name: BlockId | None = None,
+        name: str | None = None,
         label: str | None = None,
     ):
         """
@@ -177,7 +177,7 @@ class Group(ContainerBlock):
         self,
         *arg_blocks: BlockOrPrimitive,
         blocks: list[BlockOrPrimitive] | None = None,
-        name: BlockId | None = None,
+        name: str | None = None,
         label: str | None = None,
         widths: list[int | float] | None = None,
         valign: VAlign = VAlign.TOP,
@@ -223,7 +223,7 @@ class Toggle(ContainerBlock):
         self,
         *arg_blocks: BlockOrPrimitive,
         blocks: list[BlockOrPrimitive] | None = None,
-        name: BlockId | None = None,
+        name: str | None = None,
         label: str | None = None,
     ):
         """
@@ -259,7 +259,7 @@ class Compute(ContainerBlock):
         self,
         *arg_blocks: BlockOrPrimitive,
         blocks: list[BlockOrPrimitive] | None = None,
-        name: BlockId | None = None,
+        name: str | None = None,
         label: str | None = None,
         prompt: str | None = None,
         subtitle: str | None = None,
@@ -270,7 +270,7 @@ class Compute(ContainerBlock):
         Args:
             *arg_blocks: Compute to add to report.
             blocks (list[BlockOrPrimitive] | None, optional): Blocks to compose a form. Defaults to None.
-            name (BlockId | None, optional): A name. Defaults to None.
+            name (str | None, optional): A name. Defaults to None.
             label (str | None, optional): A label. Defaults to None.
             prompt (str | None, optional): A prompt. Defaults to None.
             subtitle (str | None, optional): A subtitle. Defaults to None.

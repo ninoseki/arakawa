@@ -33,7 +33,7 @@ class PydanticBuilder(ViewVisitor):
     store: FileStore
     elements: list[BaseBlock] = dataclasses.field(default_factory=list)
 
-    _seen_names: set[str] = dataclasses.field(default_factory=set)
+    _seen_ids: set[str] = dataclasses.field(default_factory=set)
 
     def get_root(self, fragment: bool = False):
         _top_group = cast(Group, self.elements.pop())
@@ -53,12 +53,11 @@ class PydanticBuilder(ViewVisitor):
         """Add an element to the list of nodes at the current XML tree location"""
         self.elements.append(e)
 
-        name: str | None = getattr(e, "name", None)
-        if name:
-            if name in self._seen_names:
-                raise ARError(f"Duplicate name {name} found in the View")
+        if e.id:
+            if e.id in self._seen_ids:
+                raise ARError(f"Duplicate name {e.id} found in the View")
 
-            self._seen_names.add(name)
+            self._seen_ids.add(e.id)
 
         return self
 
@@ -86,13 +85,13 @@ class PydanticBuilder(ViewVisitor):
         sub_elements = self._visit_subnodes(b)
 
         # Blocks are converted to Group internally
-        if label := getattr(b, "label", None):
-            log.info(f"Found label {label} in top-level Blocks/View")
+        if b.label:
+            log.info(f"Found label {b.label} in top-level Blocks/View")
 
         element = Group(
             blocks=sub_elements,
             name=b.name,
-            label=label,
+            label=b.label,
             columns=1,
             valign=VAlign.TOP,
         )

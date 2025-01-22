@@ -6,7 +6,7 @@ from pydantic import Field
 
 from arakawa.types import NumberValue
 
-from .base import BaseBlock, BlockId, DataBlock
+from .base import BaseBlock, DataBlock
 from .mixins import OptionalNameMinx
 
 
@@ -25,7 +25,7 @@ class Empty(OptionalNameMinx, BaseBlock):
 
     _tag = "Empty"
 
-    def __init__(self, name: BlockId | None = None):
+    def __init__(self, name: str | None = None):
         name = name or gen_name()
         return super().__init__(name=name)
 
@@ -61,7 +61,7 @@ class BigNumber(OptionalNameMinx, DataBlock):
         prev_value: NumberValue | None = None,
         is_positive_intent: bool | None = None,
         is_upward_change: bool | None = None,
-        name: BlockId | None = None,
+        name: str | None = None,
         label: str | None = None,
     ):
         """

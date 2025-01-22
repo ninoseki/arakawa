@@ -13,7 +13,7 @@ from arakawa.common.utils import get_embed_url, utf_read_text
 from arakawa.exceptions import ARError
 from arakawa.types import NPath
 
-from .base import BlockId, BlockOrPrimitive, DataBlock, wrap_block
+from .base import BlockOrPrimitive, DataBlock, wrap_block
 from .layout import Group
 from .mixins import OptionalCaptionMixin, OptionalLabelMixin, OptionalNameMinx
 
@@ -50,7 +50,7 @@ class Text(OptionalLabelMixin, EmbeddedTextBlock):
         self,
         text: str | None = None,
         file: NPath | None = None,
-        name: BlockId | None = None,
+        name: str | None = None,
         label: str | None = None,
     ):
         """
@@ -133,7 +133,7 @@ class Code(OptionalLabelMixin, OptionalCaptionMixin, EmbeddedTextBlock):
         code: str,
         language: str = "python",
         caption: str | None = None,
-        name: BlockId | None = None,
+        name: str | None = None,
         label: str | None = None,
     ):
         """
@@ -168,7 +168,7 @@ class HTML(OptionalLabelMixin, EmbeddedTextBlock):
     def __init__(
         self,
         html: str | dom_tag,
-        name: BlockId | None = None,
+        name: str | None = None,
         label: str | None = None,
         sandbox: str | None = "allow-scripts",
     ):
@@ -198,7 +198,7 @@ class Formula(OptionalLabelMixin, OptionalCaptionMixin, EmbeddedTextBlock):
         self,
         formula: str,
         caption: str | None = None,
-        name: BlockId | None = None,
+        name: str | None = None,
         label: str | None = None,
     ):
         """
@@ -238,7 +238,7 @@ class Embed(EmbeddedTextBlock):
         url: str,
         width: int = 960,
         height: int = 540,
-        name: BlockId | None = None,
+        name: str | None = None,
         label: str | None = None,
     ):
         """

@@ -5,8 +5,6 @@ from typing import TYPE_CHECKING, Any, ClassVar, TypeVar, Union
 
 from pydantic import BaseModel, ConfigDict, computed_field
 
-from arakawa.common.utils import mk_attribs
-
 if sys.version_info <= (3, 11):
     pass
 else:
@@ -15,8 +13,6 @@ else:
 if TYPE_CHECKING:
     from arakawa.view import ViewVisitor
 
-
-BlockId = str
 
 VV = TypeVar("VV", bound="ViewVisitor")
 
@@ -29,16 +25,17 @@ class BaseBlock(BaseModel):
 
     _tag: ClassVar[str]
 
-    model_config = ConfigDict(arbitrary_types_allowed=True, extra="allow")
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
     @computed_field(alias="_tag")
     @property
     def computed_tag(self) -> str:
         return self._tag
 
-    def _add_attributes(self, **kwargs):
-        attrs = mk_attribs(**kwargs)
-        (self.model_extra or {}).update(attrs)
+    @computed_field
+    @property
+    def id(self) -> str | None:
+        raise NotImplementedError("id property must be implemented in subclass")
 
     def _ipython_display_(self):
         """Display the block as a side effect within a Jupyter notebook"""

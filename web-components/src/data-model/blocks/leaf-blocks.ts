@@ -23,8 +23,7 @@ import { useRootStore } from '../root-store'
 
 // Represents a serialized JSON element prior to becoming a Page/Group/Select/Block
 export type Elem = {
-  _id: string
-  name?: string
+  id?: string
   label?: string
   blocks?: Elem[]
   [x: string]: any
@@ -68,16 +67,13 @@ export class Block {
   public id?: string
   public name?: string
 
-  // block ID
-  public _id: string
-
   public constructor(
     elem: Elem,
     figure: BlockFigure,
     /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
     opts?: any,
   ) {
-    const { name, label, _id } = elem
+    const { label, id } = elem
     this.count = figure.count
     this.caption = figure.caption
     const rootStore = useRootStore()
@@ -86,12 +82,10 @@ export class Block {
       singleBlockEmbed: rootStore.singleBlockEmbed,
     }
 
-    // TODO - use `id` not `name`
-    // this.id = attributes.id;`
-    this.id = name
+    this.id = id
     this.label = label
-
-    this._tag = _id
+    // for control blocks (FIXME)
+    this.name = id
   }
 }
 

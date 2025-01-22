@@ -116,13 +116,7 @@ class View(Blocks):
     The `View` block is a top-level block that contains all the blocks that make up the report. It is the root of the report tree.
     """
 
-    def __init__(
-        self,
-        *arg_blocks: BlockOrPrimitive,
-        blocks: list[BlockOrPrimitive] | None = None,
-        **kwargs,
-    ):
-        super().__init__(*arg_blocks, blocks=blocks, **kwargs)
+    __init__ = Blocks.__init__
 
 
 BlocksT = Union[
@@ -139,13 +133,7 @@ class Report(Blocks):
     can be analyzed and shared by users in their browser
     """
 
-    def __init__(
-        self,
-        *arg_blocks: BlockOrPrimitive,
-        blocks: list[BlockOrPrimitive] | None = None,
-        **kwargs,
-    ):
-        super().__init__(*arg_blocks, blocks=blocks, **kwargs)
+    __init__ = Blocks.__init__
 
     def save(
         self,

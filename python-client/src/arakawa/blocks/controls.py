@@ -1,29 +1,15 @@
 from __future__ import annotations
 
-from pydantic import Field, field_validator
+from pydantic import Field
 
-from arakawa.common.utils import is_valid_id
-
-from .base import BlockId, DataBlock
-from .mixins import (
-    OptionalLabelMixin,
-)
+from .base import DataBlock
+from .mixins import NameMixin, OptionalLabelMixin
 
 
-class ControlBlock(DataBlock):
+class ControlBlock(NameMixin, DataBlock):
     """
     Abstract block for all the control blocks.
     """
-
-    name: str = Field(...)
-
-    @field_validator("name", mode="after")
-    @classmethod
-    def _validate_name(cls, v: str):
-        if not is_valid_id(v):
-            raise ValueError(f"Invalid name '{v}' for block")
-
-        return v
 
 
 class OptionalHelpMixin(DataBlock):
@@ -56,7 +42,7 @@ class BaseDateTime(
 
     def __init__(
         self,
-        name: BlockId,
+        name: str,
         help: str | None = None,
         initial: str | None = None,
         label: str | None = None,
@@ -65,7 +51,7 @@ class BaseDateTime(
     ):
         """
         Args:
-            name (BlockId): A name.
+            name (str): A name.
             help (str | None, optional): A help text. Defaults to None.
             initial (str | None, optional): An initial value. Defaults to None.
             label (str | None, optional): A label. Defaults to None.
@@ -89,6 +75,8 @@ class DateTimeField(BaseDateTime):
 
     _tag = "DateTimeField"
 
+    __init__ = BaseDateTime.__init__
+
 
 class DateField(BaseDateTime):
     """
@@ -97,6 +85,8 @@ class DateField(BaseDateTime):
 
     _tag = "DateField"
 
+    __init__ = BaseDateTime.__init__
+
 
 class TimeField(BaseDateTime):
     """
@@ -104,6 +94,8 @@ class TimeField(BaseDateTime):
     """
 
     _tag = "TimeField"
+
+    __init__ = BaseDateTime.__init__
 
 
 class FileField(
@@ -124,7 +116,7 @@ class FileField(
 
     def __init__(
         self,
-        name: BlockId,
+        name: str,
         accept: str | None = None,
         help: str | None = None,
         label: str | None = None,
@@ -133,7 +125,7 @@ class FileField(
     ):
         """
         Args:
-            name (BlockId): A name.
+            name (str): A name.
             help (str | None, optional): A help text. Defaults to None.
             label (str | None, optional): A label. Defaults to None.
             required (bool | None, optional): Whether it's required or not. Defaults to None.
@@ -168,7 +160,7 @@ class MultiChoiceField(
 
     def __init__(
         self,
-        name: BlockId,
+        name: str,
         initial: list[str],
         options: list[str],
         help: str | None = None,
@@ -178,7 +170,7 @@ class MultiChoiceField(
     ):
         """
         Args:
-            name (BlockId): A name.
+            name (str): A name.
             initial (list[str]): An initial value.
             options (list[str]): Options.
             help (str | None, optional): A help text. Defaults to None.
@@ -214,7 +206,7 @@ class NumberBox(
 
     def __init__(
         self,
-        name: BlockId,
+        name: str,
         help: str | None = None,
         initial: int | float | None = None,
         label: str | None = None,
@@ -223,7 +215,7 @@ class NumberBox(
     ):
         """
         Args:
-            name (BlockId): A name.
+            name (str): A name.
             help (str | None, optional): A help text. Defaults to None.
             initial (int | float | None, optional): An initial value. Defaults to None.
             label (str | None, optional): A label. Defaults to None.
@@ -260,7 +252,7 @@ class RangeField(
 
     def __init__(
         self,
-        name: BlockId,
+        name: str,
         min: int | float,
         max: int | float,
         step: int | float,
@@ -271,7 +263,7 @@ class RangeField(
     ):
         """
         Args:
-            name (BlockId): Name.
+            name (str): Name.
             min (int | float): A min value.
             max (int | float): A max value.
             step (int | float): A step value.
@@ -311,7 +303,7 @@ class ChoiceField(
 
     def __init__(
         self,
-        name: BlockId,
+        name: str,
         options: list[str],
         help: str | None = None,
         initial: str | None = None,
@@ -321,7 +313,7 @@ class ChoiceField(
     ):
         """
         Args:
-            name (BlockId): A name.
+            name (str): A name.
             options (list[str]): Options.
             help (str | None, optional): A help text. Defaults to None.
             initial (str | None, optional): An initial value. Defaults to None.
@@ -357,7 +349,7 @@ class SwitchField(
 
     def __init__(
         self,
-        name: BlockId,
+        name: str,
         help: str | None = None,
         initial: bool | None = None,
         label: str | None = None,
@@ -365,7 +357,7 @@ class SwitchField(
     ):
         """
         Args:
-            name (BlockId): A name.
+            name (str): A name.
             help (str | None, optional): A help text. Defaults to None.
             initial (bool | None, optional): An initial value. Defaults to None.
             label (str | None, optional): A label. Defaults to None.
@@ -393,7 +385,7 @@ class TagsField(
 
     def __init__(
         self,
-        name: BlockId,
+        name: str,
         initial: list[str],
         help: str | None = None,
         label: str | None = None,
@@ -402,7 +394,7 @@ class TagsField(
     ):
         """
         Args:
-            name (BlockId): A name.
+            name (str): A name.
             initial (list[str]): An initial value.
             help (str | None, optional): A help text. Defaults to None.
             label (str | None, optional): A label. Defaults to None.
@@ -436,7 +428,7 @@ class BaseTextField(
 
     def __init__(
         self,
-        name: BlockId,
+        name: str,
         help: str | None = None,
         initial: str | None = None,
         label: str | None = None,
@@ -445,7 +437,7 @@ class BaseTextField(
     ):
         """
         Args:
-            name (BlockId): A name.
+            name (str): A name.
             help (str | None, optional): A help text. Defaults to None.
             initial (str | None, optional): An initial value. Defaults to None.
             label (str | None, optional): A label. Defaults to None.
@@ -469,6 +461,8 @@ class TextBox(BaseTextField):
 
     _tag = "TextBox"
 
+    __init__ = BaseTextField.__init__
+
 
 class URLField(BaseTextField):
     """
@@ -476,6 +470,8 @@ class URLField(BaseTextField):
     """
 
     _tag = "URLField"
+
+    __init__ = BaseTextField.__init__
 
 
 class EmailField(BaseTextField):
@@ -485,6 +481,8 @@ class EmailField(BaseTextField):
 
     _tag = "EmailField"
 
+    __init__ = BaseTextField.__init__
+
 
 class SearchField(BaseTextField):
     """
@@ -492,6 +490,8 @@ class SearchField(BaseTextField):
     """
 
     _tag = "SearchField"
+
+    __init__ = BaseTextField.__init__
 
 
 class TelephoneField(BaseTextField):
@@ -501,6 +501,8 @@ class TelephoneField(BaseTextField):
 
     _tag = "TelephoneField"
 
+    __init__ = BaseTextField.__init__
+
 
 class PasswordField(BaseTextField):
     """
@@ -508,6 +510,8 @@ class PasswordField(BaseTextField):
     """
 
     _tag = "PasswordField"
+
+    __init__ = BaseTextField.__init__
 
 
 class TextareaField(BaseTextField):
@@ -517,6 +521,8 @@ class TextareaField(BaseTextField):
 
     _tag = "TextareaField"
 
+    __init__ = BaseTextField.__init__
+
 
 class HiddenField(ControlBlock):
     """
@@ -525,16 +531,16 @@ class HiddenField(ControlBlock):
 
     _tag = "HiddenField"
 
-    initial: str = Field(...)  # type: ignore
+    initial: str = Field(...)
 
     def __init__(
         self,
-        name: BlockId,
+        name: str,
         initial: str,
     ):
         """
         Args:
-            name (BlockId): A name.
+            name (str): A name.
             initial (str): An initial value.
         """
         super().__init__(
@@ -549,3 +555,5 @@ class ColorField(BaseTextField):
     """
 
     _tag = "ColorField"
+
+    __init__ = BaseTextField.__init__
