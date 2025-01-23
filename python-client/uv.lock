@@ -42,7 +42,7 @@ wheels = [
 
 [[package]]
 name = "arakawa"
-version = "0.0.9a5.post1.dev0+dbbf0b19"
+version = "0.0.11.post1.dev0+cf6fd872"
 source = { editable = "." }
 dependencies = [
     { name = "altair" },
@@ -107,7 +107,7 @@ requires-dist = [
     { name = "pandas", specifier = "~=2.2" },
     { name = "plotly", marker = "extra == 'plotting'", specifier = "~=5.24" },
     { name = "pyarrow", specifier = "~=18.1" },
-    { name = "pydantic", specifier = "~=2.10" },
+    { name = "pydantic", specifier = ">=2.5.3,<3.0" },
     { name = "pyhumps", specifier = "~=3.8" },
     { name = "semver", specifier = "~=3.0" },
     { name = "typing-extensions", marker = "python_full_version < '3.11'", specifier = "~=4.12" },
