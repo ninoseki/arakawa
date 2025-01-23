@@ -49,7 +49,7 @@ class BigNumber(OptionalNameMinx, DataBlock):
     is_positive_intent: bool | None = Field(default=None)
     is_upward_change: bool | None = Field(default=None)
     label: str | None = Field(default=None)
-    pre_value: str | None = Field(
+    prev_value: str | None = Field(
         default=None, min_length=1, max_length=128, coerce_numbers_to_str=True
     )
 
@@ -89,9 +89,9 @@ class BigNumber(OptionalNameMinx, DataBlock):
             heading=heading,
             value=value,
             change=change,
-            pre_value=prev_value,
-            is_positive_intent=is_positive_intent,
-            is_upward_change=is_upward_change,
+            prev_value=prev_value,
+            is_positive_intent=bool(is_positive_intent),
+            is_upward_change=bool(is_upward_change),
             name=name,
             label=label,
         )

@@ -152,21 +152,21 @@ export class BigNumberBlock extends Block {
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
     const {
-      preValue,
+      prevValue,
       change,
       heading,
       value,
       isPositiveIntent,
       isUpwardChange,
     } = elem as unknown as {
-      preValue?: string
+      prevValue?: string
       change?: string
       heading: string
       value: string
       isPositiveIntent?: boolean
       isUpwardChange?: boolean
     }
-    const useSimple = !preValue && !change
+    const useSimple = !prevValue && !change
     this.component = markRaw(
       useSimple ? VBigNumberBlockSimple : VBigNumberBlock,
     )
@@ -180,7 +180,7 @@ export class BigNumberBlock extends Block {
         ...this.componentProps,
         isPositiveIntent: isPositiveIntent || false,
         isUpwardChange: isUpwardChange || false,
-        preValue,
+        prevValue,
         change,
       }
     }
