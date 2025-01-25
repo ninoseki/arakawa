@@ -1,4 +1,3 @@
-import replace from '@rollup/plugin-replace'
 import type { StorybookConfig } from '@storybook/vue3-vite'
 import vue from '@vitejs/plugin-vue'
 import tailwindcss from 'tailwindcss'
@@ -6,7 +5,6 @@ import tailwindcss from 'tailwindcss'
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
-    '@storybook/addon-onboarding',
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@chromatic-com/storybook',
@@ -34,14 +32,6 @@ const config: StorybookConfig = {
             isCustomElement: tag => tag.startsWith('x-'),
           },
         },
-      }),
-      replace({
-        include: ['../node_modules/@bokeh/**/*.js'],
-        values: {
-          // shim jquery to window object for bokehjs
-          jQuery: 'window.jQuery',
-        },
-        preventAssignment: false,
       }),
     )
     return config

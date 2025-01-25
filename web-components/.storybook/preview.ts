@@ -13,7 +13,8 @@ import { formkitConfig } from '@/components/controls/formkit'
 const pinia = createPinia()
 
 setup((app: App) => {
-  app.use(formkitPlugin, defaultConfig(formkitConfig)).use(pinia)
+  app.use(pinia)
+  app.use(formkitPlugin, defaultConfig(formkitConfig))
 })
 
 const preview: Preview = {
