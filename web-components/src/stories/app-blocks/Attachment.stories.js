@@ -1,4 +1,4 @@
-import File from '@/components/blocks/File.vue'
+import File from '@/components/blocks/Attachment.vue'
 
 import { makeTemplate } from '../utils'
 

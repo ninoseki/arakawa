@@ -72,16 +72,26 @@ export class Block {
     elem: Elem,
     figure: BlockFigure,
     /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-    opts?: any,
+    opts?: unknown,
   ) {
     const { label, id, name } = elem
     this.count = figure.count
     this.caption = figure.caption
-    const rootStore = useRootStore()
-    this.componentProps = {
-      figure,
-      singleBlockEmbed: rootStore.singleBlockEmbed,
+
+    // FIXME: for Storybook's pinia issue...
+    const getSingleBlockEmbed = (): boolean | undefined => {
+      try {
+        const rootStore = useRootStore()
+        return rootStore.singleBlockEmbed
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error(err)
+      }
+      return undefined
     }
+    const singleBlockEmbed = getSingleBlockEmbed()
+
+    this.componentProps = { figure, singleBlockEmbed }
 
     this.id = id
     this.name = name
