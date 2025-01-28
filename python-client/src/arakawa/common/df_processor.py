@@ -42,14 +42,6 @@ def downcast_numbers(data: pd.DataFrame):
     df_num = data.select_dtypes("integer", exclude=["timedelta"])  # , pd.Int64Dtype])
     data[df_num.columns] = df_num.apply(downcast_ints)
 
-    def downcast_floats(ser: pd.Series) -> pd.Series:
-        return pd.to_numeric(ser, downcast="float", errors="ignore")
-
-    # float downcasting currently disabled - alters values (both float64 and int64) and rounds to 'inf' instead of erroring
-    # see https://github.com/pandas-dev/pandas/issues/19729
-    # df_num = data.select_dtypes("floating")
-    # data[df_num.columns] = df_num.apply(downcast_floats)
-
 
 def timedelta_to_str(df: pd.DataFrame):
     """
