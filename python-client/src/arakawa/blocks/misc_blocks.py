@@ -1,18 +1,12 @@
 from __future__ import annotations
 
-import secrets
-
 from pydantic import Field
 
 from arakawa.types import NumberValue
 
 from .base import BaseBlock, DataBlock
 from .mixins import OptionalNameMinx
-
-
-def gen_name() -> str:
-    """Return a (safe) name for use in a Block"""
-    return f"id-{secrets.token_urlsafe(8)}"
+from .utils import NumberStr, OptionalNumberStr, gen_name
 
 
 class Empty(OptionalNameMinx, BaseBlock):
@@ -42,16 +36,12 @@ class BigNumber(OptionalNameMinx, DataBlock):
     _tag = "BigNumber"
 
     heading: str = Field(..., min_length=1, max_length=128)
-    value: str = Field(..., min_length=1, max_length=128, coerce_numbers_to_str=True)
-    change: str | None = Field(
-        default=None, min_length=1, max_length=128, coerce_numbers_to_str=True
-    )
+    value: NumberStr = Field(..., min_length=1, max_length=128)
+    change: OptionalNumberStr = Field(default=None, min_length=1, max_length=128)
     is_positive_intent: bool | None = Field(default=None)
     is_upward_change: bool | None = Field(default=None)
     label: str | None = Field(default=None)
-    prev_value: str | None = Field(
-        default=None, min_length=1, max_length=128, coerce_numbers_to_str=True
-    )
+    prev_value: OptionalNumberStr = Field(default=None, min_length=1, max_length=128)
 
     def __init__(
         self,
