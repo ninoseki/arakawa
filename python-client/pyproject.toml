@@ -36,9 +36,9 @@ plotting = [
 all = [
   "bokeh>=3.4.0,<3.5.0",
   "folium~=0.18",
+  "great_tables~=0.16",
   "matplotlib~=3.9",
   "plotly~=5.24",
-  "great_tables~=0.16",
 ]
 
 [project.urls]
