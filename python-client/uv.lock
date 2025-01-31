@@ -65,11 +65,21 @@ dependencies = [
 ]
 
 [package.optional-dependencies]
+all = [
+    { name = "bokeh" },
+    { name = "folium" },
+    { name = "great-tables" },
+    { name = "matplotlib" },
+    { name = "plotly" },
+]
 plotting = [
     { name = "bokeh" },
     { name = "folium" },
     { name = "matplotlib" },
     { name = "plotly" },
+]
+tabling = [
+    { name = "great-tables" },
 ]
 
 [package.dev-dependencies]
@@ -92,20 +102,26 @@ dev = [
 requires-dist = [
     { name = "altair", specifier = "~=5.4" },
     { name = "base64io", specifier = "~=1.0" },
+    { name = "bokeh", marker = "extra == 'all'", specifier = ">=3.4.0,<3.5.0" },
     { name = "bokeh", marker = "extra == 'plotting'", specifier = ">=3.4.0,<3.5.0" },
     { name = "chardet", specifier = "~=5.2" },
     { name = "dominate", specifier = "~=2.9" },
     { name = "eval-type-backport", marker = "python_full_version < '3.10'", specifier = "~=0.2" },
+    { name = "folium", marker = "extra == 'all'", specifier = "~=0.18" },
     { name = "folium", marker = "extra == 'plotting'", specifier = "~=0.18" },
     { name = "great-tables", specifier = ">=0.16.1" },
+    { name = "great-tables", marker = "extra == 'all'", specifier = "~=0.16" },
+    { name = "great-tables", marker = "extra == 'tabling'", specifier = "~=0.16" },
     { name = "ipynbname", specifier = "~=2024.1" },
     { name = "ipython", specifier = "~=8.13" },
     { name = "jinja2", specifier = "~=3.0" },
     { name = "loguru", specifier = "~=0.7" },
+    { name = "matplotlib", marker = "extra == 'all'", specifier = "~=3.9" },
     { name = "matplotlib", marker = "extra == 'plotting'", specifier = "~=3.9" },
     { name = "micawber", specifier = "~=0.5" },
     { name = "multimethod", specifier = "~=2.0" },
     { name = "pandas", specifier = "~=2.2" },
+    { name = "plotly", marker = "extra == 'all'", specifier = "~=5.24" },
     { name = "plotly", marker = "extra == 'plotting'", specifier = "~=5.24" },
     { name = "pyarrow", specifier = "~=18.1" },
     { name = "pydantic", specifier = ">2.0.1,!=2.1.0,<3.0.0" },
