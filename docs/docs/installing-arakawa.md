@@ -43,6 +43,26 @@ If you use `conda`, you can install it with:
 !!! warning
 Conda sometimes installs an older version of Arakawa. If you receive errors, please check the version and try running `conda update --all` or try in a new conda environment (`conda create -n ENV` and `conda activate ENV`)
 
+## With Extras
+
+`arakawa` doesn't include extra dependencies for plotting & (additional) tabling by default.
+
+You can install it selectively or can use `plotting` and `tabling` extras.
+
+```bash
+# install all plotting dependencies
+pip install arakawa[plotting]
+# install tabling dependencies
+pip install arakawa[tabling]
+# install all plotting & tabling dependencies
+pip install arakawa[all]
+```
+
+- `plotting` extra dependencies:
+  - Bokeh, Folium, Matplotlib and Plotly
+- `tabling` extra dependencies:
+  - Great Tables
+
 ## Upgrading
 
 ### Upgrading Via Pip

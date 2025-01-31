@@ -1,6 +1,4 @@
-from typing import Union
-
-from .asset import Attachment, DataTable, Media, Plot, Table
+from .asset import Attachment, DataTable, Media, Plot, Table  # noqa: F401
 from .base import (  # noqa: F401
     BaseBlock,
     BlockList,
@@ -8,7 +6,7 @@ from .base import (  # noqa: F401
     DataBlock,
     wrap_block,
 )
-from .controls import (
+from .controls import (  # noqa: F401
     ChoiceField,
     ColorField,
     DateField,
@@ -37,34 +35,7 @@ from .layout import (  # noqa: F401
     SelectType,
     Toggle,
 )
-from .misc_blocks import BigNumber, Empty
-from .text import HTML, Code, Embed, Formula, Text
+from .misc_blocks import BigNumber, Empty  # noqa: F401
+from .text import HTML, Code, Embed, Formula, GreatTables, Text  # noqa: F401
 
 Block = BaseBlock
-
-AssetBlocks = Union[Media, Attachment, Plot, Table, DataTable]
-TextBlocks = Union[Code, Embed, Text, HTML, Formula]
-MiscBlocks = Union[BigNumber, Empty]
-LayoutBlocks = Union[Select, Group, Toggle, Compute]
-ControlBlocks = Union[
-    ChoiceField,
-    DateTimeField,
-    FileField,
-    HiddenField,
-    MultiChoiceField,
-    NumberBox,
-    RangeField,
-    SwitchField,
-    TagsField,
-    TextBox,
-    ColorField,
-    SearchField,
-    DateField,
-    EmailField,
-    PasswordField,
-    TelephoneField,
-    TextareaField,
-    TimeField,
-    URLField,
-]
-AllBlocks = Union[ControlBlocks, AssetBlocks, TextBlocks, MiscBlocks, LayoutBlocks]
