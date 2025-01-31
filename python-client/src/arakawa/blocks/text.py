@@ -9,6 +9,7 @@ from typing import Any
 from dominate.dom_tag import dom_tag
 from pydantic import AnyHttpUrl, Field, field_validator
 
+from arakawa import optional_libs as opt
 from arakawa.common.utils import get_embed_url, utf_read_text
 from arakawa.exceptions import ARError
 from arakawa.types import NPath
@@ -258,3 +259,30 @@ class Embed(EmbeddedTextBlock):
             name=name,
             label=label,
         )
+
+
+class GreatTables(HTML):
+    """
+    The GreatTables block allows you to embed a GreatTables table into your app.
+    """
+
+    _tag = "HTML"
+
+    def __init__(
+        self,
+        data: opt.GTTable,
+        name: str | None = None,
+        label: str | None = None,
+    ):
+        """
+        Args:
+            data: A `GTTable` object to attach
+            name: A unique name for the block to reference when adding text or embedding (optional)
+            label: A label used when displaying the block (optional)
+        """
+        if not opt.HAVE_GREAT_TABLES:
+            raise ARError(
+                "GreatTables is not installed. Please install great-tables to use this block."
+            )
+
+        super().__init__(html=data.as_raw_html(), name=name, label=label)

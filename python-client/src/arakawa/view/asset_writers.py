@@ -82,6 +82,13 @@ class HTMLTableWriter:
         out = x.to_html().encode()
         f.write(out)
 
+    if opt.HAVE_GREAT_TABLES:
+
+        @write_file.register  # type: ignore
+        def _(self, x: opt.GTTable, f) -> None:
+            out = x.as_raw_html().encode()
+            f.write(out)
+
     def _check(self, df: pd.DataFrame) -> None:
         n_cells = df.shape[0] * df.shape[1]
         if n_cells > 500:

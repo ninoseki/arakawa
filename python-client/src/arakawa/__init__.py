@@ -22,6 +22,7 @@ from .blocks import (  # noqa: F401
     Empty,
     FileField,
     Formula,
+    GreatTables,
     Group,
     HiddenField,
     Media,

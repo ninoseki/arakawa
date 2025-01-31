@@ -10,6 +10,7 @@ dependencies = [
   "chardet~=5.2",
   "dominate~=2.9",
   'eval_type_backport~=0.2;python_version<"3.10"',
+  "great-tables>=0.16.1",
   "ipynbname~=2024.1",
   "ipython~=8.13",
   "jinja2~=3.0",
@@ -25,11 +26,19 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+tabling = ["great_tables~=0.16"]
 plotting = [
   "bokeh>=3.4.0,<3.5.0",
   "folium~=0.18",
   "matplotlib~=3.9",
   "plotly~=5.24",
+]
+all = [
+  "bokeh>=3.4.0,<3.5.0",
+  "folium~=0.18",
+  "matplotlib~=3.9",
+  "plotly~=5.24",
+  "great_tables~=0.16",
 ]
 
 [project.urls]

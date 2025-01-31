@@ -77,3 +77,10 @@ if opt.HAVE_MATPLOTLIB:
     @convert_to_block.register  # type: ignore
     def _(x: Union[opt.Figure, opt.Axes, opt.ndarray]) -> DataBlock:
         return b.Plot(x)
+
+
+if opt.HAVE_GREAT_TABLES:
+
+    @convert_to_block.register  # type: ignore
+    def _(x: opt.GTTable) -> DataBlock:
+        return b.HTML(x.as_raw_html())

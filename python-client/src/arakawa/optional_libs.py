@@ -13,6 +13,7 @@ from arakawa.utils import log
 BOKEH_V_SPECIFIER = SpecifierSet(">=3.4.0,<3.5.0")
 PLOTLY_V_SPECIFIER = SpecifierSet("~=5.24")
 FOLIUM_V_SPECIFIER = SpecifierSet("~=0.18")
+GREAT_TABLES_V_SPECIFIER = SpecifierSet("~=0.16")
 
 
 def _check_version(name: str, _v: v.Version, ss: SpecifierSet):
@@ -67,3 +68,16 @@ try:
 except ImportError:
     HAVE_PLOTLY = False
     log.debug("No Plotly Found")
+
+# Great Tables
+try:
+    import great_tables
+    from great_tables import GT as GTTable  # noqa: F401, N811
+
+    _check_version(
+        "Great Tables", v.Version(great_tables.__version__), GREAT_TABLES_V_SPECIFIER
+    )
+    HAVE_GREAT_TABLES = True
+except ImportError:
+    HAVE_GREAT_TABLES = False
+    log.debug("No Great Tables Found")
