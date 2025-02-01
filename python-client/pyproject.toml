@@ -47,7 +47,7 @@ all = [
 Repository = "https://github.com/ninoseki/arakawa/"
 
 [build-system]
-requires = ["hatchling>=1.26", "uv-dynamic-versioning==0.4.0"]
+requires = ["hatchling>=1.26", "uv-dynamic-versioning==0.4.1"]
 build-backend = "hatchling.build"
 
 [tool.hatch.version]
@@ -71,7 +71,7 @@ dev = [
   "pytest~=8.3.4",
   "pytest-pretty~=1.2.0",
   "pytest-randomly~=3.16.0",
-  "ruff~=0.9.3",
+  "ruff~=0.9.4",
   "vega-datasets~=0.9.0",
   "pytest-datadir~=1.5.0",
   "pytest-timeout~=2.3.1",
