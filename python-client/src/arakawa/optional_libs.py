@@ -14,6 +14,7 @@ BOKEH_V_SPECIFIER = SpecifierSet(">=3.4.0,<3.5.0")
 PLOTLY_V_SPECIFIER = SpecifierSet("~=5.24")
 FOLIUM_V_SPECIFIER = SpecifierSet("~=0.18")
 GREAT_TABLES_V_SPECIFIER = SpecifierSet("~=0.16")
+POLARS_V_SPECIFIER = SpecifierSet("~=1.0")
 
 
 def _check_version(name: str, _v: v.Version, ss: SpecifierSet):
@@ -81,3 +82,14 @@ try:
 except ImportError:
     HAVE_GREAT_TABLES = False
     log.debug("No Great Tables Found")
+
+# Polars
+try:
+    import polars as pl
+    from polars import DataFrame as PlDataFrame  # noqa: F401
+
+    _check_version("Polars", v.Version(pl.__version__), POLARS_V_SPECIFIER)
+    HAVE_POLARS = True
+except ImportError:
+    HAVE_POLARS = False
+    log.debug("No Polars Found")

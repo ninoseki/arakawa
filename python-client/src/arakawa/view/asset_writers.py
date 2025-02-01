@@ -59,11 +59,21 @@ class DataTableWriter:
     def get_meta(self, _: pd.DataFrame) -> AssetMeta:
         return AssetMeta(mime=ArrowFormat.content_type, ext=ArrowFormat.ext)
 
+    @multimethod
     def write_file(self, x: pd.DataFrame, f) -> None:
-        if x.size == 0:
+        if x.empty:
             raise ARError("Empty DataFrame provided")
         # process_df called in Arrow.save_file
         ArrowFormat.save_file(f, x)
+
+    if opt.HAVE_POLARS:
+
+        @write_file.register  # type: ignore
+        def _(self, x: opt.PlDataFrame, f) -> None:
+            if x.is_empty():
+                raise ARError("Empty DataFrame provided")
+
+            ArrowFormat.save_file(f, x)
 
 
 class HTMLTableWriter:
@@ -87,6 +97,16 @@ class HTMLTableWriter:
         @write_file.register  # type: ignore
         def _(self, x: opt.GTTable, f) -> None:
             out = x.as_raw_html().encode()
+            f.write(out)
+
+    if opt.HAVE_POLARS:
+
+        @write_file.register  # type: ignore
+        def _(self, x: opt.PlDataFrame, f) -> None:
+            y = x.to_pandas()
+
+            self._check(y)
+            out = y.to_html().encode()
             f.write(out)
 
     def _check(self, df: pd.DataFrame) -> None:

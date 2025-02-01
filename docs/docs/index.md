@@ -4,8 +4,8 @@ Arakawa makes it simple to build interactive reports in seconds using Python.
 
 Import Arakawa's Python library into your script or notebook and build reports programmatically by wrapping components such as:
 
-- Pandas DataFrames
-- Plots from Python visualization libraries such as Bokeh, Altair, Plotly, and Folium
+- Pandas and Polars DataFrames
+- Plots from Python visualization libraries such as Bokeh, Altair, Plotly, Folium and Great Tables
 - Markdown and text
 - Files, such as images, PDFs, JSON data, etc.
 - Interactive forms which run backend Python functions

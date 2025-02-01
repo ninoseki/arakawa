@@ -45,23 +45,26 @@ Conda sometimes installs an older version of Arakawa. If you receive errors, ple
 
 ## With Extras
 
-`arakawa` doesn't include extra dependencies for plotting & (additional) tabling by default.
+`arakawa` comes with Pandas (for data-framing) and Altair (for plotting) by default.
 
-You can install it selectively or can use `plotting` and `tabling` extras.
+You can install extra dependencies by using `plotting`, `tabling` and `datafraiming` extras.
 
 ```bash
 # install all plotting dependencies
 pip install arakawa[plotting]
 # install tabling dependencies
 pip install arakawa[tabling]
-# install all plotting & tabling dependencies
+# install dataframing dependencies
+pip install arakawa[dataframing]
+# install all plotting, tabling and dataframing dependencies
 pip install arakawa[all]
 ```
 
-- `plotting` extra dependencies:
-  - Bokeh, Folium, Matplotlib and Plotly
-- `tabling` extra dependencies:
-  - Great Tables
+| Name          | Dependencies                         |
+| ------------- | ------------------------------------ |
+| `plotting`    | Bokeh, Folium, Matplotlib and Plotly |
+| `tabling`     | Great Tables                         |
+| `dataframing` | Polars                               |
 
 ## Upgrading
 

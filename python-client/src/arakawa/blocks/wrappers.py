@@ -84,3 +84,11 @@ if opt.HAVE_GREAT_TABLES:
     @convert_to_block.register  # type: ignore
     def _(x: opt.GTTable) -> DataBlock:
         return b.HTML(x.as_raw_html())
+
+
+if opt.HAVE_POLARS:
+
+    @convert_to_block.register  # type: ignore
+    def _(x: opt.PlDataFrame) -> DataBlock:
+        n_cells = x.shape[0] * x.shape[1]
+        return b.Table(x) if n_cells <= 250 else b.DataTable(x)

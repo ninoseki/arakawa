@@ -23,10 +23,6 @@ def _check_categories_parsed(df: pd.DataFrame, categorical_columns: SList):
     assert set(df.select_dtypes("category").columns) == set(categorical_columns)
 
 
-def _check_is_object(df: pd.DataFrame, object_columns: SList):
-    assert set(df.select_dtypes("object").columns) == set(object_columns)
-
-
 def _check_is_string(df: pd.DataFrame, object_columns: SList):
     assert set(df.select_dtypes("string").columns) == set(object_columns)
 
