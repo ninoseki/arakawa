@@ -5,6 +5,8 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+import arakawa.optional_libs as opt
+
 
 def convert_axis(df: pd.DataFrame):
     """flatten both columns and indexes"""
@@ -187,6 +189,9 @@ def to_df(value: Any) -> pd.DataFrame:
             out_df.columns = ["Result"]
 
         return out_df
+
+    if opt.HAVE_POLARS and isinstance(value, opt.PlDataFrame):
+        return value.to_pandas()
 
     raise ValueError("Must return a primitive, pd.DataFrame, pd.Series or numpy array.")
 

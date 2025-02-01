@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Optional, cast
+from typing import TYPE_CHECKING, Any, Optional, cast
 
 import pandas as pd
 from pandas.io.formats.style import Styler
@@ -15,6 +15,9 @@ from arakawa.types import NPath
 
 from .base import DataBlock
 from .mixins import OptionalCaptionMixin, OptionalLabelMixin, OptionalNameMinx
+
+if TYPE_CHECKING:
+    from polars import DataFrame as PlDataFrame
 
 
 class AssetBlock(OptionalNameMinx, OptionalCaptionMixin, OptionalLabelMixin, DataBlock):
@@ -171,14 +174,14 @@ class Table(AssetBlock):
 
     def __init__(
         self,
-        data: pd.DataFrame | Styler,
+        data: pd.DataFrame | Styler | PlDataFrame,
         caption: str | None = None,
         name: str | None = None,
         label: str | None = None,
     ):
         """
         Args:
-            data: A pandas `Styler` instance or dataframe to generate the table from
+            data: A pandas `Styler` instance or Pandas/Polars dataframe to generate the table from
             caption: A caption to display below the table (optional)
             name: A unique name for the block to reference when adding text or embedding (optional)
             label: A label used when displaying the block (optional)
@@ -203,14 +206,14 @@ class DataTable(AssetBlock):
 
     def __init__(
         self,
-        df: pd.DataFrame,
+        df: pd.DataFrame | PlDataFrame,
         caption: str | None = None,
         name: str | None = None,
         label: str | None = None,
     ):
         """
         Args:
-            df: A pandas dataframe to attach to the report
+            df: A Pandas/Polars dataframe to attach to the report
             caption: A caption to display below the plot (optional)
             name: A unique name for the block to reference when adding text or embedding (optional)
             label: A label used when displaying the block (optional)

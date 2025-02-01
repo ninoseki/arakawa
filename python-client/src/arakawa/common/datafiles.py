@@ -3,29 +3,27 @@
 from __future__ import annotations
 
 import abc
-import enum
 from typing import IO, Union
 
 import pandas as pd
 import pyarrow as pa
-from loguru import logger as log
-from pandas.errors import ParserError
+from base64io import Base64IO
+from multimethod import multimethod
 from pyarrow import RecordBatchFileWriter
 
+from arakawa import optional_libs as opt
 from arakawa.types import ARROW_EXT, ARROW_MIMETYPE, MIME
 
 from .df_processor import obj_to_str, process_df, str_to_arrow_str
-from .utils import guess_encoding
+
+PathOrFile = Union[str, IO, Base64IO]
 
 
-def write_table(table: pa.Table, sink: str | IO[bytes]):
+def write_table(table: pa.Table, sink: PathOrFile):
     """Write an arrow table to a file"""
     writer = RecordBatchFileWriter(sink, table.schema)
     writer.write(table)
     writer.close()
-
-
-PathOrFile = Union[str, IO]
 
 
 class DFFormatter(abc.ABC):
@@ -61,66 +59,18 @@ class ArrowFormat(DFFormatter):
         str_to_arrow_str(df)
         return df
 
-    @staticmethod
-    def save_file(fn: PathOrFile, df: pd.DataFrame):
+    @multimethod
+    def save_file(fn: PathOrFile, df: pd.DataFrame):  # type: ignore # noqa: N805
         df = process_df(df)
         # NOTE - can pass expected schema and columns for output df here
         table: pa.Table = pa.Table.from_pandas(df, preserve_index=False)
         write_table(table, fn)
 
+    if opt.HAVE_POLARS:
 
-class CSVFormat(DFFormatter):
-    content_type = MIME("text/csv")
-    ext = ".csv"
-    enum = "CSV"
+        @save_file.register  # type: ignore
+        def _(fn: PathOrFile, df: opt.PlDataFrame):  # type: ignore # noqa: N805
+            table: pa.Table = df.to_arrow()
+            write_table(table, fn)
 
-    @staticmethod
-    def load_file(fn: PathOrFile) -> pd.DataFrame:
-        # TODO - fix
-        if not isinstance(fn, str):
-            raise ValueError("FObj not yet supported")
-
-        try:
-            return pd.read_csv(fn, engine="c", sep=",")
-        except UnicodeDecodeError:
-            encoding = guess_encoding(fn)
-            return pd.read_csv(fn, engine="c", sep=",", encoding=encoding)
-        except ParserError as e:
-            log.warning(f"Error parsing CSV file ({e}), trying python fallback")
-            try:
-                return pd.read_csv(fn, engine="python", sep=None)
-            except UnicodeDecodeError:
-                encoding = guess_encoding(fn)
-                return pd.read_csv(fn, engine="python", sep=None, encoding=encoding)
-
-    @staticmethod
-    def save_file(fn: PathOrFile, df: pd.DataFrame):
-        df.to_csv(fn, index=False)
-
-
-class ExcelFormat(DFFormatter):
-    content_type = MIME(
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
-    ext = ".xlsx"
-    enum = "EXCEL"
-
-    @staticmethod
-    def load_file(fn: PathOrFile) -> pd.DataFrame:
-        return pd.read_excel(fn, engine="openpyxl")
-
-    @staticmethod
-    def save_file(fn: PathOrFile, df: pd.DataFrame):
-        df.to_excel(fn, index=False, engine="openpyxl")
-
-
-class DatasetFormats(enum.Enum):
-    """Used to switch between the different format handlers"""
-
-    CSV = CSVFormat
-    EXCEL = ExcelFormat
-    ARROW = ArrowFormat
-
-
-# TODO - make into enums?
-df_ext_map: dict[str, DFFormatterCls] = {x.value.ext: x.value for x in DatasetFormats}
+    save_file = staticmethod(save_file)  # type: ignore
