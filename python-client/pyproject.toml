@@ -45,6 +45,8 @@ all = [
 
 [project.urls]
 Repository = "https://github.com/ninoseki/arakawa/"
+Homepage = "https://github.com/ninoseki/arakawa/"
+Documentation = "https://ninoseki.github.io/arakawa/"
 
 [build-system]
 requires = ["hatchling>=1.26", "uv-dynamic-versioning==0.4.1"]
