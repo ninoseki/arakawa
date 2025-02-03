@@ -1,8 +1,12 @@
 # Copyright 2020 StackHut Limited (trading as Datapane)
 # SPDX-License-Identifier: Apache-2.0
-import importlib.metadata
 
-__version__ = importlib.metadata.version(__name__)
+try:
+    from ._version import version
+
+    __version__ = version
+except ImportError:
+    __version__ = "0.0.0"
 
 # Public API re-exports
 from .blocks import (  # noqa: F401
