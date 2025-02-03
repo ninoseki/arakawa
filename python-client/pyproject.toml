@@ -49,11 +49,14 @@ Homepage = "https://github.com/ninoseki/arakawa/"
 Documentation = "https://ninoseki.github.io/arakawa/"
 
 [build-system]
-requires = ["hatchling>=1.26", "uv-dynamic-versioning==0.4.1"]
+requires = ["hatchling~=1.26", "uv-dynamic-versioning~=0.5"]
 build-backend = "hatchling.build"
 
 [tool.hatch.version]
 source = "uv-dynamic-versioning"
+
+[tool.hatch.build.hooks.uv-dynamic-versioning]
+version-file = "src/arakawa/_version.py"
 
 [tool.hatch.build.targets.sdist]
 exclude = ["images/", ".vscode/", "tests/"]
