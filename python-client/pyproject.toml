@@ -57,7 +57,9 @@ source = "uv-dynamic-versioning"
 
 [tool.hatch.build.hooks.uv-dynamic-versioning]
 version-file = "src/arakawa/_version.py"
-template = 'version = "{version}"'
+template = '''
+version = "{version}"
+'''
 
 [tool.hatch.build.targets.sdist]
 exclude = ["images/", ".vscode/", "tests/"]
