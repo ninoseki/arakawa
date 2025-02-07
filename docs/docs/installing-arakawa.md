@@ -26,6 +26,10 @@ If you use `pip`, you can install it with:
 
 ## Conda
 
+!!! warning
+
+    The Conda package is not yet released. The following explanation will be available soon. Please use `pip` instead for a while.
+
 If you use `conda`, you can install it with:
 
 === "Shell"
@@ -41,7 +45,8 @@ If you use `conda`, you can install it with:
     ```
 
 !!! warning
-Conda sometimes installs an older version of Arakawa. If you receive errors, please check the version and try running `conda update --all` or try in a new conda environment (`conda create -n ENV` and `conda activate ENV`)
+
+    Conda sometimes installs an older version of Arakawa. If you receive errors, please check the version and try running `conda update --all` or try in a new conda environment (`conda create -n ENV` and `conda activate ENV`)
 
 ## With Extras
 
@@ -78,8 +83,14 @@ pip install -U arakawa
 
 ### Upgrading Via Conda
 
+!!! warning
+
+    The Conda package is not yet released. The following explanation will be available soon. Please use `pip` instead for a while.
+
 If you installed `arakawa` via conda, run the following command, adding the `--all` flag if needed. As above, if you receive errors please try using a fresh conda environment.
 
 ```bash
-conda update arakawa OR conda update --all
+conda update arakawa
+# or
+conda update --all
 ```
