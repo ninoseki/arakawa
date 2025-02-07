@@ -27,8 +27,6 @@ Check out our [Quickstart](https://ninoseki.github.io/arakawa/quickstart) to bui
 
 ```bash
 pip install arakawa
-# or
-conda install -c conda-forge
 ```
 
 ## Examples
