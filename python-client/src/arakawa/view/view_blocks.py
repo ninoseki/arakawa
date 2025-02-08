@@ -96,7 +96,7 @@ class ViewBlock(ContainerBlock):
     _tag = "View"
 
     fragment: bool = Field(...)
-    version: int = Field(..., ge=1)
+    version: str = Field(...)
 
     @field_validator("blocks", mode="after")
     @classmethod
