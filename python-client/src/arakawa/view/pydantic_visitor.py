@@ -13,6 +13,7 @@ from arakawa.blocks.asset import AssetBlock
 from arakawa.blocks.layout import ContainerBlock
 from arakawa.blocks.text import EmbeddedTextBlock
 from arakawa.exceptions import ARError
+from arakawa.settings import AR_VERSION
 from arakawa.types import VAlign
 from arakawa.utils import log
 from arakawa.view.view_blocks import Blocks
@@ -42,7 +43,7 @@ class PydanticBuilder(ViewVisitor):
         assert not self.elements
         return ViewBlock(
             fragment=fragment,
-            version=1,
+            version=AR_VERSION,
             blocks=_top_group.blocks,
         )
 
