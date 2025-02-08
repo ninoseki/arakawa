@@ -5,7 +5,14 @@ from collections import deque
 from functools import reduce
 from typing import TYPE_CHECKING, Any, ClassVar
 
-from pydantic import Field, field_validator
+from pydantic import (
+    Field,
+    NonNegativeInt,
+    PositiveFloat,
+    PositiveInt,
+    field_validator,
+    model_validator,
+)
 
 from arakawa.exceptions import ARError
 from arakawa.types import ComputeMethod, SelectType, VAlign
@@ -111,7 +118,6 @@ class Page(ContainerBlock):
             Page can be passed using either arg parameters or the `blocks` kwarg, e.g. `ar.Page(group, select)` or `ar.Group(blocks=[group, select])`
         """
         super().__init__(*arg_blocks, blocks=blocks, title=title, name=name)
-
         if any(isinstance(b, Page) for b in self.blocks):
             raise ARError("Nested pages not supported, please use Selects and Groups")
 
@@ -169,9 +175,21 @@ class Group(ContainerBlock):
 
     _tag = "Group"
 
-    columns: int = Field(default=1)
+    columns: NonNegativeInt = Field(default=1)
     valign: VAlign
-    widths: str | None = Field(default=None, min_length=2, pattern=r"\[\d+(,\s*\d+)*\]")
+    widths: list[PositiveInt | PositiveFloat] | None = Field(default=None)
+
+    @model_validator(mode="after")
+    def _validate_columns_and_widths(self):
+        if self.widths is None:
+            return self
+
+        if len(self.widths) != self.columns:
+            raise ValueError(
+                "Group 'widths' list length does not match number of columns"
+            )
+
+        return self
 
     def __init__(
         self,
@@ -196,10 +214,6 @@ class Group(ContainerBlock):
         !!! note
             Group can be passed using either arg parameters or the `blocks` kwarg, e.g. `ar.Group(plot, table, columns=2)` or `ar.Group(blocks=[plot, table], columns=2)`.
         """
-
-        if widths is not None and len(widths) != columns:
-            raise ARError("Group 'widths' list length does not match number of columns")
-
         return super().__init__(
             *arg_blocks,
             blocks=blocks,
