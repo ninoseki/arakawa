@@ -10,7 +10,6 @@ dependencies = [
   "chardet~=5.2",
   "dominate~=2.9",
   'eval_type_backport~=0.2;python_version<"3.10"',
-  "great-tables>=0.16.1",
   "ipynbname~=2024.1",
   "ipython~=8.13",
   "jinja2~=3.0",
