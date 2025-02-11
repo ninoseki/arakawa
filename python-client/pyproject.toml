@@ -54,8 +54,8 @@ build-backend = "hatchling.build"
 [tool.hatch.version]
 source = "uv-dynamic-versioning"
 
-[tool.hatch.build.hooks.uv-dynamic-versioning]
-version-file = "src/arakawa/_version.py"
+[tool.hatch.build.hooks.version]
+path = "src/arakawa/_version.py"
 template = '''
 version = "{version}"
 '''
