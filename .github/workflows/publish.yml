@@ -67,7 +67,7 @@ jobs:
       - run: |
           test -e ./src/arakawa/resources/html_templates/local-report.css
           test -e ./src/arakawa/resources/html_templates/local-report.js
-      - run: uv run pyproject-build
+      - run: uv build
       - name: publish
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
@@ -101,12 +101,12 @@ jobs:
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
       # NOTE: tag name is semver
       - run: |
-          VERSION=$(uv run python convert_to_py_version.py ${{ github.event.release.tag_name }})
-          if echo $VERSION | grep -q "[A-Za-z]"; then
+          VERSION=$(uv run python convert_to_py_version.py "${{ github.event.release.tag_name }}")
+          if echo "$VERSION" | grep -q "[A-Za-z]"; then
             echo "beta/alpha version detected"
-            uv run mike deploy $VERSION --update-aliases --push
+            uv run mike deploy "$VERSION" --update-aliases --push
           else
             echo "stable version detected"
-            uv run mike deploy $VERSION latest --update-aliases --push
+            uv run mike deploy "$VERSION" latest --update-aliases --push
             uv run mike set-default --push latest
           fi

@@ -2,12 +2,12 @@ pre-commit:
   commands:
     uv-lock:
       root: "python-client/"
-      glob: "pyproject.toml"
+      glob: "**/pyproject.toml"
       run: uv lock
       stage_fixed: true
     uv-sort:
       root: "python-client/"
-      glob: "pyproject.toml"
+      glob: "**/pyproject.toml"
       run: uv run uv-sort
       stage_fixed: true
     ruff:
