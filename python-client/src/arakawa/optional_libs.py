@@ -11,7 +11,7 @@ from arakawa.utils import log
 
 # NOTE - need to update this and keep in sync with JS
 BOKEH_V_SPECIFIER = SpecifierSet(">=3.4.0,<3.5.0")
-PLOTLY_V_SPECIFIER = SpecifierSet("~=5.24")
+PLOTLY_V_SPECIFIER = SpecifierSet("~=6.0")
 FOLIUM_V_SPECIFIER = SpecifierSet("~=0.18")
 GREAT_TABLES_V_SPECIFIER = SpecifierSet("~=0.16")
 POLARS_V_SPECIFIER = SpecifierSet("~=1.0")
