@@ -77,6 +77,7 @@ artifacts = [
 dev = [
   "boltons>=25.0.0",
   "glom>=24.11.0",
+  "pyproject-metadata>=0.9.1",
   "pytest~=8.3.5",
   "pytest-datadir~=1.6.1",
   "pytest-github-actions-annotate-failures>=0.3.0",
@@ -84,6 +85,7 @@ dev = [
   "pytest-randomly~=3.16.0",
   "pytest-timeout~=2.3.1",
   "ruff~=0.11.5",
+  "tomlkit>=0.13.2",
   "uv-sort~=0.5.0",
   "vega-datasets~=0.9.0",
 ]
