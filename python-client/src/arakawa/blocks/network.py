@@ -12,7 +12,7 @@ from arakawa.exceptions import ARError
 from .base import DataBlock
 from .mixins import OptionalLabelMixin, OptionalNameMinx
 
-if sys.version_info <= (3, 11):
+if sys.version_info < (3, 12):
     from typing_extensions import TypedDict
 else:
     from typing import TypedDict
