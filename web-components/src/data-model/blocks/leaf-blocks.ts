@@ -14,6 +14,7 @@ import VFormulaBlock from '@/components/blocks/FormulaConnector.vue'
 import VHTMLBlock from '@/components/blocks/HTML.vue'
 import VMediaBlock from '@/components/blocks/Media.vue'
 import VPlotlyBlock from '@/components/blocks/PlotlyConnector.vue'
+import VSigmaBlock from '@/components/blocks/Sigma/SigmaConnector.vue'
 import VSVGBlock from '@/components/blocks/SVGConnector.vue'
 import VTableBlock from '@/components/blocks/TableConnector.vue'
 import VTextBlock from '@/components/blocks/Text.vue'
@@ -231,6 +232,27 @@ export class EmbedBlock extends Block {
         root.children[0].tagName.toLowerCase() === 'iframe'
     }
     return this._isIFrame
+  }
+}
+
+export class SigmaBlock extends Block {
+  public component = markRaw(VSigmaBlock)
+
+  public constructor(elem: Elem, figure: BlockFigure) {
+    super(elem, figure)
+    const { data, layoutSettings, height, width } = elem as unknown as {
+      data: unknown
+      layoutSettings: unknown
+      height: number
+      width: number
+    }
+    this.componentProps = {
+      ...this.componentProps,
+      data,
+      layoutSettings,
+      height,
+      width,
+    }
   }
 }
 

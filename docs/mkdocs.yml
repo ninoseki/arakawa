@@ -23,6 +23,7 @@ nav:
           - Tables & Data: "reference/display-blocks/data.ipynb"
           - Text & HTML: "reference/display-blocks/text.ipynb"
           - Media & Embeds: "reference/display-blocks/embeds.ipynb"
+          - Network: "reference/display-blocks/network.ipynb"
       - Layout Blocks:
           - Groups: "reference/layout-blocks/group.ipynb"
           - Selects: "reference/layout-blocks/select.ipynb"

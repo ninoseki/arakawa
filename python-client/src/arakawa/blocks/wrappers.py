@@ -86,6 +86,13 @@ if opt.HAVE_GREAT_TABLES:
         return b.HTML(x.as_raw_html())
 
 
+if opt.HAVE_NETWORKX:
+
+    @convert_to_block.register  # type: ignore
+    def _(x: opt.nx.Graph) -> DataBlock:
+        return b.NetworkX(x)
+
+
 if opt.HAVE_POLARS:
 
     @convert_to_block.register  # type: ignore

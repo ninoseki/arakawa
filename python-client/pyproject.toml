@@ -33,11 +33,13 @@ plotting = [
   "matplotlib~=3.9",
   "plotly~=6.0",
 ]
+network = ["networkx~=3.2"]
 all = [
   "bokeh>=3.4.0,<3.5.0",
   "folium~=0.18",
   "great_tables~=0.16",
   "matplotlib~=3.9",
+  "networkx~=3.2",
   "plotly~=6.0",
   "polars~=1.0",
 ]

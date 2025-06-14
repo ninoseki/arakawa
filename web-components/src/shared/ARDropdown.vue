@@ -24,7 +24,7 @@ const closeWithDelay = () => void setTimeout(() => (open.value = false), 200)
     <div>
       <button
         type="button"
-        class="ar-btn-sm px-1 sm:px-2 sm:px-2 py-0"
+        class="ar-btn-sm px-1 sm:px-2 py-0"
         id="options-menu"
         @click="toggleOpen"
         @blur="closeWithDelay"

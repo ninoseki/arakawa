@@ -66,6 +66,7 @@ export default tseslint.config(
             'Text',
             'Toggle',
             'Vega',
+            'Sigma',
           ],
         },
       ],
