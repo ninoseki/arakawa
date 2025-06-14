@@ -33,6 +33,10 @@ const mkBlockMap = (isLightProse: boolean): BlockTest[] => {
       class_: b.HTMLBlock,
       test: maps.jsonIsHTML,
     },
+    {
+      class_: b.SigmaBlock,
+      test: maps.jsonIsSigma,
+    },
     // NOTE - `MediaBlock` check should go before `SVGBlock` check,
     // as SVGs in a `Media` tag have precedence over plot SVGs
     { class_: b.MediaBlock, test: maps.jsonIsMedia },

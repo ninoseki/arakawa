@@ -52,24 +52,23 @@ If you use `conda`, you can install it with:
 
 `arakawa` comes with Pandas (for data-framing) and Altair (for plotting) by default.
 
-You can install extra dependencies by using `plotting`, `tabling` and `datafraiming` extras.
+You can install extra dependencies by using `plotting`, `tabling`, `network` and `datafraiming` extras.
 
 ```bash
-# install all plotting dependencies
-pip install arakawa[plotting]
-# install tabling dependencies
-pip install arakawa[tabling]
-# install dataframing dependencies
 pip install arakawa[dataframing]
-# install all plotting, tabling and dataframing dependencies
+pip install arakawa[network]
+pip install arakawa[plotting]
+pip install arakawa[tabling]
+# install all the extra dependencies
 pip install arakawa[all]
 ```
 
 | Name          | Dependencies                         |
 | ------------- | ------------------------------------ |
+| `dataframing` | Polars                               |
+| `network`     | NetworkX                             |
 | `plotting`    | Bokeh, Folium, Matplotlib and Plotly |
 | `tabling`     | Great Tables                         |
-| `dataframing` | Polars                               |
 
 ## Upgrading
 

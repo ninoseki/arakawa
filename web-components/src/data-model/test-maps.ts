@@ -23,6 +23,8 @@ export const jsonIsEmpty = (json: any): boolean => json._tag === 'Empty'
 export const jsonIsAttachment = (json: any): boolean =>
   json._tag === 'Attachment'
 
+export const jsonIsSigma = (json: any): boolean => json._tag === 'Sigma'
+
 /* Control fields */
 
 export const jsonIsTextBox = (json: any): boolean => json._tag === 'TextBox'
