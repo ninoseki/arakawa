@@ -89,7 +89,7 @@ if opt.HAVE_GREAT_TABLES:
 if opt.HAVE_NETWORKX:
 
     @convert_to_block.register  # type: ignore
-    def _(x: opt.nx.Graph) -> DataBlock:
+    def _(x: opt.NXGraph) -> DataBlock:
         return b.NetworkX(x)
 
 
