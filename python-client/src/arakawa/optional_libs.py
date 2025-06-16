@@ -97,9 +97,10 @@ except ImportError:
 
 # NetworkX
 try:
-    import networkx as nx
+    import networkx
+    from networkx import Graph as NXGraph  # noqa: F401
 
-    _check_version("NetworkX", v.Version(nx.__version__), NETWORKX_V_SPECIFIER)
+    _check_version("NetworkX", v.Version(networkx.__version__), NETWORKX_V_SPECIFIER)
     HAVE_NETWORKX = True
 except ImportError:
     HAVE_NETWORKX = False

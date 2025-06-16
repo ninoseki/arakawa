@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import sys
-from typing import Any
+from typing import Any, Callable
 
 import humps
 from pydantic import Field
@@ -67,7 +67,7 @@ class Sigma(OptionalNameMinx, OptionalLabelMixin, DataBlock):
         )
 
 
-def network_graph_to_sigma(G: opt.nx.Graph, layout_function=opt.nx.spring_layout):  # noqa: N803
+def network_graph_to_sigma(G: opt.NXGraph, layout_function: Callable[[Any], Any]):  # noqa: N803
     data = {
         "options": {
             "type": "directed" if G.is_directed() else "undirected",
@@ -106,10 +106,11 @@ class NetworkX(Sigma):
 
     def __init__(
         self,
-        graph: opt.nx.Graph,
+        graph: opt.NXGraph,
         width: int = 960,
         height: int = 540,
         layout_settings: LayoutSettings | None = None,
+        layout_function: Callable[[opt.NXGraph], Any] | None = None,
         name: str | None = None,
         label: str | None = None,
     ):
@@ -119,6 +120,7 @@ class NetworkX(Sigma):
             width: A width of the graph
             height: A height of the graph
             layout_settings: see https://www.npmjs.com/package/graphology-layout-forceatlas2#settings (optional, each key should be snake_cased)
+            layout_function: A layout function. Defaults to spring_layout.
             name: A unique name for the block to reference when adding text or embedding (optional)
             label: A label used when displaying the block (optional)
         """
@@ -128,7 +130,9 @@ class NetworkX(Sigma):
             )
 
         super().__init__(
-            data=network_graph_to_sigma(graph),
+            data=network_graph_to_sigma(
+                graph, layout_function=layout_function or opt.networkx.spring_layout
+            ),
             layout_settings=layout_settings,
             name=name,
             label=label,
