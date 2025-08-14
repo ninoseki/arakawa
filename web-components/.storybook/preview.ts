@@ -4,7 +4,7 @@ import '@/styles/user-iframe.css'
 import 'highlight.js/styles/stackoverflow-light.css'
 
 import { defaultConfig, plugin as formkitPlugin } from '@formkit/vue'
-import { type Preview, setup } from '@storybook/vue3'
+import { type Preview, setup } from '@storybook/vue3-vite'
 import { createPinia } from 'pinia'
 import { type App } from 'vue'
 

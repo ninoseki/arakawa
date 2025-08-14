@@ -1,14 +1,16 @@
 import path from 'path'
 import copy from 'rollup-plugin-copy'
 import { defineConfig, LibraryFormats, mergeConfig } from 'vite'
-import VueDevTools from 'vite-plugin-vue-devtools'
 
 import { baseConfig } from './base.vite.config'
 import vueESM from './rollup-plugin-vue-esm'
 
 export default defineConfig(({ mode }) =>
   mergeConfig(baseConfig, {
-    plugins: [VueDevTools()],
+    plugins: [
+      // ref. https://github.com/vuejs/devtools/issues/703
+      // VueDevTools(),
+    ],
     build: {
       sourcemap: mode === 'development',
       // Enabled in order to split out report `tailwind.css` file

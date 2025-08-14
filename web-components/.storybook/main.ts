@@ -6,9 +6,8 @@ const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
-    '@storybook/addon-essentials',
     '@chromatic-com/storybook',
-    '@storybook/addon-interactions',
+    '@storybook/addon-docs',
   ],
   framework: {
     name: '@storybook/vue3-vite',
@@ -24,7 +23,13 @@ const config: StorybookConfig = {
         ],
       },
     }
-    config.plugins = (config.plugins || []).filter(p => p.name !== 'vite:vue')
+    config.plugins = (config.plugins || []).filter(
+      p =>
+        typeof p === 'object' &&
+        p !== null &&
+        'name' in p &&
+        p.name !== 'vite:vue',
+    )
     config.plugins.push(
       vue({
         template: {
