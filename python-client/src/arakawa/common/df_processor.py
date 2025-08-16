@@ -94,24 +94,6 @@ def obj_to_str(df: pd.DataFrame):
     df[df_cat.columns] = df_cat.apply(to_str_cat_vals)
 
 
-def bipartite_to_bool(df: pd.DataFrame):
-    # This was removed from our processing steps as some users required the numerical representation of binary columns.
-    """Converts biperatite numeric {0, 1} columns to bool."""
-    # Get names of numeric columns with only 2 unique values.
-    df_num = df.select_dtypes("integer", exclude=["timedelta"])
-    bipartite_columns = df_num.columns[df_num.dropna().nunique() == 2]
-
-    for column in bipartite_columns:
-        series = df[column]
-
-        # Only apply the type change to {0, 1} columns
-        val_range = series.min(), series.max()
-        val_min, val_max = val_range[0], val_range[1]
-
-        if val_min == 0 and val_max == 1:
-            df[column] = df[column].astype(bool)
-
-
 def str_to_arrow_str(df: pd.DataFrame):
     """Use the memory-efficient pyarrow string dtype (pandas >= 1.3 only)"""
     # convert objects to str / NA
@@ -194,24 +176,3 @@ def to_df(value: Any) -> pd.DataFrame:
         return value.to_pandas()
 
     raise ValueError("Must return a primitive, pd.DataFrame, pd.Series or numpy array.")
-
-
-TRUNCATE_CELLS = 10000
-TRUNCATE_ROWS = 1000
-
-
-def truncate_dataframe(
-    df: pd.DataFrame, max_rows: int = TRUNCATE_ROWS, max_cells: int = TRUNCATE_CELLS
-) -> pd.DataFrame:
-    """Truncate a pandas dataframe if needed"""
-    rows, cols = df.shape
-    # determine max rows to truncate df to based on max cells and df cols
-    cols = cols or 1  # handle empty df
-    max_rows = min(max_rows, int(max_cells / cols))
-    # return non-truncated preview if df smaller than max rows allowed
-    if rows <= max_rows:
-        return df
-    # truncate df to fit max cells
-    if not isinstance(df.index, pd.RangeIndex):
-        raise ValueError("Dataframe has unsupported index type")
-    return df.truncate(before=0, after=max_rows - 1, copy=False)
