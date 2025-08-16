@@ -19,8 +19,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          registry-url: "https://registry.npmjs.org"
           cache: npm
           cache-dependency-path: web-components/package-lock.json
+      - run: npm install -g npm@11.5.2
       - run: npm install
       - run: npm version --no-git-tag-version ${{ github.event.release.tag_name }}
       - run: npm publish
