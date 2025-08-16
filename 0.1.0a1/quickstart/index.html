@@ -1,0 +1,1790 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://ninoseki.github.io/arakawa/latest/quickstart/">
+      
+      
+        <link rel="prev" href="../installing-arakawa/">
+      
+      
+        <link rel="next" href="../blocks/overview/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+    
+    
+      
+        <title>Quickstart - Arakawa</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"IBM Plex Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../static/extra.css">
+    
+      <link rel="stylesheet" href="../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quickstart" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Arakawa" class="md-header__button md-logo" aria-label="Arakawa" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Arakawa
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quickstart
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ninoseki/arakawa/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ninoseki/arakawa
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Arakawa" class="md-nav__button md-logo" aria-label="Arakawa" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Arakawa
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ninoseki/arakawa/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ninoseki/arakawa
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing-arakawa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installing Arakawa
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Quickstart
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quickstart
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-things-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting Things Up
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Blocks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reports
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharing-your-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sharing Your Report
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Blocks and Views
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Blocks and Views
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../blocks/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../blocks/display-blocks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Display Blocks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../blocks/control-blocks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control Blocks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../blocks/layout-blocks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Layout Blocks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Sharing Reports
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Sharing Reports
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reports/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reports/styling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Styling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Resources
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Resources
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reports/jupyter-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Jupyter Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1" id="__nav_7_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Display Blocks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1">
+            <span class="md-nav__icon md-icon"></span>
+            Display Blocks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/display-blocks/plots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Plots
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/display-blocks/data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tables & Data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/display-blocks/text/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Text & HTML
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/display-blocks/embeds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Media & Embeds
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/display-blocks/network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Network
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Layout Blocks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            Layout Blocks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/layout-blocks/group/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Groups
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/layout-blocks/select/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Selects
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/layout-blocks/page/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pages
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/layout-blocks/toggle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Toggle
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/layout-blocks/compute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compute
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Control Blocks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            Control Blocks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/control-blocks/choices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Choices & Tags
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/control-blocks/color/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Color
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/control-blocks/datetimes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DateTimes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/control-blocks/file/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    File
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/control-blocks/numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Numbers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/control-blocks/texts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Texts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/control-blocks/validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Validation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/reports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reports
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-things-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting Things Up
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Blocks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reports
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharing-your-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sharing Your Report
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script>
+(function() {
+  function addWidgetsRenderer() {
+    var requireJsScript = document.createElement('script');
+    requireJsScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js';
+
+    var mimeElement = document.querySelector('script[type="application/vnd.jupyter.widget-view+json"]');
+    var jupyterWidgetsScript = document.createElement('script');
+    var widgetRendererSrc = 'https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js';
+    var widgetState;
+
+    // Fallback for older version:
+    try {
+      widgetState = mimeElement && JSON.parse(mimeElement.innerHTML);
+
+      if (widgetState && (widgetState.version_major < 2 || !widgetState.version_major)) {
+        widgetRendererSrc = 'jupyter-js-widgets@*/dist/embed.js';
+      }
+    } catch(e) {}
+
+    jupyterWidgetsScript.src = widgetRendererSrc;
+
+    document.body.appendChild(requireJsScript);
+    document.body.appendChild(jupyterWidgetsScript);
+  }
+
+  document.addEventListener('DOMContentLoaded', addWidgetsRenderer);
+}());
+</script>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="quickstart">Quickstart<a class="headerlink" href="#quickstart" title="Permanent link">&para;</a></h1>
+<p>These instructions will help you create a report in &lt;1 minute. We will build a simple HTML report using Python based on the <a href="https://en.wikipedia.org/wiki/Iris_flower_data_set">Iris dataset</a>.</p>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<p>First, install Arakawa using <code>pip</code> or <code>conda</code>. Check out our <a href="../installing-arakawa/">installation page</a> for installation options.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">pip3</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">arakawa</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="setting-things-up">Setting Things Up<a class="headerlink" href="#setting-things-up" title="Permanent link">&para;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">altair</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">alt</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">arakawa</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ar</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vega_datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">data</span>
+</code></pre></div>
+
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We've imported <code>arakawa</code>, the popular visualization library <code>altair</code>, and <code>vega_datasets</code> which contains some sample datasets.</p>
+<p>Let's load the Iris dataset and get a list of the features.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iris</span><span class="p">()</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>['sepalLength', 'sepalWidth', 'petalLength', 'petalWidth', 'species']
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="blocks">Blocks<a class="headerlink" href="#blocks" title="Permanent link">&para;</a></h2>
+<p>Your report is comprised of <em>Blocks</em>, which are Python objects that wrap around common objects such as datasets, plots, and other blocks. There are display blocks, such as <em>Plot</em> or <em>DataTable</em>, and layout blocks, such as <em>Select</em> and <em>Group</em>.</p>
+<p>Having loaded our DataFrame above and with knowledge of our column names, we first create a simple scatterplot using the Altair plotting library. </p>
+<p>We then build a simple set of blocks which presents two tabs: one with our plot, and one with our DataFrame.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">fig</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="o">.</span><span class="n">mark_point</span><span class="p">()</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s2">&quot;sepalLength&quot;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">zero</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>            <span class="n">y</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s2">&quot;sepalWidth&quot;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">zero</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;species&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">)</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="n">view</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">ar</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Plot&quot;</span><span class="p">),</span> <span class="n">ar</span><span class="o">.</span><span class="n">DataTable</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Data&quot;</span><span class="p">))</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="n">view</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_html rendered_html output_subarea">
+<style>
+  #ar-808e9f76e7544f318ce4bb0ca160f90e {
+    width: 1px;
+    min-width: 100%;
+  }
+</style>
+<iframe id="ar-808e9f76e7544f318ce4bb0ca160f90e" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot; /&gt;
+
+&lt;link href=&quot;https://fonts.googleapis.com/css?family=Inter:400,500,600,700|Inconsolata|Karla|Rubik&amp;display=swap&quot;
+  rel=&quot;stylesheet&quot; /&gt;
+
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/arakawa@0.1.0-alpha.1/dist/report/index.css&quot; /&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/arakawa@0.1.0-alpha.1/dist/report/tailwind.css&quot; /&gt;
+
+&lt;script&gt;
+  window.arLocal = true;
+  /* construct the view */
+  const htmlHeader = `&lt;style type=&quot;text/css&quot;&gt;:root {
+    --ar-accent-color: #4E46E5;
+    --ar-bg-color: #FFF;
+    --ar-text-align: left;
+    --ar-font-family: Inter, ui-sans-serif, system-ui;
+}&lt;/style&gt;`;
+  window.reportProps = {
+    id: &quot;808e9f76e7544f318ce4bb0ca160f90e&quot;,
+    htmlHeader,
+    isLightProse: false,
+  mode: &quot;VIEW&quot;,
+    reportWidthClass: &quot;max-w-screen-xl&quot;
+  };
+  window.reportProps[&quot;appData&quot;] = {&quot;data&quot;: {&quot;result&quot;: {&quot;viewJson&quot;: {&quot;blocks&quot;: [{&quot;blocks&quot;: [{&quot;label&quot;: &quot;Plot&quot;, &quot;src&quot;: &quot;ref://250154609b&quot;, &quot;type&quot;: &quot;application/vnd.vegalite.v5+json&quot;, &quot;responsive&quot;: true, &quot;scale&quot;: 1.0, &quot;_tag&quot;: &quot;Plot&quot;}, {&quot;label&quot;: &quot;Data&quot;, &quot;src&quot;: &quot;ref://4966f54fbf&quot;, &quot;type&quot;: &quot;application/vnd.apache.arrow+binary&quot;, &quot;rows&quot;: 150, &quot;columns&quot;: 5, &quot;_tag&quot;: &quot;DataTable&quot;}], &quot;type&quot;: &quot;tabs&quot;, &quot;_tag&quot;: &quot;Select&quot;}], &quot;fragment&quot;: false, &quot;version&quot;: &quot;0.1.0-alpha.1&quot;, &quot;_tag&quot;: &quot;View&quot;}, &quot;assets&quot;: {&quot;250154609b&quot;: {&quot;src&quot;: &quot;data:application/vnd.vegalite.v5+json;base64,eyJjb25maWciOiB7InZpZXciOiB7ImNvbnRpbnVvdXNXaWR0aCI6IDMwMCwgImNvbnRpbnVvdXNIZWlnaHQiOiAzMDB9fSwgImRhdGEiOiB7Im5hbWUiOiAiZGF0YS01NDkyYWQ5Mjk2MmJhZDA2YzZjM2Y0YzJmZDc4OTE5YSJ9LCAibWFyayI6IHsidHlwZSI6ICJwb2ludCJ9LCAiZW5jb2RpbmciOiB7ImNvbG9yIjogeyJmaWVsZCI6ICJzcGVjaWVzIiwgInR5cGUiOiAibm9taW5hbCJ9LCAieCI6IHsiZmllbGQiOiAic2VwYWxMZW5ndGgiLCAic2NhbGUiOiB7Inplcm8iOiBmYWxzZX0sICJ0eXBlIjogInF1YW50aXRhdGl2ZSJ9LCAieSI6IHsiZmllbGQiOiAic2VwYWxXaWR0aCIsICJzY2FsZSI6IHsiemVybyI6IGZhbHNlfSwgInR5cGUiOiAicXVhbnRpdGF0aXZlIn19LCAiJHNjaGVtYSI6ICJodHRwczovL3ZlZ2EuZ2l0aHViLmlvL3NjaGVtYS92ZWdhLWxpdGUvdjUuMjAuMS5qc29uIiwgImRhdGFzZXRzIjogeyJkYXRhLTU0OTJhZDkyOTYyYmFkMDZjNmMzZjRjMmZkNzg5MTlhIjogW3sic2VwYWxMZW5ndGgiOiA1LjEsICJzZXBhbFdpZHRoIjogMy41LCAicGV0YWxMZW5ndGgiOiAxLjQsICJwZXRhbFdpZHRoIjogMC4yLCAic3BlY2llcyI6ICJzZXRvc2EifSwgeyJzZXBhbExlbmd0aCI6IDQuOSwgInNlcGFsV2lkdGgiOiAzLjAsICJwZXRhbExlbmd0aCI6IDEuNCwgInBldGFsV2lkdGgiOiAwLjIsICJzcGVjaWVzIjogInNldG9zYSJ9LCB7InNlcGFsTGVuZ3RoIjogNC43LCAic2VwYWxXaWR0aCI6IDMuMiwgInBldGFsTGVuZ3RoIjogMS4zLCAicGV0YWxXaWR0aCI6IDAuMiwgInNwZWNpZXMiOiAic2V0b3NhIn0sIHsic2VwYWxMZW5ndGgiOiA0LjYsICJzZXBhbFdpZHRoIjogMy4xLCAicGV0YWxMZW5ndGgiOiAxLjUsICJwZXRhbFdpZHRoIjogMC4yLCAic3BlY2llcyI6ICJzZXRvc2EifSwgeyJzZXBhbExlbmd0aCI6IDUuMCwgInNlcGFsV2lkdGgiOiAzLjYsICJwZXRhbExlbmd0aCI6IDEuNCwgInBldGFsV2lkdGgiOiAwLjIsICJzcGVjaWVzIjogInNldG9zYSJ9LCB7InNlcGFsTGVuZ3RoIjogNS40LCAic2VwYWxXaWR0aCI6IDMuOSwgInBldGFsTGVuZ3RoIjogMS43MDAwMDAwMDAwMDAwMDAyLCAicGV0YWxXaWR0aCI6IDAuNCwgInNwZWNpZXMiOiAic2V0b3NhIn0sIHsic2VwYWxMZW5ndGgiOiA0LjYsICJzZXBhbFdpZHRoIjogMy40LCAicGV0YWxMZW5ndGgiOiAxLjQsICJwZXRhbFdpZHRoIjogMC4zMDAwMDAwMDAwMDAwMDAwNCwgInNwZWNpZXMiOiAic2V0b3NhIn0sIHsic2VwYWxMZW5ndGgiOiA1LjAsICJzZXBhbFdpZHRoIjogMy40LCAicGV0YWxMZW5ndGgiOiAxLjUsICJwZXRhbFdpZHRoIjogMC4yLCAic3BlY2llcyI6ICJzZXRvc2EifSwgeyJzZXBhbExlbmd0aCI6IDQuNCwgInNlcGFsV2lkdGgiOiAyLjksICJwZXRhbExlbmd0aCI6IDEuNCwgInBldGFsV2lkdGgiOiAwLjIsICJzcGVjaWVzIjogInNldG9zYSJ9LCB7InNlcGFsTGVuZ3RoIjogNC45LCAic2VwYWxXaWR0aCI6IDMuMSwgInBldGFsTGVuZ3RoIjogMS41LCAicGV0YWxXaWR0aCI6IDAuMSwgInNwZWNpZXMiOiAic2V0b3NhIn0sIHsic2VwYWxMZW5ndGgiOiA1LjQsICJzZXBhbFdpZHRoIjogMy43LCAicGV0YWxMZW5ndGgiOiAxLjUsICJwZXRhbFdpZHRoIjogMC4yLCAic3BlY2llcyI6ICJzZXRvc2EifSwgeyJzZXBhbExlbmd0aCI6IDQuOCwgInNlcGFsV2lkdGgiOiAzLjQsICJwZXRhbExlbmd0aCI6IDEuNiwgInBldGFsV2lkdGgiOiAwLjIsICJzcGVjaWVzIjogInNldG9zYSJ9LCB7InNlcGFsTGVuZ3RoIjogNC44LCAic2VwYWxXaWR0aCI6IDMuMCwgInBldGFsTGVuZ3RoIjogMS40LCAicGV0YWxXaWR0aCI6IDAuMSwgInNwZWNpZXMiOiAic2V0b3NhIn0sIHsic2VwYWxMZW5ndGgiOiA0LjMsICJzZXBhbFdpZHRoIjogMy4wLCAicGV0YWxMZW5ndGgiOiAxLjEsICJwZXRhbFdpZHRoIjogMC4xLCAic3BlY2llcyI6ICJzZXRvc2EifSwgeyJzZXBhbExlbmd0aCI6IDUuOCwgInNlcGFsV2lkdGgiOiA0LjAsICJwZXRhbExlbmd0aCI6IDEuMiwgInBldGFsV2lkdGgiOiAwLjIsICJzcGVjaWVzIjogInNldG9zYSJ9LCB7InNlcGFsTGVuZ3RoIjogNS43LCAic2VwYWxXaWR0aCI6IDQuNCwgInBldGFsTGVuZ3RoIjogMS41LCAicGV0YWxXaWR0aCI6IDAuNCwgInNwZWNpZXMiOiAic2V0b3NhIn0sIHsic2VwYWxMZW5ndGgiOiA1LjQsICJzZXBhbFdpZHRoIjogMy45LCAicGV0YWxMZW5ndGgiOiAxLjMsICJwZXRhbFdpZHRoIjogMC40LCAic3BlY2llcyI6ICJzZXRvc2EifSwgeyJzZXBhbExlbmd0aCI6IDUuMSwgInNlcGFsV2lkdGgiOiAzLjUsICJwZXRhbExlbmd0aCI6IDEuNCwgInBldGFsV2lkdGgiOiAwLjMwMDAwMDAwMDAwMDAwMDA0LCAic3BlY2llcyI6ICJzZXRvc2EifSwgeyJzZXBhbExlbmd0aCI6IDUuNywgInNlcGFsV2lkdGgiOiAzLjgsICJwZXRhbExlbmd0aCI6IDEuNzAwMDAwMDAwMDAwMDAwMiwgInBldGFsV2lkdGgiOiAwLjMwMDAwMDAwMDAwMDAwMDA0LCAic3BlY2llcyI6ICJzZXRvc2EifSwgeyJzZXBhbExlbmd0aCI6IDUuMSwgInNlcGFsV2lkdGgiOiAzLjgsICJwZXRhbExlbmd0aCI6IDEuNSwgInBldGFsV2lkdGgiOiAwLjMwMDAwMDAwMDAwMDAwMDA0LCAic3BlY2llcyI6ICJzZXRvc2EifSwgeyJzZXBhbExlbmd0aCI6IDUuNCwgInNlcGFsV2lkdGgiOiAzLjQsICJwZXRhbExlbmd0aCI6IDEuNzAwMDAwMDAwMDAwMDAwMiwgInBldGFsV2lkdGgiOiAwLjIsICJzcGVjaWVzIjogInNldG9zYSJ9LCB7InNlcGFsTGVuZ3RoIjogNS4xLCAic2VwYWxXaWR0aCI6IDMuNywgInBldGFsTGVuZ3RoIjogMS41LCAicGV0YWxXaWR0aCI6IDAuNCwgInNwZWNpZXMiOiAic2V0b3NhIn0sIHsic2VwYWxMZW5ndGgiOiA0LjYsICJzZXBhbFdpZHRoIjogMy42LCAicGV0YWxMZW5ndGgiOiAxLjAsICJwZXRhbFdpZHRoIjogMC4yLCAic3BlY2llcyI6ICJzZXRvc2EifSwgeyJzZXBhbExlbmd0aCI6IDUuMSwgInNlcGFsV2lkdGgiOiAzLjMsICJwZXRhbExlbmd0aCI6IDEuNzAwMDAwMDAwMDAwMDAwMiwgInBldGFsV2lkdGgiOiAwLjUsICJzcGVjaWVzIjogInNldG9zYSJ9LCB7InNlcGFsTGVuZ3RoIjogNC44LCAic2VwYWxXaWR0aCI6IDMuNCwgInBldGFsTGVuZ3RoIjogMS45LCAicGV0YWxXaWR0aCI6IDAuMiwgInNwZWNpZXMiOiAic2V0b3NhIn0sIHsic2VwYWxMZW5ndGgiOiA1LjAsICJzZXBhbFdpZHRoIjogMy4wLCAicGV0YWxMZW5ndGgiOiAxLjYsICJwZXRhbFdpZHRoIjogMC4yLCAic3BlY2llcyI6ICJzZXRvc2EifSwgeyJzZXBhbExlbmd0aCI6IDUuMCwgInNlcGFsV2lkdGgiOiAzLjQsICJwZXRhbExlbmd0aCI6IDEuNiwgInBldGFsV2lkdGgiOiAwLjQsICJzcGVjaWVzIjogInNldG9zYSJ9LCB7InNlcGFsTGVuZ3RoIjogNS4yLCAic2VwYWxXaWR0aCI6IDMuNSwgInBldGFsTGVuZ3RoIjogMS41LCAicGV0YWxXaWR0aCI6IDAuMiwgInNwZWNpZXMiOiAic2V0b3NhIn0sIHsic2VwYWxMZW5ndGgiOiA1LjIsICJzZXBhbFdpZHRoIjogMy40LCAicGV0YWxMZW5ndGgiOiAxLjQsICJwZXRhbFdpZHRoIjogMC4yLCAic3BlY2llcyI6ICJzZXRvc2EifSwgeyJzZXBhbExlbmd0aCI6IDQuNywgInNlcGFsV2lkdGgiOiAzLjIsICJwZXRhbExlbmd0aCI6IDEuNiwgInBldGFsV2lkdGgiOiAwLjIsICJzcGVjaWVzIjogInNldG9zYSJ9LCB7InNlcGFsTGVuZ3RoIjogNC44LCAic2VwYWxXaWR0aCI6IDMuMSwgInBldGFsTGVuZ3RoIjogMS42LCAicGV0YWxXaWR0aCI6IDAuMiwgInNwZWNpZXMiOiAic2V0b3NhIn0sIHsic2VwYWxMZW5ndGgiOiA1LjQsICJzZXBhbFdpZHRoIjogMy40LCAicGV0YWxMZW5ndGgiOiAxLjUsICJwZXRhbFdpZHRoIjogMC40LCAic3BlY2llcyI6ICJzZXRvc2EifSwgeyJzZXBhbExlbmd0aCI6IDUuMiwgInNlcGFsV2lkdGgiOiA0LjEsICJwZXRhbExlbmd0aCI6IDEuNSwgInBldGFsV2lkdGgiOiAwLjEsICJzcGVjaWVzIjogInNldG9zYSJ9LCB7InNlcGFsTGVuZ3RoIjogNS41LCAic2VwYWxXaWR0aCI6IDQuMiwgInBldGFsTGVuZ3RoIjogMS40LCAicGV0YWxXaWR0aCI6IDAuMiwgInNwZWNpZXMiOiAic2V0b3NhIn0sIHsic2VwYWxMZW5ndGgiOiA0LjksICJzZXBhbFdpZHRoIjogMy4xLCAicGV0YWxMZW5ndGgiOiAxLjUsICJwZXRhbFdpZHRoIjogMC4yLCAic3BlY2llcyI6ICJzZXRvc2EifSwgeyJzZXBhbExlbmd0aCI6IDUuMCwgInNlcGFsV2lkdGgiOiAzLjIsICJwZXRhbExlbmd0aCI6IDEuMiwgInBldGFsV2lkdGgiOiAwLjIsICJzcGVjaWVzIjogInNldG9zYSJ9LCB7InNlcGFsTGVuZ3RoIjogNS41LCAic2VwYWxXaWR0aCI6IDMuNSwgInBldGFsTGVuZ3RoIjogMS4zLCAicGV0YWxXaWR0aCI6IDAuMiwgInNwZWNpZXMiOiAic2V0b3NhIn0sIHsic2VwYWxMZW5ndGgiOiA0LjksICJzZXBhbFdpZHRoIjogMy42LCAicGV0YWxMZW5ndGgiOiAxLjQsICJwZXRhbFdpZHRoIjogMC4xLCAic3BlY2llcyI6ICJzZXRvc2EifSwgeyJzZXBhbExlbmd0aCI6IDQuNCwgInNlcGFsV2lkdGgiOiAzLjAsICJwZXRhbExlbmd0aCI6IDEuMywgInBldGFsV2lkdGgiOiAwLjIsICJzcGVjaWVzIjogInNldG9zYSJ9LCB7InNlcGFsTGVuZ3RoIjogNS4xLCAic2VwYWxXaWR0aCI6IDMuNCwgInBldGFsTGVuZ3RoIjogMS41LCAicGV0YWxXaWR0aCI6IDAuMiwgInNwZWNpZXMiOiAic2V0b3NhIn0sIHsic2VwYWxMZW5ndGgiOiA1LjAsICJzZXBhbFdpZHRoIjogMy41LCAicGV0YWxMZW5ndGgiOiAxLjMsICJwZXRhbFdpZHRoIjogMC4zMDAwMDAwMDAwMDAwMDAwNCwgInNwZWNpZXMiOiAic2V0b3NhIn0sIHsic2VwYWxMZW5ndGgiOiA0LjUsICJzZXBhbFdpZHRoIjogMi4zLCAicGV0YWxMZW5ndGgiOiAxLjMsICJwZXRhbFdpZHRoIjogMC4zMDAwMDAwMDAwMDAwMDAwNCwgInNwZWNpZXMiOiAic2V0b3NhIn0sIHsic2VwYWxMZW5ndGgiOiA0LjQsICJzZXBhbFdpZHRoIjogMy4yLCAicGV0YWxMZW5ndGgiOiAxLjMsICJwZXRhbFdpZHRoIjogMC4yLCAic3BlY2llcyI6ICJzZXRvc2EifSwgeyJzZXBhbExlbmd0aCI6IDUuMCwgInNlcGFsV2lkdGgiOiAzLjUsICJwZXRhbExlbmd0aCI6IDEuNiwgInBldGFsV2lkdGgiOiAwLjYwMDAwMDAwMDAwMDAwMDEsICJzcGVjaWVzIjogInNldG9zYSJ9LCB7InNlcGFsTGVuZ3RoIjogNS4xLCAic2VwYWxXaWR0aCI6IDMuOCwgInBldGFsTGVuZ3RoIjogMS45LCAicGV0YWxXaWR0aCI6IDAuNCwgInNwZWNpZXMiOiAic2V0b3NhIn0sIHsic2VwYWxMZW5ndGgiOiA0LjgsICJzZXBhbFdpZHRoIjogMy4wLCAicGV0YWxMZW5ndGgiOiAxLjQsICJwZXRhbFdpZHRoIjogMC4zMDAwMDAwMDAwMDAwMDAwNCwgInNwZWNpZXMiOiAic2V0b3NhIn0sIHsic2VwYWxMZW5ndGgiOiA1LjEsICJzZXBhbFdpZHRoIjogMy44LCAicGV0YWxMZW5ndGgiOiAxLjYsICJwZXRhbFdpZHRoIjogMC4yLCAic3BlY2llcyI6ICJzZXRvc2EifSwgeyJzZXBhbExlbmd0aCI6IDQuNiwgInNlcGFsV2lkdGgiOiAzLjIsICJwZXRhbExlbmd0aCI6IDEuNCwgInBldGFsV2lkdGgiOiAwLjIsICJzcGVjaWVzIjogInNldG9zYSJ9LCB7InNlcGFsTGVuZ3RoIjogNS4zLCAic2VwYWxXaWR0aCI6IDMuNywgInBldGFsTGVuZ3RoIjogMS41LCAicGV0YWxXaWR0aCI6IDAuMiwgInNwZWNpZXMiOiAic2V0b3NhIn0sIHsic2VwYWxMZW5ndGgiOiA1LjAsICJzZXBhbFdpZHRoIjogMy4zLCAicGV0YWxMZW5ndGgiOiAxLjQsICJwZXRhbFdpZHRoIjogMC4yLCAic3BlY2llcyI6ICJzZXRvc2EifSwgeyJzZXBhbExlbmd0aCI6IDcuMCwgInNlcGFsV2lkdGgiOiAzLjIsICJwZXRhbExlbmd0aCI6IDQuNywgInBldGFsV2lkdGgiOiAxLjQsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuNCwgInNlcGFsV2lkdGgiOiAzLjIsICJwZXRhbExlbmd0aCI6IDQuNSwgInBldGFsV2lkdGgiOiAxLjUsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuOSwgInNlcGFsV2lkdGgiOiAzLjEsICJwZXRhbExlbmd0aCI6IDQuOSwgInBldGFsV2lkdGgiOiAxLjUsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuNSwgInNlcGFsV2lkdGgiOiAyLjMsICJwZXRhbExlbmd0aCI6IDQuMCwgInBldGFsV2lkdGgiOiAxLjMsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuNSwgInNlcGFsV2lkdGgiOiAyLjgsICJwZXRhbExlbmd0aCI6IDQuNiwgInBldGFsV2lkdGgiOiAxLjUsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuNywgInNlcGFsV2lkdGgiOiAyLjgsICJwZXRhbExlbmd0aCI6IDQuNSwgInBldGFsV2lkdGgiOiAxLjMsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuMywgInNlcGFsV2lkdGgiOiAzLjMsICJwZXRhbExlbmd0aCI6IDQuNywgInBldGFsV2lkdGgiOiAxLjYsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDQuOSwgInNlcGFsV2lkdGgiOiAyLjQsICJwZXRhbExlbmd0aCI6IDMuMywgInBldGFsV2lkdGgiOiAxLjAsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuNiwgInNlcGFsV2lkdGgiOiAyLjksICJwZXRhbExlbmd0aCI6IDQuNiwgInBldGFsV2lkdGgiOiAxLjMsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuMiwgInNlcGFsV2lkdGgiOiAyLjcsICJwZXRhbExlbmd0aCI6IDMuOSwgInBldGFsV2lkdGgiOiAxLjQsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuMCwgInNlcGFsV2lkdGgiOiAyLjAsICJwZXRhbExlbmd0aCI6IDMuNSwgInBldGFsV2lkdGgiOiAxLjAsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuOSwgInNlcGFsV2lkdGgiOiAzLjAsICJwZXRhbExlbmd0aCI6IDQuMiwgInBldGFsV2lkdGgiOiAxLjUsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuMCwgInNlcGFsV2lkdGgiOiAyLjIsICJwZXRhbExlbmd0aCI6IDQuMCwgInBldGFsV2lkdGgiOiAxLjAsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuMSwgInNlcGFsV2lkdGgiOiAyLjksICJwZXRhbExlbmd0aCI6IDQuNywgInBldGFsV2lkdGgiOiAxLjQsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuNiwgInNlcGFsV2lkdGgiOiAyLjksICJwZXRhbExlbmd0aCI6IDMuNiwgInBldGFsV2lkdGgiOiAxLjMsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuNywgInNlcGFsV2lkdGgiOiAzLjEsICJwZXRhbExlbmd0aCI6IDQuNCwgInBldGFsV2lkdGgiOiAxLjQsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuNiwgInNlcGFsV2lkdGgiOiAzLjAsICJwZXRhbExlbmd0aCI6IDQuNSwgInBldGFsV2lkdGgiOiAxLjUsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuOCwgInNlcGFsV2lkdGgiOiAyLjcsICJwZXRhbExlbmd0aCI6IDQuMSwgInBldGFsV2lkdGgiOiAxLjAsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuMiwgInNlcGFsV2lkdGgiOiAyLjIsICJwZXRhbExlbmd0aCI6IDQuNSwgInBldGFsV2lkdGgiOiAxLjUsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuNiwgInNlcGFsV2lkdGgiOiAyLjUsICJwZXRhbExlbmd0aCI6IDMuOSwgInBldGFsV2lkdGgiOiAxLjEsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuOSwgInNlcGFsV2lkdGgiOiAzLjIsICJwZXRhbExlbmd0aCI6IDQuOCwgInBldGFsV2lkdGgiOiAxLjgsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuMSwgInNlcGFsV2lkdGgiOiAyLjgsICJwZXRhbExlbmd0aCI6IDQuMCwgInBldGFsV2lkdGgiOiAxLjMsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuMywgInNlcGFsV2lkdGgiOiAyLjUsICJwZXRhbExlbmd0aCI6IDQuOSwgInBldGFsV2lkdGgiOiAxLjUsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuMSwgInNlcGFsV2lkdGgiOiAyLjgsICJwZXRhbExlbmd0aCI6IDQuNywgInBldGFsV2lkdGgiOiAxLjIsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuNCwgInNlcGFsV2lkdGgiOiAyLjksICJwZXRhbExlbmd0aCI6IDQuMywgInBldGFsV2lkdGgiOiAxLjMsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuNiwgInNlcGFsV2lkdGgiOiAzLjAsICJwZXRhbExlbmd0aCI6IDQuNCwgInBldGFsV2lkdGgiOiAxLjQsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuOCwgInNlcGFsV2lkdGgiOiAyLjgsICJwZXRhbExlbmd0aCI6IDQuOCwgInBldGFsV2lkdGgiOiAxLjQsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuNywgInNlcGFsV2lkdGgiOiAzLjAsICJwZXRhbExlbmd0aCI6IDUuMCwgInBldGFsV2lkdGgiOiAxLjcwMDAwMDAwMDAwMDAwMDIsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuMCwgInNlcGFsV2lkdGgiOiAyLjksICJwZXRhbExlbmd0aCI6IDQuNSwgInBldGFsV2lkdGgiOiAxLjUsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuNywgInNlcGFsV2lkdGgiOiAyLjYsICJwZXRhbExlbmd0aCI6IDMuNSwgInBldGFsV2lkdGgiOiAxLjAsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuNSwgInNlcGFsV2lkdGgiOiAyLjQsICJwZXRhbExlbmd0aCI6IDMuOCwgInBldGFsV2lkdGgiOiAxLjEsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuNSwgInNlcGFsV2lkdGgiOiAyLjQsICJwZXRhbExlbmd0aCI6IDMuNywgInBldGFsV2lkdGgiOiAxLjAsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuOCwgInNlcGFsV2lkdGgiOiAyLjcsICJwZXRhbExlbmd0aCI6IDMuOSwgInBldGFsV2lkdGgiOiAxLjIsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuMCwgInNlcGFsV2lkdGgiOiAyLjcsICJwZXRhbExlbmd0aCI6IDUuMSwgInBldGFsV2lkdGgiOiAxLjYsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuNCwgInNlcGFsV2lkdGgiOiAzLjAsICJwZXRhbExlbmd0aCI6IDQuNSwgInBldGFsV2lkdGgiOiAxLjUsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuMCwgInNlcGFsV2lkdGgiOiAzLjQsICJwZXRhbExlbmd0aCI6IDQuNSwgInBldGFsV2lkdGgiOiAxLjYsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuNywgInNlcGFsV2lkdGgiOiAzLjEsICJwZXRhbExlbmd0aCI6IDQuNywgInBldGFsV2lkdGgiOiAxLjUsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuMywgInNlcGFsV2lkdGgiOiAyLjMsICJwZXRhbExlbmd0aCI6IDQuNCwgInBldGFsV2lkdGgiOiAxLjMsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuNiwgInNlcGFsV2lkdGgiOiAzLjAsICJwZXRhbExlbmd0aCI6IDQuMSwgInBldGFsV2lkdGgiOiAxLjMsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuNSwgInNlcGFsV2lkdGgiOiAyLjUsICJwZXRhbExlbmd0aCI6IDQuMCwgInBldGFsV2lkdGgiOiAxLjMsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuNSwgInNlcGFsV2lkdGgiOiAyLjYsICJwZXRhbExlbmd0aCI6IDQuNCwgInBldGFsV2lkdGgiOiAxLjIsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuMSwgInNlcGFsV2lkdGgiOiAzLjAsICJwZXRhbExlbmd0aCI6IDQuNiwgInBldGFsV2lkdGgiOiAxLjQsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuOCwgInNlcGFsV2lkdGgiOiAyLjYsICJwZXRhbExlbmd0aCI6IDQuMCwgInBldGFsV2lkdGgiOiAxLjIsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuMCwgInNlcGFsV2lkdGgiOiAyLjMsICJwZXRhbExlbmd0aCI6IDMuMywgInBldGFsV2lkdGgiOiAxLjAsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuNiwgInNlcGFsV2lkdGgiOiAyLjcsICJwZXRhbExlbmd0aCI6IDQuMiwgInBldGFsV2lkdGgiOiAxLjMsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuNywgInNlcGFsV2lkdGgiOiAzLjAsICJwZXRhbExlbmd0aCI6IDQuMiwgInBldGFsV2lkdGgiOiAxLjIsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuNywgInNlcGFsV2lkdGgiOiAyLjksICJwZXRhbExlbmd0aCI6IDQuMiwgInBldGFsV2lkdGgiOiAxLjMsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuMiwgInNlcGFsV2lkdGgiOiAyLjksICJwZXRhbExlbmd0aCI6IDQuMywgInBldGFsV2lkdGgiOiAxLjMsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuMSwgInNlcGFsV2lkdGgiOiAyLjUsICJwZXRhbExlbmd0aCI6IDMuMCwgInBldGFsV2lkdGgiOiAxLjEsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDUuNywgInNlcGFsV2lkdGgiOiAyLjgsICJwZXRhbExlbmd0aCI6IDQuMSwgInBldGFsV2lkdGgiOiAxLjMsICJzcGVjaWVzIjogInZlcnNpY29sb3IifSwgeyJzZXBhbExlbmd0aCI6IDYuMywgInNlcGFsV2lkdGgiOiAzLjMsICJwZXRhbExlbmd0aCI6IDYuMCwgInBldGFsV2lkdGgiOiAyLjUsICJzcGVjaWVzIjogInZpcmdpbmljYSJ9LCB7InNlcGFsTGVuZ3RoIjogNS44LCAic2VwYWxXaWR0aCI6IDIuNywgInBldGFsTGVuZ3RoIjogNS4xLCAicGV0YWxXaWR0aCI6IDEuOSwgInNwZWNpZXMiOiAidmlyZ2luaWNhIn0sIHsic2VwYWxMZW5ndGgiOiA3LjEsICJzZXBhbFdpZHRoIjogMy4wLCAicGV0YWxMZW5ndGgiOiA1LjksICJwZXRhbFdpZHRoIjogMi4xLCAic3BlY2llcyI6ICJ2aXJnaW5pY2EifSwgeyJzZXBhbExlbmd0aCI6IDYuMywgInNlcGFsV2lkdGgiOiAyLjksICJwZXRhbExlbmd0aCI6IDUuNiwgInBldGFsV2lkdGgiOiAxLjgsICJzcGVjaWVzIjogInZpcmdpbmljYSJ9LCB7InNlcGFsTGVuZ3RoIjogNi41LCAic2VwYWxXaWR0aCI6IDMuMCwgInBldGFsTGVuZ3RoIjogNS44LCAicGV0YWxXaWR0aCI6IDIuMiwgInNwZWNpZXMiOiAidmlyZ2luaWNhIn0sIHsic2VwYWxMZW5ndGgiOiA3LjYsICJzZXBhbFdpZHRoIjogMy4wLCAicGV0YWxMZW5ndGgiOiA2LjYsICJwZXRhbFdpZHRoIjogMi4xLCAic3BlY2llcyI6ICJ2aXJnaW5pY2EifSwgeyJzZXBhbExlbmd0aCI6IDQuOSwgInNlcGFsV2lkdGgiOiAyLjUsICJwZXRhbExlbmd0aCI6IDQuNSwgInBldGFsV2lkdGgiOiAxLjcwMDAwMDAwMDAwMDAwMDIsICJzcGVjaWVzIjogInZpcmdpbmljYSJ9LCB7InNlcGFsTGVuZ3RoIjogNy4zLCAic2VwYWxXaWR0aCI6IDIuOSwgInBldGFsTGVuZ3RoIjogNi4zLCAicGV0YWxXaWR0aCI6IDEuOCwgInNwZWNpZXMiOiAidmlyZ2luaWNhIn0sIHsic2VwYWxMZW5ndGgiOiA2LjcsICJzZXBhbFdpZHRoIjogMi41LCAicGV0YWxMZW5ndGgiOiA1LjgsICJwZXRhbFdpZHRoIjogMS44LCAic3BlY2llcyI6ICJ2aXJnaW5pY2EifSwgeyJzZXBhbExlbmd0aCI6IDcuMiwgInNlcGFsV2lkdGgiOiAzLjYsICJwZXRhbExlbmd0aCI6IDYuMSwgInBldGFsV2lkdGgiOiAyLjUsICJzcGVjaWVzIjogInZpcmdpbmljYSJ9LCB7InNlcGFsTGVuZ3RoIjogNi41LCAic2VwYWxXaWR0aCI6IDMuMiwgInBldGFsTGVuZ3RoIjogNS4xLCAicGV0YWxXaWR0aCI6IDIuMCwgInNwZWNpZXMiOiAidmlyZ2luaWNhIn0sIHsic2VwYWxMZW5ndGgiOiA2LjQsICJzZXBhbFdpZHRoIjogMi43LCAicGV0YWxMZW5ndGgiOiA1LjMsICJwZXRhbFdpZHRoIjogMS45LCAic3BlY2llcyI6ICJ2aXJnaW5pY2EifSwgeyJzZXBhbExlbmd0aCI6IDYuOCwgInNlcGFsV2lkdGgiOiAzLjAsICJwZXRhbExlbmd0aCI6IDUuNSwgInBldGFsV2lkdGgiOiAyLjEsICJzcGVjaWVzIjogInZpcmdpbmljYSJ9LCB7InNlcGFsTGVuZ3RoIjogNS43LCAic2VwYWxXaWR0aCI6IDIuNSwgInBldGFsTGVuZ3RoIjogNS4wLCAicGV0YWxXaWR0aCI6IDIuMCwgInNwZWNpZXMiOiAidmlyZ2luaWNhIn0sIHsic2VwYWxMZW5ndGgiOiA1LjgsICJzZXBhbFdpZHRoIjogMi44LCAicGV0YWxMZW5ndGgiOiA1LjEsICJwZXRhbFdpZHRoIjogMi40LCAic3BlY2llcyI6ICJ2aXJnaW5pY2EifSwgeyJzZXBhbExlbmd0aCI6IDYuNCwgInNlcGFsV2lkdGgiOiAzLjIsICJwZXRhbExlbmd0aCI6IDUuMywgInBldGFsV2lkdGgiOiAyLjMsICJzcGVjaWVzIjogInZpcmdpbmljYSJ9LCB7InNlcGFsTGVuZ3RoIjogNi41LCAic2VwYWxXaWR0aCI6IDMuMCwgInBldGFsTGVuZ3RoIjogNS41LCAicGV0YWxXaWR0aCI6IDEuOCwgInNwZWNpZXMiOiAidmlyZ2luaWNhIn0sIHsic2VwYWxMZW5ndGgiOiA3LjcsICJzZXBhbFdpZHRoIjogMy44LCAicGV0YWxMZW5ndGgiOiA2LjcsICJwZXRhbFdpZHRoIjogMi4yLCAic3BlY2llcyI6ICJ2aXJnaW5pY2EifSwgeyJzZXBhbExlbmd0aCI6IDcuNywgInNlcGFsV2lkdGgiOiAyLjYsICJwZXRhbExlbmd0aCI6IDYuOSwgInBldGFsV2lkdGgiOiAyLjMsICJzcGVjaWVzIjogInZpcmdpbmljYSJ9LCB7InNlcGFsTGVuZ3RoIjogNi4wLCAic2VwYWxXaWR0aCI6IDIuMiwgInBldGFsTGVuZ3RoIjogNS4wLCAicGV0YWxXaWR0aCI6IDEuNSwgInNwZWNpZXMiOiAidmlyZ2luaWNhIn0sIHsic2VwYWxMZW5ndGgiOiA2LjksICJzZXBhbFdpZHRoIjogMy4yLCAicGV0YWxMZW5ndGgiOiA1LjcsICJwZXRhbFdpZHRoIjogMi4zLCAic3BlY2llcyI6ICJ2aXJnaW5pY2EifSwgeyJzZXBhbExlbmd0aCI6IDUuNiwgInNlcGFsV2lkdGgiOiAyLjgsICJwZXRhbExlbmd0aCI6IDQuOSwgInBldGFsV2lkdGgiOiAyLjAsICJzcGVjaWVzIjogInZpcmdpbmljYSJ9LCB7InNlcGFsTGVuZ3RoIjogNy43LCAic2VwYWxXaWR0aCI6IDIuOCwgInBldGFsTGVuZ3RoIjogNi43LCAicGV0YWxXaWR0aCI6IDIuMCwgInNwZWNpZXMiOiAidmlyZ2luaWNhIn0sIHsic2VwYWxMZW5ndGgiOiA2LjMsICJzZXBhbFdpZHRoIjogMi43LCAicGV0YWxMZW5ndGgiOiA0LjksICJwZXRhbFdpZHRoIjogMS44LCAic3BlY2llcyI6ICJ2aXJnaW5pY2EifSwgeyJzZXBhbExlbmd0aCI6IDYuNywgInNlcGFsV2lkdGgiOiAzLjMsICJwZXRhbExlbmd0aCI6IDUuNywgInBldGFsV2lkdGgiOiAyLjEsICJzcGVjaWVzIjogInZpcmdpbmljYSJ9LCB7InNlcGFsTGVuZ3RoIjogNy4yLCAic2VwYWxXaWR0aCI6IDMuMiwgInBldGFsTGVuZ3RoIjogNi4wLCAicGV0YWxXaWR0aCI6IDEuOCwgInNwZWNpZXMiOiAidmlyZ2luaWNhIn0sIHsic2VwYWxMZW5ndGgiOiA2LjIsICJzZXBhbFdpZHRoIjogMi44LCAicGV0YWxMZW5ndGgiOiA0LjgsICJwZXRhbFdpZHRoIjogMS44LCAic3BlY2llcyI6ICJ2aXJnaW5pY2EifSwgeyJzZXBhbExlbmd0aCI6IDYuMSwgInNlcGFsV2lkdGgiOiAzLjAsICJwZXRhbExlbmd0aCI6IDQuOSwgInBldGFsV2lkdGgiOiAxLjgsICJzcGVjaWVzIjogInZpcmdpbmljYSJ9LCB7InNlcGFsTGVuZ3RoIjogNi40LCAic2VwYWxXaWR0aCI6IDIuOCwgInBldGFsTGVuZ3RoIjogNS42LCAicGV0YWxXaWR0aCI6IDIuMSwgInNwZWNpZXMiOiAidmlyZ2luaWNhIn0sIHsic2VwYWxMZW5ndGgiOiA3LjIsICJzZXBhbFdpZHRoIjogMy4wLCAicGV0YWxMZW5ndGgiOiA1LjgsICJwZXRhbFdpZHRoIjogMS42LCAic3BlY2llcyI6ICJ2aXJnaW5pY2EifSwgeyJzZXBhbExlbmd0aCI6IDcuNCwgInNlcGFsV2lkdGgiOiAyLjgsICJwZXRhbExlbmd0aCI6IDYuMSwgInBldGFsV2lkdGgiOiAxLjksICJzcGVjaWVzIjogInZpcmdpbmljYSJ9LCB7InNlcGFsTGVuZ3RoIjogNy45LCAic2VwYWxXaWR0aCI6IDMuOCwgInBldGFsTGVuZ3RoIjogNi40LCAicGV0YWxXaWR0aCI6IDIuMCwgInNwZWNpZXMiOiAidmlyZ2luaWNhIn0sIHsic2VwYWxMZW5ndGgiOiA2LjQsICJzZXBhbFdpZHRoIjogMi44LCAicGV0YWxMZW5ndGgiOiA1LjYsICJwZXRhbFdpZHRoIjogMi4yLCAic3BlY2llcyI6ICJ2aXJnaW5pY2EifSwgeyJzZXBhbExlbmd0aCI6IDYuMywgInNlcGFsV2lkdGgiOiAyLjgsICJwZXRhbExlbmd0aCI6IDUuMSwgInBldGFsV2lkdGgiOiAxLjUsICJzcGVjaWVzIjogInZpcmdpbmljYSJ9LCB7InNlcGFsTGVuZ3RoIjogNi4xLCAic2VwYWxXaWR0aCI6IDIuNiwgInBldGFsTGVuZ3RoIjogNS42LCAicGV0YWxXaWR0aCI6IDEuNCwgInNwZWNpZXMiOiAidmlyZ2luaWNhIn0sIHsic2VwYWxMZW5ndGgiOiA3LjcsICJzZXBhbFdpZHRoIjogMy4wLCAicGV0YWxMZW5ndGgiOiA2LjEsICJwZXRhbFdpZHRoIjogMi4zLCAic3BlY2llcyI6ICJ2aXJnaW5pY2EifSwgeyJzZXBhbExlbmd0aCI6IDYuMywgInNlcGFsV2lkdGgiOiAzLjQsICJwZXRhbExlbmd0aCI6IDUuNiwgInBldGFsV2lkdGgiOiAyLjQsICJzcGVjaWVzIjogInZpcmdpbmljYSJ9LCB7InNlcGFsTGVuZ3RoIjogNi40LCAic2VwYWxXaWR0aCI6IDMuMSwgInBldGFsTGVuZ3RoIjogNS41LCAicGV0YWxXaWR0aCI6IDEuOCwgInNwZWNpZXMiOiAidmlyZ2luaWNhIn0sIHsic2VwYWxMZW5ndGgiOiA2LjAsICJzZXBhbFdpZHRoIjogMy4wLCAicGV0YWxMZW5ndGgiOiA0LjgsICJwZXRhbFdpZHRoIjogMS44LCAic3BlY2llcyI6ICJ2aXJnaW5pY2EifSwgeyJzZXBhbExlbmd0aCI6IDYuOSwgInNlcGFsV2lkdGgiOiAzLjEsICJwZXRhbExlbmd0aCI6IDUuNCwgInBldGFsV2lkdGgiOiAyLjEsICJzcGVjaWVzIjogInZpcmdpbmljYSJ9LCB7InNlcGFsTGVuZ3RoIjogNi43LCAic2VwYWxXaWR0aCI6IDMuMSwgInBldGFsTGVuZ3RoIjogNS42LCAicGV0YWxXaWR0aCI6IDIuNCwgInNwZWNpZXMiOiAidmlyZ2luaWNhIn0sIHsic2VwYWxMZW5ndGgiOiA2LjksICJzZXBhbFdpZHRoIjogMy4xLCAicGV0YWxMZW5ndGgiOiA1LjEsICJwZXRhbFdpZHRoIjogMi4zLCAic3BlY2llcyI6ICJ2aXJnaW5pY2EifSwgeyJzZXBhbExlbmd0aCI6IDUuOCwgInNlcGFsV2lkdGgiOiAyLjcsICJwZXRhbExlbmd0aCI6IDUuMSwgInBldGFsV2lkdGgiOiAxLjksICJzcGVjaWVzIjogInZpcmdpbmljYSJ9LCB7InNlcGFsTGVuZ3RoIjogNi44LCAic2VwYWxXaWR0aCI6IDMuMiwgInBldGFsTGVuZ3RoIjogNS45LCAicGV0YWxXaWR0aCI6IDIuMywgInNwZWNpZXMiOiAidmlyZ2luaWNhIn0sIHsic2VwYWxMZW5ndGgiOiA2LjcsICJzZXBhbFdpZHRoIjogMy4zLCAicGV0YWxMZW5ndGgiOiA1LjcsICJwZXRhbFdpZHRoIjogMi41LCAic3BlY2llcyI6ICJ2aXJnaW5pY2EifSwgeyJzZXBhbExlbmd0aCI6IDYuNywgInNlcGFsV2lkdGgiOiAzLjAsICJwZXRhbExlbmd0aCI6IDUuMiwgInBldGFsV2lkdGgiOiAyLjMsICJzcGVjaWVzIjogInZpcmdpbmljYSJ9LCB7InNlcGFsTGVuZ3RoIjogNi4zLCAic2VwYWxXaWR0aCI6IDIuNSwgInBldGFsTGVuZ3RoIjogNS4wLCAicGV0YWxXaWR0aCI6IDEuOSwgInNwZWNpZXMiOiAidmlyZ2luaWNhIn0sIHsic2VwYWxMZW5ndGgiOiA2LjUsICJzZXBhbFdpZHRoIjogMy4wLCAicGV0YWxMZW5ndGgiOiA1LjIsICJwZXRhbFdpZHRoIjogMi4wLCAic3BlY2llcyI6ICJ2aXJnaW5pY2EifSwgeyJzZXBhbExlbmd0aCI6IDYuMiwgInNlcGFsV2lkdGgiOiAzLjQsICJwZXRhbExlbmd0aCI6IDUuNCwgInBldGFsV2lkdGgiOiAyLjMsICJzcGVjaWVzIjogInZpcmdpbmljYSJ9LCB7InNlcGFsTGVuZ3RoIjogNS45LCAic2VwYWxXaWR0aCI6IDMuMCwgInBldGFsTGVuZ3RoIjogNS4xLCAicGV0YWxXaWR0aCI6IDEuOCwgInNwZWNpZXMiOiAidmlyZ2luaWNhIn1dfX0=&quot;, &quot;hash&quot;: &quot;250154609b&quot;, &quot;size&quot;: 21632, &quot;mime&quot;: &quot;application/vnd.vegalite.v5+json&quot;}, &quot;4966f54fbf&quot;: {&quot;src&quot;: &quot;data:application/vnd.apache.arrow+binary;base64,QVJST1cxAAD/////wAQAABAAAAAAAAoADgAGAAUACAAKAAAAAAEEABAAAAAAAAoADAAAAAQACAAKAAAAQAMAAAQAAAABAAAADAAAAAgADAAEAAgACAAAABgDAAAEAAAACgMAAHsiaW5kZXhfY29sdW1ucyI6IFtdLCAiY29sdW1uX2luZGV4ZXMiOiBbXSwgImNvbHVtbnMiOiBbeyJuYW1lIjogInNlcGFsTGVuZ3RoIiwgImZpZWxkX25hbWUiOiAic2VwYWxMZW5ndGgiLCAicGFuZGFzX3R5cGUiOiAiZmxvYXQ2NCIsICJudW1weV90eXBlIjogIkZsb2F0NjQiLCAibWV0YWRhdGEiOiBudWxsfSwgeyJuYW1lIjogInNlcGFsV2lkdGgiLCAiZmllbGRfbmFtZSI6ICJzZXBhbFdpZHRoIiwgInBhbmRhc190eXBlIjogImZsb2F0NjQiLCAibnVtcHlfdHlwZSI6ICJGbG9hdDY0IiwgIm1ldGFkYXRhIjogbnVsbH0sIHsibmFtZSI6ICJwZXRhbExlbmd0aCIsICJmaWVsZF9uYW1lIjogInBldGFsTGVuZ3RoIiwgInBhbmRhc190eXBlIjogImZsb2F0NjQiLCAibnVtcHlfdHlwZSI6ICJGbG9hdDY0IiwgIm1ldGFkYXRhIjogbnVsbH0sIHsibmFtZSI6ICJwZXRhbFdpZHRoIiwgImZpZWxkX25hbWUiOiAicGV0YWxXaWR0aCIsICJwYW5kYXNfdHlwZSI6ICJmbG9hdDY0IiwgIm51bXB5X3R5cGUiOiAiRmxvYXQ2NCIsICJtZXRhZGF0YSI6IG51bGx9LCB7Im5hbWUiOiAic3BlY2llcyIsICJmaWVsZF9uYW1lIjogInNwZWNpZXMiLCAicGFuZGFzX3R5cGUiOiAiY2F0ZWdvcmljYWwiLCAibnVtcHlfdHlwZSI6ICJpbnQ4IiwgIm1ldGFkYXRhIjogeyJudW1fY2F0ZWdvcmllcyI6IDMsICJvcmRlcmVkIjogZmFsc2V9fV0sICJjcmVhdG9yIjogeyJsaWJyYXJ5IjogInB5YXJyb3ciLCAidmVyc2lvbiI6ICIyMS4wLjAifSwgInBhbmRhc192ZXJzaW9uIjogIjIuMy4xIn0AAAYAAABwYW5kYXMAAAUAAAAYAQAA1AAAAKAAAABsAAAAFAAAABAAGAAIAAYABwAMABAAFAAQAAAAAAABBRQAAABEAAAAIAAAAAQAAAAAAAAABwAAAHNwZWNpZXMACAAIAAAABAAIAAAADAAAAAgADAAIAAcACAAAAAAAAAEIAAAABAAEAAQAAABw////AAABAxAAAAAcAAAABAAAAAAAAAAKAAAAcGV0YWxXaWR0aAAAXv///wAAAgCg////AAABAxAAAAAcAAAABAAAAAAAAAALAAAAcGV0YWxMZW5ndGgAjv///wAAAgDQ////AAABAxAAAAAcAAAABAAAAAAAAAAKAAAAc2VwYWxXaWR0aAAAvv///wAAAgAQABQACAAGAAcADAAAABAAEAAAAAAAAQMQAAAAJAAAAAQAAAAAAAAACwAAAHNlcGFsTGVuZ3RoAAAABgAIAAYABgAAAAAAAgD/////qAAAABQAAAAAAAAADAAUAAYABQAIAAwADAAAAAACBAAUAAAAMAAAAAAAAAAIAAoAAAAEAAgAAAAQAAAAAAAKABgADAAEAAgACgAAAEwAAAAQAAAAAwAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAEAAAAAAAAAAZAAAAAAAAAAAAAAABAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAEAAAABkAAABzZXRvc2F2ZXJzaWNvbG9ydmlyZ2luaWNhAAAAAAAAAP////9IAQAAFAAAAAAAAAAMABYABgAFAAgADAAMAAAAAAMEABgAAABYEwAAAAAAAAAACgAYAAwABAAIAAoAAAC8AAAAEAAAAJYAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwBAAAAAAAALAEAAAAAAAAAAAAAAAAAACwBAAAAAAAALAEAAAAAAAAYAkAAAAAAAAAAAAAAAAAAGAJAAAAAAAAsAQAAAAAAAAQDgAAAAAAAAAAAAAAAAAAEA4AAAAAAACwBAAAAAAAAMASAAAAAAAAAAAAAAAAAADAEgAAAAAAAJYAAAAAAAAAAAAAAAUAAACWAAAAAAAAAAAAAAAAAAAAlgAAAAAAAAAAAAAAAAAAAJYAAAAAAAAAAAAAAAAAAACWAAAAAAAAAAAAAAAAAAAAlgAAAAAAAAAAAAAAAAAAAGZmZmZmZhRAmpmZmZmZE0DNzMzMzMwSQGZmZmZmZhJAAAAAAAAAFECamZmZmZkVQGZmZmZmZhJAAAAAAAAAFECamZmZmZkRQJqZmZmZmRNAmpmZmZmZFUAzMzMzMzMTQDMzMzMzMxNAMzMzMzMzEUAzMzMzMzMXQM3MzMzMzBZAmpmZmZmZFUBmZmZmZmYUQM3MzMzMzBZAZmZmZmZmFECamZmZmZkVQGZmZmZmZhRAZmZmZmZmEkBmZmZmZmYUQDMzMzMzMxNAAAAAAAAAFEAAAAAAAAAUQM3MzMzMzBRAzczMzMzMFEDNzMzMzMwSQDMzMzMzMxNAmpmZmZmZFUDNzMzMzMwUQAAAAAAAABZAmpmZmZmZE0AAAAAAAAAUQAAAAAAAABZAmpmZmZmZE0CamZmZmZkRQGZmZmZmZhRAAAAAAAAAFEAAAAAAAAASQJqZmZmZmRFAAAAAAAAAFEBmZmZmZmYUQDMzMzMzMxNAZmZmZmZmFEBmZmZmZmYSQDMzMzMzMxVAAAAAAAAAFEAAAAAAAAAcQJqZmZmZmRlAmpmZmZmZG0AAAAAAAAAWQAAAAAAAABpAzczMzMzMFkAzMzMzMzMZQJqZmZmZmRNAZmZmZmZmGkDNzMzMzMwUQAAAAAAAABRAmpmZmZmZF0AAAAAAAAAYQGZmZmZmZhhAZmZmZmZmFkDNzMzMzMwaQGZmZmZmZhZAMzMzMzMzF0DNzMzMzMwYQGZmZmZmZhZAmpmZmZmZF0BmZmZmZmYYQDMzMzMzMxlAZmZmZmZmGECamZmZmZkZQGZmZmZmZhpAMzMzMzMzG0DNzMzMzMwaQAAAAAAAABhAzczMzMzMFkAAAAAAAAAWQAAAAAAAABZAMzMzMzMzF0AAAAAAAAAYQJqZmZmZmRVAAAAAAAAAGEDNzMzMzMwaQDMzMzMzMxlAZmZmZmZmFkAAAAAAAAAWQAAAAAAAABZAZmZmZmZmGEAzMzMzMzMXQAAAAAAAABRAZmZmZmZmFkDNzMzMzMwWQM3MzMzMzBZAzczMzMzMGEBmZmZmZmYUQM3MzMzMzBZAMzMzMzMzGUAzMzMzMzMXQGZmZmZmZhxAMzMzMzMzGUAAAAAAAAAaQGZmZmZmZh5AmpmZmZmZE0AzMzMzMzMdQM3MzMzMzBpAzczMzMzMHEAAAAAAAAAaQJqZmZmZmRlAMzMzMzMzG0DNzMzM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&quot;, &quot;hash&quot;: &quot;4966f54fbf&quot;, &quot;size&quot;: 10736, &quot;mime&quot;: &quot;application/vnd.apache.arrow+binary&quot;}}}}};
+&lt;/script&gt;
+
+&lt;script type=&quot;module&quot;&gt;
+  import { mountReport } from &quot;https://cdn.jsdelivr.net/npm/arakawa@0.1.0-alpha.1/dist/report/index.es.js&quot;;
+  mountReport(window.reportProps);
+&lt;/script&gt;
+
+&lt;/head&gt;
+&lt;script&gt;
+  window.isIPythonEmbed = true;
+&lt;/script&gt;
+
+&lt;body&gt;
+  &lt;main class=&quot;max-w-screen-xl w-full mx-auto&quot;&gt;
+    &lt;div id=&quot;report&quot; class=&quot;w-full&quot;&gt;&lt;/div&gt;
+  &lt;/main&gt;
+  &lt;script src=&quot;https://cdn.jsdelivr.net/npm/arakawa@0.1.0-alpha.1/dist/assets/index.umd.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;" style="border: none;">
+</iframe>
+<script type="module">
+  import { iframeResize } from "https://cdn.jsdelivr.net/npm/arakawa@0.1.0-alpha.1/dist/report/index.es.js";
+  iframeResize({ log: true, checkOrigin: false, license: "GPLv3" }, "#ar-808e9f76e7544f318ce4bb0ca160f90e");
+</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="reports">Reports<a class="headerlink" href="#reports" title="Permanent link">&para;</a></h2>
+<p>Once we have a view, we can save it as an HTML report to share.</p>
+<p>Let's save it as a report and <a href="../quickstart_report.html" target="_blank">open it in a new window</a>.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">ar</span><span class="o">.</span><span class="n">save_report</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="s2">&quot;quickstart_report.html&quot;</span><span class="p">,</span> <span class="nb">open</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># or</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">ar</span><span class="o">.</span><span class="n">Report</span><span class="p">(</span><span class="n">view</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;quickstart_report.html&quot;</span><span class="p">,</span> <span class="nb">open</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<p>App saved to ./quickstart_report.html</p>
+</div>
+<div class="output_area">
+<p>App saved to ./quickstart_report.html</p>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="sharing-your-report">Sharing Your Report<a class="headerlink" href="#sharing-your-report" title="Permanent link">&para;</a></h2>
+<p>That's it! As Arakawa has created an HTML file, you can now share this Slack or email without deploying any code or configuring a backend server.</p>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/ninoseki/arakawa/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["content.tabs.link", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>
