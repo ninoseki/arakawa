@@ -8,14 +8,14 @@ Conversion templates for IPython notebooks to Arakawa apps.
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import Callable, Union
+from collections.abc import Callable
 
 import arakawa.blocks as b
 from arakawa.ipython.exceptions import BlocksNotFoundError
 from arakawa.utils import display_msg
 
 BlockFilterF = Callable[[b.BaseBlock], bool]
-BlockTypes = Union[tuple[type[b.BaseBlock], ...], type]
+BlockTypes = tuple[type[b.BaseBlock], ...] | type
 BaseElementList = list[b.BaseBlock]
 
 _registry: dict[str, type[IPythonTemplate]] = {}
@@ -77,7 +77,7 @@ def guess_template(blocks: BaseElementList) -> type[IPythonTemplate]:
     app_template: type[IPythonTemplate]
 
     # DashboardTemplate: Contains only Plot, BigNumber, and DataTable blocks
-    if all(isinstance(block, (b.Plot, b.BigNumber, b.DataTable)) for block in blocks):
+    if all(isinstance(block, b.Plot | b.BigNumber | b.DataTable) for block in blocks):
         app_template = DashboardTemplate
     # TitledPagesTemplate: Contains text blocks with at least two headings
     elif (
@@ -183,7 +183,7 @@ class AssetListTemplate(IPythonTemplate, template_name="asset_list"):
 
     def transform(self) -> None:
         blocks = filter_blocks_by_predicate(
-            self.blocks, lambda block: not isinstance(block, (b.Code, b.Text))
+            self.blocks, lambda block: not isinstance(block, b.Code | b.Text)
         )
         pages: list[b.BaseBlock] = [
             b.Page(blocks=[block], title=f"{idx + 1}. {block._tag}")
@@ -202,7 +202,7 @@ class AssetCodeListTemplate(IPythonTemplate, template_name="asset_code_list"):
 
         for block in blocks:
             # If the block is not a Code or Text block, add it to a new page
-            if not isinstance(block, (b.Text, b.Code)):
+            if not isinstance(block, b.Text | b.Code):
                 # If the last block was a code block, add it to the current page
                 if isinstance(last_block, b.Code):
                     pages.append(

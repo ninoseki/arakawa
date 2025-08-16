@@ -2,7 +2,7 @@
 description: Installing and setting up the Arakawa library and API on your device
 ---
 
-Arakawa's Python library and CLI can be installed using either `pip` or `conda` on macOS, Windows, or Linux. Arakawa supports Python **3.9 - 3.12**.
+Arakawa's Python library and CLI can be installed using either `pip` or `conda` on macOS, Windows, or Linux. Arakawa supports Python **3.10 - 3.13**.
 
 !!! info
 

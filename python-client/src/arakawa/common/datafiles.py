@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import abc
-from typing import IO, Union
+from typing import IO
 
 import pandas as pd
 import pyarrow as pa
@@ -16,7 +16,7 @@ from arakawa.types import ARROW_EXT, ARROW_MIMETYPE, MIME
 
 from .df_processor import obj_to_str, process_df, str_to_arrow_str
 
-PathOrFile = Union[str, IO, Base64IO]
+PathOrFile = str | IO | Base64IO
 
 
 def write_table(table: pa.Table, sink: PathOrFile):

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import sys
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING
 
 from pydantic import Field, field_validator
 
@@ -119,12 +119,9 @@ class View(Blocks):
     __init__ = Blocks.__init__
 
 
-BlocksT = Union[
-    Blocks,
-    list[BlockOrPrimitive],
-    Mapping[str, BlockOrPrimitive],
-    BlockOrPrimitive,
-]
+BlocksT = (
+    Blocks | list[BlockOrPrimitive] | Mapping[str, BlockOrPrimitive] | BlockOrPrimitive
+)
 
 
 class Report(Blocks):

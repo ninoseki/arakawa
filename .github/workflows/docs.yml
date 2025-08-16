@@ -20,13 +20,13 @@ jobs:
           fetch-depth: 0 # fetch all commits/branches
       - uses: actions/setup-python@v5
         with:
-          python-version: 3.11
+          python-version: 3.13
           cache: pip
       - run: pip install -r requirements.txt
       - uses: actions/cache@v4
         with:
           path: ~/.cache/uv
-          key: uv-3.11-${{ hashFiles('uv.lock') }}
+          key: uv-3.13-${{ hashFiles('uv.lock') }}
       - run: uv sync --frozen
       - name: Reinstall from ../python-client
         run: uv sync --reinstall-package arakawa
@@ -36,11 +36,11 @@ jobs:
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
       - run: |
           VERSION=$(uv run python convert_to_py_version.py ${{ inputs.arVersion }})
-          if echo $VERSION | grep -q "[A-Za-z]"; then
+          if echo "$VERSION" | grep -q "[A-Za-z]"; then
             echo "beta/alpha version detected"
-            uv run mike deploy $VERSION --update-aliases --push
+            uv run mike deploy "$VERSION" --update-aliases --push
           else
             echo "stable version detected"
-            uv run mike deploy $VERSION latest --update-aliases --push
+            uv run mike deploy "$VERSION" latest --update-aliases --push
             uv run mike set-default --push latest
           fi

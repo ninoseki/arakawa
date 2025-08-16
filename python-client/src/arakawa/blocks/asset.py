@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Optional, cast
+from typing import TYPE_CHECKING, Any, cast
 
 import pandas as pd
 from pandas.io.formats.style import Styler
@@ -110,7 +110,7 @@ class Attachment(AssetBlock):
 
         super().__init__(
             data=data,
-            file=cast(Optional[Path], file),
+            file=cast(Path | None, file),
             name=name,
             caption=caption,
             label=label,
