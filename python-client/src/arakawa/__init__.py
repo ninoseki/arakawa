@@ -62,7 +62,6 @@ from .processors import (  # noqa: F401
     save_report,
     stringify_report,
 )
-from .utils import enable_logging, print_debug_info  # noqa: F401
 from .view import Blocks, Report, View  # noqa: F401
 
 from . import builtins  # noqa: F401 # isort: skip

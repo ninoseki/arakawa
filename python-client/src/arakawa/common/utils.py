@@ -7,11 +7,9 @@ import locale
 import mimetypes
 import re
 import sys
-import time
 from pathlib import Path
 
 import chardet
-from chardet.universaldetector import UniversalDetector
 from loguru import logger as log
 from micawber import ProviderException, bootstrap_basic, bootstrap_noembed, cache
 
@@ -48,17 +46,6 @@ def guess_type(filename: Path) -> MIME:
     return MIME(mtype or "application/octet-stream")
 
 
-def guess_encoding(fn: str) -> str:
-    with open(fn, "rb") as f:
-        detector = UniversalDetector()
-        for line in f.readlines():
-            detector.feed(line)
-            if detector.done:
-                break
-        detector.close()
-    return detector.result["encoding"]  # type: ignore
-
-
 def utf_read_text(file: Path) -> str:
     """Encoding-aware text reader
     - handles cases like on Windows where a file is UTF-8, but default locale is windows-1252
@@ -74,10 +61,6 @@ def utf_read_text(file: Path) -> str:
         return f_bytes.decode(encoding=f_enc)
     # for linux/macOS assume utf-8
     return file.read_text()
-
-
-def unixtime() -> int:
-    return int(time.time())
 
 
 def timestamp(x: datetime.datetime | None = None) -> str:

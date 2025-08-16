@@ -25,35 +25,6 @@ def get_logger():
 
 log = get_logger()
 
-_have_setup_logging: bool = False
-
-
-def enable_logging():
-    """Enable logging for debug purposes"""
-    global _have_setup_logging
-
-    log.remove(0)
-    log.add(sys.stderr, level="DEBUG")
-
-    _have_setup_logging = True
-
-
-def print_debug_info():
-    """Print useful debugging information"""
-    fields = {}
-
-    # Known dependencies
-    import numpy as np
-    import pandas as pd
-    import pyarrow as pa
-
-    fields["pandas_version"] = pd.__version__
-    fields["numpy_version"] = np.__version__
-    fields["pyarrow_version"] = pa.__version__
-
-    for _k, _v in fields.items():
-        pass
-
 
 ################################################################################
 # Output

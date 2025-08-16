@@ -1,14 +1,8 @@
 from __future__ import annotations
 
-import sys
 from typing import TYPE_CHECKING, Any, ClassVar, TypeVar, Union
 
 from pydantic import BaseModel, ConfigDict, computed_field
-
-if sys.version_info <= (3, 11):
-    pass
-else:
-    pass
 
 if TYPE_CHECKING:
     from arakawa.view import ViewVisitor
