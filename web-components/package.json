@@ -64,9 +64,9 @@
     "sigma": "^3.0.2",
     "url-join": "^5.0.0",
     "uuid": "^11.1.0",
-    "vega": "5.31.0",
-    "vega-embed": "6.29.0",
-    "vega-lite": "5.23.0",
+    "vega": "6.1.2",
+    "vega-embed": "7.0.2",
+    "vega-lite": "6.2.0",
     "vue": "^3.5.18",
     "vue-multiselect": "^3.3.1"
   },
