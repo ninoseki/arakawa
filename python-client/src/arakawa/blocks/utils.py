@@ -5,7 +5,7 @@ import math
 import secrets
 from collections.abc import Sized
 from numbers import Number
-from typing import Annotated, Any, Optional
+from typing import Annotated, Any
 
 from pydantic import BeforeValidator
 
@@ -57,6 +57,6 @@ def convert_str_or_number(v: Any) -> str:
 
 
 OptionalNumberStr = Annotated[
-    Optional[str], BeforeValidator(convert_optional_str_or_number)
+    str | None, BeforeValidator(convert_optional_str_or_number)
 ]
 NumberStr = Annotated[str, BeforeValidator(convert_str_or_number)]

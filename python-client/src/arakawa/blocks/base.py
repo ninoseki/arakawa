@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, ClassVar, TypeVar, Union
+from typing import TYPE_CHECKING, Any, ClassVar, TypeVar
 
 from pydantic import BaseModel, ConfigDict, computed_field
 
@@ -58,7 +58,7 @@ class DataBlock(BaseBlock):
     """
 
 
-BlockOrPrimitive = Union[BaseBlock, Any]  # TODO - expand
+BlockOrPrimitive = BaseBlock | Any  # TODO - expand
 BlockList = list[BaseBlock]
 
 

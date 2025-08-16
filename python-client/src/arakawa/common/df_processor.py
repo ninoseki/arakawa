@@ -147,13 +147,13 @@ def to_df(value: Any) -> pd.DataFrame:
     if isinstance(value, pd.DataFrame):
         return value.copy(deep=True)
 
-    if isinstance(value, (pd.Series, pd.Index)):
+    if isinstance(value, pd.Series | pd.Index):
         if value.name is not None:
             return pd.DataFrame(value)
 
         return pd.DataFrame({"Result": value})
 
-    if isinstance(value, (Number, str, bool, datetime.datetime, datetime.timedelta)):
+    if isinstance(value, Number | str | bool | datetime.datetime | datetime.timedelta):
         return pd.DataFrame({"Result": value}, index=[0])
 
     if isinstance(value, np.ndarray):

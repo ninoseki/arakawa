@@ -1,8 +1,6 @@
 """Type-driven block wrapping"""
-# ruff: noqa: FA100
 
 from pathlib import Path
-from typing import Union
 
 import pandas as pd
 from altair.utils import SchemaBase
@@ -54,7 +52,7 @@ def _(x: SchemaBase) -> DataBlock:
 if opt.HAVE_BOKEH:
 
     @convert_to_block.register  # type: ignore
-    def _(x: Union[opt.BFigure, opt.BLayout]) -> DataBlock:
+    def _(x: opt.BFigure | opt.BLayout) -> DataBlock:
         return b.Plot(x)
 
 
@@ -75,7 +73,7 @@ if opt.HAVE_FOLIUM:
 if opt.HAVE_MATPLOTLIB:
 
     @convert_to_block.register  # type: ignore
-    def _(x: Union[opt.Figure, opt.Axes, opt.ndarray]) -> DataBlock:
+    def _(x: opt.Figure | opt.Axes | opt.ndarray) -> DataBlock:
         return b.Plot(x)
 
 

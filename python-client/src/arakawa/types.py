@@ -2,23 +2,23 @@ from collections.abc import Mapping
 from enum import Enum
 from os import PathLike
 from pathlib import Path
-from typing import Any, NewType, Union
+from typing import Any, NewType
 
 # Typedefs
 # A JSON-serializable config object
 SDict = dict[str, Any]
 SList = list[str]
 # NOTE - mypy cannot handle recursive types like this currently. Will review in the future
-JSON = Union[str, int, float, bool, None, Mapping[str, "JSON"], list["JSON"]]  # type: ignore
+JSON = str | int | float | bool | None | Mapping[str, "JSON"] | list["JSON"]  # type: ignore
 JDict = SDict  # should be JSON
 JList = list[JSON]  # type: ignore
 MIME = NewType("MIME", str)
 URL = NewType("URL", str)
 HTML = NewType("HTML", str)
-NPath = Union[Path, PathLike, str]
+NPath = Path | PathLike | str
 Hash = NewType("Hash", str)
 EnumType = int  # alias for enum values
-NumberValue = Union[str, int, float]
+NumberValue = str | int | float
 
 
 # Constants
