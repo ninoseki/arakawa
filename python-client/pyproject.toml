@@ -3,7 +3,7 @@ name = "arakawa"
 dynamic = ["version"]
 description = "Build interactive reports in seconds using Python"
 readme = "README.md"
-requires-python = ">=3.9,<4.0"
+requires-python = ">=3.10,<4.0"
 dependencies = [
   "altair~=5.4",
   "base64io~=1.0",
@@ -28,14 +28,14 @@ dependencies = [
 tabling = ["great_tables~=0.16"]
 dataframing = ["polars~=1.0"]
 plotting = [
-  "bokeh>=3.4.0,<3.5.0",
+  "bokeh>=3.7.3,<3.8.0",
   "folium~=0.18",
   "matplotlib~=3.9",
   "plotly~=6.0",
 ]
 network = ["networkx~=3.2"]
 all = [
-  "bokeh>=3.4.0,<3.5.0",
+  "bokeh>=3.7.3,<3.8.0",
   "folium~=0.18",
   "great_tables~=0.16",
   "matplotlib~=3.9",
@@ -50,7 +50,7 @@ Homepage = "https://github.com/ninoseki/arakawa/"
 Documentation = "https://ninoseki.github.io/arakawa/"
 
 [build-system]
-requires = ["hatchling~=1.26", "uv-dynamic-versioning~=0.5"]
+requires = ["hatchling", "uv-dynamic-versioning"]
 build-backend = "hatchling.build"
 
 [tool.hatch.version]

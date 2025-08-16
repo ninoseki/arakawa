@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.9, "3.10", 3.11, 3.12]
+        python-version: ["3.10", 3.11, 3.12, 3.13]
     defaults:
       run:
         working-directory: ./python-client
@@ -43,13 +43,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: 3.12
+          python-version: 3.13
           cache: pip
       - run: pip install -r requirements.txt
       - uses: actions/cache@v4
         with:
           path: ~/.cache/uv
-          key: uv-3.12-${{ hashFiles('uv.lock') }}
+          key: uv-3.13-${{ hashFiles('uv.lock') }}
       - run: uv sync --frozen --all-extras
       - run: uv run uv-sort --check
       - run: uv run ruff check --output-format github src/

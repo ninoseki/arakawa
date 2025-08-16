@@ -29,7 +29,7 @@
     "storybook:build": "storybook build"
   },
   "dependencies": {
-    "@bokeh/bokehjs": "3.4.3",
+    "@bokeh/bokehjs": "3.7.3",
     "@codemirror/lang-sql": "^6.9.1",
     "@formkit/themes": "^1.6.9",
     "@formkit/vue": "^1.6.9",
