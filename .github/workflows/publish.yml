@@ -25,7 +25,11 @@ jobs:
       - run: npm install -g npm@11.5.2
       - run: npm install
       - run: npm version --no-git-tag-version ${{ github.event.release.tag_name }}
-      - run: npm publish
+      - id: prerelease
+        if: contains(github.event.release.tag_name, 'alpha') || contains(github.event.release.tag_name, 'beta')
+        run: npm publish --tag next
+      - if: steps.prerelease.conclusion == 'skipped'
+        run: npm publish
       # build local report
       - run: npm run build:local-report
       # upload local report assets
