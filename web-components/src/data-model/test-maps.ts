@@ -6,6 +6,8 @@ const jsonType = (json: any): string => {
 
 export const jsonIsMarkdown = (json: any): boolean => json._tag === 'Text'
 
+export const jsonIsAlert = (json: any): boolean => json._tag === 'Alert'
+
 export const jsonIsFormula = (json: any): boolean => json._tag === 'Formula'
 
 export const jsonIsBigNumber = (json: any): boolean => json._tag === 'BigNumber'

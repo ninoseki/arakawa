@@ -3,6 +3,7 @@ import { saveAs } from 'file-saver'
 import { v4 as uuid4 } from 'uuid'
 import { markRaw } from 'vue'
 
+import VAlertBlock from '@/components/blocks/Alert.vue'
 import VAttachmentBlock from '@/components/blocks/Attachment.vue'
 import VBigNumberBlock from '@/components/blocks/BigNumber.vue'
 import VBigNumberBlockSimple from '@/components/blocks/BigNumberSimple.vue'
@@ -109,6 +110,26 @@ export class TextBlock extends Block {
     this.componentProps = {
       ...this.componentProps,
       content,
+      isLightProse: opts.isLightProse,
+    }
+  }
+}
+
+export class AlertBlock extends Block {
+  public component = markRaw(VAlertBlock)
+
+  public constructor(elem: Elem, figure: BlockFigure, opts?: any) {
+    super(elem, figure)
+    const { content, border, mode } = elem as unknown as {
+      content: string
+      border: boolean
+      mode?: string
+    }
+    this.componentProps = {
+      ...this.componentProps,
+      content,
+      border,
+      mode,
       isLightProse: opts.isLightProse,
     }
   }

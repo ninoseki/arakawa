@@ -32,11 +32,10 @@ from .layout import (  # noqa: F401
     Group,
     Page,
     Select,
-    SelectType,
     Toggle,
 )
 from .misc_blocks import BigNumber, Empty  # noqa: F401
 from .network import NetworkX, Sigma  # noqa: F401
-from .text import HTML, Code, Embed, Formula, GreatTables, Text  # noqa: F401
+from .text import HTML, Alert, Code, Embed, Formula, GreatTables, Text  # noqa: F401
 
 Block = BaseBlock

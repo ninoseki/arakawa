@@ -17,7 +17,7 @@ from markupsafe import Markup
 from arakawa import blocks as b
 from arakawa.common import timestamp
 from arakawa.exceptions import InvalidReportError
-from arakawa.types import HTML, NPath
+from arakawa.types import HTML, NPath, SelectType
 from arakawa.utils import display_msg, open_in_browser
 from arakawa.view import PreProcess
 
@@ -58,7 +58,7 @@ class PreProcessView(BaseProcessor):
                         b.Group(blocks=p.blocks, label=p.title, name=p.name)
                         for p in cast(list[b.Page], v.blocks)
                     ],
-                    type=b.SelectType.TABS,
+                    type=SelectType.TABS,
                 )
             ]
 
