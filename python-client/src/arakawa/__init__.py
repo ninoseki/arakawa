@@ -22,6 +22,7 @@ from .blocks import (  # noqa: F401
     DataTable,
     DateField,
     DateTimeField,
+    Divider,
     EmailField,
     Embed,
     Empty,

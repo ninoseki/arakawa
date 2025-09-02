@@ -9,6 +9,7 @@ import VBigNumberBlock from '@/components/blocks/BigNumber.vue'
 import VBigNumberBlockSimple from '@/components/blocks/BigNumberSimple.vue'
 import VBokehBlock from '@/components/blocks/BokehConnector.vue'
 import VCodeBlock from '@/components/blocks/CodeConnector.vue'
+import VDividerBlock from '@/components/blocks/Divider.vue'
 import VEmbedBlock from '@/components/blocks/Embed.vue'
 import VFoliumBlock from '@/components/blocks/FoliumConnector.vue'
 import VFormulaBlock from '@/components/blocks/FormulaConnector.vue'
@@ -131,6 +132,24 @@ export class AlertBlock extends Block {
       border,
       mode,
       isLightProse: opts.isLightProse,
+    }
+  }
+}
+
+export class DividerBlock extends Block {
+  public component = markRaw(VDividerBlock)
+
+  public constructor(elem: Elem, figure: BlockFigure) {
+    super(elem, figure)
+
+    const { content } = elem as unknown as {
+      content?: string
+      border: boolean
+      mode?: string
+    }
+    this.componentProps = {
+      ...this.componentProps,
+      content,
     }
   }
 }

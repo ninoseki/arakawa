@@ -158,6 +158,33 @@ class Alert(OptionalLabelMixin, EmbeddedTextBlock):
         )
 
 
+class Divider(OptionalNameMinx, DataBlock):
+    """
+    The block allows you to embed a divider.
+    """
+
+    _tag = "Divider"
+
+    content: str | None = Field(default=None)
+    name: str | None = Field(default=None)
+
+    def __init__(self, text: str | None = None, name: str | None = None):
+        """
+        Args:
+            text: A text to be shown in the center of a divider (optional)
+            name: A unique name for the block to reference when adding text or embedding (optional)
+        """
+        return super().__init__(content=text, name=name)
+
+    @field_validator("content", mode="before")
+    @classmethod
+    def _validate_content(cls, v: Any):
+        if not isinstance(v, str):
+            return v
+
+        return v.strip()
+
+
 class Code(OptionalLabelMixin, OptionalCaptionMixin, EmbeddedTextBlock):
     """
     The code block allows you to embed syntax-highlighted source code into your app.

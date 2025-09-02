@@ -53,6 +53,7 @@ export default tseslint.config(
             'Bokeh',
             'Code',
             'Compute',
+            'Divider',
             'Embed',
             'Folium',
             'Formula',

@@ -25,6 +25,7 @@ const mkBlockMap = (isLightProse: boolean): BlockTest[] => {
       test: maps.jsonIsAlert,
       opts: { isLightProse },
     },
+    { class_: b.DividerBlock, test: maps.jsonIsDivider },
     { class_: b.BokehBlock, test: maps.jsonIsBokeh },
     {
       class_: b.DataTableBlock,
