@@ -11,6 +11,7 @@ except ImportError:
 # Public API re-exports
 from .blocks import (  # noqa: F401
     HTML,
+    Alert,
     Attachment,
     BigNumber,
     Block,
@@ -39,7 +40,6 @@ from .blocks import (  # noqa: F401
     RangeField,
     SearchField,
     Select,
-    SelectType,
     Sigma,
     SwitchField,
     Table,
@@ -62,6 +62,7 @@ from .processors import (  # noqa: F401
     save_report,
     stringify_report,
 )
+from .types import AlertMode, ComputeMethod, SelectType, VAlign  # noqa: F401
 from .view import Blocks, Report, View  # noqa: F401
 
 from . import builtins  # noqa: F401 # isort: skip

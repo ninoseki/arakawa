@@ -12,7 +12,7 @@ from pydantic import AnyHttpUrl, Field, field_validator
 from arakawa import optional_libs as opt
 from arakawa.common.utils import get_embed_url, utf_read_text
 from arakawa.exceptions import ARError
-from arakawa.types import NPath
+from arakawa.types import AlertMode, NPath
 
 from .base import BlockOrPrimitive, DataBlock, wrap_block
 from .layout import Group
@@ -115,6 +115,47 @@ class Text(OptionalLabelMixin, EmbeddedTextBlock):
                     blocks.append(Text(x))
 
         return Group(blocks=blocks, label=self.label)
+
+
+class Alert(OptionalLabelMixin, EmbeddedTextBlock):
+    """
+    You can add an alert to your app with the `Alert` block.
+    """
+
+    _tag = "Alert"
+
+    border: bool = Field(default=True)
+    mode: AlertMode | None = Field(default=None)
+
+    def __init__(
+        self,
+        text: str | None = None,
+        file: NPath | None = None,
+        name: str | None = None,
+        label: str | None = None,
+        border: bool = True,
+        mode: AlertMode | None = None,
+    ):
+        """
+        Args:
+            text: A markdown formatted text, use triple-quotes, (`\"\"\"# My Title\"\"\"`) to create multi-line markdown text
+            file: A path to a file containing markdown text
+            name: A unique name for the block to reference when adding text or embedding (optional)
+            label: A label used when displaying the block (optional)
+            border: Whether to have a border or not
+            mode: A mode of an alert (optional)
+        """
+        if text:
+            text = textwrap.dedent(text).strip()
+
+        content: str | None = None
+        if file:
+            content = utf_read_text(Path(file).expanduser())
+
+        content = text or content
+        return super().__init__(
+            content=content, name=name, label=label, border=border, mode=mode
+        )
 
 
 class Code(OptionalLabelMixin, OptionalCaptionMixin, EmbeddedTextBlock):

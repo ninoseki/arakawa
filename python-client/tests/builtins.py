@@ -7,8 +7,7 @@ import altair as alt
 import numpy as np
 import pandas as pd
 
-from arakawa import Blocks
-from arakawa import blocks as b
+import arakawa as ar
 
 
 def gen_df(dim: int = 4) -> pd.DataFrame:
@@ -29,7 +28,7 @@ def gen_plot() -> alt.Chart:
     return alt.Chart(gen_df()).mark_line().encode(x="x", y="y")
 
 
-def demo() -> Blocks:
+def demo() -> ar.Blocks:
     """
     Generate a sample demo view
 
@@ -65,7 +64,7 @@ def demo() -> Blocks:
         return fig
 
     def _gen_html(w: int = 30, h: int = 30):
-        return b.HTML(
+        return ar.HTML(
             f"""
     <div style="width: {w}rem; height: {h}rem; background-color: rgba(0, 0, 255, 0.2); position: relative">
         <div style="position: absolute; right: 50%; bottom: 50%; transform: translate(50%, 50%);">
@@ -145,15 +144,15 @@ Additionally layout blocks provide the ability nest blocks to create groups of c
 
 
     """
-    other = b.Group(
-        b.BigNumber(
+    other = ar.Group(
+        ar.BigNumber(
             heading="Datapane Blocks", value=11, prev_value=6, is_upward_change=True
         ),
-        b.Formula(r"\frac{1}{\sqrt{x^2 + 1}}", caption="Simple formula"),
+        ar.Formula(r"\frac{1}{\sqrt{x^2 + 1}}", caption="Simple formula"),
         columns=0,
     )
-    page_1 = b.Text(basics, label="Intro").format(
-        table=b.Table(gen_table_df(), caption="A table"), plot=vega_sine, other=other
+    page_1 = ar.Text(basics, label="Intro").format(
+        table=ar.Table(gen_table_df(), caption="A table"), plot=vega_sine, other=other
     )
 
     layout = """
@@ -199,13 +198,15 @@ ar.Select(group1, df)
 {{nested}}
 """
 
-    group1 = b.Group(vega_bar, vega_sine, columns=2)
-    group2 = b.Group(*[f"### Cell {x}" for x in range(6)], columns=3)
-    select1 = b.Select(vega_bar, vega_sine, type=b.SelectType.TABS, name="vega_select")
-    select2 = b.Select(vega_bar, vega_sine, type=b.SelectType.DROPDOWN)
+    group1 = ar.Group(vega_bar, vega_sine, columns=2)
+    group2 = ar.Group(*[f"### Cell {x}" for x in range(6)], columns=3)
+    select1 = ar.Select(
+        vega_bar, vega_sine, type=ar.SelectType.TABS, name="vega_select"
+    )
+    select2 = ar.Select(vega_bar, vega_sine, type=ar.SelectType.DROPDOWN)
 
-    nested = b.Select(group1, b.Table(gen_table_df()))
-    page_2 = b.Text(layout, label="Layout").format(
+    nested = ar.Select(group1, ar.Table(gen_table_df()))
+    page_2 = ar.Text(layout, label="Layout").format(
         group1=group1, group2=group2, select1=select1, select2=select2, nested=nested
     )
 
@@ -270,28 +271,28 @@ ar.Attachment(data=[1,2,3])
 {{media}}
 """
 
-    plots = b.Group(
-        b.Plot(vega_sine, name="vega", caption="Altair Plot"),
-        b.Plot(_gen_bokeh(), name="bokeh", caption="Bokeh Plot"),
-        b.Plot(_gen_matplotlib(), name="matplotlib", caption="Matplotlib Plot"),
-        b.Plot(_gen_plotly(), name="plotly", caption="Plotly Plot"),
-        b.Plot(_gen_folium(), name="folium", caption="Folium Plot"),
+    plots = ar.Group(
+        ar.Plot(vega_sine, name="vega", caption="Altair Plot"),
+        ar.Plot(_gen_bokeh(), name="bokeh", caption="Bokeh Plot"),
+        ar.Plot(_gen_matplotlib(), name="matplotlib", caption="Matplotlib Plot"),
+        ar.Plot(_gen_plotly(), name="plotly", caption="Plotly Plot"),
+        ar.Plot(_gen_folium(), name="folium", caption="Folium Plot"),
         name="plots_group",
         columns=2,
     )
-    tables = b.Group(
-        b.Table(df1, name="table1", caption="Basic Table"),
-        b.Table(styler1, name="styled-table", caption="Styled Table"),
-        b.DataTable(
+    tables = ar.Group(
+        ar.Table(df1, name="table1", caption="Basic Table"),
+        ar.Table(styler1, name="styled-table", caption="Styled Table"),
+        ar.DataTable(
             gen_table_df(1000), name="data_table", caption="Interactive DataTable"
         ),
     )
-    text = b.Group(
-        b.Text("Hello, __world__!", name="markdown"),
-        b.Code("print('Hello, world!'", name="code"),
-        b.Formula(r"\frac{1}{\sqrt{x^2 + 1}}"),
-        b.HTML("<h1>Hello World</h1>", name="HTML"),
-        b.BigNumber(
+    text = ar.Group(
+        ar.Text("Hello, __world__!", name="markdown"),
+        ar.Code("print('Hello, world!'", name="code"),
+        ar.Formula(r"\frac{1}{\sqrt{x^2 + 1}}"),
+        ar.HTML("<h1>Hello World</h1>", name="HTML"),
+        ar.BigNumber(
             heading="Datapane Blocks",
             value=11,
             prev_value=6,
@@ -300,19 +301,19 @@ ar.Attachment(data=[1,2,3])
         ),
         columns=0,
     )
-    embed = b.Group(
-        b.Embed("https://www.youtube.com/watch?v=JDe14ulcfLA", name="youtube_embed"),
-        b.Embed("https://twitter.com/datapaneapp/status/1300831345413890050"),
+    embed = ar.Group(
+        ar.Embed("https://www.youtube.com/watch?v=JDe14ulcfLA", name="youtube_embed"),
+        ar.Embed("https://twitter.com/datapaneapp/status/1300831345413890050"),
         columns=2,
     )
-    media = b.Group(
-        b.Media(file="tests/fixtures/Example.png"),
-        b.Attachment(data=[1, 2, 3]),
+    media = ar.Group(
+        ar.Media(file="tests/fixtures/Example.png"),
+        ar.Attachment(data=[1, 2, 3]),
         columns=2,
     )
 
-    page_3 = b.Text(adv_blocks, label="Blocks").format(
+    page_3 = ar.Text(adv_blocks, label="Blocks").format(
         plots=plots, tables=tables, text=text, embed=embed, media=media
     )
 
-    return Blocks(b.Select(page_1, page_2, page_3))
+    return ar.Blocks(ar.Select(page_1, page_2, page_3))

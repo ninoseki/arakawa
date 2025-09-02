@@ -7,14 +7,15 @@ from __future__ import annotations
 from pathlib import Path
 from typing import cast
 
-from . import Blocks
+import arakawa as ar
+
 from . import blocks as b
 from .types import NPath
 
 
 def add_code(
     block: b.BlockOrPrimitive, code: str, language: str = "python"
-) -> b.Select:
+) -> ar.Select:
     """
     Attach code fragment to an existing plot/figure/dataframe for use within a report
 
@@ -27,9 +28,9 @@ def add_code(
         A Select block that provides the figure and the code in tabs that can be selected by the user
     """
 
-    w_block = b.wrap_block(block)
-    return b.Select(
-        w_block, b.Code(code, language, label="Code"), type=b.SelectType.TABS
+    w_block = ar.wrap_block(block)
+    return ar.Select(
+        w_block, ar.Code(code, language, label="Code"), type=ar.SelectType.TABS
     )
 
 
@@ -37,7 +38,7 @@ def build_md_view(
     text_or_file: str | NPath,
     *args: b.BlockOrPrimitive,
     **kwargs: b.BlockOrPrimitive,
-) -> Blocks:
+) -> ar.Blocks:
     """
     An easy way to build a complete report from a single top-level markdown text / file template.
     Any additional context can be passed in and will be inserted into the Markdown template.
@@ -56,12 +57,12 @@ def build_md_view(
     """
     try:
         b_text = (
-            b.Text(file=text_or_file)
+            ar.Text(file=text_or_file)
             if Path(text_or_file).exists()
-            else b.Text(text=cast(str, text_or_file))
+            else ar.Text(text=cast(str, text_or_file))
         )
     except OSError:
-        b_text = b.Text(text=cast(str, text_or_file))
+        b_text = ar.Text(text=cast(str, text_or_file))
 
     group = b_text.format(*args, **kwargs)
-    return Blocks(group)
+    return ar.Blocks(group)

@@ -55,3 +55,11 @@ class ComputeMethod(StrEnum):
     POST = "POST"
     PUT = "PUT"
     TRACE = "TRACE"
+
+
+class AlertMode(StrEnum):
+    INFO = "INFO"
+    DANGER = "DANGER"
+    SUCCESS = "SUCCESS"
+    WARNING = "WARNING"
+    DARK = "DARK"
