@@ -117,7 +117,7 @@ class Text(OptionalLabelMixin, EmbeddedTextBlock):
         return Group(blocks=blocks, label=self.label)
 
 
-class Alert(OptionalLabelMixin, EmbeddedTextBlock):
+class Alert(EmbeddedTextBlock):
     """
     You can add an alert to your app with the `Alert` block.
     """
@@ -130,32 +130,21 @@ class Alert(OptionalLabelMixin, EmbeddedTextBlock):
     def __init__(
         self,
         text: str | None = None,
-        file: NPath | None = None,
         name: str | None = None,
-        label: str | None = None,
         border: bool = True,
         mode: AlertMode | None = None,
     ):
         """
         Args:
             text: A markdown formatted text, use triple-quotes, (`\"\"\"# My Title\"\"\"`) to create multi-line markdown text
-            file: A path to a file containing markdown text
             name: A unique name for the block to reference when adding text or embedding (optional)
             label: A label used when displaying the block (optional)
             border: Whether to have a border or not
             mode: A mode of an alert (optional)
         """
-        if text:
-            text = textwrap.dedent(text).strip()
+        text = textwrap.dedent(text).strip()
 
-        content: str | None = None
-        if file:
-            content = utf_read_text(Path(file).expanduser())
-
-        content = text or content
-        return super().__init__(
-            content=content, name=name, label=label, border=border, mode=mode
-        )
+        return super().__init__(content=text, name=name, border=border, mode=mode)
 
 
 class Divider(OptionalNameMinx, DataBlock):
@@ -179,10 +168,10 @@ class Divider(OptionalNameMinx, DataBlock):
     @field_validator("content", mode="before")
     @classmethod
     def _validate_content(cls, v: Any):
-        if not isinstance(v, str):
-            return v
+        if isinstance(v, str):
+            return v.strip()
 
-        return v.strip()
+        return v
 
 
 class Code(OptionalLabelMixin, OptionalCaptionMixin, EmbeddedTextBlock):
