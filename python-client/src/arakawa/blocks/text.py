@@ -117,7 +117,7 @@ class Text(OptionalLabelMixin, EmbeddedTextBlock):
         return Group(blocks=blocks, label=self.label)
 
 
-class Alert(EmbeddedTextBlock):
+class Alert(OptionalLabelMixin, EmbeddedTextBlock):
     """
     You can add an alert to your app with the `Alert` block.
     """
@@ -133,6 +133,7 @@ class Alert(EmbeddedTextBlock):
         name: str | None = None,
         border: bool = True,
         mode: AlertMode | None = None,
+        label: str | None = None,
     ):
         """
         Args:
@@ -144,10 +145,12 @@ class Alert(EmbeddedTextBlock):
         """
         text = textwrap.dedent(text).strip()
 
-        return super().__init__(content=text, name=name, border=border, mode=mode)
+        return super().__init__(
+            content=text, name=name, border=border, mode=mode, label=label
+        )
 
 
-class Divider(OptionalNameMinx, DataBlock):
+class Divider(OptionalNameMinx, OptionalLabelMixin, DataBlock):
     """
     The block allows you to embed a divider.
     """
@@ -155,15 +158,17 @@ class Divider(OptionalNameMinx, DataBlock):
     _tag = "Divider"
 
     content: str | None = Field(default=None)
-    name: str | None = Field(default=None)
 
-    def __init__(self, text: str | None = None, name: str | None = None):
+    def __init__(
+        self, text: str | None = None, name: str | None = None, label: str | None = None
+    ):
         """
         Args:
             text: A text to be shown in the center of a divider (optional)
             name: A unique name for the block to reference when adding text or embedding (optional)
+            label: A label used when displaying the block (optional)
         """
-        return super().__init__(content=text, name=name)
+        return super().__init__(content=text, name=name, label=label)
 
     @field_validator("content", mode="before")
     @classmethod
@@ -276,7 +281,7 @@ class Formula(OptionalLabelMixin, OptionalCaptionMixin, EmbeddedTextBlock):
         )
 
 
-class Embed(EmbeddedTextBlock):
+class Embed(OptionalLabelMixin, EmbeddedTextBlock):
     """
     The Embed block lets you embed content from other platforms e.g. Youtube, Spotify.
 
@@ -289,7 +294,6 @@ class Embed(EmbeddedTextBlock):
     url: AnyHttpUrl = Field(...)  # type: ignore
     title: str = Field(..., min_length=1, max_length=256)  # type: ignore
     provider_name: str = Field(..., min_length=1, max_length=128)  # type: ignore
-    label: str | None = Field(default=None)
 
     def __init__(
         self,
