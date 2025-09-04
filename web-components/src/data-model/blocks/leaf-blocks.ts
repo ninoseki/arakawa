@@ -142,11 +142,7 @@ export class DividerBlock extends Block {
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
 
-    const { content } = elem as unknown as {
-      content?: string
-      border: boolean
-      mode?: string
-    }
+    const { content } = elem as unknown as { content?: string }
     this.componentProps = {
       ...this.componentProps,
       content,

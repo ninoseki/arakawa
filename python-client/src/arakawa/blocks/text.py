@@ -130,35 +130,27 @@ class Alert(OptionalLabelMixin, EmbeddedTextBlock):
     def __init__(
         self,
         text: str | None = None,
-        file: NPath | None = None,
         name: str | None = None,
-        label: str | None = None,
         border: bool = True,
         mode: AlertMode | None = None,
+        label: str | None = None,
     ):
         """
         Args:
             text: A markdown formatted text, use triple-quotes, (`\"\"\"# My Title\"\"\"`) to create multi-line markdown text
-            file: A path to a file containing markdown text
             name: A unique name for the block to reference when adding text or embedding (optional)
             label: A label used when displaying the block (optional)
             border: Whether to have a border or not
             mode: A mode of an alert (optional)
         """
-        if text:
-            text = textwrap.dedent(text).strip()
+        text = textwrap.dedent(text).strip()
 
-        content: str | None = None
-        if file:
-            content = utf_read_text(Path(file).expanduser())
-
-        content = text or content
         return super().__init__(
-            content=content, name=name, label=label, border=border, mode=mode
+            content=text, name=name, border=border, mode=mode, label=label
         )
 
 
-class Divider(OptionalNameMinx, DataBlock):
+class Divider(OptionalNameMinx, OptionalLabelMixin, DataBlock):
     """
     The block allows you to embed a divider.
     """
@@ -166,23 +158,25 @@ class Divider(OptionalNameMinx, DataBlock):
     _tag = "Divider"
 
     content: str | None = Field(default=None)
-    name: str | None = Field(default=None)
 
-    def __init__(self, text: str | None = None, name: str | None = None):
+    def __init__(
+        self, text: str | None = None, name: str | None = None, label: str | None = None
+    ):
         """
         Args:
             text: A text to be shown in the center of a divider (optional)
             name: A unique name for the block to reference when adding text or embedding (optional)
+            label: A label used when displaying the block (optional)
         """
-        return super().__init__(content=text, name=name)
+        return super().__init__(content=text, name=name, label=label)
 
     @field_validator("content", mode="before")
     @classmethod
     def _validate_content(cls, v: Any):
-        if not isinstance(v, str):
-            return v
+        if isinstance(v, str):
+            return v.strip()
 
-        return v.strip()
+        return v
 
 
 class Code(OptionalLabelMixin, OptionalCaptionMixin, EmbeddedTextBlock):
@@ -287,7 +281,7 @@ class Formula(OptionalLabelMixin, OptionalCaptionMixin, EmbeddedTextBlock):
         )
 
 
-class Embed(EmbeddedTextBlock):
+class Embed(OptionalLabelMixin, EmbeddedTextBlock):
     """
     The Embed block lets you embed content from other platforms e.g. Youtube, Spotify.
 
@@ -300,7 +294,6 @@ class Embed(EmbeddedTextBlock):
     url: AnyHttpUrl = Field(...)  # type: ignore
     title: str = Field(..., min_length=1, max_length=256)  # type: ignore
     provider_name: str = Field(..., min_length=1, max_length=128)  # type: ignore
-    label: str | None = Field(default=None)
 
     def __init__(
         self,
