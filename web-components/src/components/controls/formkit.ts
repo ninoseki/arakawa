@@ -104,7 +104,7 @@ export const formkitConfig = {
       textarea: {
         ...textClassification,
         input:
-          'block w-full h-32 px-3 text-base text-gray-700 placeholder-gray-400 border-gray-300 focus:shadow-outline',
+          'block w-full h-32 px-3 text-base text-gray-700 placeholder-gray-400 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
       },
       time: textClassification,
       url: textClassification,

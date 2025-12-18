@@ -48,7 +48,7 @@ const closeWithDelay = () => void setTimeout(() => (open.value = false), 200)
 
     <div
       :class="[
-        'absolute  w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100',
+        'absolute  w-56 rounded-md shadow-lg bg-white ring-1 ring-black/5 divide-y divide-gray-100',
         {
           hidden: !open,
           'origin-top-left left-0': p.orientation === 'left',

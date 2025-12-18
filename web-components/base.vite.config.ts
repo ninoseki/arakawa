@@ -1,7 +1,7 @@
 import { fileURLToPath, URL } from 'node:url'
 
+import tailwindcss from '@tailwindcss/postcss'
 import vue from '@vitejs/plugin-vue'
-import tailwindcss from 'tailwindcss'
 
 /** @type {import('vite').UserConfig} */
 export const baseConfig = {
@@ -12,11 +12,7 @@ export const baseConfig = {
   },
   css: {
     postcss: {
-      plugins: [
-        tailwindcss({
-          config: './tailwind.config.js',
-        }),
-      ],
+      plugins: [tailwindcss()],
     },
   },
   plugins: [
