@@ -5,10 +5,6 @@ const plugin = require('tailwindcss/plugin')
 const { colors: fontFamily } = defaultTheme
 
 module.exports = {
-  content: [
-    './src/**/*.{vue,js,ts}',
-    '../python-client/src/arakawa/resources/html_templates/*.html.j2',
-  ],
   darkMode: 'class',
   theme: {
     fontFamily: {
@@ -91,7 +87,6 @@ module.exports = {
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),
     require('@formkit/themes/tailwindcss'),
 
     plugin(function ({ matchUtilities }) {

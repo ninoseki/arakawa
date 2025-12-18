@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@config "../../tailwind.config.js";
 
 /* Add custom overrides below */
 
@@ -33,31 +33,31 @@ h3 {
 }
 
 .ar-btn-primary {
-  @apply bg-indigo-600 focus:border-indigo-700 text-white active:bg-indigo-700 hover:bg-indigo-500 focus:ring ring-opacity-50 ring-indigo-700 border-transparent;
+  @apply bg-indigo-600 focus:border-indigo-700 text-white active:bg-indigo-700 hover:bg-indigo-500 focus:ring ring-indigo-700/50 border-transparent;
 }
 
 .ar-btn-green {
-  @apply bg-green-600 focus:border-green-600 text-white active:bg-green-700 hover:bg-green-700 focus:ring ring-opacity-50 ring-indigo-700 border-transparent;
+  @apply bg-green-600 focus:border-green-600 text-white active:bg-green-700 hover:bg-green-700 focus:ring ring-indigo-700/50 border-transparent;
 }
 
 .ar-btn-blue {
-  @apply bg-blue-600 focus:border-blue-700 text-white active:bg-blue-700 hover:bg-blue-700 focus:ring ring-opacity-50 ring-blue-700 border-transparent;
+  @apply bg-blue-600 focus:border-blue-700 text-white active:bg-blue-700 hover:bg-blue-700 focus:ring ring-blue-700/50 border-transparent;
 }
 
 .ar-btn-danger {
-  @apply focus:ring ring-opacity-50 ring-red-700 hover:bg-red-500 bg-red-600 border-transparent focus:outline-none focus:border-red-700 text-white;
+  @apply focus:ring ring-red-700/50 hover:bg-red-500 bg-red-600 border-transparent focus:outline-none focus:border-red-700 text-white;
 }
 
 .ar-btn-danger-outline {
-  @apply border-gray-300 text-red-700 bg-white hover:text-red-500 focus:outline-none focus:ring ring-opacity-50 ring-blue-700 focus:border-blue-300 active:text-red-800 active:bg-gray-50 active:text-red-800;
+  @apply border-gray-300 text-red-700 bg-white hover:text-red-500 focus:outline-none focus:ring ring-blue-700/50 focus:border-blue-300 active:text-red-800 active:bg-gray-50 active:text-red-800;
 }
 
 .ar-btn-info {
-  @apply border-gray-300 text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:ring ring-opacity-50 ring-blue-700 focus:border-blue-300 active:text-gray-800 active:bg-gray-50;
+  @apply border-gray-300 text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:ring ring-blue-700/50 focus:border-blue-300 active:text-gray-800 active:bg-gray-50;
 }
 
 .ar-btn-dark {
-  @apply border-transparent text-white bg-gray-700 hover:bg-gray-600 hover:text-gray-200 focus:outline-none focus:ring ring-opacity-50 ring-gray-700 focus:border-gray-800;
+  @apply border-transparent text-white bg-gray-700 hover:bg-gray-600 hover:text-gray-200 focus:outline-none focus:ring ring-gray-700/50 focus:border-gray-800;
 }
 
 .ar-btn-dark-outline {
@@ -106,10 +106,3 @@ h3 {
 .ar-btn-secondary-danger {
   @apply text-red-700 bg-red-100 hover:bg-red-200 focus:ring-red-500;
 }
-
-/* body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  height: 100%;
-} */

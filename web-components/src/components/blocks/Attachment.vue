@@ -16,7 +16,7 @@ defineProps<{
     <div class="w-full p-4 bg-gray-50 shadow" data-cy="block-file">
       <div class="flex items-center">
         <svg
-          class="flex-shrink-0 h-5 w-5 mr-2 text-gray-400"
+          class="shrink-0 h-5 w-5 mr-2 text-gray-400"
           x-description="Heroicon name: solid/paper-clip"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
