@@ -18,6 +18,7 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.10", 3.11, 3.12, 3.13]
+        pandas-version: [">2.2,<3.0", "3.0,<4.0"]
     defaults:
       run:
         working-directory: ./python-client
@@ -31,8 +32,10 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: ~/.cache/uv
-          key: uv-${{ matrix.python-version }}-${{ hashFiles('uv.lock') }}
-      - run: uv sync --frozen --all-extras
+          key: uv-${{ matrix.python-version }}-${{ matrix.pandas-version }}-${{ hashFiles('uv.lock') }}
+      - run: |
+          uv sync --frozen --all-extras
+          uv pip install "pandas${{ matrix.pandas-version }}"
       - run: uv run pytest
   lint:
     runs-on: ubuntu-latest

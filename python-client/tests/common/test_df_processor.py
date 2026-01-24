@@ -18,6 +18,9 @@ from arakawa.common.df_processor import (
 )
 from arakawa.types import SList
 
+IS_PANDAS_V2 = pd.__version__.startswith("2.")
+IS_PANDAS_V3 = pd.__version__.startswith("3.")
+
 
 def _check_categories_parsed(df: pd.DataFrame, categorical_columns: SList):
     assert set(df.select_dtypes("category").columns) == set(categorical_columns)
@@ -153,7 +156,12 @@ def test_timedelta_to_str():
         }
     )
     timedelta_to_str(df)
-    assert [str(x) for x in df.dtypes] == ["object", "int64", "object"]
+
+    if IS_PANDAS_V2:
+        assert [str(x) for x in df.dtypes] == ["object", "int64", "object"]
+    if IS_PANDAS_V3:
+        assert [str(x) for x in df.dtypes] == ["str", "int64", "str"]
+
     df1 = df.convert_dtypes()
     assert [str(x) for x in df1.dtypes] == ["string", "Int64", "string"]
 
@@ -211,7 +219,7 @@ def test_col_order(tmp_path: Path):
 def test_e2e_df_processing(tmp_path: Path):
     def _test_df(
         df: pd.DataFrame,
-        expected_types_pd13: SList,
+        expected_types: SList,
     ):
         df_conv = df.convert_dtypes()
         df_proc = process_df(df, copy=True)
@@ -235,26 +243,40 @@ def test_e2e_df_processing(tmp_path: Path):
             check_column_type=False,
         )
 
-        expected_types = expected_types_pd13
-
         assert [str(x) for x in df2.dtypes] == expected_types
 
     # DF 1
     df = vd.data.cars()
-    _test_df(
-        df,
-        [
-            "string",
-            "Float64",
-            "UInt8",
-            "Float64",
-            "UInt8",
-            "UInt16",
-            "Float64",
-            "datetime64[ns]",
-            "category",
-        ],
-    )
+    if IS_PANDAS_V2:
+        _test_df(
+            df,
+            [
+                "string",
+                "Float64",
+                "UInt8",
+                "Float64",
+                "UInt8",
+                "UInt16",
+                "Float64",
+                "datetime64[ns]",
+                "category",
+            ],
+        )
+    if IS_PANDAS_V3:
+        _test_df(
+            df,
+            [
+                "string",
+                "Float64",
+                "UInt8",
+                "Float64",
+                "UInt8",
+                "UInt16",
+                "Float64",
+                "datetime64[us]",
+                "category",
+            ],
+        )
 
     # DF 2 - float64/int64 downcasting for older pandas versions
     df = pd.DataFrame(
@@ -296,20 +318,36 @@ def test_e2e_df_processing(tmp_path: Path):
             "cat_obj_col": [("a", "b") for x in range(30)],
         }
     )
-    _test_df(
-        df,
-        [
-            "string",
-            "category",
-            "UInt8",
-            "Int64",
-            "Float64",
-            "string",
-            "datetime64[ns]",
-            "string",
-            "category",
-        ],
-    )
+    if IS_PANDAS_V2:
+        _test_df(
+            df,
+            [
+                "string",
+                "category",
+                "UInt8",
+                "Int64",
+                "Float64",
+                "string",
+                "datetime64[ns]",
+                "string",
+                "category",
+            ],
+        )
+    if IS_PANDAS_V3:
+        _test_df(
+            df,
+            [
+                "string",
+                "category",
+                "UInt8",
+                "Int64",
+                "Float64",
+                "string",
+                "datetime64[us]",
+                "string",
+                "category",
+            ],
+        )
 
     # DF 4 - nullable
     df = pd.DataFrame(
@@ -323,4 +361,27 @@ def test_e2e_df_processing(tmp_path: Path):
             "date_col": [datetime.utcnow() for x in range(30)] + [pd.NaT, pd.NaT],
         }
     )
-    _test_df(df, ["string", "category", "UInt8", "Float64", "string", "datetime64[ns]"])
+    if IS_PANDAS_V2:
+        _test_df(
+            df,
+            [
+                "string",
+                "category",
+                "UInt8",
+                "Float64",
+                "string",
+                "datetime64[ns]",
+            ],
+        )
+    if IS_PANDAS_V3:
+        _test_df(
+            df,
+            [
+                "string",
+                "category",
+                "UInt8",
+                "Float64",
+                "string",
+                "datetime64[us]",
+            ],
+        )
