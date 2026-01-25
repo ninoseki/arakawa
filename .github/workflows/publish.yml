@@ -14,9 +14,9 @@ jobs:
       run:
         working-directory: ./web-components
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
         with:
           node-version: 22
           registry-url: "https://registry.npmjs.org"
@@ -33,11 +33,11 @@ jobs:
       # build local report
       - run: npm run build:local-report
       # upload local report assets
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: local-report-css
           path: ./web-components/dist/local-report/local-report.css
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: local-report-js
           path: ./web-components/dist/local-report/local-report.js
@@ -51,19 +51,19 @@ jobs:
       run:
         working-directory: ./python-client
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: 3.13
           cache: "pip"
       - run: pip install -r requirements.txt
-      - uses: actions/cache@v4
+      - uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
         with:
           path: ~/.cache/uv
           key: uv-3.13-${{ hashFiles('uv.lock') }}
       - run: uv sync --frozen --all-extras
       # download local report assets
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
           path: ./python-client/src/arakawa/resources/html_templates/
           pattern: local-report-*
@@ -85,15 +85,15 @@ jobs:
       run:
         working-directory: ./docs
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0 # fetch all commits/branches
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: 3.13
           cache: pip
       - run: pip install -r requirements.txt
-      - uses: actions/cache@v4
+      - uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
         with:
           path: ~/.cache/uv
           key: uv-3.13-${{ hashFiles('uv.lock') }}
