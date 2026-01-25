@@ -5,7 +5,7 @@ description = "Build interactive reports in seconds using Python"
 readme = "README.md"
 requires-python = ">=3.10,<4.0"
 dependencies = [
-  "altair~=5.4",
+  "altair~=6.0",
   "base64io~=1.0",
   "chardet~=5.2",
   "dominate~=2.9",
