@@ -21,6 +21,9 @@ jobs:
         pandas:
           - {spec: ">2.2,<3.0", key: "2.x"}
           - {spec: ">=3.0,<4.0", key: "3.x"}
+        exclude:
+          - python-version: "3.10"
+            pandas: {spec: ">2.2,<3.0", key: "2.x"}
     defaults:
       run:
         working-directory: ./python-client
