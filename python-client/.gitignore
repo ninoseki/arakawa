@@ -167,3 +167,5 @@ src/arakawa/resources/html_templates/local-report.js
 
 # version file
 src/arakawa/_version.py
+
+*.html
