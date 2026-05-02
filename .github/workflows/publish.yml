@@ -24,6 +24,7 @@ jobs:
           cache-dependency-path: web-components/package-lock.json
       - run: npm run setup
       - run: npm version --no-git-tag-version ${{ github.event.release.tag_name }}
+      - run: npm run build
       - id: prerelease
         if: contains(github.event.release.tag_name, 'alpha') || contains(github.event.release.tag_name, 'beta')
         run: npm publish --tag next
