@@ -35,10 +35,20 @@ export default defineConfig(({ mode }) =>
           vueESM(),
           // Cast as `any` as there seems to be a type conflict between the rollup plugin and Vite's typed config (which uses rollup under the hood)
           copy({
+            hook: 'writeBundle',
             targets: [
               {
                 src: './node_modules/@iframe-resizer/child/index.umd.js',
                 dest: './dist/assets',
+              },
+              {
+                src: './node_modules/katex/dist/katex.min.css',
+                dest: './dist/report',
+                rename: 'katex.css',
+              },
+              {
+                src: './node_modules/katex/dist/fonts',
+                dest: './dist/report',
               },
             ],
             verbose: true,

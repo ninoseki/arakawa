@@ -1,33 +1,28 @@
 <script setup lang="ts">
 import katex from 'katex'
+import { computed } from 'vue'
 
 const p = defineProps<{ content: string }>()
 
-const renderFormula = (node: any) => {
+const katexCssHref = new URL('./katex.css', import.meta.url).href
+
+const rendered = computed(() => {
   try {
-    katex.render(p.content, node)
+    return katex.renderToString(p.content)
   } catch (e) {
     console.error(`Error rendering formula: ${e}`)
+    return ''
   }
-}
-
-const formulaRef = (node: any) => {
-  if (node) {
-    renderFormula(node)
-  }
-}
+})
 </script>
 
 <template>
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/katex@0.16.15/dist/katex.css"
-    integrity="sha256-4aMlusw7NpNRNuQ50hS7anjdz2PU+g2PLD0FRjz8BsA="
-    crossorigin="anonymous"
-  />
+  <Teleport to="head">
+    <link rel="stylesheet" :href="katexCssHref" />
+  </Teleport>
   <div
     data-cy="block-formula"
-    className="w-full overflow-y-hidden bg-white flex justify-center"
-    :ref="formulaRef"
+    class="w-full overflow-y-hidden bg-white flex justify-center"
+    v-html="rendered"
   ></div>
 </template>
