@@ -49,16 +49,18 @@ export type CaptionType = 'Table' | 'Figure' | 'Plot'
 const readGcsTextOrJsonFile = <T = string | object | null>(
   url: string,
 ): Promise<T> => {
-  /**
-   * wrapper around `fetch` to fetch data object of response only
-   */
-  return fetch(url, { method: 'GET' }).then(res => {
+  return fetch(url, { method: 'GET' }).then(async res => {
     if (!res.ok) {
       throw new Error(
         `Failed to fetch asset data from ${url}: ${res.statusText}`,
       )
     }
-    return res.json().then(data => data as T)
+    const text = await res.text()
+    try {
+      return JSON.parse(text) as T
+    } catch {
+      return text as T
+    }
   })
 }
 
