@@ -18,11 +18,6 @@ const html = ref<string | null>(null)
 
 <template>
   <block-wrapper :figure="p.figure" :single-block-embed="singleBlockEmbed">
-    <x-table-block
-      v-if="html"
-      :html="html"
-      :single-block-embed="singleBlockEmbed"
-      class="w-full"
-    />
+    <x-table-block v-if="html" :html="html" :single-block-embed="singleBlockEmbed" class="w-full" />
   </block-wrapper>
 </template>

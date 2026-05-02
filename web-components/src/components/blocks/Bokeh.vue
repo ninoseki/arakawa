@@ -19,10 +19,8 @@ const makeResponsive = (json: any) => {
    */
   // NOTE: I'm not sure this is the best way...
   const roots: any[] = json.doc.roots
-  roots.forEach(r => {
-    r.attributes.sizing_mode = p.singleBlockEmbed
-      ? 'stretch_both'
-      : 'stretch_width'
+  roots.forEach((r) => {
+    r.attributes.sizing_mode = p.singleBlockEmbed ? 'stretch_both' : 'stretch_width'
   })
 }
 

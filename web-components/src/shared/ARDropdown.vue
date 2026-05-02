@@ -59,11 +59,7 @@ const closeWithDelay = () => void setTimeout(() => (open.value = false), 200)
       aria-orientation="vertical"
       aria-labelledby="options-menu"
     >
-      <div
-        v-for="(section, sectionIdx) in p.sections"
-        class="py-1"
-        :key="sectionIdx"
-      >
+      <div v-for="(section, sectionIdx) in p.sections" class="py-1" :key="sectionIdx">
         <div v-if="section.title" class="text-xs pl-2 py-2 font-semibold">
           {{ section.title }}
         </div>

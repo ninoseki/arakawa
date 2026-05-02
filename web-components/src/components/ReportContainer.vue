@@ -25,10 +25,7 @@ const error = ref<string | undefined>()
 
 const setApp = async () => {
   try {
-    await rootStore.setReport(
-      { isLightProse: p.isLightProse, mode: p.mode },
-      p.appData,
-    )
+    await rootStore.setReport({ isLightProse: p.isLightProse, mode: p.mode }, p.appData)
   } catch (e) {
     error.value = parseError(e)
     console.error(e)

@@ -27,10 +27,7 @@ export default defineConfig(({ mode }) =>
           entryFileNames: '[name].[format].js',
           chunkFileNames: '[name].[hash].[format].js',
           paths: {
-            vue:
-              mode === 'development'
-                ? '../vue.esm-browser.js'
-                : '../vue.esm-browser.prod.js',
+            vue: mode === 'development' ? '../vue.esm-browser.js' : '../vue.esm-browser.prod.js',
           },
         },
         external: ['vue'],

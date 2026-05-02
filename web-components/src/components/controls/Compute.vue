@@ -22,13 +22,7 @@ const isControlField = (child: any) => {
 
 <template>
   <div class="border shadow-sm rounded-md w-full">
-    <form-kit
-      type="form"
-      :id="formId"
-      :action="action"
-      :method="method"
-      :actions="false"
-    >
+    <form-kit type="form" :id="formId" :action="action" :method="method" :actions="false">
       <div class="px-4 py-5 sm:p-6">
         <div class="mb-6">
           <div v-if="label">

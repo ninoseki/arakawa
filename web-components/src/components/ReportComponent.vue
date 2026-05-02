@@ -35,8 +35,7 @@ const currentPage: ComputedRef<Block[]> = computed(() =>
   hasPages.value ? [pages.value[tabNumber.value]] : children.value,
 )
 
-const handlePageChange = (newPageNumber: number) =>
-  p.report!.store.setTab(newPageNumber)
+const handlePageChange = (newPageNumber: number) => p.report!.store.setTab(newPageNumber)
 
 const { isIPythonEmbed } = window
 </script>

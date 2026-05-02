@@ -127,10 +127,7 @@ type BlockTest = {
   opts?: any
 }
 
-const isSingleBlockEmbed = (
-  report: b.View,
-  method: 'EMBED' | 'VIEW',
-): boolean => {
+const isSingleBlockEmbed = (report: b.View, method: 'EMBED' | 'VIEW'): boolean => {
   /**
    * Returns `true` if the report consists of a single block, and is in embed (iframe) method.
    * Single blocks embedded in an iframe require style changes to ensure they fit the iframe dimensions
@@ -168,7 +165,7 @@ export const useRootStore = defineStore('root', () => {
     /**
      * Deserialize leaf block node into relevant `Block` class
      */
-    const blockTest: BlockTest | undefined = blockMap.find(b => b.test(elem))
+    const blockTest: BlockTest | undefined = blockMap.find((b) => b.test(elem))
 
     if (blockTest) {
       const { class_, opts } = blockTest
@@ -195,10 +192,7 @@ export const useRootStore = defineStore('root', () => {
     report.value = deserialize(viewJson as b.Elem) as b.View
 
     // Can cast to `View` as we just assigned the response to `report.value`
-    singleBlockEmbed.value = isSingleBlockEmbed(
-      report.value as b.View,
-      meta.mode,
-    )
+    singleBlockEmbed.value = isSingleBlockEmbed(report.value as b.View, meta.mode)
   }
 
   const deserialize = (elem: b.Elem, isFragment = false): b.Block => {
@@ -209,7 +203,7 @@ export const useRootStore = defineStore('root', () => {
 
     if (isParentElem(elem)) {
       // Recursively deserialize children if present
-      elem.blocks = elem.blocks ? elem.blocks.map(e => deserialize(e)) : []
+      elem.blocks = elem.blocks ? elem.blocks.map((e) => deserialize(e)) : []
     }
 
     return deserializeBlock(elem)

@@ -16,11 +16,6 @@ defineProps<{
 
 <template>
   <block-wrapper :figure="figure" :single-block-embed="singleBlockEmbed">
-    <sigma
-      :data="data"
-      :layout-settings="layoutSettings"
-      :height="height"
-      :width="width"
-    />
+    <sigma :data="data" :layout-settings="layoutSettings" :height="height" :width="width" />
   </block-wrapper>
 </template>

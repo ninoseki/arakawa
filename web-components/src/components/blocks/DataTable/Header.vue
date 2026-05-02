@@ -56,10 +56,7 @@ const actionSections: Section[] = [...localActionSections]
         <data-tag :value="columns" icon="fa-columns" unit="columns" />
         <data-tag :value="cells" icon="fa-th-large" unit="cells" />
       </div>
-      <div
-        v-if="!previewMode"
-        class="min-w-0 flex items-center pr-2 sm:divide-x flex-wrap"
-      >
+      <div v-if="!previewMode" class="min-w-0 flex items-center pr-2 sm:divide-x flex-wrap">
         <div class="pr-2 sm:flex hidden space-x-2">
           <ar-button
             @click="emit('toggle-query-open')"

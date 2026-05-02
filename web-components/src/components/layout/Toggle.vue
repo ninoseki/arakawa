@@ -19,12 +19,7 @@ const { children }: { children: Ref<Block[]> } = storeToRefs(p.store)
         {{ label || 'Toggle Section' }}
       </div>
       <div class="flex-initial ml-auto">
-        <i
-          :class="[
-            'opacity-50 fa',
-            { 'fa-chevron-up': isOpen, 'fa-chevron-down': !isOpen },
-          ]"
-        ></i>
+        <i :class="['opacity-50 fa', { 'fa-chevron-up': isOpen, 'fa-chevron-down': !isOpen }]"></i>
       </div>
     </div>
     <div :class="['w-full pt-2 m-auto overflow-hidden', { hidden: !isOpen }]">

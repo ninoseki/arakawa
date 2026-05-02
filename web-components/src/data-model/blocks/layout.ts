@@ -25,9 +25,7 @@ export abstract class ParentBlock<T extends Block = Block> extends Block {
   }
 }
 
-export abstract class LayoutBlock<
-  T extends Block = Block,
-> extends ParentBlock<T> {
+export abstract class LayoutBlock<T extends Block = Block> extends ParentBlock<T> {
   /**
    * A non-atomic block which uses children to control layout, e.g. in columns, selects, pages
    */
@@ -46,10 +44,7 @@ export abstract class LayoutBlock<
      *
      * Returns `true` if the target child was found and updated.
      */
-    if (
-      this.id === target &&
-      (method === SwapType.APPEND || method === SwapType.PREPEND)
-    ) {
+    if (this.id === target && (method === SwapType.APPEND || method === SwapType.PREPEND)) {
       this.insertAtEdge(group, method)
       return true
     }
@@ -61,11 +56,7 @@ export abstract class LayoutBlock<
     return false
   }
 
-  private swap(
-    group: b.Group,
-    target: string,
-    method: SwapType.INNER | SwapType.REPLACE,
-  ): boolean {
+  private swap(group: b.Group, target: string, method: SwapType.INNER | SwapType.REPLACE): boolean {
     /**
      * Replace the child of the given layout block (distinguished by `target`)
      * with the children of the given `View` fragment.
@@ -197,20 +188,15 @@ export class View extends LayoutBlock {
 
 /* Block/element type guards and checks */
 
-export const isComputeElem = (elem: Block | b.Elem): boolean =>
-  elem._tag === 'Compute'
+export const isComputeElem = (elem: Block | b.Elem): boolean => elem._tag === 'Compute'
 
-export const isGroupElem = (elem: Block | b.Elem): boolean =>
-  elem._tag === 'Group'
+export const isGroupElem = (elem: Block | b.Elem): boolean => elem._tag === 'Group'
 
-export const isSelectElem = (elem: Block | b.Elem): boolean =>
-  elem._tag === 'Select'
+export const isSelectElem = (elem: Block | b.Elem): boolean => elem._tag === 'Select'
 
-export const isToggleElem = (elem: Block | b.Elem): boolean =>
-  elem._tag === 'Toggle'
+export const isToggleElem = (elem: Block | b.Elem): boolean => elem._tag === 'Toggle'
 
-export const isViewElem = (elem: Block | b.Elem | EmptyObject): boolean =>
-  elem._tag === 'View'
+export const isViewElem = (elem: Block | b.Elem | EmptyObject): boolean => elem._tag === 'View'
 
 export const isParentElem = (elem: Block | b.Elem): boolean =>
   isSelectElem(elem) ||
@@ -219,8 +205,6 @@ export const isParentElem = (elem: Block | b.Elem): boolean =>
   isGroupElem(elem) ||
   isComputeElem(elem)
 
-export const isLayoutBlock = (block: Block): block is LayoutBlock =>
-  block instanceof LayoutBlock
+export const isLayoutBlock = (block: Block): block is LayoutBlock => block instanceof LayoutBlock
 
-export const isView = (block: Block | EmptyObject): block is View =>
-  block instanceof View
+export const isView = (block: Block | EmptyObject): block is View => block instanceof View

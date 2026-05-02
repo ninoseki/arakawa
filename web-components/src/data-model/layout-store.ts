@@ -40,11 +40,7 @@ const useActions = (initialChildren: Block[]) => {
     }
 
     this.$patch(() => {
-      targetChild.children.splice(
-        0,
-        targetChild.children.length,
-        ...group.children,
-      )
+      targetChild.children.splice(0, targetChild.children.length, ...group.children)
       tabNumber.value = 0
     })
   }
@@ -74,22 +70,15 @@ export const useLayoutStore = (initialChildren: Block[]) =>
     return useActions(initialChildren)
   })
 
-export const useViewStore = (
-  initialChildren: Block[],
-  initialLayout?: PageLayout,
-) =>
+export const useViewStore = (initialChildren: Block[], initialLayout?: PageLayout) =>
   defineStore(`view-${uuid4()}`, () => {
     const actions = useActions(initialChildren)
     const { children } = actions
     const _layout = ref(initialLayout)
 
-    const hasPages = computed(
-      () => children.length === 1 && children[0] instanceof Select,
-    )
+    const hasPages = computed(() => children.length === 1 && children[0] instanceof Select)
 
-    const layout = computed(
-      () => _layout.value || (children.length > 5 ? 'side' : 'top'),
-    )
+    const layout = computed(() => _layout.value || (children.length > 5 ? 'side' : 'top'))
 
     return { ...actions, hasPages, layout }
   })

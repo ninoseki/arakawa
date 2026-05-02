@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import childIframeResizerJs from '@iframe-resizer/child/index.umd.js?raw'
-import IframeResizer from '@iframe-resizer/vue/sfc'
 import { computed, type ComputedRef } from 'vue'
 
-import BlockWrapper from '@/components/layout/BlockWrapper.vue'
 import type { BlockFigureProps } from '@/data-model/blocks'
 import userIframeCss from '@/styles/user-iframe.css?inline'
 
@@ -13,6 +11,8 @@ const p = defineProps<{
   figure: BlockFigureProps
   singleBlockEmbed?: boolean
 }>()
+
+const scriptCloseTag = '</' + 'script>'
 
 const iframeDoc: ComputedRef<string> = computed(() => {
   /**
@@ -24,7 +24,7 @@ const iframeDoc: ComputedRef<string> = computed(() => {
         <html>
         <body>
           <style>${userIframeCss}</style>
-          <script>${childIframeResizerJs}<\/script>
+          <script>${childIframeResizerJs}${scriptCloseTag}
           <div class="doc-root">${p.html}</div>
         </body>
         </html>

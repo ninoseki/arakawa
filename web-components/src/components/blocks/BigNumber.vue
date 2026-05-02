@@ -28,9 +28,7 @@ defineProps<{
             {{ heading }}
           </dt>
           <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
-            <div
-              class="flex items-baseline text-4xl leading-8 font-semibold text-ar-accent"
-            >
+            <div class="flex items-baseline text-4xl leading-8 font-semibold text-ar-accent">
               {{ value }}
             </div>
             <big-number-arrow

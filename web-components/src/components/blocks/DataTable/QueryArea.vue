@@ -12,10 +12,7 @@ defineProps<{
   errors?: string
 }>()
 
-function editorFromTextArea(
-  textarea: HTMLTextAreaElement,
-  extensions?: Extension,
-) {
+function editorFromTextArea(textarea: HTMLTextAreaElement, extensions?: Extension) {
   const view = new EditorView({ doc: textarea.value, extensions })
   textarea.parentNode!.insertBefore(view.dom, textarea)
   textarea.style.display = 'none'
@@ -38,7 +35,7 @@ onMounted(() => {
     cmInstance.value = editorFromTextArea(cmEl.value, [
       basicSetup,
       sql(),
-      EditorView.updateListener.of(v => {
+      EditorView.updateListener.of((v) => {
         emitQueryChange(v.state.doc.toString())
       }),
     ])

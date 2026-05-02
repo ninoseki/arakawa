@@ -24,8 +24,7 @@ export const jsonIsEmbed = (json: any): boolean => json._tag === 'Embed'
 
 export const jsonIsEmpty = (json: any): boolean => json._tag === 'Empty'
 
-export const jsonIsAttachment = (json: any): boolean =>
-  json._tag === 'Attachment'
+export const jsonIsAttachment = (json: any): boolean => json._tag === 'Attachment'
 
 export const jsonIsSigma = (json: any): boolean => json._tag === 'Sigma'
 
@@ -35,47 +34,35 @@ export const jsonIsTextBox = (json: any): boolean => json._tag === 'TextBox'
 
 export const jsonIsURLField = (json: any): boolean => json._tag === 'URLField'
 
-export const jsonIsEmailField = (json: any): boolean =>
-  json._tag === 'EmailField'
+export const jsonIsEmailField = (json: any): boolean => json._tag === 'EmailField'
 
-export const jsonIsTelephoneField = (json: any): boolean =>
-  json._tag === 'TelephoneField'
+export const jsonIsTelephoneField = (json: any): boolean => json._tag === 'TelephoneField'
 
-export const jsonIsSearchField = (json: any): boolean =>
-  json._tag === 'SearchField'
+export const jsonIsSearchField = (json: any): boolean => json._tag === 'SearchField'
 
-export const jsonIsTextareaField = (json: any): boolean =>
-  json._tag === 'TextareaField'
+export const jsonIsTextareaField = (json: any): boolean => json._tag === 'TextareaField'
 
-export const jsonIsPasswordField = (json: any): boolean =>
-  json._tag === 'PasswordField'
+export const jsonIsPasswordField = (json: any): boolean => json._tag === 'PasswordField'
 
-export const jsonIsHiddenField = (json: any): boolean =>
-  json._tag === 'HiddenField'
+export const jsonIsHiddenField = (json: any): boolean => json._tag === 'HiddenField'
 
-export const jsonIsColorField = (json: any): boolean =>
-  json._tag === 'ColorField'
+export const jsonIsColorField = (json: any): boolean => json._tag === 'ColorField'
 
 export const jsonIsNumberBox = (json: any): boolean => json._tag === 'NumberBox'
 
-export const jsonIsRangeField = (json: any): boolean =>
-  json._tag === 'RangeField'
+export const jsonIsRangeField = (json: any): boolean => json._tag === 'RangeField'
 
-export const jsonIsSwitchField = (json: any): boolean =>
-  json._tag === 'SwitchField'
+export const jsonIsSwitchField = (json: any): boolean => json._tag === 'SwitchField'
 
 export const jsonIsTagsField = (json: any): boolean => json._tag === 'TagsField'
 
-export const jsonIsSelectField = (json: any): boolean =>
-  json._tag === 'ChoiceField'
+export const jsonIsSelectField = (json: any): boolean => json._tag === 'ChoiceField'
 
-export const jsonIsMultiChoiceField = (json: any): boolean =>
-  json._tag === 'MultiChoiceField'
+export const jsonIsMultiChoiceField = (json: any): boolean => json._tag === 'MultiChoiceField'
 
 export const jsonIsFileField = (json: any): boolean => json._tag === 'FileField'
 
-export const jsonIsDateTimeField = (json: any): boolean =>
-  json._tag === 'DateTimeField'
+export const jsonIsDateTimeField = (json: any): boolean => json._tag === 'DateTimeField'
 
 export const jsonIsDateField = (json: any): boolean => json._tag === 'DateField'
 
@@ -113,5 +100,4 @@ export const jsonIsBokeh = (json: any): boolean =>
 export const jsonIsPlotly = (json: any): boolean =>
   jsonType(json) === 'application/vnd.plotly.v1+json'
 
-export const jsonIsSvg = (json: any): boolean =>
-  jsonType(json).includes('image/svg')
+export const jsonIsSvg = (json: any): boolean => jsonType(json).includes('image/svg')

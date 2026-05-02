@@ -4,11 +4,7 @@ import tailwindcss from 'tailwindcss'
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-  addons: [
-    '@storybook/addon-links',
-    '@chromatic-com/storybook',
-    '@storybook/addon-docs',
-  ],
+  addons: ['@storybook/addon-links', '@chromatic-com/storybook', '@storybook/addon-docs'],
   framework: {
     name: '@storybook/vue3-vite',
     options: {},
@@ -24,17 +20,13 @@ const config: StorybookConfig = {
       },
     }
     config.plugins = (config.plugins || []).filter(
-      p =>
-        typeof p === 'object' &&
-        p !== null &&
-        'name' in p &&
-        p.name !== 'vite:vue',
+      (p) => typeof p === 'object' && p !== null && 'name' in p && p.name !== 'vite:vue',
     )
     config.plugins.push(
       vue({
         template: {
           compilerOptions: {
-            isCustomElement: tag => tag.startsWith('x-'),
+            isCustomElement: (tag) => tag.startsWith('x-'),
           },
         },
       }),
