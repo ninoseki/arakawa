@@ -21,7 +21,7 @@ def output_cell_to_block(cell: dict, ipython_output_cache: dict) -> BaseBlock | 
     from arakawa.blocks import wrap_block
 
     # Get the output object from the IPython output cache
-    cell_output_object = ipython_output_cache.get(cell["execution_count"], None)
+    cell_output_object = ipython_output_cache.get(cell["execution_count"])
 
     # If there's no corresponding output object, skip
     if cell_output_object is not None:

@@ -95,8 +95,8 @@ all = [
 requires-dist = [
     { name = "altair", specifier = "~=6.0" },
     { name = "base64io", specifier = "~=1.0" },
-    { name = "bokeh", marker = "extra == 'all'", specifier = ">=3.7.3,<3.8.0" },
-    { name = "bokeh", marker = "extra == 'plotting'", specifier = ">=3.7.3,<3.8.0" },
+    { name = "bokeh", marker = "extra == 'all'", specifier = "~=3.9" },
+    { name = "bokeh", marker = "extra == 'plotting'", specifier = "~=3.9" },
     { name = "chardet", specifier = "~=5.2" },
     { name = "dominate", specifier = "~=2.9" },
     { name = "eval-type-backport", marker = "python_full_version < '3.10'", specifier = "~=0.2" },
@@ -119,8 +119,8 @@ requires-dist = [
     { name = "plotly", marker = "extra == 'plotting'", specifier = "~=6.0" },
     { name = "polars", marker = "extra == 'all'", specifier = "~=1.0" },
     { name = "polars", marker = "extra == 'dataframing'", specifier = "~=1.0" },
-    { name = "pyarrow", specifier = "~=23.0" },
-    { name = "pydantic", specifier = ">2.0.1,!=2.1.0,<3.0.0" },
+    { name = "pyarrow", specifier = ">=23.0" },
+    { name = "pydantic", specifier = ">2.9.0" },
     { name = "pyhumps", specifier = "~=3.8" },
     { name = "semver", specifier = "~=3.0" },
     { name = "typing-extensions", marker = "python_full_version < '3.11'", specifier = "~=4.12" },
@@ -131,14 +131,14 @@ provides-extras = ["all", "dataframing", "network", "plotting", "tabling"]
 dev = [
     { name = "boltons", specifier = ">=25.0.0" },
     { name = "glom", specifier = ">=25.12.0" },
-    { name = "pyproject-metadata", specifier = ">=0.10.0" },
-    { name = "pytest", specifier = "~=9.0.2" },
+    { name = "pyproject-metadata", specifier = ">=0.11.0" },
+    { name = "pytest", specifier = "~=9.0.3" },
     { name = "pytest-datadir", specifier = "~=1.8.0" },
-    { name = "pytest-github-actions-annotate-failures", specifier = ">=0.3.0" },
+    { name = "pytest-github-actions-annotate-failures", specifier = ">=0.4.0" },
     { name = "pytest-pretty", specifier = "~=1.3.0" },
-    { name = "pytest-randomly", specifier = "~=4.0.1" },
+    { name = "pytest-randomly", specifier = "~=4.1.0" },
     { name = "pytest-timeout", specifier = "~=2.4.0" },
-    { name = "ruff", specifier = "~=0.14.14" },
+    { name = "ruff", specifier = "~=0.15.12" },
     { name = "tomlkit", specifier = ">=0.14.0" },
     { name = "uv-sort", specifier = "~=0.7.0" },
     { name = "vega-datasets", specifier = "~=0.9.0" },
@@ -374,7 +374,7 @@ css = [
 
 [[package]]
 name = "bokeh"
-version = "3.7.3"
+version = "3.9.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "contourpy", version = "1.3.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
@@ -384,15 +384,14 @@ dependencies = [
     { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "numpy", version = "2.3.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "packaging" },
-    { name = "pandas" },
     { name = "pillow" },
     { name = "pyyaml" },
     { name = "tornado", marker = "sys_platform != 'emscripten'" },
     { name = "xyzservices" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/75/18/12d0d6024177ad18ba65deffc363046d0cbafe116f8b964a9efa85d2800f/bokeh-3.7.3.tar.gz", hash = "sha256:70a89a9f797b103d5ee6ad15fb7944adda115cf0da996ed0b75cfba61cb12f2b", size = 6366610, upload-time = "2025-05-12T12:13:29.318Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/bf/0d/fabb70707646217e4b0e3943e05730eab8c1f7b7e7485145f8594b52e606/bokeh-3.9.0.tar.gz", hash = "sha256:775219714a8496973ddbae16b1861606ba19fe670a421e4d43267b41148e07a3", size = 5740345, upload-time = "2026-03-11T17:58:34.062Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/91/48/08b2382e739236aa3360b7976360ba3e0c043b6234e25951c18c1eb6fa06/bokeh-3.7.3-py3-none-any.whl", hash = "sha256:b0e79dd737f088865212e4fdcb0f3b95d087f0f088bf8ca186a300ab1641e2c7", size = 7031447, upload-time = "2025-05-12T12:13:27.47Z" },
+    { url = "https://files.pythonhosted.org/packages/47/0b/bdf449df87be3f07b23091ceafee8c3ef569cf6d2fb7edec6e3b12b3faa4/bokeh-3.9.0-py3-none-any.whl", hash = "sha256:b252bfb16a505f0e0c57d532d0df308ae1667235bafc622aa9441fe9e7c5ce4a", size = 6396068, upload-time = "2026-03-11T17:58:31.645Z" },
 ]
 
 [[package]]
