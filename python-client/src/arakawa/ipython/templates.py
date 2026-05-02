@@ -84,8 +84,9 @@ def guess_template(blocks: BaseElementList) -> type[IPythonTemplate]:
         len(
             filter_blocks_by_predicate(
                 blocks,
-                lambda block: isinstance(block, b.Text)
-                and block.content.startswith("# "),
+                lambda block: (
+                    isinstance(block, b.Text) and block.content.startswith("# ")
+                ),
             )
         )
         >= 2
