@@ -101,8 +101,6 @@ export const apiResponseToArrow = (r: any): DatasetResponse => {
     schema: extractArrowSchema(table.schema),
     data: d,
     // For now we want to disable sanddance for datasets containing int64 columns
-    containsBigInt: table.schema.fields.some(
-      (f: any) => f.type.bitWidth && f.type.bitWidth >= 64,
-    ),
+    containsBigInt: table.schema.fields.some((f: any) => f.type.bitWidth && f.type.bitWidth >= 64),
   }
 }

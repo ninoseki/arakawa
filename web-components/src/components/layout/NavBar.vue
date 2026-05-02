@@ -17,11 +17,7 @@ const showPagesDropdown = ref(false)
 const dropdownBtnEl = ref<HTMLElement>()
 
 const hideDropdownOnClickAway = (e: MouseEvent) => {
-  if (
-    e.target instanceof Node &&
-    dropdownBtnEl.value &&
-    !dropdownBtnEl.value.contains(e.target)
-  ) {
+  if (e.target instanceof Node && dropdownBtnEl.value && !dropdownBtnEl.value.contains(e.target)) {
     showDropdown.value = false
   }
 }
@@ -38,9 +34,7 @@ const showWidgets = !window.arLocal
 
 const alwaysShowPagesDropdown = computed(() => p.labels.length > 6)
 
-const dropdownMenuLinks = [
-  { label: 'Documentation', href: 'https://ninoseki.github.io/arakawa/' },
-]
+const dropdownMenuLinks = [{ label: 'Documentation', href: 'https://ninoseki.github.io/arakawa/' }]
 </script>
 
 <template>
@@ -54,10 +48,7 @@ const dropdownMenuLinks = [
     <div class="mx-auto px-4" :class="reportWidthClass">
       <div class="flex h-16 justify-between">
         <div class="flex">
-          <div
-            class="hidden sm:ml-6 sm:flex sm:space-x-8"
-            v-if="!alwaysShowPagesDropdown"
-          >
+          <div class="hidden sm:ml-6 sm:flex sm:space-x-8" v-if="!alwaysShowPagesDropdown">
             <a
               v-for="(label, idx) in labels"
               :key="idx"
@@ -133,10 +124,7 @@ const dropdownMenuLinks = [
         </div>
       </div>
       <!-- Always hide on larger viewports, unless we have > N pages -->
-      <div
-        v-if="showPagesDropdown"
-        :class="{ 'sm:hidden': !alwaysShowPagesDropdown }"
-      >
+      <div v-if="showPagesDropdown" :class="{ 'sm:hidden': !alwaysShowPagesDropdown }">
         <div class="space-y-1 pt-2 pb-3">
           <a
             v-for="(label, idx) in labels"
@@ -147,8 +135,7 @@ const dropdownMenuLinks = [
               {
                 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700':
                   idx !== pageNumber,
-                'border-indigo-500 bg-indigo-50 text-indigo-700':
-                  idx === pageNumber,
+                'border-indigo-500 bg-indigo-50 text-indigo-700': idx === pageNumber,
               },
             ]"
             @click="emit('page-change', idx)"

@@ -12,7 +12,7 @@ export default {
   component: Table,
 }
 
-export const Primary = args => ({
+export const Primary = (args) => ({
   components: { Table },
   setup() {
     return { args }

@@ -9,10 +9,9 @@ import type { Block } from '@/data-model/blocks'
 
 const p = defineProps<{ type?: string; store: any }>()
 
-const {
-  children,
-  tabNumber,
-}: { children: Ref<Block[]>; tabNumber: Ref<number> } = storeToRefs(p.store)
+const { children, tabNumber }: { children: Ref<Block[]>; tabNumber: Ref<number> } = storeToRefs(
+  p.store,
+)
 
 const sectionType: ComputedRef<string> = computed(() => {
   if (p.type) return p.type
@@ -23,9 +22,7 @@ const labels: ComputedRef<string[]> = computed(() =>
   children.value.map((child, idx) => child.label || `Section ${idx + 1}`),
 )
 
-const tabNumbers: ComputedRef<number[]> = computed(() =>
-  labels.value.map((_, idx) => idx),
-)
+const tabNumbers: ComputedRef<number[]> = computed(() => labels.value.map((_, idx) => idx))
 
 // Used by `vue-multiselect` to overwrite the default behavior of displaying tab number only
 const multiSelectCustomLabel = (tabNumber: number) => labels.value[tabNumber]

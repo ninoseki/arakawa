@@ -46,14 +46,10 @@ export type CaptionType = 'Table' | 'Figure' | 'Plot'
 
 /* Helper functions */
 
-const readGcsTextOrJsonFile = <T = string | object | null>(
-  url: string,
-): Promise<T> => {
-  return fetch(url, { method: 'GET' }).then(async res => {
+const readGcsTextOrJsonFile = <T = string | object | null>(url: string): Promise<T> => {
+  return fetch(url, { method: 'GET' }).then(async (res) => {
     if (!res.ok) {
-      throw new Error(
-        `Failed to fetch asset data from ${url}: ${res.statusText}`,
-      )
+      throw new Error(`Failed to fetch asset data from ${url}: ${res.statusText}`)
     }
     const text = await res.text()
     try {
@@ -82,8 +78,8 @@ export class Block {
   public constructor(
     elem: Elem,
     figure: BlockFigure,
-    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-    opts?: unknown,
+
+    _opts?: unknown,
   ) {
     const { label, id, name } = elem
     this.count = figure.count
@@ -206,25 +202,17 @@ export class EmptyBlock extends Block {}
 export class BigNumberBlock extends Block {
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure)
-    const {
-      prevValue,
-      change,
-      heading,
-      value,
-      isPositiveIntent,
-      isUpwardChange,
-    } = elem as unknown as {
-      prevValue?: string
-      change?: string
-      heading: string
-      value: string
-      isPositiveIntent?: boolean
-      isUpwardChange?: boolean
-    }
+    const { prevValue, change, heading, value, isPositiveIntent, isUpwardChange } =
+      elem as unknown as {
+        prevValue?: string
+        change?: string
+        heading: string
+        value: string
+        isPositiveIntent?: boolean
+        isUpwardChange?: boolean
+      }
     const useSimple = !prevValue && !change
-    this.component = markRaw(
-      useSimple ? VBigNumberBlockSimple : VBigNumberBlock,
-    )
+    this.component = markRaw(useSimple ? VBigNumberBlockSimple : VBigNumberBlock)
     this.componentProps = {
       ...this.componentProps,
       heading,
@@ -264,12 +252,8 @@ export class EmbedBlock extends Block {
      * Returns `true` if the embed HTML is an iframe element
      */
     if (typeof this._isIFrame === 'undefined') {
-      const doc: Document = new DOMParser().parseFromString(
-        this.html,
-        'text/html',
-      )
-      const root: HTMLBodyElement | null =
-        doc.documentElement.querySelector('body')
+      const doc: Document = new DOMParser().parseFromString(this.html, 'text/html')
+      const root: HTMLBodyElement | null = doc.documentElement.querySelector('body')
       this._isIFrame =
         !!root &&
         root.childElementCount === 1 &&

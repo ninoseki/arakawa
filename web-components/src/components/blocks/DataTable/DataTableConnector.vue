@@ -3,11 +3,7 @@ import { storeToRefs } from 'pinia'
 import { defineAsyncComponent, ref } from 'vue'
 
 import BlockWrapper from '@/components/layout/BlockWrapper.vue'
-import type {
-  BlockFigureProps,
-  DatasetResponse,
-  ExportType,
-} from '@/data-model/blocks'
+import type { BlockFigureProps, DatasetResponse, ExportType } from '@/data-model/blocks'
 import { useRootStore } from '@/data-model/root-store'
 
 const DataTableBlock = defineAsyncComponent(() => import('./DataTable.vue'))
@@ -59,10 +55,7 @@ const handleLoadFull = async () => {
 </script>
 
 <template>
-  <block-wrapper
-    :figure="figure"
-    :single-block-embed="singleBlockEmbed || storedSingleBlockEmbed"
-  >
+  <block-wrapper :figure="figure" :single-block-embed="singleBlockEmbed || storedSingleBlockEmbed">
     <data-table-block
       :singleBlockEmbed="!!singleBlockEmbed"
       :data="dsData"

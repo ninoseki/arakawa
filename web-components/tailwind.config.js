@@ -102,7 +102,7 @@ module.exports = {
       // `stroke-width` attribute on the inner <svg>.
       matchUtilities(
         {
-          'stroke-width': value => ({
+          'stroke-width': (value) => ({
             ['> svg']: {
               'stroke-width': value,
             },

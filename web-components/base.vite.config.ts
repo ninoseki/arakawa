@@ -19,7 +19,7 @@ export const baseConfig = {
     vue({
       template: {
         compilerOptions: {
-          isCustomElement: tag => ['x'].some(ce => tag.startsWith(`${ce}-`)),
+          isCustomElement: (tag) => ['x'].some((ce) => tag.startsWith(`${ce}-`)),
         },
       },
     }),

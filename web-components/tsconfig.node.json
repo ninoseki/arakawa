@@ -3,6 +3,7 @@
   "include": [
     "*.vite.config.ts",
     "cypress.config.*",
+    "eslint.config.*",
     "nightwatch.conf.*",
     "playwright.config.*",
     "rollup-plugin-vue-esm.ts",

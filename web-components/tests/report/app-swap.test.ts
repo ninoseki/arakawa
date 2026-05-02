@@ -39,12 +39,7 @@ describe('App patch tests', () => {
   it('Performs a replace swap', async () => {
     const { report } = rootStore
 
-    await rootStore.update(
-      'to-replace',
-      SwapType.REPLACE,
-      { msg: 'foo' },
-      'app.not_used',
-    )
+    await rootStore.update('to-replace', SwapType.REPLACE, { msg: 'foo' }, 'app.not_used')
 
     // Replaced block should be a `Group` with ID inherited from target
     expect(report).toHaveProperty('children[1].name', 'Group')
@@ -57,12 +52,7 @@ describe('App patch tests', () => {
   it('Performs an inner swap', async () => {
     const { report } = rootStore
 
-    await rootStore.update(
-      'group',
-      SwapType.INNER,
-      { msg: 'foo' },
-      'app.not_used',
-    )
+    await rootStore.update('group', SwapType.INNER, { msg: 'foo' }, 'app.not_used')
 
     // Initial target block should still exist
     expect(report).toHaveProperty('children[2].id', 'group')
@@ -74,12 +64,7 @@ describe('App patch tests', () => {
   it('Performs an append swap', async () => {
     const { report } = rootStore
 
-    await rootStore.update(
-      'group',
-      SwapType.APPEND,
-      { msg: 'foo' },
-      'app.not_used',
-    )
+    await rootStore.update('group', SwapType.APPEND, { msg: 'foo' }, 'app.not_used')
 
     // Initial target block should still exist
     expect(report).toHaveProperty('children[2].id', 'group')
@@ -94,12 +79,7 @@ describe('App patch tests', () => {
   it('Performs a prepend swap', async () => {
     const { report } = rootStore
 
-    await rootStore.update(
-      'group',
-      SwapType.PREPEND,
-      { msg: 'foo' },
-      'app.not_used',
-    )
+    await rootStore.update('group', SwapType.PREPEND, { msg: 'foo' }, 'app.not_used')
 
     // Initial target block should still exist
     expect(report).toHaveProperty('children[2].id', 'group')

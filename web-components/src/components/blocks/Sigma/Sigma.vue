@@ -41,9 +41,9 @@ const updateLayout = (graph: Graph) => {
 
   for (const { node } of graph.nodeEntries()) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    graph.updateNodeAttribute(node, 'x', _ => positions[node].x)
+    graph.updateNodeAttribute(node, 'x', (_) => positions[node].x)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    graph.updateNodeAttribute(node, 'y', _ => positions[node].y)
+    graph.updateNodeAttribute(node, 'y', (_) => positions[node].y)
   }
 
   return graph
@@ -71,8 +71,8 @@ const graphTitle = `${graph.multi ? 'Multi ' : ''}${
 
 const labels = graph
   .nodes()
-  .map(n => graph.getNodeAttribute(n, 'label'))
-  .filter(label => label !== undefined)
+  .map((n) => graph.getNodeAttribute(n, 'label'))
+  .filter((label) => label !== undefined)
 
 const container = ref<HTMLElement>()
 const sigma = ref<Sigma>()
@@ -98,18 +98,14 @@ const onSearch = () => {
     return
   }
 
-  if (
-    searchQuery.value === '' ||
-    searchQuery.value === undefined ||
-    searchQuery.value === null
-  ) {
+  if (searchQuery.value === '' || searchQuery.value === undefined || searchQuery.value === null) {
     onReset()
   }
 
   const lowerCased = searchQuery.value.toLowerCase()
   const suggestions = graph
     .nodes()
-    .map(n => ({ id: n, label: graph.getNodeAttribute(n, 'label') }))
+    .map((n) => ({ id: n, label: graph.getNodeAttribute(n, 'label') }))
     .filter(({ label }) => label.toLowerCase().includes(lowerCased))
 
   if (suggestions.length === 1 && suggestions[0].label === searchQuery.value) {
@@ -124,7 +120,7 @@ const onSearch = () => {
     }
   } else {
     state.selectedNode = undefined
-    state.suggestions = new Set(suggestions.map(s => s.id))
+    state.suggestions = new Set(suggestions.map((s) => s.id))
   }
 
   sigma.value.refresh()
@@ -165,8 +161,7 @@ onMounted(() => {
 
       if (
         state.suggestions &&
-        (!state.suggestions.has(graph.source(edge)) ||
-          !state.suggestions.has(graph.target(edge)))
+        (!state.suggestions.has(graph.source(edge)) || !state.suggestions.has(graph.target(edge)))
       ) {
         res.hidden = true
       }

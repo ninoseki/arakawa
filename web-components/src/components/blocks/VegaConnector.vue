@@ -25,10 +25,7 @@ const plotJson = ref<any>(null)
 </script>
 
 <template>
-  <block-wrapper
-    :figure="figure"
-    :single-block-embed="singleBlockEmbed || storedSingleBlockEmbed"
-  >
+  <block-wrapper :figure="figure" :single-block-embed="singleBlockEmbed || storedSingleBlockEmbed">
     <vega-block
       v-if="plotJson"
       :plot-json="plotJson"

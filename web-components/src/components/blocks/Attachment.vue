@@ -31,9 +31,7 @@ defineProps<{
         </svg>
         <span class="text-base">{{ filename }}</span>
         <div class="ml-auto">
-          <ar-button icon="fa fa-download" @click="downloadFile">
-            Download
-          </ar-button>
+          <ar-button icon="fa fa-download" @click="downloadFile"> Download </ar-button>
         </div>
       </div>
     </div>

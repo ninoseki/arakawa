@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @config "../../tailwind.config.js";
 
@@ -88,13 +88,7 @@ h3 {
 .ar-btn-github:hover {
   text-decoration: none;
   background-color: #ddd;
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    color-stop(0, #eee),
-    to(#ddd)
-  );
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #eee), to(#ddd));
   background-image: linear-gradient(to bottom, #eee 0, #ddd 100%);
   border-color: #ccc;
 }

@@ -2,12 +2,7 @@ import { markRaw } from 'vue'
 
 import VDataTableBlock from '@/components/blocks/DataTable/DataTableConnector.vue'
 
-import {
-  AssetBlock,
-  type BlockFigure,
-  type CaptionType,
-  type Elem,
-} from './index'
+import { AssetBlock, type BlockFigure, type CaptionType, type Elem } from './index'
 
 const AUTO_LOAD_CELLS_LIMIT = 500000
 
@@ -58,7 +53,7 @@ export class DataTableBlock extends AssetBlock {
   }
 
   private fetchDataset(): Promise<any> {
-    return fetch(this.src).then(r => {
+    return fetch(this.src).then((r) => {
       if (!r.ok) {
         throw new Error('Failed to fetch dataset')
       }
@@ -111,9 +106,7 @@ export class DataTableBlock extends AssetBlock {
       return this._revogridExportPlugin
     }
 
-    const grid = document.getElementById(
-      `grid-${this.refId}`,
-    ) as HTMLRevoGridElement
+    const grid = document.getElementById(`grid-${this.refId}`) as HTMLRevoGridElement
 
     if (grid) {
       const plugins = await grid.getPlugins()

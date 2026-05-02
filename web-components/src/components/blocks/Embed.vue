@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import childIframeResizerJs from '@iframe-resizer/child/index.umd.js?raw'
-import IframeResizer from '@iframe-resizer/vue/sfc'
 import { computed, type ComputedRef } from 'vue'
 
-import BlockWrapper from '@/components/layout/BlockWrapper.vue'
 import type { BlockFigureProps } from '@/data-model/blocks'
 
 const p = defineProps<{
@@ -13,11 +11,11 @@ const p = defineProps<{
   singleBlockEmbed?: boolean
 }>()
 
+const scriptCloseTag = '</' + 'script>'
+
 // Unescape script tags when embedding
 const decodedHtml: ComputedRef<string> = computed(() => {
-  return p.html
-    .replace('&lt;script&gt;', '<script>')
-    .replace('&lt;&sol;script&gt;', '<\/script>')
+  return p.html.replace('&lt;script&gt;', '<script>').replace('&lt;&sol;script&gt;', scriptCloseTag)
 })
 
 const iframeDoc: ComputedRef<string> = computed(() => {
@@ -28,7 +26,7 @@ const iframeDoc: ComputedRef<string> = computed(() => {
         <!DOCTYPE html>
         <html>
         <body>
-          <script>${childIframeResizerJs}<\/script>
+          <script>${childIframeResizerJs}${scriptCloseTag}
           ${decodedHtml.value}
         </body>
         </html>

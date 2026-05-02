@@ -29,14 +29,8 @@ export const setTheme = (isLightProse?: boolean) => {
 
   try {
     const color = chroma(accentColor)
-    root.style.setProperty(
-      '--ar-accent-secondary-color',
-      color.alpha(0.14).hex(),
-    )
-    root.style.setProperty(
-      '--ar-accent-text',
-      color.get('lab.l') < 70 ? 'white' : 'black',
-    )
+    root.style.setProperty('--ar-accent-secondary-color', color.alpha(0.14).hex())
+    root.style.setProperty('--ar-accent-text', color.get('lab.l') < 70 ? 'white' : 'black')
     root.style.setProperty('--ar-light-gray', lightFontColor)
     root.style.setProperty('--ar-dark-gray', darkFontColor)
   } catch (e) {

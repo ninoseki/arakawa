@@ -15,7 +15,7 @@ Primary.args = {
   downloadLocal: async () => ({}),
   getCsvText: async () => ({}),
   refId: '1e3104e2-1e7f-4750-ae97-4c354041df29',
-  data: [...Array(100).keys()].map(n => ({
+  data: [...Array(100).keys()].map((n) => ({
     A: n,
     B: `foo ${n}`,
     C: n % 2 === 0,

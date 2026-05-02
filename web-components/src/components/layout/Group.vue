@@ -34,9 +34,7 @@ const gridTemplateColumns: ComputedRef<string | undefined> = computed(() => {
     return
   }
 
-  return p.widths
-    ? p.widths.map(w => `${w}fr`).join(' ')
-    : `repeat(${p.columns}, minmax(0, 1fr))`
+  return p.widths ? p.widths.map((w) => `${w}fr`).join(' ') : `repeat(${p.columns}, minmax(0, 1fr))`
 })
 </script>
 

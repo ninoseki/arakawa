@@ -40,8 +40,7 @@ const prevPage = () => {
           'border-t-2 h-12 border-transparent pl-2 pr-1 inline-flex items-center text-sm font-medium text-ar-light-gray',
           {
             'cursor-default opacity-40': pageNumber === 0,
-            'cursor-pointer hover:text-ar-dark-gray hover:border-gray-300':
-              pageNumber !== 0,
+            'cursor-pointer hover:text-ar-dark-gray hover:border-gray-300': pageNumber !== 0,
           },
         ]"
         @click="prevPage"

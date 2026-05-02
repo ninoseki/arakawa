@@ -20,15 +20,15 @@ pre-commit:
       glob: "*.py"
       run: uv run ruff format {staged_files}
       stage_fixed: true
-    eslint:
+    oxlint:
       root: "web-components/"
       glob: "*.{js,mjs,cjs,ts,vue}"
-      run: npx eslint --fix {staged_files}
+      run: npx oxlint --fix {staged_files}
       stage_fixed: true
-    prettier:
+    oxfmt:
       root: "web-components/"
       glob: "*.{js,mjs,cjs,ts,vue}"
-      run: npx prettier --write {staged_files}
+      run: npx oxfmt --write {staged_files}
       stage_fixed: true
     actionlint:
       glob: ".github/workflows/*.{yml,yaml}"

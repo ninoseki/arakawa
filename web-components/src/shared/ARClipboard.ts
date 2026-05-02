@@ -20,15 +20,11 @@ export class ARClipboard {
      */
     this.clip = new ClipboardJS(btn, {
       text() {
-        const textToCopy = options.text
-          ? options.text
-          : ARClipboard.getFieldValue(options.fieldId)
+        const textToCopy = options.text ? options.text : ARClipboard.getFieldValue(options.fieldId)
         return textToCopy
       },
     })
-    this.clip.on('error', () =>
-      console.error('An error occurred while copying to clipboard'),
-    )
+    this.clip.on('error', () => console.error('An error occurred while copying to clipboard'))
     this.clip.on('success', ARClipboard.onSuccess)
   }
 

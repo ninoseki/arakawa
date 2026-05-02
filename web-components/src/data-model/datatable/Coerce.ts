@@ -38,7 +38,7 @@ export class Coerce {
 
   private composeIntField(field: any) {
     if (field.type.bitWidth >= 64) {
-      this.coerceRow = R.compose(row => row, this.coerceRow)
+      this.coerceRow = R.compose((row) => row, this.coerceRow)
     }
   }
 

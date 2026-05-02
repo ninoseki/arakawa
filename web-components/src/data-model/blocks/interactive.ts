@@ -19,15 +19,14 @@ import { Block, type BlockFigure, type Elem } from './leaf-blocks'
 export abstract class ControlsField extends Block {
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure) // TODO -- `figure` is unused, should use new base class?
-    const { name, required, initial, label, validation, help } =
-      elem as unknown as {
-        name: string
-        required?: boolean | null
-        help?: string | null
-        label?: string | null
-        initial?: any | null
-        validation?: string | null
-      }
+    const { name, required, initial, label, validation, help } = elem as unknown as {
+      name: string
+      required?: boolean | null
+      help?: string | null
+      label?: string | null
+      initial?: any | null
+      validation?: string | null
+    }
     this.componentProps = {
       ...this.componentProps,
       name,
@@ -153,9 +152,7 @@ export class TemporalDateTimeField extends ControlsField {
       ...this.componentProps,
       // initial may be undefined -> moment() gives us current datetime
       // parseFormat may be undefined -> moment does automatic datetime parsing
-      initial: (initial ? moment(initial, parseFormat) : moment()).format(
-        timeFormat,
-      ),
+      initial: (initial ? moment(initial, parseFormat) : moment()).format(timeFormat),
       type,
     }
   }

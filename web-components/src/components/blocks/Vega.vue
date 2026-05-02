@@ -33,9 +33,7 @@ const adjustHeightFromBindings = () => {
     plotEl && plotEl.querySelector<HTMLElement>('.vega-bindings')
   const canvasEl: HTMLElement | null = plotEl && plotEl.querySelector('canvas')
   if (canvasEl && bindingEl) {
-    canvasEl.style.height = `${
-      canvasEl.offsetHeight - bindingEl.offsetHeight
-    }px`
+    canvasEl.style.height = `${canvasEl.offsetHeight - bindingEl.offsetHeight}px`
   }
 }
 
