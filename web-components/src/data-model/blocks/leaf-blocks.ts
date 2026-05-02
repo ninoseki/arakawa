@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { saveAs } from 'file-saver'
 import { v4 as uuid4 } from 'uuid'
 import { markRaw } from 'vue'
@@ -51,9 +50,16 @@ const readGcsTextOrJsonFile = <T = string | object | null>(
   url: string,
 ): Promise<T> => {
   /**
-   * wrapper around `axios.get` to fetch data object of response only
+   * wrapper around `fetch` to fetch data object of response only
    */
-  return axios.get(url).then(res => res.data)
+  return fetch(url, { method: 'GET' }).then(res => {
+    if (!res.ok) {
+      throw new Error(
+        `Failed to fetch asset data from ${url}: ${res.statusText}`,
+      )
+    }
+    return res.json().then(data => data as T)
+  })
 }
 
 /* Inline blocks */
