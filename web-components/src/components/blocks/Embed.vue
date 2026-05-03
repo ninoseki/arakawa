@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import childIframeResizerJs from '@iframe-resizer/child/index.umd.js?raw'
+import IframeResizer from '@iframe-resizer/vue/sfc'
 import { computed, type ComputedRef } from 'vue'
 
+import BlockWrapper from '@/components/layout/BlockWrapper.vue'
 import type { BlockFigureProps } from '@/data-model/blocks'
 
 const p = defineProps<{

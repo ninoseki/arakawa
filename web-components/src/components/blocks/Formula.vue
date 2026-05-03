@@ -4,7 +4,9 @@ import { computed } from 'vue'
 
 const p = defineProps<{ content: string }>()
 
-const katexCssHref = new URL('./katex.css', import.meta.url).href
+// `katex.css` is copied next to the bundle by rollup-plugin-copy at writeBundle,
+// so it doesn't exist at build time — resolution is intentionally deferred.
+const katexCssHref = new URL(/* @vite-ignore */ './katex.css', import.meta.url).href
 
 const rendered = computed(() => {
   try {
