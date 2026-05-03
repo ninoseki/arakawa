@@ -24,8 +24,8 @@ export default defineConfig(({ mode }) =>
       rollupOptions: {
         output: {
           assetFileNames: '[name].[ext]',
-          entryFileNames: '[name].[format].js',
-          chunkFileNames: '[name].[hash].[format].js',
+          entryFileNames: '[name].js',
+          chunkFileNames: '[name].[hash].js',
           paths: {
             vue: mode === 'development' ? '../vue.esm-browser.js' : '../vue.esm-browser.prod.js',
           },
