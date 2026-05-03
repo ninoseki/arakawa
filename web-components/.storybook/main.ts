@@ -1,6 +1,6 @@
 import type { StorybookConfig } from '@storybook/vue3-vite'
+import tailwindcss from '@tailwindcss/postcss'
 import vue from '@vitejs/plugin-vue'
-import tailwindcss from 'tailwindcss'
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -12,11 +12,7 @@ const config: StorybookConfig = {
   async viteFinal(config) {
     config.css = {
       postcss: {
-        plugins: [
-          tailwindcss({
-            config: './tailwind.config.js',
-          }),
-        ],
+        plugins: [tailwindcss()],
       },
     }
     config.plugins = (config.plugins || []).filter(
