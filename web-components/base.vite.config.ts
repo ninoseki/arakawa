@@ -8,6 +8,10 @@ export const baseConfig = {
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      // Vite 8's rolldown-based resolver doesn't honor the `browser` subpath map
+      // (`{"./sfc": "iframe-resizer.vue"}`) in `@iframe-resizer/vue/package.json`,
+      // so map the SFC entry explicitly.
+      '@iframe-resizer/vue/sfc': '@iframe-resizer/vue/iframe-resizer.vue',
     },
   },
   css: {
