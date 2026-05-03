@@ -124,7 +124,6 @@
       "@lavamoat/preinstall-always-fail#3.0.0": false,
       "mobx-vue-lite>@vueuse/core>@vueuse/shared>vue-demi#0.14.10": false,
       "mobx-vue-lite>@vueuse/core>vue-demi#0.14.10": false,
-      "storybook>esbuild#0.25.12": false,
       "vite>sass>@parcel/watcher#2.5.6": false,
       "vite>esbuild#0.27.7": false
     }

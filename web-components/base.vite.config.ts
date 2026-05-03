@@ -12,6 +12,10 @@ export const baseConfig = {
       // (`{"./sfc": "iframe-resizer.vue"}`) in `@iframe-resizer/vue/package.json`,
       // so map the SFC entry explicitly.
       '@iframe-resizer/vue/sfc': '@iframe-resizer/vue/iframe-resizer.vue',
+      // For the same reason, force the ESM entry of `@iframe-resizer/core` —
+      // its `browser` field points at a UMD bundle that has no `default` export
+      // when consumed as ESM, breaking `import connectResizer from '@iframe-resizer/core'`.
+      '@iframe-resizer/core': '@iframe-resizer/core/index.esm.js',
     },
   },
   css: {

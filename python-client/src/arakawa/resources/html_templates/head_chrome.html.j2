@@ -29,7 +29,7 @@
 </script>
 {% else %}
 <script type="module">
-  import { mountReport } from "{{ cdn_base }}/report/index.es.js";
+  import { mountReport } from "{{ cdn_base }}/report/index.js";
   mountReport(window.reportProps);
 </script>
 {% endif %}

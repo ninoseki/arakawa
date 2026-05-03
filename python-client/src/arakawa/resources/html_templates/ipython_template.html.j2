@@ -8,6 +8,6 @@
   srcdoc="{%filter e %}{% include 'ipython_base.html.j2' %}{% endfilter %}">
 </iframe>
 <script type="module">
-  import { iframeResize } from "{{ cdn_base }}/report/index.es.js";
+  import { iframeResize } from "{{ cdn_base }}/report/index.js";
   iframeResize({ log: true, checkOrigin: false, license: "GPLv3" }, "#ar-{{ report_id }}");
 </script>
