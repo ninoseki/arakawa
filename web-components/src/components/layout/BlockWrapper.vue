@@ -2,17 +2,13 @@
 /**
  * Centres block and adds caption below if necessary
  */
-import { toRefs } from 'vue'
-
 import { type BlockFigureProps } from '@/data-model/blocks'
 
-const p = defineProps<{
-  figure: BlockFigureProps
+defineProps<{
+  figure?: BlockFigureProps
   singleBlockEmbed?: boolean
   showOverflow?: boolean
 }>()
-
-const { caption, count, captionType } = toRefs(p.figure)
 </script>
 
 <template>
@@ -26,9 +22,9 @@ const { caption, count, captionType } = toRefs(p.figure)
     ]"
   >
     <slot></slot>
-    <div v-if="caption" class="text-sm text-ar-light-gray italic text-justify">
-      <b>{{ captionType }} {{ count }}</b>
-      {{ caption }}
+    <div v-if="figure?.caption" class="text-sm text-ar-light-gray italic text-justify">
+      <b>{{ figure.captionType }} {{ figure.count }}</b>
+      {{ figure.caption }}
     </div>
   </div>
 </template>
