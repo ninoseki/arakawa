@@ -7,7 +7,7 @@ requires-python = ">=3.10,<4.0"
 dependencies = [
   "altair~=6.0",
   "base64io~=1.0",
-  "chardet~=5.2",
+  "chardet~=7.6",
   "dominate~=2.9",
   "ipynbname>=2024.1",
   "ipython>=8.13,<10.0",
@@ -16,7 +16,7 @@ dependencies = [
   "micawber~=0.5",
   "multimethod~=2.0",
   "pandas>=2.2,<4.0",
-  "pyarrow>=23.0",
+  "pyarrow>=25.0",
   "pydantic>2.9.0",                                # same as FastAPI
   "pyhumps~=3.8",
   "semver~=3.0",

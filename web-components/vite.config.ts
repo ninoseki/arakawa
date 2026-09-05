@@ -2,8 +2,8 @@ import path from 'path'
 import copy from 'rollup-plugin-copy'
 import { defineConfig, LibraryFormats, mergeConfig } from 'vite'
 
-import { baseConfig } from './base.vite.config'
-import vueESM from './rollup-plugin-vue-esm'
+import { baseConfig } from './base.vite.config.ts'
+import vueESM from './rollup-plugin-vue-esm.ts'
 
 export default defineConfig(({ mode }) =>
   mergeConfig(baseConfig, {
@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) =>
       cssCodeSplit: true,
       outDir: './dist/report/',
       lib: {
-        entry: [path.resolve(__dirname, './src/index.ts')],
+        entry: [path.resolve(import.meta.dirname, './src/index.ts')],
         formats: ['es'] as LibraryFormats[],
         fileName: '[name]',
       },

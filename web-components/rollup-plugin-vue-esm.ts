@@ -12,8 +12,8 @@ const VUE_PROD_FNAME = 'vue.esm-browser.prod.js'
 export default () => ({
   name: 'rollup-plugin-vue-esm',
   buildEnd: async () => {
-    const vuePath = path.resolve(__dirname, './node_modules/vue/dist')
-    const distPath = path.resolve(__dirname, './dist')
+    const vuePath = path.resolve(import.meta.dirname, './node_modules/vue/dist')
+    const distPath = path.resolve(import.meta.dirname, './dist')
     const prodVueFile = path.resolve(distPath, VUE_PROD_FNAME)
 
     if (fs.existsSync(prodVueFile)) {
