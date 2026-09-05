@@ -15,27 +15,30 @@ jobs:
       run:
         working-directory: ./docs
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0 # fetch all commits/branches
-      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: 3.13
           cache: pip
       - run: pip install -r requirements.txt
-      - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/uv
           key: uv-3.13-${{ hashFiles('uv.lock') }}
       - run: uv sync --frozen
       - name: Reinstall from ../python-client
         run: uv sync --reinstall-package arakawa
-      - run: AR_VERSION=${{ inputs.arVersion }} ./nbbuild.sh
+      - run: AR_VERSION=${INPUTS_ARVERSION} ./nbbuild.sh
+        env:
+          INPUTS_ARVERSION: ${{ inputs.arVersion }}
       - run: |
-          git config --global user.name "${{ github.actor }}"
-          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
       - run: |
-          VERSION=$(uv run python convert_to_py_version.py ${{ inputs.arVersion }})
+          VERSION=$(uv run python convert_to_py_version.py "${INPUTS_ARVERSION}")
           if echo "$VERSION" | grep -q "[A-Za-z]"; then
             echo "beta/alpha version detected"
             uv run mike deploy "$VERSION" --update-aliases --push
@@ -44,3 +47,5 @@ jobs:
             uv run mike deploy "$VERSION" latest --update-aliases --push
             uv run mike set-default --push latest
           fi
+        env:
+          INPUTS_ARVERSION: ${{ inputs.arVersion }}

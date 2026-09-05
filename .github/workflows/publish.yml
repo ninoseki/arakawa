@@ -14,16 +14,20 @@ jobs:
       run:
         working-directory: ./web-components
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Set up Node.js
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
           registry-url: "https://registry.npmjs.org"
           cache: npm
           cache-dependency-path: web-components/package-lock.json
       - run: npm run setup
-      - run: npm version --no-git-tag-version ${{ github.event.release.tag_name }}
+      - run: npm version --no-git-tag-version "${GITHUB_EVENT_RELEASE_TAG_NAME}"
+        env:
+          GITHUB_EVENT_RELEASE_TAG_NAME: ${{ github.event.release.tag_name }}
       - run: npm run build
       - id: prerelease
         if: contains(github.event.release.tag_name, 'alpha') || contains(github.event.release.tag_name, 'beta')
@@ -51,16 +55,19 @@ jobs:
       run:
         working-directory: ./python-client
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: 3.13
           cache: "pip"
       - run: pip install -r requirements.txt
-      - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/uv
           key: uv-3.13-${{ hashFiles('uv.lock') }}
+          lookup-only: true
       - run: uv sync --frozen --all-extras
       # download local report assets
       - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
@@ -74,7 +81,7 @@ jobs:
           test -e ./src/arakawa/resources/html_templates/local-report.js
       - run: uv build
       - name: publish
-        uses: pypa/gh-action-pypi-publish@release/v1
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
         with:
           # NOTE: need to use absolute path since working-directory is not respected...
           packages-dir: ./python-client/dist/
@@ -85,28 +92,32 @@ jobs:
       run:
         working-directory: ./docs
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0 # fetch all commits/branches
-      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: 3.13
           cache: pip
       - run: pip install -r requirements.txt
-      - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/uv
           key: uv-3.13-${{ hashFiles('uv.lock') }}
+          lookup-only: true
       - run: uv sync --frozen --all-extras
       - name: Reinstall from ../python-client
         run: uv sync --reinstall-package arakawa
-      - run: AR_VERSION=${{ github.event.release.tag_name }} ./nbbuild.sh
+      - run: AR_VERSION=${GITHUB_EVENT_RELEASE_TAG_NAME} ./nbbuild.sh
+        env:
+          GITHUB_EVENT_RELEASE_TAG_NAME: ${{ github.event.release.tag_name }}
       - run: |
-          git config --global user.name "${{ github.actor }}"
-          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
       # NOTE: tag name is semver
       - run: |
-          VERSION=$(uv run python convert_to_py_version.py "${{ github.event.release.tag_name }}")
+          VERSION=$(uv run python convert_to_py_version.py "${GITHUB_EVENT_RELEASE_TAG_NAME}")
           if echo "$VERSION" | grep -q "[A-Za-z]"; then
             echo "beta/alpha version detected"
             uv run mike deploy "$VERSION" --update-aliases --push
@@ -115,3 +126,5 @@ jobs:
             uv run mike deploy "$VERSION" latest --update-aliases --push
             uv run mike set-default --push latest
           fi
+        env:
+          GITHUB_EVENT_RELEASE_TAG_NAME: ${{ github.event.release.tag_name }}

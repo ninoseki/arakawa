@@ -31,7 +31,7 @@ const alignItems: ComputedRef<string> = computed(() => {
 
 const gridTemplateColumns: ComputedRef<string | undefined> = computed(() => {
   if (p.columns === 0) {
-    return
+    return undefined
   }
 
   return p.widths ? p.widths.map((w) => `${w}fr`).join(' ') : `repeat(${p.columns}, minmax(0, 1fr))`
