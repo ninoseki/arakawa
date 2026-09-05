@@ -81,7 +81,7 @@ jobs:
           test -e ./src/arakawa/resources/html_templates/local-report.js
       - run: uv build
       - name: publish
-        uses: pypa/gh-action-pypi-publish@release/v1
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
         with:
           # NOTE: need to use absolute path since working-directory is not respected...
           packages-dir: ./python-client/dist/
