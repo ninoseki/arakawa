@@ -13,7 +13,8 @@ dependencies = [
     "mkdocs-material>=9.7.7",
     "mkdocs-redirects>=1.2.3",
     "mkdocstrings[python]>=1.0.6",
-    "mknotebooks>=0.8.0,<0.9.0",
+    "nbconvert>=7.17.1",
+    "nbformat>=5.11.1",
     "nbstripout>=0.9.1",
     "nltk>=3.10.3",
     "openpyxl>=3.1.5",
@@ -22,7 +23,9 @@ dependencies = [
     "pytrends>=4.9.2",
     "seaborn>=0.13.2",
     "vega-datasets>=0.9.0",
+    "zensical",
 ]
 
 [tool.uv.sources]
 arakawa = { path = "../python-client" }
+mike = { git = "https://github.com/squidfunk/mike.git", rev = "2d4ad799442f4592db8ad53b179bfb33db8c69ac" }
