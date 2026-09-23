@@ -8,12 +8,12 @@ tasks:
   clear-notebooks:
     cmd: find . -name "*.ipynb" | xargs uv run nbstripout
   serve:
-    cmd: mkdocs serve
+    cmd: zensical serve
     deps:
       - reinstall-arakawa
       - build-notebooks
   build:
-    cmd: mkdocs build
+    cmd: zensical build --strict
     deps:
       - reinstall-arakawa
       - build-notebooks

@@ -530,3 +530,9 @@ docs/_report-statics
 
 # MkDocs documentation
 /site/
+
+docs/**/*.md
+docs/**/*_files/
+!docs/index.md
+!docs/installing-arakawa.md
+!docs/reference/reports.md

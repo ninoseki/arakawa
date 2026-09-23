@@ -26,3 +26,5 @@ find docs -type f -name '*.ipynb' -not -path '*.ipynb_checkpoints*' -print0 \
       --ClearMetadataPreprocessor.enabled=True \
       --ClearMetadataPreprocessor.preserve_cell_metadata_mask tags \
       --execute
+
+"$PY" "$(dirname "$0")/scripts/convert_notebooks.py"

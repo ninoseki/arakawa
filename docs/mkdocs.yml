@@ -6,44 +6,45 @@ site_url: https://ninoseki.github.io/arakawa/
 nav:
   - Introduction: index.md
   - Installing Arakawa: installing-arakawa.md
-  - Quickstart: quickstart.ipynb
+  - Quickstart: quickstart.md
   - Blocks and Views:
-      - Overview: "blocks/overview.ipynb"
-      - Display Blocks: "blocks/display-blocks.ipynb"
-      - Control Blocks: "blocks/control-blocks.ipynb"
-      - Layout Blocks: "blocks/layout-blocks.ipynb"
+      - Overview: "blocks/overview.md"
+      - Display Blocks: "blocks/display-blocks.md"
+      - Control Blocks: "blocks/control-blocks.md"
+      - Layout Blocks: "blocks/layout-blocks.md"
   - Sharing Reports:
-      - Overview: "reports/overview.ipynb"
-      - Styling: "reports/styling.ipynb"
+      - Overview: "reports/overview.md"
+      - Styling: "reports/styling.md"
   - Resources:
-      - Jupyter Integration: "reports/jupyter-integration.ipynb"
+      - Jupyter Integration: "reports/jupyter-integration.md"
   - API Reference:
       - Display Blocks:
-          - Plots: "reference/display-blocks/plots.ipynb"
-          - Tables & Data: "reference/display-blocks/data.ipynb"
-          - Text & HTML: "reference/display-blocks/text.ipynb"
-          - Media & Embeds: "reference/display-blocks/embeds.ipynb"
-          - Network: "reference/display-blocks/network.ipynb"
+          - Plots: "reference/display-blocks/plots.md"
+          - Tables & Data: "reference/display-blocks/data.md"
+          - Text & HTML: "reference/display-blocks/text.md"
+          - Media & Embeds: "reference/display-blocks/embeds.md"
+          - Network: "reference/display-blocks/network.md"
       - Layout Blocks:
-          - Groups: "reference/layout-blocks/group.ipynb"
-          - Selects: "reference/layout-blocks/select.ipynb"
-          - Pages: "reference/layout-blocks/page.ipynb"
-          - Toggle: "reference/layout-blocks/toggle.ipynb"
-          - Compute: "reference/layout-blocks/compute.ipynb"
+          - Groups: "reference/layout-blocks/group.md"
+          - Selects: "reference/layout-blocks/select.md"
+          - Pages: "reference/layout-blocks/page.md"
+          - Toggle: "reference/layout-blocks/toggle.md"
+          - Compute: "reference/layout-blocks/compute.md"
       - Control Blocks:
-          - Choices & Tags: "reference/control-blocks/choices.ipynb"
-          - Color: "reference/control-blocks/color.ipynb"
-          - DateTimes: "reference/control-blocks/datetimes.ipynb"
-          - File: "reference/control-blocks/file.ipynb"
-          - Numbers: "reference/control-blocks/numbers.ipynb"
-          - Texts: "reference/control-blocks/texts.ipynb"
-          - Validation: "reference/control-blocks/validation.ipynb"
+          - Choices & Tags: "reference/control-blocks/choices.md"
+          - Color: "reference/control-blocks/color.md"
+          - DateTimes: "reference/control-blocks/datetimes.md"
+          - File: "reference/control-blocks/file.md"
+          - Numbers: "reference/control-blocks/numbers.md"
+          - Texts: "reference/control-blocks/texts.md"
+          - Validation: "reference/control-blocks/validation.md"
       - Reports: "reference/reports.md"
 
   # - Release Notes: releasenotes.md
 
 theme:
   name: material
+  language: en
   features:
     - content.tabs.link
     - navigation.indexes
@@ -72,17 +73,6 @@ extra_css:
   - static/extra.css
 
 plugins:
-  - mknotebooks:
-      enable_default_jupyter_cell_styling: false
-      tag_remove_configs:
-        remove_cell_tags:
-          - remove_cell
-        remove_all_outputs_tags:
-          - remove_all_output
-        remove_single_output_tags:
-          - remove_single_output
-        remove_input_tags:
-          - remove_input
   - mkdocstrings:
       default_handler: python
       handlers:
