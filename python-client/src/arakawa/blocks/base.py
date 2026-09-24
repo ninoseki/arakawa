@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, ClassVar, TypeVar
 
+import humps
 from pydantic import BaseModel, ConfigDict, computed_field
 
 if TYPE_CHECKING:
@@ -19,7 +20,11 @@ class BaseBlock(BaseModel):
 
     _tag: ClassVar[str]
 
-    model_config = ConfigDict(arbitrary_types_allowed=True)
+    model_config = ConfigDict(
+        arbitrary_types_allowed=True,
+        alias_generator=humps.camelize,
+        populate_by_name=True,
+    )
 
     @computed_field(alias="_tag")
     @property

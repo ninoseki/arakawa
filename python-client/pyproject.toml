@@ -17,7 +17,7 @@ dependencies = [
   "multimethod~=2.0",
   "pandas>=2.2,<4.0",
   "pyarrow>=25.0",
-  "pydantic>2.9.0",                                # same as FastAPI
+  "pydantic>=2.9.0",                                # same as FastAPI
   "pyhumps~=3.8",
   "semver~=3.0",
   'typing-extensions~=4.12;python_version<"3.11"',
@@ -71,7 +71,7 @@ artifacts = [
 
 [dependency-groups]
 dev = [
-  "boltons>=26.1.0",
+  "boltons>=26.2.0",
   "glom>=25.12.0",
   "pyproject-metadata>=0.12.1",
   "pytest-datadir~=1.8.0",
@@ -80,7 +80,7 @@ dev = [
   "pytest-randomly~=5.0.0",
   "pytest-timeout~=2.4.0",
   "pytest~=9.1.1",
-  "ruff~=0.16.6",
+  "ruff~=0.16.8",
   "tomlkit>=0.15.1",
   "uv-sort~=0.8.0",
   "vega-datasets~=0.9.0",
