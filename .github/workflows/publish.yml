@@ -88,14 +88,16 @@ jobs:
   publish-docs:
     needs: [publish-npm-package, publish-pypi-package]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     defaults:
       run:
         working-directory: ./docs
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          # zizmor: ignore[artipacked]
           fetch-depth: 0 # fetch all commits/branches
-          persist-credentials: false
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: 3.13
