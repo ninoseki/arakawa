@@ -14,7 +14,7 @@ import { formkitConfig } from '@/components/controls/formkit'
 import Report from '@/components/ReportContainer.vue'
 
 // report
-import('./tailwind')
+void import('./tailwind')
 
 customElements.define('x-table-block', defineCustomElement(TableBlock))
 

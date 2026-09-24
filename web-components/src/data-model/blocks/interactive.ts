@@ -1,4 +1,5 @@
-import moment from 'moment'
+import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { markRaw } from 'vue'
 
 import VColorField from '@/components/controls/ColorField.vue'
@@ -16,6 +17,8 @@ import VTextBox from '@/components/controls/TextBox.vue'
 
 import { Block, type BlockFigure, type Elem } from './leaf-blocks'
 
+dayjs.extend(customParseFormat)
+
 export abstract class ControlsField extends Block {
   public constructor(elem: Elem, figure: BlockFigure) {
     super(elem, figure) // TODO -- `figure` is unused, should use new base class?
@@ -24,7 +27,7 @@ export abstract class ControlsField extends Block {
       required?: boolean | null
       help?: string | null
       label?: string | null
-      initial?: any | null
+      initial?: any
       validation?: string | null
     }
     this.componentProps = {
@@ -150,9 +153,9 @@ export class TemporalDateTimeField extends ControlsField {
     const { timeFormat, type, parseFormat } = opts
     this.componentProps = {
       ...this.componentProps,
-      // initial may be undefined -> moment() gives us current datetime
-      // parseFormat may be undefined -> moment does automatic datetime parsing
-      initial: (initial ? moment(initial, parseFormat) : moment()).format(timeFormat),
+      // initial may be undefined -> dayjs() gives us current datetime
+      // parseFormat may be undefined -> dayjs does automatic datetime parsing
+      initial: (initial ? dayjs(initial, parseFormat) : dayjs()).format(timeFormat),
       type,
     }
   }

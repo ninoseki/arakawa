@@ -72,7 +72,7 @@ export abstract class LayoutBlock<T extends Block = Block> extends ParentBlock<T
         } else if (method === SwapType.INNER) {
           this.store.inner(idx, group)
         } else {
-          throw new Error(`Method ${method} not recognized`)
+          throw new Error(`Method ${String(method)} not recognized`)
         }
         return true
       }

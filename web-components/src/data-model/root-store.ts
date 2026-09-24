@@ -174,7 +174,7 @@ export const useRootStore = defineStore('root', () => {
       const figure = { caption, count, captionType: class_.captionType }
       return new class_(elem, figure, opts)
     } else {
-      throw new Error(`Couldn't deserialize from JSON ${elem}`)
+      throw new Error(`Couldn't deserialize from JSON ${JSON.stringify(elem)}`)
     }
   }
 

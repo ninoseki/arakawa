@@ -12,7 +12,7 @@ import TableBlock from '@/components/blocks/Table.ce.vue'
 import { formkitConfig } from '@/components/controls/formkit'
 import Report from '@/components/ReportContainer.vue'
 
-import('./tailwind')
+void import('./tailwind')
 
 customElements.define('x-table-block', defineCustomElement(TableBlock))
 
