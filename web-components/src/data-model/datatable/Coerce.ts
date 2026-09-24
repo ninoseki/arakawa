@@ -1,26 +1,44 @@
 import { DataType } from 'apache-arrow'
-import * as R from 'ramda'
+
+type RowTransform = (row: any) => any
+
+const pick = (fieldNames: string[], row: any): any => {
+  const result: any = {}
+  for (const name of fieldNames) {
+    if (Object.hasOwn(row, name)) {
+      result[name] = row[name]
+    }
+  }
+  return result
+}
 
 /*
 This class handled converting some of the more complex Arrow types into something we
 can display within the browser, e.g. dates and big-ints.
 
-It is constructed with the table field types, and these are used to dynamically create a coerceRow
-function - this function takes a row from the table, and returns a JS compatible representation of
-it. By default the coerceRow function is intialised with a single operation via R.pick that just
-returns all the field names from the object as it was given.
+It is constructed with the table field types, and these are used to dynamically build a list of
+row transforms - coerceRow takes a row from the table, picks out only the known field names, and
+then runs it through each transform in turn to produce a JS compatible representation of it.
 
 Within the class constructor we iterate over the field names, looking for complex types we need to
-process, in these cases, we generate a new function that processes and modifies that individual
-field in the row, passing it on and composing it with the existing coerceRow function via R.compose.
+process. In these cases, we generate a new transform function that processes and modifies that
+individual field in the row, and add it to the list of transforms.
 
-Eventually we end up with a dynamically-built coerceRow function composed together where each one
-will match it's own field and process it, and drop through to the next composed function, passing
-the modified row along to it, until it ends up at the Pick function that returns the (now) modified object.
+Eventually we end up with a dynamically-built list of transforms where each one will match its own
+field and process it, passing the modified row along to the next, in the order the fields were
+declared on the schema.
 */
 export class Coerce {
   private fieldNames: string[] = []
-  public coerceRow = (row: any) => R.pick(this.fieldNames, row)
+  private transforms: RowTransform[] = []
+
+  public coerceRow = (row: any) => {
+    let result = pick(this.fieldNames, row)
+    for (const transform of this.transforms) {
+      result = transform(result)
+    }
+    return result
+  }
 
   public constructor(schemaFields: any[]) {
     for (const field of schemaFields) {
@@ -36,20 +54,18 @@ export class Coerce {
     }
   }
 
-  private composeIntField(field: any) {
-    if (field.type.bitWidth >= 64) {
-      this.coerceRow = R.compose((row) => row, this.coerceRow)
-    }
+  private composeIntField(_field: any) {
+    // Currently a no-op: 64-bit ints pass through unchanged.
   }
 
   private composeFloatField(field: any) {
-    this.coerceRow = R.compose((row: any) => {
+    this.transforms.push((row: any) => {
       const val = row[field.name]
       if (val) {
         row[field.name] = parseFloat(val)
       }
       return row
-    }, this.coerceRow)
+    })
   }
 
   private composeTimestampField(field: any) {
@@ -67,13 +83,13 @@ export class Coerce {
       // Therefore we do not need to check the 'field.type.unit' property
       // against 'TimeUnit', we can simply always pass the value to
       // 'new Date()'...
-      this.coerceRow = R.compose((row: any) => {
+      this.transforms.push((row: any) => {
         const val = row[field.name]
         if (val) {
           row[field.name] = new Date(val).toISOString()
         }
         return row
-      }, this.coerceRow)
+      })
     }
   }
 }
