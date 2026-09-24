@@ -50,8 +50,8 @@ class AttachmentWriter:
 
     @write_file.register  # type: ignore
     def _(self, x: str, f) -> None:
-        out: str = json.dumps(json.loads(x))
-        f.write(out.encode())
+        json.loads(x)
+        f.write(x.encode())
 
 
 class DataTableWriter:
