@@ -107,15 +107,18 @@ class B64FileEntry(FileEntry):
         self.file = base64io.Base64IO(self.wrapped)
 
     def freeze(self) -> None:
-        if not self.frozen:
-            self.frozen = True
-            # get a reference to the buffer to splice later
-            self.file.close()
-            self.file.flush()
-            self.contents = self.wrapped.getvalue()
-            # calc other properties
-            self.hash = hashlib.sha256(self.contents).hexdigest()[:10]
-            self.size = self.wrapped.tell()
+        if self.frozen:
+            return
+
+        self.frozen = True
+        # get a reference to the buffer to splice later
+        self.file.close()
+        self.file.flush()
+        self.contents = self.wrapped.getvalue()
+        # calc other properties
+        self.hash = hashlib.sha256(self.contents).hexdigest()[:10]
+        self.size = self.wrapped.tell()
+        self.wrapped.close()
 
     @property
     def src(self) -> str:
