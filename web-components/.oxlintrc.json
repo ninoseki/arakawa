@@ -4,7 +4,15 @@
   "env": {
     "browser": true
   },
+  "options": {
+    "typeAware": true
+  },
   "categories": {
     "correctness": "error"
-  }
+  },
+  "rules": {
+    "no-console": "warn",
+    "no-debugger": "warn"
+  },
+  "ignorePatterns": ["dist", "dist-ssr", "coverage", "storybook-static"]
 }

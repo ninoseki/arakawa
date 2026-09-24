@@ -24,7 +24,7 @@ export abstract class ControlsField extends Block {
       required?: boolean | null
       help?: string | null
       label?: string | null
-      initial?: any | null
+      initial?: any
       validation?: string | null
     }
     this.componentProps = {
